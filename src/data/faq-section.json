@@ -1,0 +1,23 @@
+{
+    "sectionTitle": "Questions & Answers",
+    "sectionSubtitle": "frequently asked questions",
+    "items": [
+      {
+        "question": "What technologies do I use for website development?",
+        "answer": "The technology used by the website is based on the customer's choice. Currently, I also use WordPress, PHP, React, jQuery."
+      },
+      {
+        "question": "How do I SEO websites?",
+        "answer": "At first, the client's website is fully analyzed, then its problems are fixed and its keywords are researched. Usually, before the SEO process, I optimize the website for clients."
+      },
+      {
+        "question": "What are my methods for optimizing websites?",
+        "answer": "For WordPress websites, I use plugins and optimization of images, etc., and for React websites, I use special coding to optimize API, etc. For HTML, I also use image and file optimization tools."
+      },
+      {
+        "question": "How can you buy my HTML templates?",
+        "answer": "Just enter <a href=\"https://www.rtl-theme.com/author/farhamaghdasi/products/\">this link</a> and you can buy my various products."
+      }
+    ]
+  }
+  
