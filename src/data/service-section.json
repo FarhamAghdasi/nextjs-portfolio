@@ -1,0 +1,28 @@
+[
+    {
+      "title": "Front-End",
+      "tags": ["Bootstrap", "React", "Tailwind", "Responsive"],
+      "image": "/imgs/skills/s4.png"
+    },
+    {
+      "title": "SEO",
+      "tags": [
+        "Google Search Console",
+        "one-page",
+        "Keyword research",
+        "Website optimization"
+      ],
+      "image": "/imgs/skills/seo.png"
+    },
+    {
+      "title": "Edit",
+      "tags": ["Adobe Photoshop", "Adobe Premiere"],
+      "image": "/imgs/skills/s2.png"
+    },
+    {
+      "title": "Back-End",
+      "tags": ["PHP", "Mysql", "SQL"],
+      "image": "/imgs/skills/nextjs.png"
+    }
+  ]
+  
