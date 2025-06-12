@@ -184,3 +184,12 @@ export interface TemplateItem {
     description?: string;
     thumbnail: string;
 }
+
+export interface SEOProps {
+    title: string;
+    description?: string;
+    image?: string;
+    url?: string;
+    type?: 'website' | 'article';
+    noIndex?: boolean;
+}
