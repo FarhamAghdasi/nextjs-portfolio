@@ -225,3 +225,20 @@ export interface FormData {
     message: string;
     captcha: string;
 }
+
+export interface Portfolio {
+    title: string;
+    date: string;
+    author: string;
+    category: string;
+    accordionTitle: string;
+    accordionContent: string;
+    serviceTitle1: string;
+    serviceTitle2: string;
+    serviceTitle3: string;
+    Previewurl: string;
+    url: string;
+    description: string;
+    Shortdescription: string;
+    thumbnail: string;
+  }
