@@ -1,0 +1,21 @@
+{
+    "sectionClass": "blog-cst section-padding",
+    "containerClass": "container pt-30 bord-thin-top-light",
+    "header": {
+      "subTitle": "My Article's",
+      "title": "Check My Blog <br /> Content in the web world",
+      "clientCount": "1+ Clients",
+      "class": "sec-head mb-80",
+      "viewAllText": "View All Posts",
+      "viewAllLink": "/blog",
+      "arrowIcon": "/imgs/icons/arrow-top-right.svg"
+    },
+    "fallbackPost": {
+      "title": "Default Post",
+      "category": "General",
+      "short_description": "This is a default post description.",
+      "thumbnail": "/imgs/blog/3.jpg",
+      "url": "default-post"
+    },
+    "noPostsMessage": "No blog posts available at the moment."
+  }
