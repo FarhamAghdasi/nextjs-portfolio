@@ -118,14 +118,19 @@ export interface Template {
 }
 
 export interface Service {
-  id: number;
-  number: string;
-  title: string;
-  description: string;
+    id: number;
+    number: string;
+    title: string;
+    description: string;
 }
 
 export interface ServiceTitle {
     title: string;
     tags: string[];
     image: string;
-  }
+}
+
+export interface ShareButtonsProps {
+    currentUrl: string;
+    currentTitle: string;
+}
