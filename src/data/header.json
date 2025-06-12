@@ -1,0 +1,26 @@
+{
+    "logoAlt": "Logo",
+    "menuItems": [
+      { "label": "Home", "href": "/" },
+      { "label": "About Me", "href": "/about" },
+      { "label": "Services", "href": "/services" },
+      { "label": "Portfolio", "href": "/portfolio" },
+      { "label": "HTML Templates", "href": "/html-templates" },
+      { "label": "Blog", "href": "/blog" },
+      { "label": "Contact Me", "href": "/contact" }
+    ],
+    "ctaText": "Start Project",
+    "ctaHref": "/contact",
+    "contactLocation": "Amol, Mazandaran Province, Iran",
+    "contactPhone": "+98 939 121 3094",
+    "contactEmail": "farhamaghdasi08@gmail.com",
+    "socialLinks": [
+      { "name": "GitHub", "url": "https://github.com/FarhamAghdasi", "icon": "fab fa-github" },
+      { "name": "Telegram", "url": "https://t.me/farhamaghdasi", "icon": "fab fa-telegram" },
+      { "name": "Instagram", "url": "https://instagram.com/farhamaghdasi", "icon": "fab fa-instagram" }
+    ],
+    "loaderText": "Loading",
+    "svgCurve": "M0 502S175 272 500 272s500 230 500 230V0H0Z",
+    "svgFlat": "M0 2S175 1 500 1s500 1 500 1V0H0Z"
+  }
+  
