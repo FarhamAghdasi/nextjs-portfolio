@@ -1,0 +1,26 @@
+{
+    "nameLine1": "Farham",
+    "nameLine2": "Aghdasi",
+    "typewriterRoles": [
+      "Junior Front-End Developer",
+      "Junior SEO",
+      "Junior React Developer",
+      "Junior PHP Developer"
+    ],
+    "socials": [
+      {
+        "href": "https://t.me/farhamaghdasi",
+        "icon": "fa-brands fa-telegram"
+      },
+      {
+        "href": "https://instagram.com/farhamaghdasi",
+        "icon": "fa-brands fa-instagram"
+      },
+      {
+        "href": "https://github.com/FarhamAghdasi/",
+        "icon": "fa-brands fa-github"
+      }
+    ],
+    "description": "I am always seeking to learn and improve my skills, and I plan to study advanced technologies like mongoDB, Node.js soon. With attention to detail, I have successfully completed small projects, using them as a foundation for further growth."
+  }
+  
