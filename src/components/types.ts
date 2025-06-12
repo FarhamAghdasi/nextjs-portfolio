@@ -74,19 +74,6 @@ export interface PostConfig {
     noPostsMessage: string;
 }
 
-
-export interface FormData {
-    name: string;
-    email: string;
-    subject: string;
-    message: string;
-}
-
-export interface ApiResponse {
-    success: boolean;
-    [key: string]: any;
-}
-
 export interface InnerProps {
     title: string;
     first: string;
@@ -195,17 +182,46 @@ export interface SEOProps {
 }
 
 export interface PostBlog {
-  id: string;
-  title: string;
-  date: string;
-  author: string;
-  authorImage?: string;
-  role?: string;
-  category: string;
-  url: string;
-  short_description: string;
-  description?: string;
-  thumbnail: string;
-  image?: string;
-  tags?: string[];
+    id: string;
+    title: string;
+    date: string;
+    author: string;
+    authorImage?: string;
+    role?: string;
+    category: string;
+    url: string;
+    short_description: string;
+    description?: string;
+    thumbnail: string;
+    image?: string;
+    tags?: string[];
+}
+
+export interface PostDetails {
+    id: string;
+    url: string;
+    title: string;
+    short_description: string;
+    description: string;
+    thumbnail: string;
+    image: string;
+    category: string;
+    author: string;
+    authorImage: string;
+    role: string;
+    date: string;
+    tags: string[];
+    comments?: { id: string; name: string; message: string }[]; // Optional to avoid errors
+}
+
+export interface BlogInfoProps {
+    post: PostDetails | null;
+    posts: PostDetails[];
+}
+
+export interface FormData {
+    name: string;
+    email: string;
+    message: string;
+    captcha: string;
 }
