@@ -1,0 +1,33 @@
+{
+    "contact": {
+      "address": "Amol County, Mazandaran Province, Iran",
+      "emails": [
+        "info@farhamaghdasi.ir",
+        "farhamaghdasi08@gmail.com"
+      ],
+      "phone": "+98 939 1213094",
+      "social": {
+        "telegram": "https://t.me/farhamaghdasi",
+        "github": "https://github.com/FarhamAghdasi/",
+        "linkedin": "https://www.linkedin.com/in/farham-aghdasi-b59101248/",
+        "instagram": "https://instagram.com/farhamaghdasi"
+      }
+    },
+    "texts": {
+      "header": "Let's make your brand brilliant!",
+      "headerHighlight": "brilliant!",
+      "description": "If you would like to work with Me or just want to get in touch, I love to hear from you!",
+      "contactTitle": "Send a message",
+      "formPlaceholders": {
+        "name": "Name",
+        "email": "Email",
+        "subject": "Subject",
+        "message": "Message"
+      },
+      "submitButton": "Let's Talking",
+      "successMessage": "Message sent successfully!",
+      "failureMessage": "Failed to send message. Please try again.",
+      "errorMessagePrefix": "Error: "
+    }
+  }
+  

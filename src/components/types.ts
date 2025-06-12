@@ -73,3 +73,16 @@ export interface PostConfig {
     fallbackPost: FallbackPost;
     noPostsMessage: string;
 }
+
+
+export interface FormData {
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
+}
+
+export interface ApiResponse {
+    success: boolean;
+    [key: string]: any;
+}
