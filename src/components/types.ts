@@ -134,3 +134,17 @@ export interface ShareButtonsProps {
     currentUrl: string;
     currentTitle: string;
 }
+export interface Skill {
+    name: string;
+    level: string;
+    image: string;
+}
+export interface NumberItem {
+    count: string;
+    label: string;
+    link?: string;
+}
+export interface ExperienceItem {
+    title: string;
+    desc: string;
+}
