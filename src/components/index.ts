@@ -17,5 +17,5 @@ export { default as Skills } from './section/skills-section';
 export { default as Captcha } from './addon/captcha';
 export { default as Comments } from './addon/comment';
 export { default as ScrollTop } from './addon/scroll-top';
-export { default as Seo } from './addon/seo';
+export { default as SEO } from './addon/seo';
 export { default as Share } from './addon/share';

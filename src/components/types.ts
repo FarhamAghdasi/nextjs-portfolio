@@ -193,3 +193,19 @@ export interface SEOProps {
     type?: 'website' | 'article';
     noIndex?: boolean;
 }
+
+export interface PostBlog {
+  id: string;
+  title: string;
+  date: string;
+  author: string;
+  authorImage?: string;
+  role?: string;
+  category: string;
+  url: string;
+  short_description: string;
+  description?: string;
+  thumbnail: string;
+  image?: string;
+  tags?: string[];
+}
