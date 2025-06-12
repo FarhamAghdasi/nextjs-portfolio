@@ -86,3 +86,33 @@ export interface ApiResponse {
     success: boolean;
     [key: string]: any;
 }
+
+export interface InnerProps {
+    title: string;
+    first: string;
+    secend: string;
+    paragraph?: string;
+    links?: string;
+    contact?: boolean;
+    cpage?: React.ReactNode;
+    noimage?: boolean;
+}
+
+export interface Template {
+    title: string;
+    date: string;
+    author: string;
+    category: string;
+    accordionTitle: string;
+    accordionContent: string;
+    serviceTitle1: string;
+    serviceTitle2: string;
+    serviceTitle3: string;
+    price: string;
+    buyLink: string;
+    siteName: string;
+    url: string;
+    Shortdescription: string;
+    description: string;
+    thumbnail: string;
+}
