@@ -20,7 +20,7 @@ const Inner: React.FC<InnerProps> = ({ title, first, secend, paragraph, links, c
 
             {paragraph && links && (
               <p>
-                {paragraph} <Link href="/html-templates/">{links}</Link>
+                {paragraph} <Link href="/templates/">{links}</Link>
               </p>
             )}
 

@@ -5,7 +5,7 @@
       { "label": "About Me", "href": "/about" },
       { "label": "Services", "href": "/services" },
       { "label": "Portfolio", "href": "/portfolio" },
-      { "label": "HTML Templates", "href": "/html-templates" },
+      { "label": "HTML Templates", "href": "/templates" },
       { "label": "Blog", "href": "/blog" },
       { "label": "Contact Me", "href": "/contact" }
     ],
