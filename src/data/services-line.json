@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "number": "001",
+      "title": "Front-End Develop",
+      "description": "Jquery, React\nResponsive, Modern Design"
+    },
+    {
+      "id": 2,
+      "number": "002",
+      "title": "SEO",
+      "description": "Google Search Console, one-page SEO\nKeyword research\nWebsite optimization"
+    },
+    {
+      "id": 3,
+      "number": "003",
+      "title": "Conversions technologies",
+      "description": "HTML to React, WP\nJquery To JSX"
+    },
+    {
+      "id": 4,
+      "number": "004",
+      "title": "Edit",
+      "description": "Adobe Photoshop\nAdobe Premiere"
+    }
+  ]
+  
