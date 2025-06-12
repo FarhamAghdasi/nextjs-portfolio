@@ -1,0 +1,12 @@
+{
+    "sectionClass": "about-pg-sec section-padding",
+    "header": {
+      "title": "Who I am ?",
+      "class": "sec-head md-mb30",
+      "bractClass": "bract"
+    },
+    "content": {
+      "text": "I am always seeking to learn and improve my skills, and I plan to study advanced technologies like mongoDB , Nodejs soon. With attention to detail, I have successfully completed small projects, using them as a foundation for further growth.",
+      "class": "fw-400 text-indent"
+    }
+  }
