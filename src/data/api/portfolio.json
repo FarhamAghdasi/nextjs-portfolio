@@ -1,0 +1,23 @@
+{
+    "total_items": 1,
+    "total_pages": 1,
+    "current_page": 1,
+    "portfolio": [
+      {
+        "title": "Khooshesanat Amol",
+        "date": "2024-12-13",
+        "author": "farham aghdasi",
+        "category": "Website With Dashbaord",
+        "accordionTitle": "What technologies were used?",
+        "accordionContent": "HTML CSS JS PHP Gsap Jquery",
+        "serviceTitle1": "With Dashboard",
+        "serviceTitle2": "SEO And Speed Optimized",
+        "serviceTitle3": "Fullstack Develoment",
+        "Previewurl": "https://khooshesanat.ir/",
+        "url": "khooshesanat-amol",
+        "description": "\u003Ch2\u003EIntroduction\u003C/h2\u003E\u003Cp\u003E\u003Ca href=\"https://khooshesanat.ir/\" target=\"_blank\"\u003Ekhooshesanat \u003C/a\u003E website is a powerful website with \u003Cb\u003Efullstack development\u003C/b\u003E that uses \u003Cb\u003EPHP \u003C/b\u003Efor the \u003Cb\u003Ebackend \u003C/b\u003Eand \u003Cb\u003EjQuery\u003C/b\u003E and \u003Cb\u003EGSAP \u003C/b\u003Efor the \u003Cb\u003Efrontend\u003C/b\u003E.\u003C/p\u003E\u003Cp\u003E\u003Cbr\u003E\u003C/p\u003E\u003Cp\u003E This website also contains dashboard pages to create content that makes a dedicated website and reception. This website is also \u003Cb\u003Eoptimized for SEO and speed\u003C/b\u003E and security is also provided to some extent. This project was done from zero to one hundred by \u003Cb\u003EFarham Aghdasi\u003C/b\u003E and was completed within 1 month.\u003C/p\u003E\u003Cp\u003E\u003Cbr\u003E\u003C/p\u003E\u003Cp\u003EAll pages of this website are words and keywords in all products to have the best performance in this field. This website is a corporate site and will become a store website in the future.\u003C/p\u003E\u003Cp\u003EIt is also equipped with a logging system with the help of Telegram bots that shows the number of visitors who call.\u003C/p\u003E\u003Cp\u003E\u003Cbr\u003E\u003C/p\u003E\u003Ch2\u003EHome Page :\u003C/h2\u003E\u003Cp\u003E\u003Cimg  src=\"https://s8.uupload.ir/files/1_r67a.png\"\u003E\u003Cbr\u003E\u003C/p\u003E\u003Ch2\u003EDashbaord add post page:\u003C/h2\u003E\u003Cp\u003E\u003Cimg src=\"https://s8.uupload.ir/files/3_iqep.png\"\u003E\u003Cbr\u003E\u003C/p\u003E\u003Ch2\u003Eproduct page:\u003C/h2\u003E\u003Cp\u003E\u003Cimg  src=\"https://s8.uupload.ir/files/2_igmu.png\"\u003E\u003Cbr\u003E\u003C/p\u003E\u003Cp\u003Eyou can visit other pages in website !\u003C/p\u003E\u003Cp\u003E\u003Cbr\u003E\u003C/p\u003E",
+        "Shortdescription": "khooshesanat website is a powerful website with fullstack development that uses PHP for the backend and jQuery and GSAP for the frontend....",
+        "thumbnail": "uploads/thumbnail_675c3a09771bd2.62468791.png"
+      }
+    ]
+  }

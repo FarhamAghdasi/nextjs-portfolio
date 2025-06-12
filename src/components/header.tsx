@@ -196,7 +196,7 @@ const Header: FC = () => {
                                     {item.label === 'Portfolio' && (
                                         <div className={`sub-menu ${subMenuOpen ? 'sub-open' : ''}`}>
                                             <ul>
-                                                <li><Link href="/html-templates" className="sub-link">HTML Templates</Link></li>
+                                                <li><Link href="/templates" className="sub-link">HTML Templates</Link></li>
                                                 <li><Link href="/portfolio" className="sub-link">Works</Link></li>
                                             </ul>
                                         </div>

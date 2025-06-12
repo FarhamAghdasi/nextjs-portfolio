@@ -148,3 +148,39 @@ export interface ExperienceItem {
     title: string;
     desc: string;
 }
+
+export interface PortfolioItem {
+    title: string;
+    date: string;
+    author: string;
+    category?: string;
+    accordionTitle?: string;
+    accordionContent?: string;
+    serviceTitle1?: string;
+    serviceTitle2?: string;
+    serviceTitle3?: string;
+    Previewurl?: string;
+    url: string;
+    description?: string;
+    Shortdescription: string;
+    thumbnail: string;
+}
+
+export interface TemplateItem {
+    title: string;
+    date: string;
+    author: string;
+    category?: string;
+    accordionTitle?: string;
+    accordionContent?: string;
+    serviceTitle1?: string;
+    serviceTitle2?: string;
+    serviceTitle3?: string;
+    price?: string;
+    buyLink?: string;
+    siteName?: string;
+    url: string;
+    Shortdescription: string;
+    description?: string;
+    thumbnail: string;
+}
