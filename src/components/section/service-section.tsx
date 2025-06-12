@@ -3,18 +3,14 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import smokeBg from '/imgs/smoke-bg.jpg';
-import arrowTopRight from '/imgs/icons/arrow-top-right.svg';
+import arrowTopRight from '../assets/imgs/icons/arrow-top-right.svg';
 
 import servicesData from '@/data/service-section.json';
 
-interface Service {
-  title: string;
-  tags: string[];
-  image: string;
-}
+import { ServiceTitle } from '../types';
 
 const Services = () => {
-  const services: Service[] = servicesData;
+  const services: ServiceTitle[] = servicesData;
 
   return (
     <section
