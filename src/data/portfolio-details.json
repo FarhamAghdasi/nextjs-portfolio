@@ -1,0 +1,17 @@
+{
+    "seoDefaultTitle": "Portfolio",
+    "seoDefaultDescription": "Portfolio",
+    "defaultTitle": "Default Title",
+    "defaultShortDescription": "Default content goes here.",
+    "defaultDescription": "Default detail content goes here.",
+    "defaultService": "No service available",
+    "defaultAccordionContent": "Default accordion content goes here.",
+    "noAccordionContent": "No accordion content available.",
+    "faqTitle": "FAQ's",
+    "faqDescription": "Check out faq's !",
+    "checkMorePortfolios": "Check More Portfolios !",
+    "portfolioNotFound": "Portfolio not found.",
+    "categoryLabel": "Category",
+    "authorLabel": "Author",
+    "viewLinkText": "Link !"
+  }
