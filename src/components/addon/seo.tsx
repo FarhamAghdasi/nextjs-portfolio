@@ -1,6 +1,5 @@
 "use client"
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import metaDefaults from '@/data/meta.json';
 import { useMemo } from 'react';
 import { SEOProps } from '../types'
@@ -13,9 +12,8 @@ const SEO: React.FC<SEOProps> = ({
   type = 'website',
   noIndex = false,
 }) => {
-  const router = useRouter();
 
-  const canonicalUrl = url || (typeof window !== 'undefined' ? window.location.href : metaDefaults.defaultUrl + router.asPath);
+  const canonicalUrl = "https://www.farhamaghdasi.ir/";
 
   const metaDescription = description || metaDefaults.defaultDescription;
 

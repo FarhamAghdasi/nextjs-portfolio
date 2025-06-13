@@ -1,10 +1,13 @@
 "use client"
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+import 'animate.css';
+
 import '@/assets/css/common_style.css';
 import '@/assets/css/font.css';
 import '@/assets/css/inner_pages.css';
 import '@/assets/css/personal.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'animate.css';
 import { ReactNode, useEffect } from 'react';
 import { Header, Footer } from '@/components';
 

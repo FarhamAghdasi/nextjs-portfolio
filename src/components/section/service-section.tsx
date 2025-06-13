@@ -36,13 +36,11 @@ const Services = () => {
                   What areas am I
                   <br /> skilled in?
                 </h2>
-                <Link href="/about/">
-                  <a className="butn-under mt-15">
+                <Link href="/about/" className="butn-under mt-15">
                     React About My Skills{" "}
                     <span className="icon invert">
                       <Image src={arrowTopRight} alt="" width={16} height={16} />
                     </span>
-                  </a>
                 </Link>
               </div>
             </div>

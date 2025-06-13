@@ -98,14 +98,12 @@ const Bloginfo: React.FC = () => {
                       <div className="cont mt-30">
                         <span className="sub-color fz-14 text-u mb-15">
                           <Link href="#">
-                            <a>
                               <i className="fa-solid fa-tag mr-10 opacity-7" /> {post.category}
-                            </a>
                           </Link>
                         </span>
                         <h3>
                           <Link href={`/blog/${post.url}`}>
-                            <a>{post.title}</a>
+                            {post.title}
                           </Link>
                         </h3>
                         <div className="text mt-25">
@@ -137,7 +135,7 @@ const Bloginfo: React.FC = () => {
                     {[...new Set(posts.map(post => post.category))].map(category => (
                       <li key={category}>
                         <Link href="#">
-                          <a>{category}</a>
+                         {category}
                         </Link>
                       </li>
                     ))}
@@ -150,7 +148,6 @@ const Bloginfo: React.FC = () => {
                       <div>
                         <div className="img">
                           <Link href={`/blog/${post.url}`}>
-                            <a>
                               <Image
                                 src={post.thumbnail}
                                 alt={post.title}
@@ -160,19 +157,18 @@ const Bloginfo: React.FC = () => {
                               <span className="date">
                                 <span>{post.date}</span>
                               </span>
-                            </a>
                           </Link>
                         </div>
                       </div>
                       <div className="cont">
                         <span className="tag">
                           <Link href="#">
-                            <a>{post.category}</a>
+                            {post.category}
                           </Link>
                         </span>
                         <h6>
                           <Link href={`/blog/${post.url}`}>
-                            <a>{post.title}</a>
+                            {post.title}
                           </Link>
                         </h6>
                       </div>

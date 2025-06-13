@@ -34,7 +34,7 @@ const Work: React.FC = () => {
                     </div>
                     <h5>
                       <Link href={`/portfolio/${portfolio.url}/`}>
-                        <a>{portfolio.title}</a>
+                        {portfolio.title}
                       </Link>
                     </h5>
                     <p>{portfolio.Shortdescription}</p>
@@ -65,7 +65,7 @@ const Work: React.FC = () => {
                     </div>
                     <h5>
                       <Link href={`/templates/${template.url}/`}>
-                        <a>{template.title}</a>
+                        {template.title}
                       </Link>
                     </h5>
                     <p>{template.Shortdescription}</p>
