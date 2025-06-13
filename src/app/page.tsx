@@ -1,21 +1,26 @@
-import React from 'react'
+import { useRouter } from 'next/router';
+import {  Posts, Skills, Hero, Portfolio, Service ,SEO } from '@/components';
+import React from 'react';
 
-import Navbar from '@/components/Navbar'
-import Header from '@/components/Home/Header'
-import Footer from '@/components/footer'
-import Fetures from '@/components/Home/Fetures'
-import Blog from '@/components/Home/Blog'
+const HomePage: React.FC = () => {
+  const router = useRouter();
+  const currentURL = `https://farhamaghdasi.ir${router.asPath}`;
 
-const page = () => {
   return (
     <>
-    <Navbar />
-    <Header />
-    <Fetures />
-    <Blog />
-    <Footer />
+      <SEO 
+        title="Front-end Developer"
+        description="Welcome to my personal website. I am Farham Aghdasi, a programmer specializing in web development and software solutions."
+        url={currentURL}
+      />
+      
+      <Hero />
+      <Portfolio />
+      <Service />
+      <Skills />
+      <Posts />
     </>
-  )
-}
+  );
+};
 
-export default page
+export default HomePage;

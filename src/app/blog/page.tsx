@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Header, Footer, SEO } from '@/components';
+import {  SEO } from '@/components';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -30,7 +30,6 @@ const Bloginfo: React.FC = () => {
         description={texts.pageDescription}
         url="https://farhamaghdasi.ir/blog"
       />
-      <Header />
 
       <header className="blog-hed">
         <div className="container section-padding bord-thin-bottom-light">
@@ -186,7 +185,6 @@ const Bloginfo: React.FC = () => {
         </div>
       </div>
 
-      <Footer />
     </>
   );
 };

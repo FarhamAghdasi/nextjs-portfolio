@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Header, Footer, Share, Captcha, Comments, SEO } from '@/components';
+import {  Share, Captcha, Comments, SEO } from '@/components';
 import authorImage from '@/assets/imgs/logo.png';
 import postsData from '@/data/api/posts.json';
 import texts from '@/data/blog-details.json';
@@ -89,7 +89,6 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
         image={`https://farhamaghdasi.ir${post.thumbnail}`}
         url={currentUrl}
       />
-      <Header />
       <header className="post-header pt-20">
         <div
           className="out container-xl bg-img mt-80"
@@ -372,7 +371,6 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import Header from '@/components/header';
-import Footer from '@/components/footer';
-import Inner from '@/components/section/inner-section';
+import { Header , Footer , Inner } from '@/components'
 import arrowTopRight from '@/assets/icons/arrow-top-right.svg';
 import templateData from '@/data/api/template.json';
 
@@ -13,7 +11,6 @@ export default function HtmlTemplates() {
 
   return (
     <>
-      <Header />
       <Inner title="HTML Templates" first="Home" secend="HTML Templates" />
 
       <section className="work-card section-padding pt-0">
@@ -79,7 +76,6 @@ export default function HtmlTemplates() {
           </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 }

@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Header, Footer, Inner, SEO } from '@/components';
+import {  Inner, SEO } from '@/components';
 import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
 import portfoliosData from '@/data/api/portfolio.json';
 import texts from '@/data/portfolio-page.json';
@@ -69,7 +69,6 @@ const WorksPage: React.FC = () => {
         description={texts.seoDescription}
         url="https://farhamaghdasi.ir/portfolio"
       />
-      <Header />
       <Inner
         title={texts.innerTitle}
         first={texts.innerFirst}
@@ -130,7 +129,6 @@ const WorksPage: React.FC = () => {
           </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 };

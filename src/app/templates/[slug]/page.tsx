@@ -28,7 +28,6 @@ const TemplatePage: React.FC<TemplateProps> = ({ template }) => {
         url={`https://farhamaghdasi.ir/template/${template.url}`}
       />
 
-      <Header />
       <header className="serv-hed2 section-padding pb-0">
         <div className="container">
           <div className="caption mb-80">
@@ -122,7 +121,6 @@ const TemplatePage: React.FC<TemplateProps> = ({ template }) => {
           </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 };
