@@ -2,7 +2,7 @@ import React from 'react'
 
 import Navbar from '@/components/Navbar'
 import Header from '@/components/Home/Header'
-import Footer from '@/components/Footer'
+import Footer from '@/components/footer'
 import Fetures from '@/components/Home/Fetures'
 import Blog from '@/components/Home/Blog'
 
