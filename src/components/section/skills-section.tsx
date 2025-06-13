@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import skillsData from "@/data/skills.json";
 
-import arrowTopRight from "/imgs/icons/arrow-top-right.svg";
+import arrowTopRight from "@/assets/imgs/icons/arrow-top-right.svg";
 
 import { Skill, NumberItem, ExperienceItem } from '../types'
 

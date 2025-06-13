@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useState } from 'react';
-import { Header, Footer , SEO } from '@/components';
+import { SEO } from '@/components';
 import Link from 'next/link';
 import templateData from '@/data/api/template.json';
 import texts from '@/data/template-page.json';

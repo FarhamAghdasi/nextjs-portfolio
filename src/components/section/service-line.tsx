@@ -1,6 +1,7 @@
+"use client"
 import React, { useState } from 'react';
 import Image from 'next/image';
-import arrowTopRight from '/imgs/icons/arrow-top-right.svg';
+import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
 import servicesData from '@/data/services-line.json';
 import { Service } from '../types';
 

@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, ChangeEvent, FC } from 'react';
 
 type CreateCaptchaProps = {

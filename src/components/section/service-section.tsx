@@ -2,8 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import smokeBg from '/imgs/smoke-bg.jpg';
-import arrowTopRight from '../assets/imgs/icons/arrow-top-right.svg';
+import smokeBg from '@/assets/imgs/smoke-bg.jpg';
+import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
 
 import servicesData from '@/data/service-section.json';
 

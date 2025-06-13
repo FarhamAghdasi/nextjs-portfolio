@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import DefaultProfile from '/imgs/profile.png';
-import styles from '/css/comments.module.css';
+import DefaultProfile from '@/assets/imgs/profile.png';
+import styles from './comments.module.css';
 
 interface Comment {
   id: number;

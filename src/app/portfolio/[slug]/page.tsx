@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { Header, Footer , SEO} from '@/components';
-import arrowTopRight from '/imgs/icons/arrow-top-right.svg';
+import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
 import portfoliosData from '@/data/api/portfolio.json';
 import texts from '@/data/portfolio-details.json';
 import { Portfolio } from '@/components/types';
