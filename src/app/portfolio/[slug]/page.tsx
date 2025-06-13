@@ -41,7 +41,6 @@ const PortfolioInfo: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
         image={imagePrimary || '/default-thumbnail.jpg'}
         url={`https://farhamaghdasi.ir/portfolio/${portfolio.url}`}
       />
-      <Header />
       <header className="serv-hed2 section-padding pb-0">
         <div className="container">
           <div className="caption mb-80">
@@ -170,7 +169,6 @@ const PortfolioInfo: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
           </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 };

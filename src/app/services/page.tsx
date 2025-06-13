@@ -1,6 +1,6 @@
 // pages/services.tsx
 import React from 'react';
-import { Header, Footer, Inner, Bio, ServiceLine, Faq, SEO } from '@/components';
+import {  Inner, Bio, ServiceLine, Faq, SEO } from '@/components';
 import servicesText from '@/data/services.json';
 
 const ServicesPage: React.FC = () => {
@@ -12,7 +12,6 @@ const ServicesPage: React.FC = () => {
         url="https://farhamaghdasi.ir/services"
       />
 
-      <Header />
       <Inner 
         title={servicesText.innerTitle} 
         first={servicesText.innerFirst} 
@@ -21,7 +20,6 @@ const ServicesPage: React.FC = () => {
       <Bio />
       <ServiceLine />
       <Faq />
-      <Footer />
     </>
   );
 };
