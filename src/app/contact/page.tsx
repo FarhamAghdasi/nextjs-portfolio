@@ -1,6 +1,8 @@
+"use client"
 import React, { useState } from 'react';
 import Image from 'next/image';
 import data from '@/data/contactus-page.json';
+import ArrowRightTop from '@/assets/imgs/icons/arrow-top-right.svg'
 
 const ContactPageContent = () => {
   const { contact, texts } = data;
@@ -155,7 +157,7 @@ const ContactPageContent = () => {
                           <span>{texts.submitButton}</span>
                           <span className="icon ml-10">
                             <Image 
-                            src="/imgs/icons/arrow-top-right.svg" 
+                            src={ArrowRightTop} 
                             alt=""
                              />
                           </span>

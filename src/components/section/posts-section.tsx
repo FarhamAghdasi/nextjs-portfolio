@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import postsData from '@/data/api/posts.json';
 import postConfig from '@/data/posts-section.json';
+import ArrowRightTop from "@/assets/imgs/icons/arrow-top-right.svg"
 
 import type { PostsData, PostConfig, Post } from '@/components/types';
 
@@ -21,7 +22,7 @@ const Blog: React.FC = () => {
   } = config;
 
   const getThumbnail = (thumbnail?: string) => {
-    if (!thumbnail) return fallbackPost.thumbnail || '/imgs/blog/3.jpg';
+    if (!thumbnail) return fallbackPost.thumbnail;
     if (thumbnail.startsWith('http') || thumbnail.startsWith('/')) return thumbnail;
     return `https://api.farhamaghdasi.ir/backend/${thumbnail}`;
   };
@@ -53,7 +54,7 @@ const Blog: React.FC = () => {
                     {header.viewAllText || 'View All Posts'}{' '}
                     <span className="icon invert">
                       <Image
-                        src={header.arrowIcon || '/imgs/icons/arrow-top-right.svg'}
+                        src={header.arrowIcon || ArrowRightTop}
                         alt="arrow"
                         width={16}
                         height={16}
@@ -83,7 +84,7 @@ const Blog: React.FC = () => {
                       <a className="butn">
                         <span className="icon">
                           <Image
-                            src={header.arrowIcon || '/imgs/icons/arrow-top-right.svg'}
+                            src={header.arrowIcon || ArrowRightTop}
                             alt="arrow"
                             width={16}
                             height={16}

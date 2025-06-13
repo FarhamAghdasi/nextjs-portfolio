@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import data from '@/data/faq-section.json';
+import FaqImage from '@/assets/imgs/faqs.jpg'
 
 const Faq: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ const Faq: React.FC = () => {
         <div className="row lg-marg">
           <div className="col-lg-5">
             <div className="fit-img img md-hide">
-              <Image src="/imgs/faqs.jpg" alt="FAQs Image" />
+              <Image src={FaqImage} alt="FAQs Image" />
             </div>
           </div>
           <div className="col-lg-7 pt-30 pb-30">

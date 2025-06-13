@@ -4,10 +4,10 @@ import React, { useState, useEffect, useRef, FC, MouseEvent } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { gsap } from 'gsap';
+import LogoLight from '@/assets/imgs/Logo-light.png'
+import ArrowRightTop from '@/assets/imgs/icons/arrow-top-right.svg'
 
 import content from '@/data/header.json';
-import logoLight from '/imgs/Logo-light.png';
-import arrowIcon from '/imgs/icons/arrow-top-right.svg';
 
 const Header: FC = () => {
     const [isHovered, setIsHovered] = useState(false);
@@ -41,10 +41,10 @@ const Header: FC = () => {
             const logo = navbar?.querySelector<HTMLImageElement>('.logo img');
             if (window.scrollY > 300) {
                 navbar?.classList.add('nav-scroll');
-                if (logo) logo.src = '/imgs/logo-dark.png';
+                if (logo) logo.src = '@/assets/imgs/logo-dark.png';
             } else {
                 navbar?.classList.remove('nav-scroll');
-                if (logo) logo.src = '/imgs/logo-light.png';
+                if (logo) logo.src = '@/assets/imgs/Logo-light.png';
             }
         };
 
@@ -139,7 +139,7 @@ const Header: FC = () => {
             <nav className="navbar navbar-expand-lg">
                 <div className="container">
                     <Link href="/" className="logo">
-                        <Image src={logoLight} alt={content.logoAlt} />
+                        <Image src={LogoLight} alt={content.logoAlt} />
                     </Link>
 
                     <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`}>
@@ -167,7 +167,7 @@ const Header: FC = () => {
                             <div className="d-flex align-items-center">
                                 <span>{content.ctaText}</span>
                                 <span className="icon ml-10">
-                                    <Image src={arrowIcon} alt="" />
+                                    <Image src={ArrowRightTop} alt="" />
                                 </span>
                             </div>
                         </Link>

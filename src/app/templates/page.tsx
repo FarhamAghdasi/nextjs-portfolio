@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Header , Footer , Inner } from '@/components'
+import { Inner } from '@/components'
 import arrowTopRight from '@/assets/icons/arrow-top-right.svg';
 import templateData from '@/data/api/template.json';
 

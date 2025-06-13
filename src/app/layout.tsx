@@ -1,10 +1,10 @@
-import '@/css/common_style.css';
-import '@/css/font.css';
-import '@/css/inner_pages.css';
-import '@/css/personal.css';
+"use client"
+import '@/assets/css/common_style.css';
+import '@/assets/css/font.css';
+import '@/assets/css/inner_pages.css';
+import '@/assets/css/personal.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
-
 import { ReactNode, useEffect } from 'react';
 import { Header, Footer } from '@/components';
 

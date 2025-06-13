@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import postsData from '@/data/api/posts.json';
 import texts from '@/data/blog.json';
+import Logo from '@/assets/imgs/logo.png'
 
 import { PostBlog } from '@/components/types'
 
@@ -67,7 +68,7 @@ const Bloginfo: React.FC = () => {
                           <div>
                             <div className="author-img fit-img">
                               <Image
-                                src={post.authorImage || '/imgs/logo.png'}
+                                src={post.authorImage || Logo}
                                 alt={post.author}
                                 width={50}
                                 height={50}
