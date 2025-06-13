@@ -49,8 +49,7 @@ const Blog: React.FC = () => {
                     __html: header.title || 'Check My Blog <br /> Content in the web world',
                   }}
                 />
-                <Link href={header.viewAllLink || '/blog'}>
-                  <a className="butn-under mt-15">
+                <Link href={header.viewAllLink || '/blog'} className="butn-under mt-15">
                     {header.viewAllText || 'View All Posts'}{' '}
                     <span className="icon invert">
                       <Image
@@ -60,7 +59,6 @@ const Blog: React.FC = () => {
                         height={16}
                       />
                     </span>
-                  </a>
                 </Link>
               </div>
             </div>
@@ -80,8 +78,7 @@ const Blog: React.FC = () => {
                       objectFit="cover"
                       priority={index < 3}
                     />
-                    <Link href={`/blog/${post.url}/`}>
-                      <a className="butn">
+                    <Link href={`/blog/${post.url}/`} className="butn">
                         <span className="icon">
                           <Image
                             src={header.arrowIcon || ArrowRightTop}
@@ -90,13 +87,12 @@ const Blog: React.FC = () => {
                             height={16}
                           />
                         </span>
-                      </a>
                     </Link>
                   </div>
                   <div className="cont mt-30">
                     <h5>
                       <Link href={`/blog/${post.url}/`}>
-                        <a>{post.title}</a>
+                        {post.title}
                       </Link>
                     </h5>
                     <span className="main-color">{post.category || fallbackPost.category || 'General'}</span>

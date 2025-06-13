@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState, useEffect, useRef, FC, MouseEvent } from 'react';
+import React, { useState, useEffect, useRef, FC } from 'react'; // Import MouseEvent from react
 import Link from 'next/link';
 import Image from 'next/image';
 import { gsap } from 'gsap';
-import LogoLight from '@/assets/imgs/Logo-light.png'
-import ArrowRightTop from '@/assets/imgs/icons/arrow-top-right.svg'
 
 import content from '@/data/header.json';
+import logoLight from '@/assets/imgs/Logo-light.png';
+import arrowIcon from '@/assets/imgs/icons/arrow-top-right.svg';
 
 const Header: FC = () => {
     const [isHovered, setIsHovered] = useState(false);
@@ -19,7 +19,7 @@ const Header: FC = () => {
 
     const svgRef = useRef<SVGPathElement>(null);
     const cursorRef = useRef<HTMLDivElement>(null);
-    const linkRefs = useRef<HTMLAnchorElement[]>([]);
+    const linkRefs = useRef<Array<HTMLAnchorElement | null>>([]); // Initialize as array of nulls
 
     useEffect(() => {
         const updateProgress = () => {
@@ -41,10 +41,10 @@ const Header: FC = () => {
             const logo = navbar?.querySelector<HTMLImageElement>('.logo img');
             if (window.scrollY > 300) {
                 navbar?.classList.add('nav-scroll');
-                if (logo) logo.src = '@/assets/imgs/logo-dark.png';
+                if (logo) logo.src = '/imgs/logo-dark.png';
             } else {
                 navbar?.classList.remove('nav-scroll');
-                if (logo) logo.src = '@/assets/imgs/Logo-light.png';
+                if (logo) logo.src = '/imgs/Logo-light.png';
             }
         };
 
@@ -55,10 +55,13 @@ const Header: FC = () => {
     useEffect(() => {
         const tl = gsap.timeline();
         tl.to('.loader-wrap-heading .load-text, .loader-wrap-heading', {
-            delay: 2, y: -100, opacity: 0, onComplete() {
+            delay: 2,
+            y: -100,
+            opacity: 0,
+            onComplete() {
                 const con = document.querySelector('header .container');
                 if (con) gsap.fromTo(con, { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1 });
-            }
+            },
         })
             .to(svgRef.current, { duration: 0.5, attr: { d: content.svgCurve }, ease: 'power2.easeIn' })
             .to(svgRef.current, { duration: 0.5, attr: { d: content.svgFlat }, ease: 'power2.easeOut' })
@@ -67,35 +70,43 @@ const Header: FC = () => {
     }, []);
 
     useEffect(() => {
-        const animateit = (e: MouseEvent<HTMLAnchorElement>) => {
-            const hover = (e.currentTarget.querySelector('.hover-anim') as HTMLElement);
-            const { offsetX: x, offsetY: y, offsetWidth: w, offsetHeight: h } = e.nativeEvent as any;
-            const move = 25;
-            hover.style.transform = `translate(${(x / w) * move * 2 - move}px, ${(y / h) * move * 2 - move}px)`;
+        const animateit = (e: globalThis.MouseEvent) => {
+          const target = e.currentTarget as HTMLAnchorElement;
+          const hover = target.querySelector('.hover-anim') as HTMLElement;
+          const rect = target.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const move = 25;
+          hover.style.transform = `translate(${(x / rect.width) * move * 2 - move}px, ${(y / rect.height) * move * 2 - move}px)`;
         };
-
-        const editCursor = (e: MouseEvent<Window>) => {
-            if (!cursorRef.current) return;
-            cursorRef.current.style.left = e.clientX + 'px';
-            cursorRef.current.style.top = e.clientY + 'px';
+      
+        const editCursor = (e: globalThis.MouseEvent) => {
+          if (!cursorRef.current) return;
+          cursorRef.current.style.left = `${e.clientX}px`;
+          cursorRef.current.style.top = `${e.clientY}px`;
         };
-
-        linkRefs.current.forEach(link => {
-            link.addEventListener('mousemove', animateit as any);
-            link.addEventListener('mouseleave', animateit as any);
+      
+        linkRefs.current.forEach((link) => {
+          if (link) {
+            link.addEventListener('mousemove', animateit);
+            link.addEventListener('mouseleave', animateit);
+          }
         });
-        window.addEventListener('mousemove', editCursor as any);
-
+        window.addEventListener('mousemove', editCursor);
+      
         return () => {
-            linkRefs.current.forEach(link => {
-                link.removeEventListener('mousemove', animateit as any);
-                link.removeEventListener('mouseleave', animateit as any);
-            });
-            window.removeEventListener('mousemove', editCursor as any);
+          linkRefs.current.forEach((link) => {
+            if (link) {
+              link.removeEventListener('mousemove', animateit);
+              link.removeEventListener('mouseleave', animateit);
+            }
+          });
+          window.removeEventListener('mousemove', editCursor);
         };
-    }, []);
+      }, []);
 
-    const toggleMenu = () => setIsMenuOpen(o => !o);
+    const toggleMenu = () => setIsMenuOpen((o) => !o);
+
     const scrollToTop = () => {
         const start = window.scrollY;
         const dur = 800;
@@ -130,7 +141,7 @@ const Header: FC = () => {
                         style={{
                             transition: 'stroke-dashoffset 10ms linear',
                             strokeDasharray: '307.919',
-                            strokeDashoffset
+                            strokeDashoffset,
                         }}
                     />
                 </svg>
@@ -139,27 +150,25 @@ const Header: FC = () => {
             <nav className="navbar navbar-expand-lg">
                 <div className="container">
                     <Link href="/" className="logo">
-                        <Image src={LogoLight} alt={content.logoAlt} />
+                        <Image src={logoLight} alt={content.logoAlt} width={100} height={50} />
                     </Link>
 
                     <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`}>
                         <ul className="navbar-nav">
                             {content.menuItems.map((item, idx) => (
                                 <li key={idx} className="nav-item">
-                                    <Link href={item.href} legacyBehavior passHref>
-                                        <a
-                                            ref={el => {
-                                                if (el) linkRefs.current[idx] = el;
-                                            }}
-                                            className="nav-link"
-                                        >
-                                            <span className="hover-anim">{item.label}</span>
-                                        </a>
+                                    <Link
+                                        href={item.href}
+                                        className="nav-link"
+                                        ref={(el) => {
+                                            linkRefs.current[idx] = el;
+                                        }}
+                                    >
+                                        <span className="hover-anim">{item.label}</span>
                                     </Link>
                                 </li>
                             ))}
                         </ul>
-
                     </div>
 
                     <div className="topnav d-flex align-items-center">
@@ -167,11 +176,13 @@ const Header: FC = () => {
                             <div className="d-flex align-items-center">
                                 <span>{content.ctaText}</span>
                                 <span className="icon ml-10">
-                                    <Image src={ArrowRightTop} alt="" />
+                                    <Image src={arrowIcon} alt="" width={20} height={20} />
                                 </span>
                             </div>
                         </Link>
-                        <div className="menu-icon cursor-pointer" onClick={toggleMenu}
+                        <div
+                            className="menu-icon cursor-pointer"
+                            onClick={toggleMenu}
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
                         >
@@ -187,17 +198,30 @@ const Header: FC = () => {
                     <div className="menu-links">
                         <ul className="main-menu rest">
                             {content.menuItems.map((item, idx) => (
-                                <li key={idx} onMouseEnter={() => setHoveredIndex(idx)} onMouseLeave={() => setHoveredIndex(null)}
+                                <li
+                                    key={idx}
+                                    onMouseEnter={() => setHoveredIndex(idx)}
+                                    onMouseLeave={() => setHoveredIndex(null)}
                                     className={hoveredIndex !== null && hoveredIndex !== idx ? 'hoverd' : ''}
                                 >
                                     <Link href={item.href} className="link">
-                                        <span className="fill-text" data-text={item.label}>{item.label}</span>
+                                        <span className="fill-text" data-text={item.label}>
+                                            {item.label}
+                                        </span>
                                     </Link>
                                     {item.label === 'Portfolio' && (
                                         <div className={`sub-menu ${subMenuOpen ? 'sub-open' : ''}`}>
                                             <ul>
-                                                <li><Link href="/templates" className="sub-link">HTML Templates</Link></li>
-                                                <li><Link href="/portfolio" className="sub-link">Works</Link></li>
+                                                <li>
+                                                    <Link href="/templates" className="sub-link">
+                                                        HTML Templates
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link href="/portfolio" className="sub-link">
+                                                        Works
+                                                    </Link>
+                                                </li>
                                             </ul>
                                         </div>
                                     )}
@@ -214,9 +238,19 @@ const Header: FC = () => {
                                 </a>
                             ))}
                         </div>
-                        <div className="item mt-30"><h5>{content.contactLocation}</h5></div>
-                        <div className="item mt-10"><h5><a href={`tel:${content.contactPhone.replace(/\s+/g, '')}`}>{content.contactPhone}</a></h5></div>
-                        <div className="item mt-10"><h5><a href={`mailto:${content.contactEmail}`}>{content.contactEmail}</a></h5></div>
+                        <div className="item mt-30">
+                            <h5>{content.contactLocation}</h5>
+                        </div>
+                        <div className="item mt-10">
+                            <h5>
+                                <a href={`tel:${content.contactPhone.replace(/\s+/g, '')}`}>{content.contactPhone}</a>
+                            </h5>
+                        </div>
+                        <div className="item mt-10">
+                            <h5>
+                                <a href={`mailto:${content.contactEmail}`}>{content.contactEmail}</a>
+                            </h5>
+                        </div>
                     </div>
                 </div>
             </div>
