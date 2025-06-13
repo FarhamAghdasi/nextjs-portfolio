@@ -1,6 +1,6 @@
 /** Main Components */
 export { default as Header } from './header';
-export { default as Footer } from './Footer';
+export { default as Footer } from './footer';
 
 /** Sections */
 export { default as Inner } from './section/inner-section';
