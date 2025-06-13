@@ -1,9 +1,29 @@
-import React from 'react'
+// pages/services.tsx
+import React from 'react';
+import { Header, Footer, Inner, Bio, ServiceLine, Faq, SEO } from '@/components';
+import servicesText from '@/data/services.json';
 
-const Blog = () => {
+const ServicesPage: React.FC = () => {
   return (
-    <div>Blog</div>
-  )
-}
+    <>
+      <SEO 
+        title={servicesText.seoTitle}
+        description={servicesText.seoDescription}
+        url="https://farhamaghdasi.ir/services"
+      />
 
-export default Blog
+      <Header />
+      <Inner 
+        title={servicesText.innerTitle} 
+        first={servicesText.innerFirst} 
+        secend={servicesText.innerSecond} 
+      />
+      <Bio />
+      <ServiceLine />
+      <Faq />
+      <Footer />
+    </>
+  );
+};
+
+export default ServicesPage;
