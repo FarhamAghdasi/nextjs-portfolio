@@ -1,23 +1,30 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
-import { useState } from 'react';
-import { SEO } from '@/components';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
+import { SEO , AccordionSection } from '@/components';
 import templateData from '@/data/api/template.json';
 import texts from '@/data/template-page.json';
 
 type Template = typeof templateData.templates[0];
 
 interface TemplateProps {
-  template: Template;
+  params: { slug: string };
 }
 
-const TemplatePage: React.FC<TemplateProps> = ({ template }) => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const ImagePrimary = `https://api.farhamaghdasi.ir/backend/${template.thumbnail}`;
+export async function generateStaticParams() {
+  return templateData.templates.map(template => ({
+    slug: template.url,
+  }));
+}
 
-  const handleToggle = (index: number) => {
-    setActiveIndex(prev => (prev === index ? null : index));
-  };
+export default async function TemplatePage({ params }: TemplateProps) {
+  const template = templateData.templates.find(t => t.url === params.slug);
+
+  if (!template) {
+    notFound();
+  }
+
+  const ImagePrimary = `https://api.farhamaghdasi.ir/backend/${template.thumbnail}`;
 
   return (
     <>
@@ -59,7 +66,13 @@ const TemplatePage: React.FC<TemplateProps> = ({ template }) => {
         </div>
         <div className="container-fluid">
           <div className="fit-img radius-15 scale">
-            <img src={ImagePrimary} alt={template.title} />
+            <Image
+              src={ImagePrimary}
+              alt={template.title}
+              width={1200}
+              height={600}
+              style={{ objectFit: 'cover' }}
+            />
           </div>
         </div>
       </header>
@@ -80,38 +93,19 @@ const TemplatePage: React.FC<TemplateProps> = ({ template }) => {
                   <p>{texts.faq_text}</p>
                 </div>
 
-                <div className="accordion" id="accordionExample">
-                  <div className={`accordion-item ${activeIndex === 0 ? 'active' : ''}`}>
-                    <h2 className="accordion-header" id="heading0">
-                      <button
-                        className="accordion-button"
-                        type="button"
-                        onClick={() => handleToggle(0)}
-                        aria-expanded={activeIndex === 0}
-                        aria-controls="collapse0"
-                      >
-                        {template.accordionTitle}
-                      </button>
-                    </h2>
-                    <div
-                      id="collapse0"
-                      className={`accordion-collapse collapse ${activeIndex === 0 ? 'show' : ''}`}
-                      aria-labelledby="heading0"
-                      data-bs-parent="#accordionExample"
-                    >
-                      <div className="accordion-body">
-                        <p>{template.accordionContent}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <AccordionSection template={template} />
 
                 <div className="text-center">
-                  <Link href="/template/">
+                  <Link href="/templates">
                     <div className="crv-butn mt-80 d-flex justify-content-center align-items-center">
                       <span className="text">{texts.more_templates}</span>
                       <span className="icon">
-                        <img src="/icons/arrow-top-right.svg" alt="" />
+                        <Image
+                          src="/icons/arrow-top-right.svg"
+                          alt="Arrow"
+                          width={20}
+                          height={20}
+                        />
                       </span>
                     </div>
                   </Link>
@@ -123,26 +117,4 @@ const TemplatePage: React.FC<TemplateProps> = ({ template }) => {
       </section>
     </>
   );
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = templateData.templates.map(template => ({
-    params: { slug: template.url },
-  }));
-  return { paths, fallback: false };
-};
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const slug = context.params?.slug;
-  const template = templateData.templates.find(t => t.url === slug);
-
-  if (!template) return { notFound: true };
-
-  return {
-    props: {
-      template,
-    },
-  };
-};
-
-export default TemplatePage;
+}
