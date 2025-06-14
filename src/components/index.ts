@@ -13,6 +13,7 @@ export { default as Posts } from './section/posts-section';
 export { default as ServiceLine } from './section/service-line';
 export { default as Service } from './section/service-section';
 export { default as Skills } from './section/skills-section';
+export { default as AccordionSection } from './section/accordion-section';
 
 /** Addon */
 export { default as Captcha } from './addon/captcha';
