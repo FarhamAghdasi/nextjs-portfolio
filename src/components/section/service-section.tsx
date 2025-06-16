@@ -1,13 +1,26 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import type { StaticImageData } from 'next/image';
 
 import smokeBg from '@/assets/imgs/smoke-bg.jpg';
 import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
+import reactIcon from '@/assets/imgs/skills/s4.png';
+import seoIcon from '@/assets/imgs/skills/seo.png';
+import editIcon from '@/assets/imgs/skills/s2.png';
+import nextjsIcon from '@/assets/imgs/skills/nextjs.png';
 
 import servicesData from '@/data/service-section.json';
-
 import { ServiceTitle } from '../types';
+
+const serviceImages: { [key: string]: StaticImageData } = {
+  '/imgs/skills/s4.png': reactIcon,
+  '/imgs/skills/seo.png': seoIcon,
+  '/imgs/skills/s2.png': editIcon,
+  '/imgs/skills/nextjs.png': nextjsIcon,
+};
 
 const Services = () => {
   const services: ServiceTitle[] = servicesData;
@@ -25,7 +38,7 @@ const Services = () => {
             </div>
             <div className="ml-auto">
               <div className="bract">
-                {"{"} <span>A+ Support</span> {"}"}
+                {'{'} <span>A+ Support</span> {'}'}
               </div>
             </div>
           </div>
@@ -37,10 +50,10 @@ const Services = () => {
                   <br /> skilled in?
                 </h2>
                 <Link href="/about/" className="butn-under mt-15">
-                    React About My Skills{" "}
-                    <span className="icon invert">
-                      <Image src={arrowTopRight} alt="" width={16} height={16} />
-                    </span>
+                  Read About My Skills{' '}
+                  <span className="icon invert">
+                    <Image src={arrowTopRight} alt="Arrow" width={16} height={16} />
+                  </span>
                 </Link>
               </div>
             </div>
@@ -59,13 +72,17 @@ const Services = () => {
                     ))}
                   </div>
                   <div className="img fit-img">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      width={400}
-                      height={300}
-                      layout="responsive"
-                    />
+                    {serviceImages[service.image] ? (
+                      <Image
+                        src={serviceImages[service.image]}
+                        alt={service.title}
+                        width={400}
+                        height={300}
+                        style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+                      />
+                    ) : (
+                      <span className="no-image">No Image</span>
+                    )}
                   </div>
                 </div>
               ))}

@@ -11,7 +11,8 @@ import arrowIcon from '@/assets/imgs/icons/arrow-top-right.svg';
 
 const Header = () => {
     const [isHovered, setIsHovered] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false); 
+    const [isNavbarOpen, setIsNavbarOpen] = useState(false);
     const [strokeDashoffset, setStrokeDashoffset] = useState(307.919);
     const [isProgressActive, setIsProgressActive] = useState(false);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -76,7 +77,6 @@ const Header = () => {
     useEffect(() => {
         const animateit = (e: MouseEvent) => {
             const target = e.currentTarget as HTMLAnchorElement;
-            // فقط برای لینک‌های داخل hamenu اعمال بشه
             if (!target.closest('.hamenu')) return;
             const hoverAnim = target.querySelector('.hover-anim') as HTMLElement;
             const { offsetX: x, offsetY: y } = e;
@@ -114,7 +114,14 @@ const Header = () => {
         };
     }, []);
 
-    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+        if (window.innerWidth <= 991) {
+            setIsNavbarOpen(false);
+        } else {
+            setIsNavbarOpen(!isNavbarOpen);
+        }
+    };
 
     const handleSubMenuToggle = () => setSubMenuOpen(!subMenuOpen);
 
@@ -181,7 +188,7 @@ const Header = () => {
                         <Image src={logoLight} alt={content.logoAlt} width={100} height={50} />
                     </Link>
 
-                    <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`}>
+                    <div className={`collapse navbar-collapse ${isNavbarOpen ? 'show' : ''}`}>
                         <ul className="navbar-nav">
                             {content.menuItems
                                 .filter((item) => item.label !== 'Contact Me')

@@ -4,6 +4,19 @@
     --main-color: #d0ff71;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+[data-smooth-scroll] {
+  will-change: transform;
+}
+
 .pbs {
     margin-top: 120px;
 }

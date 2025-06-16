@@ -1,29 +1,39 @@
 'use client';
 
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import type { StaticImageData } from 'next/image';
 
-import skillsData from "@/data/skills.json";
-import arrowTopRight from "@/assets/imgs/icons/arrow-top-right.svg";
+import skillsData from '@/data/skills.json';
+import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
+import htmlIcon from '@/assets/imgs/skills/html.png';
+import jsIcon from '@/assets/imgs/skills/js.png';
+import bootstrapIcon from '@/assets/imgs/skills/bootstrap.png';
+import reactIcon from '@/assets/imgs/skills/s4.png';
+import seoIcon from '@/assets/imgs/skills/seo.png';
+import tailwindIcon from '@/assets/imgs/skills/tailwindcss.png';
+import nextjsIcon from '@/assets/imgs/skills/nextjs.png';
 
-import { Skill, NumberItem, ExperienceItem } from "../types";
+import { Skill, NumberItem, ExperienceItem } from '../types';
 
 interface ExperienceYear {
   year: string;
   items: ExperienceItem[];
 }
 
+const skillImages: { [key: string]: StaticImageData } = {
+  'HTML/CSS': htmlIcon,
+  JavaScript: jsIcon,
+  Bootstrap: bootstrapIcon,
+  React: reactIcon,
+  SEO: seoIcon,
+  Tailwindcss: tailwindIcon,
+  Nextjs: nextjsIcon,
+};
+
 const Skills: React.FC = () => {
   const { header, skills, numbers, marquee, resumeHeader, experience } = skillsData;
-
-  // Function to ensure image paths start with /
-  const transformImagePath = (path: string): string => {
-    if (!path.startsWith("/")) {
-      return `/${path}`;
-    }
-    return path;
-  };
 
   return (
     <section className="gray-box section-padding">
@@ -37,7 +47,7 @@ const Skills: React.FC = () => {
               </div>
               <div className="ml-auto">
                 <div className="bract">
-                  {"{"} <span>{header.clients}</span> {"}"}
+                  {'{'} <span>{header.clients}</span> {'}'}
                 </div>
               </div>
             </div>
@@ -45,7 +55,7 @@ const Skills: React.FC = () => {
               <div className="col-lg-7 offset-lg-3">
                 <div>
                   <h2 className="text-indent">
-                    {header.title.split("\n").map((line, i) => (
+                    {header.title.split('\n').map((line, i) => (
                       <React.Fragment key={i}>
                         {line}
                         <br />
@@ -53,7 +63,7 @@ const Skills: React.FC = () => {
                     ))}
                   </h2>
                   <Link href="/about" className="butn-under mt-15">
-                    {header.viewSkills}{" "}
+                    {header.viewSkills}{' '}
                     <span className="icon">
                       <Image src={arrowTopRight} alt="Arrow" width={20} height={20} />
                     </span>
@@ -66,16 +76,20 @@ const Skills: React.FC = () => {
           <div className="row justify-content-center">
             {skills.map((skill: Skill, index: number) => (
               <div key={index} className="col-lg-2 col-md-4 col-6">
-                <div className={`item ${index < skills.length - 1 ? "md-mb30" : ""}`}>
+                <div className={`item ${index < skills.length - 1 ? 'md-mb30' : ''}`}>
                   <div className="box">
                     <div className="img">
-                      <Image
-                        src={transformImagePath(skill.image)}
-                        alt={skill.name}
-                        width={64}
-                        height={64}
-                        style={{ objectFit: "contain" }}
-                      />
+                      {skillImages[skill.name] ? (
+                        <Image
+                          src={skillImages[skill.name]}
+                          alt={skill.name}
+                          width={64}
+                          height={64}
+                          style={{ objectFit: 'contain' }}
+                        />
+                      ) : (
+                        <span className="no-image">No Image</span>
+                      )}
                     </div>
                     <h2>{skill.level}</h2>
                   </div>
@@ -92,7 +106,7 @@ const Skills: React.FC = () => {
             <div className="row">
               {numbers.map((num: NumberItem, idx: number) => (
                 <div key={idx} className="col-lg-3 col-md-6">
-                  <div className={`item ${idx === numbers.length - 1 ? "" : "mb-60"}`}>
+                  <div className={`item ${idx === numbers.length - 1 ? '' : 'mb-60'}`}>
                     <h2>
                       <span>{num.count}</span>
                     </h2>
@@ -117,7 +131,6 @@ const Skills: React.FC = () => {
       <div className="marquee section-padding">
         <div className="main-marq shadow-off ontop">
           <div className="slide-har st1 d-flex">
-            {/* Render marquee items twice for seamless scrolling */}
             {Array.from({ length: 2 }).map((_, boxIdx) => (
               <div key={boxIdx} className="box">
                 {marquee.map((item: string, i: number) => (
@@ -143,7 +156,7 @@ const Skills: React.FC = () => {
               </div>
               <div className="ml-auto">
                 <div className="bract">
-                  {"{"} <span>{resumeHeader.author}</span> {"}"}
+                  {'{'} <span>{resumeHeader.author}</span> {'}'}
                 </div>
               </div>
             </div>
@@ -160,7 +173,7 @@ const Skills: React.FC = () => {
                 <div className="clumn">
                   <span className="date">{yearExp.year}</span>
                   {yearExp.items.map((item: ExperienceItem, i: number) => (
-                    <div key={i} className={`item ${i < yearExp.items.length - 1 ? "mb-40" : ""}`}>
+                    <div key={i} className={`item ${i < yearExp.items.length - 1 ? 'mb-40' : ''}`}>
                       <h4>{item.title}</h4>
                       <p>{item.desc}</p>
                     </div>

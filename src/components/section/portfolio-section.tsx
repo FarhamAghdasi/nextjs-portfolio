@@ -23,7 +23,7 @@ const Work: React.FC = () => {
                 <div className="item md-mb50">
                   <div className="img fit-img">
                     <img
-                      src={`https://api.farhamaghdasi.ir/backend/${portfolio.thumbnail}`}
+                      src={`https://farhamaghdasi.ir/uploads/${portfolio.thumbnail}`}
                       alt={portfolio.title}
                     />
                   </div>
@@ -54,7 +54,7 @@ const Work: React.FC = () => {
                 <div className="item md-mb50">
                   <div className="img fit-img">
                     <img
-                      src={`https://api.farhamaghdasi.ir/backend/${template.thumbnail}`}
+                      src={`https://farhamaghdasi.ir/uploads/${template.thumbnail}`}
                       alt={template.title}
                     />
                   </div>

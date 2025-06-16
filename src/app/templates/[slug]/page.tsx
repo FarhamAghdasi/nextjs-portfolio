@@ -24,7 +24,7 @@ export default async function TemplatePage({ params }: TemplateProps) {
     notFound();
   }
 
-  const ImagePrimary = `https://api.farhamaghdasi.ir/backend/${template.thumbnail}`;
+  const ImagePrimary = `https://farhamaghdasi.ir/uploads/${template.thumbnail}`;
 
   return (
     <>
