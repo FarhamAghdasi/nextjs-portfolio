@@ -1,10 +1,11 @@
-"use client"
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import Link from 'next/link';
-import {  Inner, SEO } from '@/components';
+import { Inner, SEO } from '@/components';
 import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
 import portfoliosData from '@/data/api/portfolio.json';
 import texts from '@/data/portfolio-page.json';
@@ -15,53 +16,83 @@ gsap.registerPlugin(ScrollTrigger);
 const WorksPage: React.FC = () => {
   const [portfolioData, setPortfolioData] = useState<Portfolio[]>([]);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardsWrapperRef = useRef<HTMLDivElement>(null);
+  const tlRef = useRef<gsap.core.Timeline | null>(null); // ✅ Timeline ref
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null); // ✅ ScrollTrigger ref
 
   useEffect(() => {
-    // Set portfolio data from JSON
     setPortfolioData(portfoliosData.portfolio || []);
-
+  
     const cards = cardsRef.current.filter((el): el is HTMLDivElement => el !== null);
-    const scrollTriggers: ScrollTrigger[] = [];
-
-    if (cards.length > 0) {
-      const firstCardST = ScrollTrigger.create({
-        trigger: cards[0],
-        start: 'center center',
-      });
-
-      const lastCardST = ScrollTrigger.create({
-        trigger: cards[cards.length - 1],
-        start: 'bottom bottom',
-      });
-
-      scrollTriggers.push(firstCardST, lastCardST);
-
+    const container = containerRef.current;
+    const wrapper = cardsWrapperRef.current;
+  
+    if (cards.length > 0 && container && wrapper) {
+      const cardHeight = window.innerHeight;
+      const totalScroll = cardHeight * cards.length;
+  
+      container.style.height = `${totalScroll}px`;
+  
       cards.forEach((card, index) => {
-        const scale = 1 - (cards.length - index) * 0.025;
-        const scaleDown = gsap.to(card, {
-          scale: scale,
-          ease: 'none', // Apply easing to the GSAP animation
-          'transform-origin': '50% ' + (lastCardST.start + 0),
+        gsap.set(card, {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          zIndex: cards.length - index,
         });
-
-        const cardST = ScrollTrigger.create({
-          trigger: card,
-          start: 'center center',
-          end: () => lastCardST.start,
-          pin: true,
-          pinSpacing: false,
-          animation: scaleDown,
-          toggleActions: 'restart none none reverse',
-        });
-
-        scrollTriggers.push(cardST);
       });
+  
+      const tl = gsap.timeline();
+  
+      cards.forEach((card, index) => {
+        if (index === cards.length - 1) return;
+  
+        tl.to(card, {
+          yPercent: -100,
+          duration: 1,
+          ease: 'none',
+        }, index);
+      });
+  
+      scrollTriggerRef.current = ScrollTrigger.create({
+        animation: tl,
+        trigger: wrapper,
+        start: 'top top',
+        end: `+=${totalScroll - cardHeight}`,
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        markers: false,
+      });
+  
+      tlRef.current = tl;
+  
+      const onResize = () => {
+        scrollTriggerRef.current?.kill();
+        tlRef.current?.kill();
+        ScrollTrigger.refresh();
+      };
+  
+      window.addEventListener('resize', onResize);
+  
+      return () => {
+        scrollTriggerRef.current?.kill();
+        tlRef.current?.kill();
+        window.removeEventListener('resize', onResize);
+        cards.forEach((card) => {
+          gsap.set(card, {
+            clearProps: 'all',
+          });
+        });
+        if (container) container.style.height = '';
+      };
     }
-
-    return () => {
-      scrollTriggers.forEach((st) => st.kill());
-    };
   }, []);
+  
+  
 
   return (
     <>
@@ -77,9 +108,9 @@ const WorksPage: React.FC = () => {
         paragraph={texts.innerParagraph}
         links={texts.innerLinks}
       />
-      <section className="work-card section-padding pt-0">
+      <section className="work-card section-padding pt-0" ref={containerRef}>
         <div className="container">
-          <div className="cards">
+          <div className="cards" ref={cardsWrapperRef}>
             {portfolioData.length > 0 ? (
               portfolioData.map((portfolio, index) => (
                 <div
@@ -115,12 +146,17 @@ const WorksPage: React.FC = () => {
                     </div>
                   </div>
                   <div className="img fit-img mt-30">
-                    <Image
-                      src={`https://farhamaghdasi.ir/${portfolio.thumbnail}`}
-                      alt={portfolio.title}
-                      width={600}
-                      height={400}
-                    />
+                    {portfolio.thumbnail ? (
+                      <Image
+                        src={`https://farhamaghdasi.ir/${portfolio.thumbnail}`}
+                        alt={portfolio.title}
+                        width={600}
+                        height={400}
+                        style={{ objectFit: 'cover' }}
+                      />
+                    ) : (
+                      <span className="no-image">No Image Available</span>
+                    )}
                   </div>
                 </div>
               ))
