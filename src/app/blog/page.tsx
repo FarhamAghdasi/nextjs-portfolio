@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useMemo } from 'react';
 import {  SEO } from '@/components';
 import Image from 'next/image';

@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import {  Inner, About, Skills } from '@/components';
 import SEO from '@/components/addon/seo';

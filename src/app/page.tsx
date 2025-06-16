@@ -1,3 +1,4 @@
+"use client"
 import { Posts, Skills, Hero, Portfolio, Service, SEO } from '@/components';
 import React from 'react';
 

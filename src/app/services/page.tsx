@@ -1,4 +1,4 @@
-// pages/services.tsx
+"use client"
 import React from 'react';
 import {  Inner, Bio, ServiceLine, Faq, SEO } from '@/components';
 import servicesText from '@/data/services.json';

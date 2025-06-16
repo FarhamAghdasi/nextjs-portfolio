@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image';
 import bioData from '@/data/bio-service.json';
 import { ContentSection } from '@/components/types';

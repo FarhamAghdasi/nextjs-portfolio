@@ -1,3 +1,4 @@
+"use client"
 import aboutData from '@/data/about-section.json';
 import { AboutContent } from '@/components/types';
 
