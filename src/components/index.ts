@@ -21,3 +21,4 @@ export { default as Comments } from './addon/comment';
 export { default as ScrollTop } from './addon/scroll-top';
 export { default as SEO } from './addon/seo';
 export { default as Share } from './addon/share';
+export { default as SmoothScroll } from './addon/smoothScroll';

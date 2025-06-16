@@ -9,7 +9,7 @@ import '@/assets/css/font.css';
 import '@/assets/css/inner_pages.css';
 import '@/assets/css/personal.css';
 import { ReactNode, useEffect } from 'react';
-import { Header, Footer } from '@/components';
+import { Header, Footer, SmoothScroll } from '@/components';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head />
       <body>
         <Header />
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
         <Footer />
       </body>
     </html>
