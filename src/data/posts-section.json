@@ -8,7 +8,7 @@
       "class": "sec-head mb-80",
       "viewAllText": "View All Posts",
       "viewAllLink": "/blog",
-      "arrowIcon": "/imgs/icons/arrow-top-right.svg"
+      "arrowIcon": "@/assets/imgs/icons/arrow-top-right.svg"
     },
     "fallbackPost": {
       "title": "Default Post",

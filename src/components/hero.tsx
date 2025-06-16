@@ -29,7 +29,7 @@ const Hero = () => {
                     words={content.typewriterRoles}
                     loop={true}
                     cursor
-                    cursorStyle="_"
+                    cursorStyle="|"
                     typeSpeed={100}
                     deleteSpeed={50}
                     delaySpeed={1500}

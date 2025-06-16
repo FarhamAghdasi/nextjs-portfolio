@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, FC } from 'react'; // Import MouseEvent from react
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { gsap } from 'gsap';
@@ -9,25 +9,29 @@ import content from '@/data/header.json';
 import logoLight from '@/assets/imgs/Logo-light.png';
 import arrowIcon from '@/assets/imgs/icons/arrow-top-right.svg';
 
-const Header: FC = () => {
+const Header = () => {
     const [isHovered, setIsHovered] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [strokeDashoffset, setStrokeDashoffset] = useState(307.919);
     const [isProgressActive, setIsProgressActive] = useState(false);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [subMenuOpen, setSubMenuOpen] = useState(false);
+    const [subSubMenuOpen, setSubSubMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
 
-    const svgRef = useRef<SVGPathElement>(null);
-    const cursorRef = useRef<HTMLDivElement>(null);
-    const linkRefs = useRef<Array<HTMLAnchorElement | null>>([]); // Initialize as array of nulls
+    const svgRef = useRef<SVGPathElement | null>(null);
+    const cursorRef = useRef<HTMLDivElement | null>(null);
+    const linkRefs = useRef<Array<HTMLAnchorElement | null>>([]);
 
     useEffect(() => {
         const updateProgress = () => {
             const scroll = window.scrollY;
             const height = document.documentElement.scrollHeight - window.innerHeight;
-            const len = 307.919;
-            setStrokeDashoffset(len - (scroll * len) / height);
-            setIsProgressActive(scroll > 150);
+            const pathLength = 307.919;
+            if (height > 0) {
+                setStrokeDashoffset(pathLength - (scroll * pathLength) / height);
+                setIsProgressActive(scroll > 150);
+            }
         };
 
         window.addEventListener('scroll', updateProgress);
@@ -37,14 +41,12 @@ const Header: FC = () => {
 
     useEffect(() => {
         const handleScroll = () => {
+            setIsScrolled(window.scrollY > 300);
             const navbar = document.querySelector('.navbar');
-            const logo = navbar?.querySelector<HTMLImageElement>('.logo img');
             if (window.scrollY > 300) {
                 navbar?.classList.add('nav-scroll');
-                if (logo) logo.src = '/imgs/logo-dark.png';
             } else {
                 navbar?.classList.remove('nav-scroll');
-                if (logo) logo.src = '/imgs/Logo-light.png';
             }
         };
 
@@ -58,9 +60,11 @@ const Header: FC = () => {
             delay: 2,
             y: -100,
             opacity: 0,
-            onComplete() {
-                const con = document.querySelector('header .container');
-                if (con) gsap.fromTo(con, { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1 });
+            onComplete: () => {
+                const headerContainer = document.querySelector('header .container');
+                if (headerContainer) {
+                    gsap.fromTo(headerContainer, { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1 });
+                }
             },
         })
             .to(svgRef.current, { duration: 0.5, attr: { d: content.svgCurve }, ease: 'power2.easeIn' })
@@ -70,55 +74,75 @@ const Header: FC = () => {
     }, []);
 
     useEffect(() => {
-        const animateit = (e: globalThis.MouseEvent) => {
-          const target = e.currentTarget as HTMLAnchorElement;
-          const hover = target.querySelector('.hover-anim') as HTMLElement;
-          const rect = target.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const move = 25;
-          hover.style.transform = `translate(${(x / rect.width) * move * 2 - move}px, ${(y / rect.height) * move * 2 - move}px)`;
+        const animateit = (e: MouseEvent) => {
+            const target = e.currentTarget as HTMLAnchorElement;
+            // فقط برای لینک‌های داخل hamenu اعمال بشه
+            if (!target.closest('.hamenu')) return;
+            const hoverAnim = target.querySelector('.hover-anim') as HTMLElement;
+            const { offsetX: x, offsetY: y } = e;
+            const { offsetWidth: width, offsetHeight: height } = target;
+            const move = 25;
+            const xMove = (x / width) * (move * 2) - move;
+            const yMove = (y / height) * (move * 2) - move;
+            if (hoverAnim) hoverAnim.style.transform = `translate(${xMove}px, ${yMove}px)`;
+            if (e.type === 'mouseleave') hoverAnim.style.transform = '';
         };
-      
-        const editCursor = (e: globalThis.MouseEvent) => {
-          if (!cursorRef.current) return;
-          cursorRef.current.style.left = `${e.clientX}px`;
-          cursorRef.current.style.top = `${e.clientY}px`;
+
+        const editCursor = (e: MouseEvent) => {
+            if (cursorRef.current) {
+                cursorRef.current.style.left = `${e.clientX}px`;
+                cursorRef.current.style.top = `${e.clientY}px`;
+            }
         };
-      
+
         linkRefs.current.forEach((link) => {
-          if (link) {
-            link.addEventListener('mousemove', animateit);
-            link.addEventListener('mouseleave', animateit);
-          }
+            if (link) {
+                link.addEventListener('mousemove', animateit);
+                link.addEventListener('mouseleave', animateit);
+            }
         });
         window.addEventListener('mousemove', editCursor);
-      
-        return () => {
-          linkRefs.current.forEach((link) => {
-            if (link) {
-              link.removeEventListener('mousemove', animateit);
-              link.removeEventListener('mouseleave', animateit);
-            }
-          });
-          window.removeEventListener('mousemove', editCursor);
-        };
-      }, []);
 
-    const toggleMenu = () => setIsMenuOpen((o) => !o);
+        return () => {
+            linkRefs.current.forEach((link) => {
+                if (link) {
+                    link.removeEventListener('mousemove', animateit);
+                    link.removeEventListener('mouseleave', animateit);
+                }
+            });
+            window.removeEventListener('mousemove', editCursor);
+        };
+    }, []);
+
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+    const handleSubMenuToggle = () => setSubMenuOpen(!subMenuOpen);
+
+    const handleSubSubMenuToggle = () => setSubSubMenuOpen(!subSubMenuOpen);
 
     const scrollToTop = () => {
         const start = window.scrollY;
-        const dur = 800;
-        const sTime = performance.now();
-        const animate = (now: number) => {
-            const t = Math.min((now - sTime) / dur, 1);
-            const d = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-            window.scrollTo(0, start * (1 - d));
-            if (t < 1) requestAnimationFrame(animate);
+        const duration = 800;
+        const startTime = performance.now();
+
+        const animateScroll = (currentTime: number) => {
+            const timeElapsed = currentTime - startTime;
+            const progress = Math.min(timeElapsed / duration, 1);
+            const easeInOutQuad = (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
+            window.scrollTo(0, start * (1 - easeInOutQuad(progress)));
+            if (progress < 1) requestAnimationFrame(animateScroll);
         };
-        requestAnimationFrame(animate);
+
+        requestAnimationFrame(animateScroll);
     };
+
+    const hamburgerMenuItems = [
+        { label: 'Home', href: '/' },
+        { label: 'About Me', href: '/about' },
+        { label: 'Portfolio', href: '/portfolio', hasSubMenu: true },
+        { label: 'Contact Me', href: '/contact' },
+        { label: 'Blog', href: '/blog' },
+    ];
 
     return (
         <>
@@ -127,7 +151,11 @@ const Header: FC = () => {
                     <path ref={svgRef} d="M0,1005S175,995,500,995s500,5,500,5V0H0Z" />
                 </svg>
                 <div className="loader-wrap-heading">
-                    <div className="load-text">{content.loaderText.split('').map((ch, i) => <span key={i}>{ch}</span>)}</div>
+                    <div className="load-text">
+                        {content.loaderText.split('').map((ch, i) => (
+                            <span key={i}>{ch}</span>
+                        ))}
+                    </div>
                 </div>
             </div>
 
@@ -140,7 +168,7 @@ const Header: FC = () => {
                         d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
                         style={{
                             transition: 'stroke-dashoffset 10ms linear',
-                            strokeDasharray: '307.919',
+                            strokeDasharray: '307.919, 307.919',
                             strokeDashoffset,
                         }}
                     />
@@ -155,19 +183,21 @@ const Header: FC = () => {
 
                     <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`}>
                         <ul className="navbar-nav">
-                            {content.menuItems.map((item, idx) => (
-                                <li key={idx} className="nav-item">
-                                    <Link
-                                        href={item.href}
-                                        className="nav-link"
-                                        ref={(el) => {
-                                            linkRefs.current[idx] = el;
-                                        }}
-                                    >
-                                        <span className="hover-anim">{item.label}</span>
-                                    </Link>
-                                </li>
-                            ))}
+                            {content.menuItems
+                                .filter((item) => item.label !== 'Contact Me')
+                                .map((item, idx) => (
+                                    <li key={idx} className="nav-item">
+                                        <Link
+                                            href={item.href}
+                                            className="nav-link"
+                                            ref={(el) => {
+                                                linkRefs.current[idx] = el;
+                                            }}
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    </li>
+                                ))}
                         </ul>
                     </div>
 
@@ -176,7 +206,7 @@ const Header: FC = () => {
                             <div className="d-flex align-items-center">
                                 <span>{content.ctaText}</span>
                                 <span className="icon ml-10">
-                                    <Image src={arrowIcon} alt="" width={20} height={20} />
+                                    <Image src={arrowIcon} alt="Arrow" width={20} height={20} />
                                 </span>
                             </div>
                         </Link>
@@ -197,20 +227,37 @@ const Header: FC = () => {
                 <div className="container-fluid rest d-lg-flex">
                     <div className="menu-links">
                         <ul className="main-menu rest">
-                            {content.menuItems.map((item, idx) => (
+                            {hamburgerMenuItems.map((item, idx) => (
                                 <li
                                     key={idx}
                                     onMouseEnter={() => setHoveredIndex(idx)}
                                     onMouseLeave={() => setHoveredIndex(null)}
                                     className={hoveredIndex !== null && hoveredIndex !== idx ? 'hoverd' : ''}
                                 >
-                                    <Link href={item.href} className="link">
-                                        <span className="fill-text" data-text={item.label}>
-                                            {item.label}
-                                        </span>
-                                    </Link>
+                                    <div className="o-hidden">
+                                        {item.label === 'Portfolio' ? (
+                                            <div className="link cursor-pointer dmenu" onClick={handleSubMenuToggle}>
+                                                <span className="fill-text" data-text={item.label}>
+                                                    {item.label}
+                                                </span>
+                                                <i />
+                                            </div>
+                                        ) : (
+                                            <Link
+                                                href={item.href}
+                                                className="link"
+                                                ref={(el) => {
+                                                    linkRefs.current[content.menuItems.length + idx] = el;
+                                                }}
+                                            >
+                                                <span className="fill-text hover-anim" data-text={item.label}>
+                                                    {item.label}
+                                                </span>
+                                            </Link>
+                                        )}
+                                    </div>
                                     {item.label === 'Portfolio' && (
-                                        <div className={`sub-menu ${subMenuOpen ? 'sub-open' : ''}`}>
+                                        <div className={`sub-menu ${subMenuOpen ? 'sub-open' : ''}`} style={{ display: subMenuOpen ? 'block' : 'none' }}>
                                             <ul>
                                                 <li>
                                                     <Link href="/templates" className="sub-link">
@@ -230,26 +277,28 @@ const Header: FC = () => {
                         </ul>
                     </div>
 
-                    <div className="cont-info valign text-center">
-                        <div className="social-icon mt-40">
-                            {content.socialLinks.map((s, i) => (
-                                <a key={i} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.name}>
-                                    <i className={s.icon} />
-                                </a>
-                            ))}
-                        </div>
-                        <div className="item mt-30">
-                            <h5>{content.contactLocation}</h5>
-                        </div>
-                        <div className="item mt-10">
-                            <h5>
-                                <a href={`tel:${content.contactPhone.replace(/\s+/g, '')}`}>{content.contactPhone}</a>
-                            </h5>
-                        </div>
-                        <div className="item mt-10">
-                            <h5>
-                                <a href={`mailto:${content.contactEmail}`}>{content.contactEmail}</a>
-                            </h5>
+                    <div className="cont-info valign">
+                        <div className="text-center full-width">
+                            <div className="social-icon mt-40">
+                                {content.socialLinks.map((link, i) => (
+                                    <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
+                                        <i className={link.icon} />
+                                    </a>
+                                ))}
+                            </div>
+                            <div className="item mt-30">
+                                <h5>{content.contactLocation}</h5>
+                            </div>
+                            <div className="item mt-10">
+                                <h5>
+                                    <a href={`tel:${content.contactPhone.replace(/\s+/g, '')}`}>{content.contactPhone}</a>
+                                </h5>
+                            </div>
+                            <div className="item mt-10">
+                                <h5>
+                                    <a href={`mailto:${content.contactEmail}`}>{content.contactEmail}</a>
+                                </h5>
+                            </div>
                         </div>
                     </div>
                 </div>
