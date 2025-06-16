@@ -17,41 +17,26 @@ body {
     will-change: transform;
 }
 
-.work-card {
-    position: relative;
-    overflow: hidden;
-}
-
 .cards {
     position: relative;
     width: 100%;
-    min-height: 100vh;
-}
-
-.card-item {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 2rem;
-    background-color: #fff;
-    border-radius: 1rem;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-    transition: transform 0.4s ease;
+  }
+  
+  .card-item {
+    background: white;
+    margin-bottom: 2rem;
+    transform-origin: 50% center;
     will-change: transform;
-    pointer-events: auto;
-}
+    /* ارتفاع معقول */
+    min-height: 400px;
+  }
 
-.card-item {
-    opacity: 1;
-    transform: scale(1);
-    transition: all 0.4s ease-in-out;
-}
-
-.card-item:not(:first-child) {
-    opacity: 0.95;
-    transform: scale(0.98);
-}
+  .card-item {
+    border: 2px solid rgba(255, 255, 255, 0);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  
+  
 
 
 .pbs {

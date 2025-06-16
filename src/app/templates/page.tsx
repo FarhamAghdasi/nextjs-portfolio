@@ -1,13 +1,80 @@
+'use client';
+
+import { useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Inner } from '@/components'
+import { Inner } from '@/components';
 import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
 import templateData from '@/data/api/template.json';
 
 import { Template } from '@/components/types';
 
+gsap.registerPlugin(ScrollTrigger);
+
+
 export default function HtmlTemplates() {
   const templates = (templateData.templates || []) as Template[];
+
+  useEffect(() => {
+    const cards = gsap.utils.toArray<HTMLElement>('.cards .card-item');
+    if (!cards.length) return;
+
+    let stickDistance = 0;
+
+    const firstCardST = ScrollTrigger.create({
+      trigger: cards[0],
+      start: 'center center',
+    });
+
+    const lastCardST = ScrollTrigger.create({
+      trigger: cards[cards.length - 1],
+      start: 'bottom bottom',
+    });
+
+    cards.forEach((card, index) => {
+      const scale = 1 - (cards.length - index) * 0.025;
+      const activeShadow = '0 10px 30px rgba(0,0,0,0.2)';
+      const activeBorderColor = 'rgba(255, 255, 255, 0.8)';
+      const inactiveShadow = '0 0 0 rgba(0,0,0,0)';
+      const inactiveBorderColor = 'rgba(255, 255, 255, 0)';
+
+      const anim = gsap.to(card, {
+        scale: scale,
+        boxShadow: activeShadow,
+        borderColor: activeBorderColor,
+        transformOrigin: `50% ${lastCardST.start + stickDistance}px`,
+        ease: 'power2.out',
+        paused: true,
+      });
+
+      ScrollTrigger.create({
+        trigger: card,
+        start: 'center center',
+        end: () => lastCardST.start + stickDistance,
+        pin: true,
+        pinSpacing: false,
+        animation: anim,
+        toggleActions: 'restart none none reverse',
+        scrub: 0.3,
+        onEnter: () => {
+          gsap.to(card, { boxShadow: activeShadow, borderColor: activeBorderColor, duration: 0.3 });
+        },
+        onLeaveBack: () => {
+          gsap.to(card, { boxShadow: inactiveShadow, borderColor: inactiveBorderColor, duration: 0.3 });
+        },
+        onLeave: () => {
+          gsap.to(card, { boxShadow: inactiveShadow, borderColor: inactiveBorderColor, duration: 0.3 });
+        },
+      });
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(st => st.kill());
+      gsap.globalTimeline.clear();
+    };
+  }, []);
 
   return (
     <>
@@ -18,7 +85,7 @@ export default function HtmlTemplates() {
           <div className="cards">
             {templates.length > 0 ? (
               templates.map((template, index) => (
-                <div className="card-item rounded-xl" key={index}>
+                <div className="card-item rounded-xl" key={index} style={{border: '2px solid rgba(255,255,255,0)', transition: 'box-shadow 0.3s ease, border-color 0.3s ease'}}>
                   <div className="d-lg-flex align-items-end mt-4">
                     <div>
                       <div className="tags">
@@ -79,3 +146,4 @@ export default function HtmlTemplates() {
     </>
   );
 }
+

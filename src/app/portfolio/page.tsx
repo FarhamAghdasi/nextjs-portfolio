@@ -15,84 +15,76 @@ gsap.registerPlugin(ScrollTrigger);
 
 const WorksPage: React.FC = () => {
   const [portfolioData, setPortfolioData] = useState<Portfolio[]>([]);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
   const cardsWrapperRef = useRef<HTMLDivElement>(null);
-  const tlRef = useRef<gsap.core.Timeline | null>(null); // ✅ Timeline ref
-  const scrollTriggerRef = useRef<ScrollTrigger | null>(null); // ✅ ScrollTrigger ref
 
   useEffect(() => {
     setPortfolioData(portfoliosData.portfolio || []);
-  
-    const cards = cardsRef.current.filter((el): el is HTMLDivElement => el !== null);
-    const container = containerRef.current;
-    const wrapper = cardsWrapperRef.current;
-  
-    if (cards.length > 0 && container && wrapper) {
-      const cardHeight = window.innerHeight;
-      const totalScroll = cardHeight * cards.length;
-  
-      container.style.height = `${totalScroll}px`;
-  
-      cards.forEach((card, index) => {
-        gsap.set(card, {
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          zIndex: cards.length - index,
-        });
-      });
-  
-      const tl = gsap.timeline();
-  
-      cards.forEach((card, index) => {
-        if (index === cards.length - 1) return;
-  
-        tl.to(card, {
-          yPercent: -100,
-          duration: 1,
-          ease: 'none',
-        }, index);
-      });
-  
-      scrollTriggerRef.current = ScrollTrigger.create({
-        animation: tl,
-        trigger: wrapper,
-        start: 'top top',
-        end: `+=${totalScroll - cardHeight}`,
-        scrub: true,
-        pin: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        markers: false,
-      });
-  
-      tlRef.current = tl;
-  
-      const onResize = () => {
-        scrollTriggerRef.current?.kill();
-        tlRef.current?.kill();
-        ScrollTrigger.refresh();
-      };
-  
-      window.addEventListener('resize', onResize);
-  
-      return () => {
-        scrollTriggerRef.current?.kill();
-        tlRef.current?.kill();
-        window.removeEventListener('resize', onResize);
-        cards.forEach((card) => {
-          gsap.set(card, {
-            clearProps: 'all',
-          });
-        });
-        if (container) container.style.height = '';
-      };
-    }
   }, []);
-  
-  
+
+  useEffect(() => {
+    if (portfolioData.length === 0) return;
+    const cards = cardsWrapperRef.current
+      ? Array.from(cardsWrapperRef.current.children) as HTMLElement[]
+      : [];
+
+    if (cards.length === 0) return;
+
+    // ایجاد ScrollTrigger برای هر کارت
+    const triggers: ScrollTrigger[] = [];
+
+    const lastCard = cards[cards.length - 1];
+    const lastCardST = ScrollTrigger.create({
+      trigger: lastCard,
+      start: "bottom bottom"
+    });
+
+    cards.forEach((card, index) => {
+      const scale = 1 - (cards.length - index) * 0.025;
+      const activeShadow = "0 10px 30px rgba(0,0,0,0.2)";
+      const activeBorderColor = "rgba(255, 255, 255, 0.8)";
+      const inactiveShadow = "0 0 0 rgba(0,0,0,0)";
+      const inactiveBorderColor = "rgba(255, 255, 255, 0)";
+    
+      const anim = gsap.to(card, {
+        scale: scale,
+        boxShadow: activeShadow,
+        borderColor: activeBorderColor,
+        transformOrigin: `50% ${lastCardST.start}px`,
+        ease: "power2.out",
+        paused: true,
+      });
+    
+      ScrollTrigger.create({
+        trigger: card,
+        start: "center center",
+        end: () => lastCardST.start,
+        pin: true,
+        pinSpacing: false,
+        animation: anim,
+        toggleActions: "restart none none reverse",
+        scrub: 0.3,
+        onEnter: () => {
+          // کارت وارد بخش فعال میشه، سایه و بوردر میاد
+          gsap.to(card, { boxShadow: activeShadow, borderColor: activeBorderColor, duration: 0.3 });
+        },
+        onLeaveBack: () => {
+          // اسکرول برگشت به عقب، سایه و بوردر حذف میشه
+          gsap.to(card, { boxShadow: inactiveShadow, borderColor: inactiveBorderColor, duration: 0.3 });
+        },
+        onLeave: () => {
+          // کارت داره به پایین میره، سایه و بوردر حذف میشه
+          gsap.to(card, { boxShadow: inactiveShadow, borderColor: inactiveBorderColor, duration: 0.3 });
+        },
+      });
+    });
+    
+    
+
+    return () => {
+      triggers.forEach(t => t.kill());
+      lastCardST.kill();
+    };
+  }, [portfolioData]);
 
   return (
     <>
@@ -108,17 +100,18 @@ const WorksPage: React.FC = () => {
         paragraph={texts.innerParagraph}
         links={texts.innerLinks}
       />
-      <section className="work-card section-padding pt-0" ref={containerRef}>
+      <section className="work-card section-padding pt-0">
         <div className="container">
-          <div className="cards" ref={cardsWrapperRef}>
+          <div className="cards" ref={cardsWrapperRef} style={{ position: 'relative' }}>
             {portfolioData.length > 0 ? (
-              portfolioData.map((portfolio, index) => (
+              portfolioData.map((portfolio) => (
                 <div
                   className="card-item rounded-xl"
-                  ref={(el) => {
-                    cardsRef.current[index] = el;
-                  }}
                   key={portfolio.title}
+                  style={{
+                    marginBottom: '2rem', // فاصله بین کارت‌ها
+                    transformOrigin: '50% center',
+                  }}
                 >
                   <div className="d-lg-flex align-items-end mt-4">
                     <div>
@@ -145,14 +138,14 @@ const WorksPage: React.FC = () => {
                       </Link>
                     </div>
                   </div>
-                  <div className="img fit-img mt-30">
+                  <div className="img fit-img mt-30" style={{ height: '400px' }}>
                     {portfolio.thumbnail ? (
                       <Image
                         src={`https://farhamaghdasi.ir/${portfolio.thumbnail}`}
                         alt={portfolio.title}
                         width={600}
                         height={400}
-                        style={{ objectFit: 'cover' }}
+                        style={{ objectFit: 'cover', height: '100%' }}
                       />
                     ) : (
                       <span className="no-image">No Image Available</span>
