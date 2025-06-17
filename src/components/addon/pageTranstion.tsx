@@ -16,11 +16,21 @@ export default function PageTransition({ children }: PageTransitionProps) {
   useEffect(() => {
     if (!containerRef.current) return;
 
+    if (pathname === '/about') {
+      gsap.set(containerRef.current, {
+        paddingBottom: 120,
+      });
+    } else {
+      gsap.set(containerRef.current, {
+        paddingBottom: 0,
+      });
+    }
+
     if (
       pathname.startsWith('/templates') ||
       (pathname.startsWith('/portfolio/') && pathname !== '/portfolio')
     ) {
-      gsap.set(containerRef.current, { opacity: 1, y: 0, clearProps: 'all' });
+      gsap.set(containerRef.current, { opacity: 1, y: 0, clearProps: 'opacity,y' });
       return;
     }
 

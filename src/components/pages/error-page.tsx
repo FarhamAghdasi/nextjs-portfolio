@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Header, Footer, Inner } from '@/components';
+import { Inner } from '@/components';
 import errorTexts from '@/data/errors.json';
 
 interface ErrorPageProps {
@@ -15,26 +15,24 @@ export default function ErrorPage({ statusCode, reset }: ErrorPageProps) {
 
   return (
     <>
-      <Header />
       <Inner
         title={String(statusCode)}
         first="Home"
         secend={`Error ${statusCode}`}
         cpage={
-          <p>
+          <p className='error-page'>
             {message} <br />
             <Link href="/">
               Back to Home
             </Link>{' '}
             or{' '}
-            <button onClick={reset}>
+            <a onClick={reset}>
               Try Again
-            </button>
+            </a>
           </p>
         }
         noimage
       />
-      <Footer />
     </>
   );
 }
