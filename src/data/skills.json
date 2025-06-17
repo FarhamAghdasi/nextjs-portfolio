@@ -22,14 +22,20 @@
     ],
     "marquee": [
       "React",
-      "Tailwind",
-      "Wordpress",
+      "Nextjs",
+      "Tailwindcss",
       "Bootstrap",
       "Jquery",
-      "Flexiable",
-      "Dedicated",
-      "Creative",
-      "Flexiable"
+      "HTML"
+    ],
+    "marquee2": [
+      "SEO",
+      "Team",
+      "FastLearner",
+      "CleanUI",
+      "Performance",
+      "Security",
+      "UX/UI"
     ],
     "resumeHeader": {
       "subHead": "About Me",

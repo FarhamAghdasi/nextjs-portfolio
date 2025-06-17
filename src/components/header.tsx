@@ -4,14 +4,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { gsap } from 'gsap';
+import { useRouter } from 'next/navigation';
 
 import content from '@/data/header.json';
 import logoLight from '@/assets/imgs/Logo-light.png';
 import arrowIcon from '@/assets/imgs/icons/arrow-top-right.svg';
 
 const Header = () => {
+    const router = useRouter();
     const [isHovered, setIsHovered] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false); 
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
     const [strokeDashoffset, setStrokeDashoffset] = useState(307.919);
     const [isProgressActive, setIsProgressActive] = useState(false);
@@ -23,6 +25,37 @@ const Header = () => {
     const svgRef = useRef<SVGPathElement | null>(null);
     const cursorRef = useRef<HTMLDivElement | null>(null);
     const linkRefs = useRef<Array<HTMLAnchorElement | null>>([]);
+
+    const closeMenuWithAnimation = () => {
+        const menuEl = document.querySelector('.hamenu');
+        if (menuEl) {
+            gsap.to(menuEl, {
+                x: '-100%',
+                duration: 0.3,
+                ease: 'power2.out',
+                onComplete: () => {
+                    setIsMenuOpen(false);
+                    setSubMenuOpen(false);
+                    setSubSubMenuOpen(false);
+                    setHoveredIndex(null);
+                },
+            });
+        } else {
+            setIsMenuOpen(false);
+            setSubMenuOpen(false);
+            setSubSubMenuOpen(false);
+            setHoveredIndex(null);
+        }
+    };
+
+
+    useEffect(() => {
+        const handlePopState = () => {
+          closeMenuWithAnimation();
+        };
+        window.addEventListener('popstate', handlePopState);
+        return () => window.removeEventListener('popstate', handlePopState);
+      }, []);
 
     useEffect(() => {
         const updateProgress = () => {
@@ -197,6 +230,7 @@ const Header = () => {
                                         <Link
                                             href={item.href}
                                             className="nav-link"
+                                            onClick={() => closeMenuWithAnimation()}
                                             ref={(el) => {
                                                 linkRefs.current[idx] = el;
                                             }}
@@ -223,7 +257,7 @@ const Header = () => {
                             onMouseEnter={() => setIsHovered(true)}
                             onMouseLeave={() => setIsHovered(false)}
                         >
-                            <span className={`icon ${isHovered ? 'fa fa-align-center' : 'fa fa-align-right'}`} />
+                            <span className={`icon menu-icon-anim ${isHovered ? 'fa fa-align-center' : 'fa fa-align-right'}`} />
                         </div>
                     </div>
                 </div>
@@ -239,6 +273,7 @@ const Header = () => {
                                     key={idx}
                                     onMouseEnter={() => setHoveredIndex(idx)}
                                     onMouseLeave={() => setHoveredIndex(null)}
+                                    onClick={() => closeMenuWithAnimation()}
                                     className={hoveredIndex !== null && hoveredIndex !== idx ? 'hoverd' : ''}
                                 >
                                     <div className="o-hidden">

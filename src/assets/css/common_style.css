@@ -20,23 +20,23 @@ body {
 .cards {
     position: relative;
     width: 100%;
-  }
-  
-  .card-item {
+}
+
+.card-item {
     background: white;
     margin-bottom: 2rem;
     transform-origin: 50% center;
     will-change: transform;
     /* ارتفاع معقول */
     min-height: 400px;
-  }
+}
 
-  .card-item {
+.card-item {
     border: 2px solid rgba(255, 255, 255, 0);
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
-  }
-  
-  
+}
+
+
 
 
 .pbs {
@@ -2165,8 +2165,46 @@ img.left {
 }
 
 .bord-thin-top-light {
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
 }
+
+.bord-thin-top-light::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0) 100%);
+    background-size: 200% 100%;
+    animation: border-move 5s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes border-move {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+.menu-icon-anim {
+    transition: transform 1s ease, opacity 1s ease;
+}
+
+.menu-icon-anim.fa-align-center {
+    opacity: 1;
+}
+
+.menu-icon-anim.fa-align-right {
+    opacity: 0.8;
+}
+
+
+
 
 .bord-thin-bottom-light {
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
@@ -2255,6 +2293,10 @@ img.left {
 
 .section-padding {
     padding-top: 140px;
+    padding-bottom: 140px;
+}
+
+.skills-padding {
     padding-bottom: 140px;
 }
 
