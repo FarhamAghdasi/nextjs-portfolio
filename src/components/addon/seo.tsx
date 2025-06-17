@@ -6,6 +6,19 @@ export const defaultMetadata = {
   },
   description:
     'Welcome to my personal website. I am Farham Aghdasi, a programmer specializing in web development and software solutions.',
+  keywords: [
+    'Farham Aghdasi',
+    'Web Developer',
+    'Frontend Developer',
+    'React Developer',
+    'Next.js Portfolio',
+    'HTML Templates',
+    'Software Engineer',
+    'Programmer Portfolio',
+  ],
+  creator: 'Farham Aghdasi',
+  publisher: 'Farham Aghdasi',
+  authors: [{ name: 'Farham Aghdasi', url: 'https://farhamaghdasi.ir' }],
   openGraph: {
     title: 'Farham Aghdasi',
     description:
@@ -25,6 +38,8 @@ export const defaultMetadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@farhamaghdasi',
+    creator: '@farhamaghdasi',
     title: 'Farham Aghdasi',
     description:
       'Welcome to my personal website. I am Farham Aghdasi, a programmer specializing in web development and software solutions.',
@@ -33,5 +48,14 @@ export const defaultMetadata = {
   robots: {
     index: true,
     follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+    },
+  },
+  alternates: {
+    canonical: 'https://farhamaghdasi.ir',
   },
 };

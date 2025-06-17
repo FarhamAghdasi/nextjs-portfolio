@@ -1,10 +1,21 @@
-"use client"
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Image from 'next/image';
 import data from '@/data/faq-section.json';
-import FaqImage from '@/assets/imgs/faqs.jpg'
+import FaqImage from '@/assets/imgs/faqs.jpg';
 
-const Faq: React.FC = () => {
+export default function Faq() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const toggleIndex = (index: number) => {
+    if (activeIndex === index) {
+      setActiveIndex(-1);
+    } else {
+      setActiveIndex(index);
+    }
+  };
+
   return (
     <section className="faqs-pg section-padding">
       <div className="container">
@@ -21,33 +32,27 @@ const Faq: React.FC = () => {
             </div>
             <div className="row justify-content-center">
               <div className="col-lg-10">
-                <div className="accordion" id="accordionExample">
+                <div className="accordion">
                   {data.items.map((item, index) => {
-                    const collapseId = `collapse${index}`;
-                    const headingId = `heading${index}`;
-                    const isActive = index === 0;
-
+                    const isActive = index === activeIndex;
                     return (
                       <div key={index} className={`accordion-item ${isActive ? 'active' : ''}`}>
-                        <h4 className="accordion-header" id={headingId}>
+                        <h4 className="accordion-header">
                           <button
                             className={`accordion-button ${!isActive ? 'collapsed' : ''}`}
                             type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target={`#${collapseId}`}
+                            onClick={() => toggleIndex(index)}
                             aria-expanded={isActive}
-                            aria-controls={collapseId}
                           >
                             {item.question}
                           </button>
                         </h4>
                         <div
-                          id={collapseId}
-                          className={`accordion-collapse collapse ${isActive ? 'show' : ''}`}
-                          aria-labelledby={headingId}
-                          data-bs-parent="#accordionExample"
+                          className={`accordion-collapse ${isActive ? 'fade show' : 'fade'}`}
+                          style={{ maxHeight: isActive ? '500px' : '0' }}
+                          aria-hidden={!isActive}
                         >
-                          <div
+                          <p
                             className="accordion-body"
                             dangerouslySetInnerHTML={{ __html: item.answer }}
                           />
@@ -63,6 +68,4 @@ const Faq: React.FC = () => {
       </div>
     </section>
   );
-};
-
-export default Faq;
+}
