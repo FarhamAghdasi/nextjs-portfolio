@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Header, Footer, SEO } from '@/components';
+import { Header, Footer } from '@/components';
 import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
 import texts from '@/data/portfolio-details.json';
 import { Portfolio } from '@/components/types';
@@ -35,12 +35,6 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
 
   return (
     <>
-      <SEO
-        title={portfolio.title || texts.seoDefaultTitle}
-        description={portfolio.description || texts.seoDefaultDescription}
-        image={imagePrimary || '/default-thumbnail.jpg'}
-        url={`https://farhamaghdasi.ir/portfolio/${portfolio.url}`}
-      />
       <Header />
       <header className="serv-hed2 section-padding pb-0">
         <div className="container">

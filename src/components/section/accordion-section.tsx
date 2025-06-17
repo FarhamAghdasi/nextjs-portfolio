@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
 import { useState } from 'react';
 
 interface AccordionSectionProps {
   template: {
-    accordionTitle: string;
-    accordionContent: string;
+    accordionTitle?: string;
+    accordionContent?: string;
   };
 }
 
@@ -13,8 +13,11 @@ export default function AccordionSection({ template }: AccordionSectionProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number) => {
-    setActiveIndex(prev => (prev === index ? null : index));
+    setActiveIndex((prev) => (prev === index ? null : index));
   };
+
+  const title = template.accordionTitle || 'No Title Provided';
+  const content = template.accordionContent || 'No Content Provided';
 
   return (
     <div className="accordion" id="accordionExample">
@@ -27,7 +30,7 @@ export default function AccordionSection({ template }: AccordionSectionProps) {
             aria-expanded={activeIndex === 0}
             aria-controls="collapse0"
           >
-            {template.accordionTitle}
+            {title}
           </button>
         </h2>
         <div
@@ -37,7 +40,7 @@ export default function AccordionSection({ template }: AccordionSectionProps) {
           data-bs-parent="#accordionExample"
         >
           <div className="accordion-body">
-            <p>{template.accordionContent}</p>
+            <p>{content}</p>
           </div>
         </div>
       </div>

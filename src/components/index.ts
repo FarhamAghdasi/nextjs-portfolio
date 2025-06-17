@@ -17,11 +17,23 @@ export { default as ServiceLine } from './section/service-line';
 export { default as Service } from './section/service-section';
 export { default as Skills } from './section/skills-section';
 export { default as AccordionSection } from './section/accordion-section';
+export { default as Contact } from './section/contact-section';
 
 /** Addon */
 export { default as Captcha } from './addon/captcha';
 export { default as Comments } from './addon/comment';
 export { default as ScrollTop } from './addon/scroll-top';
-export { default as SEO } from './addon/seo';
 export { default as Share } from './addon/share';
 export { default as SmoothScroll } from './addon/smoothScroll';
+
+/** Page */
+export { default as WorksPage } from './pages/portfolio-page';
+export { default as AboutPage } from './pages/about-page';
+export { default as Bloginfo } from './pages/blog-page';
+export { default as BlogDetails } from './pages/blogdetails-page';
+export { default as ContactPage } from './pages/contact-page';
+export { default as ServicePage } from './pages/service-page';
+export { default as HtmlTemplates } from './pages/templates-page'
+export { default as TemplateDetails } from './pages/template-details-page'
+export { default as ErrorPage } from './pages/error-page'
+export { default as HomePage } from './pages/home-page'

@@ -75,7 +75,7 @@ const Skills: React.FC = () => {
 
           <div className="row justify-content-center">
             {skills.map((skill: Skill, index: number) => (
-              <div key={index} className="col-lg-2 col-md-4 col-6">
+              <div key={index} className="col-lg col-md-4 col-6">
                 <div className={`item ${index < skills.length - 1 ? 'md-mb30' : ''}`}>
                   <div className="box">
                     <div className="img">

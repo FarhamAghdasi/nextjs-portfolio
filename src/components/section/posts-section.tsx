@@ -29,16 +29,16 @@ const Blog: React.FC = () => {
   };
 
   return (
-    <section className={sectionClass || 'blog-cst section-padding'}>
-      <div className={containerClass || 'container pt-30 bord-thin-top-light'}>
-        <div className={header.class || 'sec-head mb-80'}>
+    <section className={sectionClass}>
+      <div className={containerClass }>
+        <div className={header.class}>
           <div className="d-flex">
             <div>
-              <span className="sub-head">{header.subTitle || "My Article's"}</span>
+              <span className="sub-head">{header.subTitle}</span>
             </div>
             <div className="ml-auto">
               <div className="bract">
-                {'{'} <span>{header.clientCount || '1+ Clients'}</span> {'}'}
+                {'{'} <span>{header.clientCount}</span> {'}'}
               </div>
             </div>
           </div>
@@ -47,14 +47,14 @@ const Blog: React.FC = () => {
               <div>
                 <h2
                   dangerouslySetInnerHTML={{
-                    __html: header.title || 'Check My Blog <br /> Content in the web world',
+                    __html: header.title,
                   }}
                 />
-                <Link href={header.viewAllLink || '/blog'} className="butn-under mt-15">
-                    {header.viewAllText || 'View All Posts'}{' '}
+                <Link href={header.viewAllLink} className="butn-under mt-15">
+                    {header.viewAllText}{' '}
                     <span className="icon invert">
                       <Image
-                        src={header.arrowIcon || ArrowRightTop}
+                        src={ArrowRightTop}
                         alt="arrow"
                         width={16}
                         height={16}
@@ -82,7 +82,7 @@ const Blog: React.FC = () => {
                     <Link href={`/blog/${post.url}/`} className="butn">
                         <span className="icon">
                           <Image
-                            src={header.arrowIcon || ArrowRightTop}
+                            src={ArrowRightTop}
                             alt="arrow"
                             width={16}
                             height={16}
@@ -96,7 +96,7 @@ const Blog: React.FC = () => {
                         {post.title}
                       </Link>
                     </h5>
-                    <span className="main-color">{post.category || fallbackPost.category || 'General'}</span>
+                    <span className="main-color">{post.category || fallbackPost.category}</span>
                     <p>{post.short_description || fallbackPost.short_description}</p>
                   </div>
                 </div>
@@ -104,7 +104,7 @@ const Blog: React.FC = () => {
             ))
           ) : (
             <div className="col-lg-12">
-              <p>{noPostsMessage || 'No blog posts available at the moment.'}</p>
+              <p>{noPostsMessage}</p>
             </div>
           )}
         </div>

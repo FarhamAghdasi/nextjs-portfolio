@@ -1,27 +1,34 @@
-"use client"
-import React from 'react';
-import {  Inner, Bio, ServiceLine, Faq, SEO } from '@/components';
+import { Metadata } from 'next';
+import { ServicePage } from '@/components';
+import { defaultMetadata } from '@/components/addon/seo';
 import servicesText from '@/data/services.json';
 
-const ServicesPage: React.FC = () => {
-  return (
-    <>
-      <SEO 
-        title={servicesText.seoTitle}
-        description={servicesText.seoDescription}
-        url="https://farhamaghdasi.ir/services"
-      />
+export async function generateMetadata(): Promise<Metadata> {
+  const pageTitle = servicesText.seoTitle;
+  const pageDescription = servicesText.seoDescription;
+  const pageUrl = 'https://farhamaghdasi.ir/services';
 
-      <Inner 
-        title={servicesText.innerTitle} 
-        first={servicesText.innerFirst} 
-        secend={servicesText.innerSecond} 
-      />
-      <Bio />
-      <ServiceLine />
-      <Faq />
-    </>
-  );
-};
+  return {
+    ...defaultMetadata,
+    title: pageTitle,
+    description: pageDescription,
+    openGraph: {
+      ...defaultMetadata.openGraph,
+      title: pageTitle,
+      description: pageDescription,
+      url: pageUrl,
+    },
+    twitter: {
+      ...defaultMetadata.twitter,
+      title: pageTitle,
+      description: pageDescription,
+    },
+    alternates: {
+      canonical: pageUrl,
+    },
+  };
+}
 
-export default ServicesPage;
+export default function Services() {
+  return <ServicePage />;
+}

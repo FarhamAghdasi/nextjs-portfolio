@@ -33,7 +33,7 @@ const Inner: React.FC<InnerProps> = ({ title, first, secend, paragraph, links, c
         <div className="google-map">
           <iframe
             id="gmap_canvas"
-            src="https://maps.google.com/maps?q=hollywood&t=&z=11&ie=UTF8&iwloc=&output=embed"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2159.8977309932147!2d52.349218173573426!3d36.4535717972231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8fbd12fbf1d8c9%3A0x92ce3372fb40c254!2z2YXYrNiq2YXYuSDYp9mE2YXYp9iz!5e1!3m2!1sen!2s!4v1750163834917!5m2!1sen!2s"
             width="100%"
             height="450"
             style={{ border: 0 }}

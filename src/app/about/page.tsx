@@ -1,20 +1,33 @@
-"use client"
-import React from 'react';
-import {  Inner, About, Skills } from '@/components';
-import SEO from '@/components/addon/seo';
+import { Metadata } from 'next';
+import {AboutPage} from '@/components';
+import { defaultMetadata } from '@/components/addon/seo';
 
-const AboutPage: React.FC = () => {
-  return (
-    <>
-      <SEO
-        title="About"
-        description="Learn more about Farham Aghdasi, a software developer specializing in web development and programming."
-      />
-      <Inner title="About Me" first="Home" secend="About Farham Aghdasi" />
-      <About />
-      <Skills />
-    </>
-  );
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const pageTitle = 'About';
+  const pageDescription = 'Learn more about Farham Aghdasi, a software developer specializing in web development and programming.';
+  const pageUrl = 'https://farhamaghdasi.ir/about';
 
-export default AboutPage;
+  return {
+    ...defaultMetadata,
+    title: pageTitle,
+    description: pageDescription,
+    openGraph: {
+      ...defaultMetadata.openGraph,
+      title: pageTitle,
+      description: pageDescription,
+      url: pageUrl,
+    },
+    twitter: {
+      ...defaultMetadata.twitter,
+      title: pageTitle,
+      description: pageDescription,
+    },
+    alternates: {
+      canonical: pageUrl,
+    },
+  };
+}
+
+export default function About() {
+  return <AboutPage />;
+}
