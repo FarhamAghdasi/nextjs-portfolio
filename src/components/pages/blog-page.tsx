@@ -1,31 +1,80 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams, useRouter } from 'next/navigation';
+import gsap from 'gsap';
 import postsData from '@/data/api/posts.json';
 import texts from '@/data/blog.json';
 import Logo from '@/assets/imgs/logo.png';
 import { PostBlog } from '@/components/types';
 
 const Bloginfo: React.FC = () => {
+  const [inputValue, setInputValue] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const postsRef = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const category = searchParams.get('category') || '';
 
   const posts: PostBlog[] = postsData.posts || [];
+  const availableCategories = [...new Set(posts.map((post) => post.category))];
+  const isCategoryValid = category ? availableCategories.includes(category) : true;
 
   const filteredPosts = useMemo(() => {
-    if (!searchTerm) return posts;
-    const term = searchTerm.toLowerCase();
-    return posts.filter(
-      (post) =>
-        post.title.toLowerCase().includes(term) ||
-        post.category.toLowerCase().includes(term) ||
-        post.author.toLowerCase().includes(term)
-    );
-  }, [searchTerm, posts]);
+    let filtered = posts;
+
+    if (category && isCategoryValid) {
+      filtered = filtered.filter((post) => post.category === category);
+    }
+
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      filtered = filtered.filter(
+        (post) =>
+          post.title.toLowerCase().includes(term) ||
+          post.category.toLowerCase().includes(term) ||
+          post.author.toLowerCase().includes(term)
+      );
+    }
+
+    return filtered;
+  }, [searchTerm, category, posts, isCategoryValid]);
+
+  useEffect(() => {
+    if (!postsRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        postsRef.current.children,
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1 }
+      );
+    }, postsRef);
+
+    return () => ctx.revert();
+  }, [filteredPosts]);
+
+  const handleSearch = () => {
+    setSearchTerm(inputValue);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+  const handleReset = () => {
+    setInputValue('');
+    setSearchTerm('');
+    router.push('/blog'); // Reset both search and category
+  };
 
   return (
     <>
+      {/* Blog header section */}
       <header className="blog-hed">
         <div className="container section-padding bord-thin-bottom-light">
           <div className="row">
@@ -43,12 +92,15 @@ const Bloginfo: React.FC = () => {
         </div>
       </header>
 
+      {/* Main blog content section */}
       <div className="blog-mp section-padding">
         <div className="container">
           <div className="row xlg-marg">
             <div className="col-lg-8">
-              <div className="main-blog md-mb80">
-                {filteredPosts.length === 0 ? (
+              <div className="main-blog md-mb80" ref={postsRef}>
+                {!isCategoryValid ? (
+                  <p>Category "{category}" does not exist.</p>
+                ) : filteredPosts.length === 0 ? (
                   <p>{texts.noPostsFound}</p>
                 ) : (
                   filteredPosts.map((post) => (
@@ -104,29 +156,34 @@ const Bloginfo: React.FC = () => {
               </div>
             </div>
 
+            {/* Sidebar section */}
             <div className="col-lg-4">
               <div className="sidebar">
-                <div className="search-box mb-4">
+                <div className="search-box mb-4 d-flex gap-2">
                   <input
                     type="text"
                     name="search-post"
                     placeholder={texts.searchPlaceholder}
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyPress={handleKeyPress}
                     className="form-control"
                   />
-                  <span className="icon pe-7s-search" />
+                    <a type="button" className="icon fa fa-search pr-20" onClick={handleSearch} />
+                    <a type="button" className="icon fa fa-remove mr-4" onClick={handleReset} />
                 </div>
+
                 <div className="widget catogry mb-4">
                   <h6 className="title-widget">{texts.categoriesTitle}</h6>
                   <ul className="rest">
-                    {[...new Set(posts.map((post) => post.category))].map((category) => (
-                      <li key={category}>
-                        <Link href={`/blog?category=${encodeURIComponent(category)}`}>{category}</Link>
+                    {availableCategories.map((cat) => (
+                      <li key={cat} className={category === cat ? 'active' : ''}>
+                        <Link href={`/blog?category=${encodeURIComponent(cat)}`}>{cat}</Link>
                       </li>
                     ))}
                   </ul>
                 </div>
+
                 <div className="widget last-post-thum">
                   <h6 className="title-widget">{texts.latestPostsTitle}</h6>
                   {posts.slice(0, 3).map((post) => (
