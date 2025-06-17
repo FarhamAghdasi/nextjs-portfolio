@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { gsap } from 'gsap';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 import content from '@/data/header.json';
 import logoLight from '@/assets/imgs/Logo-light.png';
@@ -12,6 +12,7 @@ import arrowIcon from '@/assets/imgs/icons/arrow-top-right.svg';
 
 const Header = () => {
     const router = useRouter();
+    const pathname = usePathname();
     const [isHovered, setIsHovered] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -24,7 +25,7 @@ const Header = () => {
 
     const svgRef = useRef<SVGPathElement | null>(null);
     const cursorRef = useRef<HTMLDivElement | null>(null);
-    const linkRefs = useRef<Array<HTMLAnchorElement | null>>([]);
+    const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
     const closeMenuWithAnimation = () => {
         const menuEl = document.querySelector('.hamenu');
@@ -48,14 +49,22 @@ const Header = () => {
         }
     };
 
-
     useEffect(() => {
         const handlePopState = () => {
-          closeMenuWithAnimation();
+            closeMenuWithAnimation();
         };
         window.addEventListener('popstate', handlePopState);
         return () => window.removeEventListener('popstate', handlePopState);
-      }, []);
+    }, []);
+
+    useEffect(() => {
+        closeMenuWithAnimation();
+        setIsMenuOpen(false);
+        setIsNavbarOpen(false);
+        setSubMenuOpen(false);
+        setSubSubMenuOpen(false);
+        setHoveredIndex(null);
+    }, [pathname]);
 
     useEffect(() => {
         const updateProgress = () => {
@@ -273,7 +282,11 @@ const Header = () => {
                                     key={idx}
                                     onMouseEnter={() => setHoveredIndex(idx)}
                                     onMouseLeave={() => setHoveredIndex(null)}
-                                    onClick={() => closeMenuWithAnimation()}
+                                    onClick={() => {
+                                        if (item.label !== 'Portfolio') {
+                                            closeMenuWithAnimation();
+                                        }
+                                    }}
                                     className={hoveredIndex !== null && hoveredIndex !== idx ? 'hoverd' : ''}
                                 >
                                     <div className="o-hidden">
@@ -302,12 +315,12 @@ const Header = () => {
                                         <div className={`sub-menu ${subMenuOpen ? 'sub-open' : ''}`} style={{ display: subMenuOpen ? 'block' : 'none' }}>
                                             <ul>
                                                 <li>
-                                                    <Link href="/templates" className="sub-link">
+                                                    <Link href="/templates" className="sub-link" onClick={() => closeMenuWithAnimation()}>
                                                         HTML Templates
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/portfolio" className="sub-link">
+                                                    <Link href="/portfolio" className="sub-link" onClick={() => closeMenuWithAnimation()}>
                                                         Works
                                                     </Link>
                                                 </li>
