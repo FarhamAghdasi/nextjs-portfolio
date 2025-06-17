@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -41,6 +41,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
         image={imagePrimary || '/default-thumbnail.jpg'}
         url={`https://farhamaghdasi.ir/portfolio/${portfolio.url}`}
       />
+      <Header />
       <header className="serv-hed2 section-padding pb-0">
         <div className="container">
           <div className="caption mb-80">
@@ -79,7 +80,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
           <div className="fit-img radius-15 scale">
             <Image
               src={imagePrimary || '/default-image.jpg'}
-              alt={portfolio.title}
+              alt={portfolio.title || 'Portfolio Image'}
               width={1200}
               height={600}
             />
@@ -159,7 +160,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
                     <div className="d-flex">
                       <span className="text">{texts.checkMorePortfolios}</span>
                       <span className="icon">
-                        <Image src={arrowTopRight} alt="" width={16} height={16} />
+                        <Image src={arrowTopRight} alt="Arrow" width={16} height={16} />
                       </span>
                     </div>
                   </Link>
@@ -169,6 +170,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
           </div>
         </div>
       </section>
+      <Footer />
     </>
   );
 };
