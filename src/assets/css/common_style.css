@@ -2210,6 +2210,19 @@ img.left {
 .bord-thin-right-light {
     border-right: 1px solid rgba(255, 255, 255, 0.15);
 }
+.search-box {
+    flex-direction: column;
+}
+.search-box .fa-remove:hover {
+    color: red;
+}
+.pr-20 {
+    padding-right: 5%;
+}
+.search-box .btn-outline-secondary {
+    width: min-content;
+    margin: 0 auto;
+}
 
 .bord-thin-left-light {
     border-left: 1px solid rgba(255, 255, 255, 0.15);
