@@ -26,9 +26,28 @@ const Header = () => {
     const svgRef = useRef<SVGPathElement | null>(null);
     const cursorRef = useRef<HTMLDivElement | null>(null);
     const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+    const menuRef = useRef<HTMLDivElement | null>(null); // رفرنس برای منوی همبرگری
+
+    const openMenuWithAnimation = () => {
+        const menuEl = menuRef.current;
+        if (menuEl) {
+            gsap.to(menuEl, {
+                x: '0%',
+                duration: 0.3,
+                ease: 'power2.out',
+                onStart: () => {
+                    setIsMenuOpen(true);
+                    console.log('Menu opened');
+                },
+            });
+        } else {
+            setIsMenuOpen(true);
+            console.log('Menu element not found, setting isMenuOpen to true');
+        }
+    };
 
     const closeMenuWithAnimation = () => {
-        const menuEl = document.querySelector('.hamenu');
+        const menuEl = menuRef.current;
         if (menuEl) {
             gsap.to(menuEl, {
                 x: '-100%',
@@ -39,6 +58,7 @@ const Header = () => {
                     setSubMenuOpen(false);
                     setSubSubMenuOpen(false);
                     setHoveredIndex(null);
+                    console.log('Menu closed');
                 },
             });
         } else {
@@ -46,6 +66,7 @@ const Header = () => {
             setSubMenuOpen(false);
             setSubSubMenuOpen(false);
             setHoveredIndex(null);
+            console.log('Menu element not found, resetting states');
         }
     };
 
@@ -56,15 +77,6 @@ const Header = () => {
         window.addEventListener('popstate', handlePopState);
         return () => window.removeEventListener('popstate', handlePopState);
     }, []);
-
-    useEffect(() => {
-        closeMenuWithAnimation();
-        setIsMenuOpen(false);
-        setIsNavbarOpen(false);
-        setSubMenuOpen(false);
-        setSubSubMenuOpen(false);
-        setHoveredIndex(null);
-    }, [pathname]);
 
     useEffect(() => {
         const updateProgress = () => {
@@ -157,7 +169,11 @@ const Header = () => {
     }, []);
 
     const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
+        if (isMenuOpen) {
+            closeMenuWithAnimation();
+        } else {
+            openMenuWithAnimation();
+        }
         if (window.innerWidth <= 991) {
             setIsNavbarOpen(false);
         } else {
@@ -165,9 +181,13 @@ const Header = () => {
         }
     };
 
-    const handleSubMenuToggle = () => setSubMenuOpen(!subMenuOpen);
+    const handleSubMenuToggle = () => {
+        setSubMenuOpen(!subMenuOpen);
+    };
 
-    const handleSubSubMenuToggle = () => setSubSubMenuOpen(!subSubMenuOpen);
+    const handleSubSubMenuToggle = () => {
+        setSubSubMenuOpen(!subSubMenuOpen);
+    };
 
     const scrollToTop = () => {
         const start = window.scrollY;
@@ -272,7 +292,7 @@ const Header = () => {
                 </div>
             </nav>
 
-            <div className={`hamenu ${isMenuOpen ? 'open' : ''}`} style={{ left: isMenuOpen ? '0' : '-100%' }}>
+            <div ref={menuRef} className={`hamenu ${isMenuOpen ? 'open' : ''}`} style={{ left: isMenuOpen ? '0' : '-100%' }}>
                 <div className="close-menu cursor-pointer" onClick={toggleMenu}>✕</div>
                 <div className="container-fluid rest d-lg-flex">
                     <div className="menu-links">
