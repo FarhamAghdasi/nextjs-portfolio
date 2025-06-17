@@ -1,22 +1,20 @@
 {
-    "sectionClass": "intro section-padding ontop",
-    "containerClass": "container",
-    "rowClass": "row justify-content-center",
-    "colClass": "col-lg-10",
-    "content": {
-      "class": "text-center position-re",
-      "title": "I am always <span>seeking to learn</span> and <span>improve my skills</span>, and I plan to study <span>advanced technologies</span> like <span>mongoDB , Nodejs</span> soon. With attention to detail, I have successfully completed small projects, using them as a <span>foundation for further growth</span>.",
-      "images": [
-        {
-          "src": "/imgs/intro/1.webp",
-          "class": "img img1 fit-img",
-          "alt": "Intro Image 1"
-        },
-        {
-          "src": "/imgs/intro/2.webp",
-          "class": "img img2 fit-img",
-          "alt": "Intro Image 2"
-        }
-      ]
-    }
+  "sectionClass": "intro section-padding ontop",
+  "containerClass": "container",
+  "rowClass": "row justify-content-center",
+  "colClass": "col-lg-10",
+  "content": {
+    "class": "text-center position-re",
+    "title": "I am always <span>seeking to learn</span> and <span>improve my skills</span>, and I plan to study <span>advanced technologies</span> like <span>mongoDB , Nodejs</span> soon. With attention to detail, I have successfully completed small projects, using them as a <span>foundation for further growth</span>.",
+    "images": [
+      {
+        "class": "img img1 fit-img",
+        "alt": "Intro Image 1"
+      },
+      {
+        "class": "img img2 fit-img",
+        "alt": "Intro Image 2"
+      }
+    ]
   }
+}

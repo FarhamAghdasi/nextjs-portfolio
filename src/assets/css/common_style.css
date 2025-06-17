@@ -23,16 +23,19 @@ body {
 }
 
 .card-item {
-    background: white;
-    margin-bottom: 2rem;
     transform-origin: 50% center;
     will-change: transform;
-    /* ارتفاع معقول */
-    min-height: 400px;
 }
 
+.accordion-collapse {
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+}
+
+.accordion-collapse.fade.show {
+    opacity: 1;
+}
 .card-item {
-    border: 2px solid rgba(255, 255, 255, 0);
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
@@ -2210,19 +2213,24 @@ img.left {
 .bord-thin-right-light {
     border-right: 1px solid rgba(255, 255, 255, 0.15);
 }
+
 .search-box {
     flex-direction: column;
 }
+
 .search-box .fa-remove:hover {
     color: red;
 }
+
 .error-page a {
     color: var(--main-color) !important;
     cursor: pointer;
 }
+
 .pr-20 {
     padding-right: 5%;
 }
+
 .search-box .btn-outline-secondary {
     width: min-content;
     margin: 0 auto;
