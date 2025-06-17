@@ -3,7 +3,7 @@ import { HomePage } from '@/components';
 import { defaultMetadata } from '@/components/addon/seo';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pageTitle = 'Front-end Developer';
+  const pageTitle = 'Farham Aghdasi | Front-end Developer';
   const pageDescription = 'Welcome to my personal website. I am Farham Aghdasi, a programmer specializing in web development and software solutions.';
   const pageUrl = 'https://farhamaghdasi.ir/';
   const pageImage = 'https://farhamaghdasi.ir/images/og-image.jpg';
