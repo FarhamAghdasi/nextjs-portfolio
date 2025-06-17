@@ -4,6 +4,7 @@ export { default as Footer } from './footer';
 export { default as Hero } from './hero';
 export { default as PageInitializer } from './PageInitializer';
 export { default as PortfolioInfoClient } from './addon/PortfolioInfoClient';
+export { default as PageTransition } from './addon/pageTranstion'
 
 
 /** Sections */
