@@ -2216,6 +2216,10 @@ img.left {
 .search-box .fa-remove:hover {
     color: red;
 }
+.error-page a {
+    color: var(--main-color) !important;
+    cursor: pointer;
+}
 .pr-20 {
     padding-right: 5%;
 }
