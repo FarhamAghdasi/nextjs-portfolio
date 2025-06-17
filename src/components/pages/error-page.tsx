@@ -23,11 +23,11 @@ export default function ErrorPage({ statusCode, reset }: ErrorPageProps) {
         cpage={
           <p>
             {message} <br />
-            <Link href="/" className="underline text-blue-500">
+            <Link href="/">
               Back to Home
             </Link>{' '}
             or{' '}
-            <button onClick={reset} className="underline text-blue-500">
+            <button onClick={reset}>
               Try Again
             </button>
           </p>
