@@ -11,18 +11,18 @@ import type { Metadata } from 'next';
 import { Header, Footer } from '@/components';
 import { defaultMetadata } from '@/components/addon/seo';
 import PageInitializer from '@/components/PageInitializer';
+import {PageTransition} from '@/components';
 
 export const metadata: Metadata = defaultMetadata;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <head />
       <body>
         <Header />
-        <PageInitializer /> 
-        {children}
+        <PageTransition>{children}</PageTransition>
         <Footer />
+        <PageInitializer />
       </body>
     </html>
   );
