@@ -16,7 +16,10 @@ export default function PageTransition({ children }: PageTransitionProps) {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    if (pathname.startsWith('/templates')) {
+    if (
+      pathname.startsWith('/templates') ||
+      (pathname.startsWith('/portfolio/') && pathname !== '/portfolio')
+    ) {
       gsap.set(containerRef.current, { opacity: 1, y: 0, clearProps: 'all' });
       return;
     }
