@@ -33,7 +33,7 @@ const skillImages: { [key: string]: StaticImageData } = {
 };
 
 const Skills: React.FC = () => {
-  const { header, skills, numbers, marquee, resumeHeader, experience } = skillsData;
+  const { header, skills, numbers, marquee, marquee2 , resumeHeader, experience } = skillsData;
 
   return (
     <section className="gray-box section-padding">
@@ -145,6 +145,25 @@ const Skills: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* Reverse Marquee Section */}
+      <div className="marquee skills-padding">
+        <div className="main-marq shadow-off ontop">
+          <div className="slide-har st2 d-flex">
+            {Array.from({ length: 2 }).map((_, boxIdx) => (
+              <div key={boxIdx} className="box">
+                {marquee2.map((item: string, i: number) => (
+                  <div key={`${boxIdx}-${i}`} className="item">
+                    <p>
+                      <span>{item}</span>
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+          
 
       {/* Resume Section */}
       <div className="resume">
