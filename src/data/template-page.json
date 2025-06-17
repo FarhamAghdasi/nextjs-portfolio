@@ -1,10 +1,12 @@
 {
-    "category": "Category",
-    "author": "Author",
-    "preview": "You can see website with this",
-    "link": "Link!",
-    "faq_title": "FAQ's",
-    "faq_text": "Check out faq's!",
-    "more_templates": "Check More Templates!"
-  }
-  
+  "postNotFound": "Template not found.",
+  "defaultTitle": "Untitled Template",
+  "defaultDescription": "No description available.",
+  "category": "Category",
+  "author": "Author",
+  "preview": "Preview on",
+  "link": "this link",
+  "faq_title": "Frequently Asked Questions",
+  "faq_text": "Find answers to common questions about this template.",
+  "more_templates": "Explore More Templates"
+}

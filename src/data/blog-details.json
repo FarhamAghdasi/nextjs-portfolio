@@ -18,6 +18,7 @@
     "captchaError": "Please enter the CAPTCHA.",
     "commentFailed": "Failed to post comment.",
     "commentError": "An error occurred while posting your comment.",
+    "commentSuccess": "Comment posted successfully!",
     "postComment": "Post Comment",
     "submitting": "Submitting...",
     "searchPlaceholder": "Search",

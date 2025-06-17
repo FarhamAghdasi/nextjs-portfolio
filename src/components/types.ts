@@ -241,4 +241,20 @@ export interface Portfolio {
     description: string;
     Shortdescription: string;
     thumbnail: string;
-  }
+}
+
+export interface TemplateDetails2 {
+    url: string;
+    title: string;
+    thumbnail: string;
+    category?: string;
+    author?: string;
+    Shortdescription?: string;
+    description?: string;
+    buyLink?: string;
+    serviceTitle1?: string;
+    serviceTitle2?: string;
+    serviceTitle3?: string;
+    accordionTitle?: string;
+    accordionContent?: string;
+}

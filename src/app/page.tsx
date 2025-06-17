@@ -1,23 +1,46 @@
-"use client"
-import { Posts, Skills, Hero, Portfolio, Service, SEO } from '@/components';
-import React from 'react';
+import { Metadata } from 'next';
+import { HomePage } from '@/components';
+import { defaultMetadata } from '@/components/addon/seo';
 
-const HomePage: React.FC = () => {
-  return (
-    <>
-      <SEO
-        title="Front-end Developer"
-        description="Welcome to my personal website. I am Farham Aghdasi, a programmer specializing in web development and software solutions."
-        url="https://farhamaghdasi.ir/"
-        image="https://farhamaghdasi.ir/images/og-image.jpg"
-      />
-      <Hero />
-      <Portfolio />
-      <Service />
-      <Skills />
-      <Posts />
-    </>
-  );
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const pageTitle = 'Front-end Developer';
+  const pageDescription = 'Welcome to my personal website. I am Farham Aghdasi, a programmer specializing in web development and software solutions.';
+  const pageUrl = 'https://farhamaghdasi.ir/';
+  const pageImage = 'https://farhamaghdasi.ir/images/og-image.jpg';
 
-export default HomePage;
+  return {
+    ...defaultMetadata,
+    title: {
+      default: pageTitle,
+      template: defaultMetadata.title.template,
+    },
+    description: pageDescription,
+    openGraph: {
+      ...defaultMetadata.openGraph,
+      title: pageTitle,
+      description: pageDescription,
+      url: pageUrl,
+      images: [
+        {
+          url: pageImage,
+          width: 1200,
+          height: 630,
+          alt: 'Farham Aghdasi',
+        },
+      ],
+    },
+    twitter: {
+      ...defaultMetadata.twitter,
+      title: pageTitle,
+      description: pageDescription,
+      images: [pageImage],
+    },
+    alternates: {
+      canonical: pageUrl,
+    },
+  };
+}
+
+export default function Home() {
+  return <HomePage />;
+}
