@@ -1,10 +1,14 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import {TemplateDetails} from '@/components';
+import { TemplateDetails } from '@/components';
 import templateData from '@/data/api/template.json';
 import texts from '@/data/template-page.json';
 import { defaultMetadata } from '@/components/addon/seo';
 import { TemplateDetails2 } from '@/components/types';
+
+function stripHtmlTags(str: string): string {
+  return str.replace(/<[^>]*>/g, '').trim();
+}
 
 interface TemplatePageProps {
   params: { slug: string };
@@ -32,9 +36,9 @@ export async function generateMetadata({ params }: TemplatePageProps): Promise<M
   }
 
   const pageTitle = template.title || texts.defaultTitle;
-  const pageDescription = template.description || texts.defaultDescription;
+  const pageDescription = stripHtmlTags(template.Shortdescription) || texts.defaultDescription;
   const pageUrl = `https://farhamaghdasi.ir/templates/${template.url}`;
-  const pageImage = `https://farhamaghdasi.ir/uploads/${template.thumbnail}` || defaultMetadata.openGraph.images[0].url;
+  const pageImage = `https://farhamaghdasi.ir/${template.thumbnail}` || defaultMetadata.openGraph.images[0].url;
 
   return {
     ...defaultMetadata,

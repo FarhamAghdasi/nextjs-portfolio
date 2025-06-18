@@ -29,12 +29,12 @@ body {
     will-change: transform;
 }
 
-.accordion-collapse {
+.faqs-pg .accordion-collapse {
     transition: max-height 0.4s ease, opacity 0.4s ease;
     opacity: 0;
 }
 
-.accordion-collapse.fade.show {
+.faqs-pg .accordion-collapse.fade.show {
     opacity: 1;
 }
 .card-item {
