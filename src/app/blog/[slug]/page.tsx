@@ -8,18 +8,18 @@ import { PostDetails } from '@/components/types';
 
 interface BlogPageProps {
   params: {
-    url: string;
+    slug: string;
   };
 }
 
 export async function generateStaticParams() {
   return postsData.posts.map((post: PostDetails) => ({
-    url: post.url,
+    slug: post.url,
   }));
 }
 
 export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
-  const post = postsData.posts.find((p: PostDetails) => p.url === params.url);
+  const post = postsData.posts.find((p: PostDetails) => p.url === params.slug);
 
   if (!post) {
     return {
@@ -36,7 +36,9 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
   const pageTitle = post.title || texts.defaultTitle;
   const pageDescription = post.short_description || texts.defaultDescription;
   const pageUrl = `https://farhamaghdasi.ir/blog/${post.url}`;
-  const pageImage = `https://farhamaghdasi.ir${post.thumbnail}` || defaultMetadata.openGraph.images[0].url;
+  const pageImage = post.thumbnail
+    ? `https://farhamaghdasi.ir${post.thumbnail}`
+    : defaultMetadata.openGraph.images[0].url;
 
   return {
     ...defaultMetadata,
@@ -69,7 +71,7 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
 }
 
 export default function BlogPage({ params }: BlogPageProps) {
-  const post = postsData.posts.find((p: PostDetails) => p.url === params.url);
+  const post = postsData.posts.find((p: PostDetails) => p.url === params.slug);
   const posts = postsData.posts;
 
   if (!post) {

@@ -19,6 +19,8 @@ export { default as Service } from './section/service-section';
 export { default as Skills } from './section/skills-section';
 export { default as AccordionSection } from './section/accordion-section';
 export { default as Contact } from './section/contact-section';
+export { default as Sidebar } from './section/blog-sidebar';
+
 
 /** Addon */
 export { default as Captcha } from './addon/captcha';
