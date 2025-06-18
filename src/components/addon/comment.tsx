@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import DefaultProfile from '@/assets/imgs/profile.png';
-import styles from './comments.module.css';
+import '@/assets/css/comments.css';
 
 interface Comment {
   id: number;
@@ -36,47 +36,47 @@ export default function CommentsSection({ url }: CommentsSectionProps) {
   }, [url]);
 
   return (
-    <div className={styles.commentsList}>
+    <div className="comments-list">
       {comments.length > 0 ? (
         comments
           .filter(comment => comment.parent_id === null)
           .map(comment => (
-            <div key={comment.id} className={styles.comment}>
-              <div className={styles.commentHeader}>
+            <div key={comment.id} className="comment">
+              <div className="comment-header">
                 <Image
                   src={DefaultProfile}
                   alt="avatar"
-                  className={styles.avatar}
+                  className="avatar"
                   width={40}
                   height={40}
                 />
-                <div className={styles.commentDetails}>
+                <div className="comment-details">
                   <h6>{comment.author_name}</h6>
                   <small>{new Date(comment.date).toLocaleString()}</small>
                 </div>
               </div>
-              <div className={styles.commentBody}>
+              <div className="comment-body">
                 <p>{comment.content}</p>
               </div>
-              <div className={styles.replies}>
+              <div className="replies">
                 {comments
                   .filter(reply => reply.parent_id === comment.id)
                   .map(reply => (
-                    <div key={reply.id} className={`${styles.comment} ${styles.reply}`}>
-                      <div className={styles.commentHeader}>
+                    <div key={reply.id} className="comment reply">
+                      <div className="comment-header">
                         <Image
                           src={DefaultProfile}
                           alt="avatar"
-                          className={styles.avatar}
+                          className="avatar"
                           width={40}
                           height={40}
                         />
-                        <div className={styles.commentDetails}>
+                        <div className="comment-details">
                           <h6>{reply.author_name}</h6>
                           <small>{new Date(reply.date).toLocaleString()}</small>
                         </div>
                       </div>
-                      <div className={styles.commentBody}>
+                      <div className="comment-body">
                         <p>{reply.content}</p>
                       </div>
                     </div>

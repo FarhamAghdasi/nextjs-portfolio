@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { Typewriter } from 'react-simple-typewriter';
 import content from '@/data/hero.json';
+import Link from 'next/link';
 
 const Hero = () => {
   const [startTyping, setStartTyping] = useState(false);
@@ -104,7 +105,7 @@ const Hero = () => {
                   </a>
                 ))}
               </div>
-              <p>{content.description}</p>
+              <p>{content.description} <br /> <Link href="/resume.pdf" target='_blank' className='link'>See My Resume</Link></p>
             </div>
           </div>
         </div>

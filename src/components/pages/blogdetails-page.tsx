@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Share, Captcha, Comments } from '@/components';
+import { Sidebar } from '@/components';
 import authorImage from '@/assets/imgs/logo.png';
 import texts from '@/data/blog-details.json';
 import { PostDetails, BlogInfoProps, FormData } from '@/components/types';
@@ -156,7 +157,7 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
                       </div>
                       <div>
                         {post.tags.map((tag) => (
-                          <Link href={`/blog?tag=${encodeURIComponent(tag)}`} key={tag}>
+                          <Link href={`/blog?category=${encodeURIComponent(tag)}`} key={tag}>
                             {tag}
                           </Link>
                         ))}
@@ -252,55 +253,7 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
               </div>
             </div>
             <div className="col-lg-4">
-              <div className="sidebar">
-                <div className="search-box">
-                  <input type="text" name="search-post" placeholder={texts.searchPlaceholder} />
-                  <span className="icon pe-7s-search" />
-                </div>
-                <div className="widget catogry">
-                  <h6 className="title-widget">{texts.categoryTitle}</h6>
-                  <ul className="rest">
-                    {Array.from(new Set(posts.map((p) => p.category))).map((category) => (
-                      <li key={category}>
-                        <span>
-                          <Link href={`/blog?category=${encodeURIComponent(category)}`}>{category}</Link>
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="widget last-post-thum">
-                  <h6 className="title-widget">{texts.latestPosts}</h6>
-                  {posts.slice(0, 3).map((p) => (
-                    <div className="item d-flex align-items-center" key={p.id}>
-                      <div>
-                        <div className="img">
-                          <Link href={`/blog/${p.url}`}>
-                            <Image
-                              src={`https://farhamaghdasi.ir${p.thumbnail}` || '/default-image.jpg'}
-                              alt={p.title || 'Blog Post'}
-                              width={80}
-                              height={80}
-                              style={{ objectFit: 'cover' }}
-                            />
-                            <span className="date">
-                              <span>{new Date(p.date).toLocaleDateString()}</span>
-                            </span>
-                          </Link>
-                        </div>
-                      </div>
-                      <div className="cont">
-                        <span className="tag">
-                          <Link href={`/blog?category=${encodeURIComponent(p.category)}`}>{p.category}</Link>
-                        </span>
-                        <h6>
-                          <Link href={`/blog/${p.url}`}>{p.title}</Link>
-                        </h6>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <Sidebar posts={posts} />
             </div>
           </div>
         </div>

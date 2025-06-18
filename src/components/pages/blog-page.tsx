@@ -8,6 +8,7 @@ import gsap from 'gsap';
 import postsData from '@/data/api/posts.json';
 import texts from '@/data/blog.json';
 import Logo from '@/assets/imgs/logo.png';
+import { Sidebar } from '@/components';
 import { PostBlog } from '@/components/types';
 
 const Bloginfo: React.FC = () => {
@@ -19,8 +20,7 @@ const Bloginfo: React.FC = () => {
   const category = searchParams.get('category') || '';
 
   const posts: PostBlog[] = postsData.posts || [];
-  const availableCategories = [...new Set(posts.map((post) => post.category))];
-  const isCategoryValid = category ? availableCategories.includes(category) : true;
+  const isCategoryValid = category ? [...new Set(posts.map((post) => post.category))].includes(category) : true;
 
   const filteredPosts = useMemo(() => {
     let filtered = posts;
@@ -56,25 +56,19 @@ const Bloginfo: React.FC = () => {
     return () => ctx.revert();
   }, [filteredPosts]);
 
-  const handleSearch = () => {
-    setSearchTerm(inputValue);
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
+  const handleSearch = (term: string) => {
+    setSearchTerm(term);
+    setInputValue(term);
   };
 
   const handleReset = () => {
     setInputValue('');
     setSearchTerm('');
-    router.push('/blog'); // Reset both search and category
+    router.push('/blog');
   };
 
   return (
     <>
-      {/* Blog header section */}
       <header className="blog-hed">
         <div className="container section-padding bord-thin-bottom-light">
           <div className="row">
@@ -92,7 +86,6 @@ const Bloginfo: React.FC = () => {
         </div>
       </header>
 
-      {/* Main blog content section */}
       <div className="blog-mp section-padding">
         <div className="container">
           <div className="row xlg-marg">
@@ -155,69 +148,8 @@ const Bloginfo: React.FC = () => {
                 )}
               </div>
             </div>
-
-            {/* Sidebar section */}
             <div className="col-lg-4">
-              <div className="sidebar">
-                <div className="search-box mb-4 d-flex gap-2">
-                  <input
-                    type="text"
-                    name="search-post"
-                    placeholder={texts.searchPlaceholder}
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    className="form-control"
-                  />
-                    <a type="button" className="icon fa fa-search pr-20" onClick={handleSearch} />
-                    <a type="button" className="icon fa fa-remove mr-4" onClick={handleReset} />
-                </div>
-
-                <div className="widget catogry mb-4">
-                  <h6 className="title-widget">{texts.categoriesTitle}</h6>
-                  <ul className="rest">
-                    {availableCategories.map((cat) => (
-                      <li key={cat} className={category === cat ? 'active' : ''}>
-                        <Link href={`/blog?category=${encodeURIComponent(cat)}`}>{cat}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="widget last-post-thum">
-                  <h6 className="title-widget">{texts.latestPostsTitle}</h6>
-                  {posts.slice(0, 3).map((post) => (
-                    <div className="item d-flex align-items-center" key={post.id}>
-                      <div>
-                        <div className="img">
-                          <Link href={`/blog/${post.url}`}>
-                            <Image
-                              src={`https://farhamaghdasi.ir${post.thumbnail}` || '/default-image.jpg'}
-                              alt={post.title || 'Blog Post'}
-                              width={100}
-                              height={70}
-                              style={{ objectFit: 'cover' }}
-                            />
-                            <span className="date">
-                              <span>{post.date}</span>
-                            </span>
-                          </Link>
-                        </div>
-                      </div>
-                      <div className="cont">
-                        <span className="tag">
-                          <Link href={`/blog?category=${encodeURIComponent(post.category)}`}>
-                            {post.category}
-                          </Link>
-                        </span>
-                        <h6>
-                          <Link href={`/blog/${post.url}`}>{post.title}</Link>
-                        </h6>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <Sidebar posts={posts} onSearch={handleSearch} onReset={handleReset} />
             </div>
           </div>
         </div>
