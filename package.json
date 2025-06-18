@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:ssg": "next build && next export"
   },
   "dependencies": {
     "animate.css": "^4.1.1",
