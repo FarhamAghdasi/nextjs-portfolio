@@ -5,6 +5,10 @@ import PortfolioInfoClient from '@/components/addon/PortfolioInfoClient';
 import { defaultMetadata } from '@/components/addon/seo';
 import texts from '@/data/portfolio-details.json';
 
+function stripHtmlTags(str: string): string {
+  return str.replace(/<[^>]*>/g, '').trim();
+}
+
 interface PageProps {
   params: {
     slug: string;
@@ -35,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const imagePrimary = `https://farhamaghdasi.ir/${portfolio.thumbnail}` || '/default-thumbnail.jpg';
   const pageUrl = `https://farhamaghdasi.ir/portfolio/${portfolio.url}`;
   const pageTitle = portfolio.title || texts.seoDefaultTitle;
-  const pageDescription = portfolio.description || texts.seoDefaultDescription;
+  const pageDescription = stripHtmlTags(portfolio.Shortdescription) || texts.seoDefaultDescription;
 
   return {
     ...defaultMetadata,

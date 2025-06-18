@@ -35,7 +35,6 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
 
   return (
     <>
-      <Header />
       <header className="serv-hed2 section-padding pb-0">
         <div className="container">
           <div className="caption mb-80">
@@ -164,7 +163,6 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
           </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 };
