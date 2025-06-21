@@ -28,6 +28,7 @@ export { default as Comments } from './addon/comment';
 export { default as ScrollTop } from './addon/scroll-top';
 export { default as Share } from './addon/share';
 export { default as SmoothScroll } from './addon/smoothScroll';
+export { default as ScrollAnimation } from './addon/wow-animation';
 
 /** Page */
 export { default as WorksPage } from './pages/portfolio-page';

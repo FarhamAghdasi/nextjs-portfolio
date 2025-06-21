@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Inner, Bio, ServiceLine, Faq } from '@/components';
+import { Inner, Bio, ServiceLine, Faq , ScrollAnimation} from '@/components';
 import servicesText from '@/data/services.json';
 
 const ServicesPage: React.FC = () => {
@@ -12,9 +12,15 @@ const ServicesPage: React.FC = () => {
         first={servicesText.innerFirst}
         secend={servicesText.innerSecond}
       />
-      <Bio />
-      <ServiceLine />
-      <Faq />
+      <ScrollAnimation animationType="fadeInUp" duration={0.6} delay={0.1}>
+        <Bio />
+      </ScrollAnimation>
+      <ScrollAnimation animationType="zoomIn" duration={0.6} delay={0.2}>
+        <ServiceLine />
+      </ScrollAnimation>
+      <ScrollAnimation animationType="slideRight" duration={0.6} delay={0.3}>
+        <Faq />
+      </ScrollAnimation>
     </>
   );
 };
