@@ -93,7 +93,7 @@ const Bloginfo: React.FC = () => {
               <div className="main-blog md-mb80" ref={postsRef}>
                 {!isCategoryValid ? (
                   <p>
-                    Category &quot;{category}&quot; does not exist.
+                    Category "{category}" does not exist.
                   </p>
                 ) : filteredPosts.length === 0 ? (
                   <p>{texts.noPostsFound}</p>
@@ -125,7 +125,7 @@ const Bloginfo: React.FC = () => {
                       </div>
                       <div className="img fit-img mt-30">
                         <Image
-                          src={post.thumbnail ? `https://farhamaghdasi.ir${post.thumbnail}` : '/default-image.jpg'}
+                          src={post.thumbnail ? `/assets/imgs/uploads/${post.thumbnail}` : '/default-image.jpg'}
                           alt={post.title || 'Blog Post'}
                           width={1200}
                           height={630}

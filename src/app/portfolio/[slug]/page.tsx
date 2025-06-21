@@ -1,84 +1,30 @@
-import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import portfoliosData from '@/data/api/portfolio.json';
-import PortfolioInfoClient from '@/components/addon/PortfolioInfoClient';
+import {WorksPage} from '@/components';
 import { defaultMetadata } from '@/components/addon/seo';
-import texts from '@/data/portfolio-details.json';
+import texts from '@/data/portfolio-page.json';
 
-function stripHtmlTags(str: string): string {
-  return str.replace(/<[^>]*>/g, '').trim();
-}
-
-interface PageProps {
-  params: Promise<{ slug: string }>; // اصلاح نوع params به Promise
-}
-
-export async function generateStaticParams() {
-  return portfoliosData.portfolio.map((p) => ({
-    slug: p.url,
-  }));
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-
-  const portfolio = portfoliosData.portfolio.find((p) => p.url === slug);
-
-  if (!portfolio) {
-    return {
-      ...defaultMetadata,
-      title: `Not Found | ${defaultMetadata.title?.default ?? ''}`,
-      description: texts.portfolioNotFound ?? 'Portfolio not found.',
-      robots: {
-        index: false,
-        follow: false,
-      },
-    };
-  }
-
-  const imagePrimary = `https://farhamaghdasi.ir/${portfolio.thumbnail}` || '/default-thumbnail.jpg';
-  const pageUrl = `https://farhamaghdasi.ir/portfolio/${portfolio.url}`;
-  const pageTitle = portfolio.title || texts.seoDefaultTitle || 'Portfolio';
-  const pageDescription = stripHtmlTags(portfolio.Shortdescription) || texts.seoDefaultDescription || '';
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
     ...defaultMetadata,
-    title: pageTitle,
-    description: pageDescription,
+    title: texts.seoTitle,
+    description: texts.seoDescription,
     openGraph: {
       ...defaultMetadata.openGraph,
-      title: pageTitle,
-      description: pageDescription,
-      url: pageUrl,
-      images: [
-        {
-          url: imagePrimary,
-          width: 1200,
-          height: 630,
-          alt: portfolio.title || 'Portfolio Image',
-        },
-      ],
+      title: texts.seoTitle,
+      description: texts.seoDescription,
+      url: 'https://farhamaghdasi.ir/portfolio',
     },
     twitter: {
       ...defaultMetadata.twitter,
-      title: pageTitle,
-      description: pageDescription,
-      images: [imagePrimary],
+      title: texts.seoTitle,
+      description: texts.seoDescription,
     },
     alternates: {
-      canonical: pageUrl,
+      canonical: 'https://farhamaghdasi.ir/portfolio',
     },
   };
 }
 
-export default async function PortfolioPage({ params }: PageProps) {
-  const { slug } = await params;
-
-  const portfolio = portfoliosData.portfolio.find((p) => p.url === slug);
-
-  if (!portfolio) {
-    notFound();
-  }
-
-  return <PortfolioInfoClient portfolio={portfolio} />;
+export default function PortfolioPage() {
+  return <WorksPage />;
 }

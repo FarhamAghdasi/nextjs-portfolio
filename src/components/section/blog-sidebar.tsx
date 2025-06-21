@@ -83,7 +83,7 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
               <div className="img">
                 <Link href={`/blog/${post.url}`}>
                   <Image
-                    src={`https://farhamaghdasi.ir${post.thumbnail}` || '/default-image.jpg'}
+                    src={post.thumbnail ? `/assets/imgs/uploads/${post.thumbnail}` : '/default-image.jpg'}
                     alt={post.title || 'Blog Post'}
                     width={100}
                     height={70}

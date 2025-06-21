@@ -31,7 +31,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
     );
   }
 
-  const imagePrimary = `https://farhamaghdasi.ir/${portfolio.thumbnail}`;
+  const imagePrimary = portfolio.thumbnail ? `/assets/imgs/uploads/${portfolio.thumbnail}` : '/default-image.jpg';
 
   return (
     <>
@@ -72,7 +72,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
         <div className="container-fluid">
           <div className="fit-img radius-15 scale">
             <Image
-              src={imagePrimary || '/default-image.jpg'}
+              src={imagePrimary}
               alt={portfolio.title || 'Portfolio Image'}
               width={1200}
               height={600}

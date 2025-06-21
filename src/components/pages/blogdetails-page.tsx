@@ -7,18 +7,18 @@ import { Suspense } from 'react';
 import { Share, Captcha, Comments, Sidebar } from '@/components';
 import authorImage from '@/assets/imgs/logo.png';
 import texts from '@/data/blog-details.json';
-import { BlogInfoProps, FormData, Comment } from '@/components/types'; // Import Comment
+import { BlogInfoProps, FormData, Comment } from '@/components/types';
 import { useSearchParams } from 'next/navigation';
 
 interface ExtendedBlogInfoProps extends BlogInfoProps {
-  searchTerm?: string; // Make it optional to match the default value of ""
+  searchTerm?: string;
   initialComments?: Comment[];
 }
 
 const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComments = [] }) => {
   const searchParams = useSearchParams();
   const searchTerm = searchParams.get('search') || '';
-    const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     message: '',
@@ -69,7 +69,7 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
           name: formData.name.trim(),
           email: formData.email.trim(),
           message: formData.message.trim(),
-          url: post?.url,
+          url: post?.url ?? '',
         }),
       });
 
@@ -103,7 +103,7 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
         <div
           className="out container-xl bg-img mt-80"
           data-overlay-dark="4"
-          style={{ backgroundImage: `url(https://farhamaghdasi.ir${post.thumbnail})` }}
+          style={{ backgroundImage: `url(/assets/imgs/uploads/${post.thumbnail})` }}
         >
           <div className="row">
             <div className="col-lg-12">
@@ -336,7 +336,7 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                   <div className="img fit-img mt-30">
                     <Link href={`/blog/${p.url}`}>
                       <Image
-                        src={`https://farhamaghdasi.ir${p.thumbnail}` || '/default-image.jpg'}
+                        src={p.thumbnail ? `/assets/imgs/uploads/${p.thumbnail}` : '/default-image.jpg'}
                         alt={p.title || 'Blog Post'}
                         width={400}
                         height={300}

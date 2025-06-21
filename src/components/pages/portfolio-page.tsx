@@ -131,7 +131,7 @@ const WorksPage: React.FC = () => {
                   <div className="img fit-img mt-30" style={{ height: '400px' }}>
                     {portfolio.thumbnail ? (
                       <Image
-                        src={`https://farhamaghdasi.ir/${portfolio.thumbnail}`}
+                        src={`/assets/imgs/uploads/${portfolio.thumbnail}`}
                         alt={portfolio.title || 'Portfolio Image'}
                         width={600}
                         height={400}
