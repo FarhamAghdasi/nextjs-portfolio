@@ -3,11 +3,13 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { Share, Captcha, Comments } from '@/components';
 import { Sidebar } from '@/components';
 import authorImage from '@/assets/imgs/logo.png';
 import texts from '@/data/blog-details.json';
 import { PostDetails, BlogInfoProps, FormData } from '@/components/types';
+
 
 const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
   const [formData, setFormData] = useState<FormData>({
@@ -18,6 +20,12 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const category = searchParams.get('category') || '';
+  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -25,6 +33,17 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleSearch = (term: string) => {
+    setSearchTerm(term);
+    setInputValue(term);
+  };
+
+  const handleReset = () => {
+    setInputValue('');
+    setSearchTerm('');
+    router.push('/blog');
   };
 
   const handleCaptchaChange = (value: string) => {
@@ -253,7 +272,7 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
               </div>
             </div>
             <div className="col-lg-4">
-              <Sidebar posts={posts} />
+             <Sidebar posts={posts} onSearch={handleSearch} onReset={handleReset} />
             </div>
           </div>
         </div>
