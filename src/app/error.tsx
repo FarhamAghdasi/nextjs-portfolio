@@ -1,42 +1,43 @@
-"use client"
+"use client";
+
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 import { ErrorPage } from '@/components';
 import errorTexts from '@/data/errors.json';
 import { defaultMetadata } from '@/components/addon/seo';
+
+export const metadata: Metadata = {
+  ...defaultMetadata,
+  title: `404 | ${defaultMetadata.title?.default ?? ''}`,
+  description: errorTexts["404"] || errorTexts.default,
+  robots: {
+    index: false,
+    follow: false,
+  },
+  openGraph: {
+    ...defaultMetadata.openGraph,
+    title: "404 Not Found",
+    description: errorTexts["404"] || errorTexts.default,
+    url: 'https://farhamaghdasi.ir/404',
+  },
+  twitter: {
+    ...defaultMetadata.twitter,
+    title: "404 Not Found",
+    description: errorTexts["404"] || errorTexts.default,
+  },
+};
 
 interface ErrorPageProps {
   error: Error & { statusCode?: number };
   reset: () => void;
 }
 
-export async function generateMetadata({ error }: { error: Error & { statusCode?: number } }): Promise<Metadata> {
-  const statusCode = error.statusCode || 500;
-  const message = (errorTexts as Record<string, string>)[String(statusCode)] || errorTexts.default;
-
-  return {
-    ...defaultMetadata,
-    title: `Error ${statusCode} | ${defaultMetadata.title.default}`,
-    description: message,
-    robots: {
-      index: false,
-      follow: false,
-    },
-    openGraph: {
-      ...defaultMetadata.openGraph,
-      title: `Error ${statusCode}`,
-      description: message,
-      url: 'https://farhamaghdasi.ir/error',
-    },
-    twitter: {
-      ...defaultMetadata.twitter,
-      title: `Error ${statusCode}`,
-      description: message,
-    },
-  };
-}
-
-export default function Error({ error, reset }: ErrorPageProps) {
+export default function Error({ error }: ErrorPageProps) {
   const statusCode = error.statusCode || 500;
 
-  return <ErrorPage statusCode={statusCode} reset={reset} />;
+  return (
+    <Suspense fallback={<div>Loading error page...</div>}>
+      <ErrorPage statusCode={statusCode} />
+    </Suspense>
+  );
 }

@@ -7,10 +7,9 @@ import errorTexts from '@/data/errors.json';
 
 interface ErrorPageProps {
   statusCode: number;
-  reset: () => void;
 }
 
-export default function ErrorPage({ statusCode, reset }: ErrorPageProps) {
+export default function ErrorPage({ statusCode }: ErrorPageProps) {
   const message = (errorTexts as Record<string, string>)[String(statusCode)] || errorTexts.default;
 
   return (
@@ -26,9 +25,6 @@ export default function ErrorPage({ statusCode, reset }: ErrorPageProps) {
               Back to Home
             </Link>{' '}
             or{' '}
-            <a onClick={reset}>
-              Try Again
-            </a>
           </p>
         }
         noimage

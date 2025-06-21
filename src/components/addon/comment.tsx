@@ -4,22 +4,15 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import DefaultProfile from '@/assets/imgs/profile.png';
 import '@/assets/css/comments.css';
-
-
-interface Comment {
-  id: number;
-  parent_id: number | null;
-  author_name: string;
-  content: string;
-  date: string;
-}
+import { Comment } from '@/components/types'; // Import Comment
 
 interface CommentsSectionProps {
   url: string;
+  initialComments?: Comment[];
 }
 
-const CommentsSection: React.FC<CommentsSectionProps> = ({ url }) => {
-  const [comments, setComments] = useState<Comment[]>([]);
+const CommentsSection: React.FC<CommentsSectionProps> = ({ url, initialComments = [] }) => {
+  const [comments, setComments] = useState<Comment[]>(initialComments);
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -33,14 +26,16 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ url }) => {
       }
     };
 
-    fetchComments();
-  }, [url]);
+    if (!initialComments.length) {
+      fetchComments();
+    }
+  }, [url, initialComments]);
 
   return (
     <div className="comments-list">
       {comments.length > 0 ? (
         comments
-          .filter(comment => comment.parent_id === null) // کامنت‌های اصلی
+          .filter(comment => comment.parent_id === null)
           .map(comment => (
             <div key={comment.id} className="comment">
               <div className="comment-header">
@@ -61,7 +56,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ url }) => {
               </div>
               <div className="replies">
                 {comments
-                  .filter(reply => reply.parent_id === comment.id) // پاسخ‌ها
+                  .filter(reply => reply.parent_id === comment.id)
                   .map(reply => (
                     <div key={reply.id} className="comment reply">
                       <div className="comment-header">
