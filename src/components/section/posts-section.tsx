@@ -25,7 +25,7 @@ const Blog: React.FC = () => {
   const getThumbnail = (thumbnail?: string) => {
     if (!thumbnail) return fallbackPost.thumbnail;
     if (thumbnail.startsWith('http') || thumbnail.startsWith('/')) return thumbnail;
-    return `https://farhamaghdasi.ir/uploads/${thumbnail}`;
+    return `https://farhamaghdasi.ir${thumbnail}`;
   };
 
   return (

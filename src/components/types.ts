@@ -13,7 +13,7 @@ export interface ContentSection {
         class?: string;
         title: string;
         images?: ImageItem[];
-        [key: string]: any;
+        [key: string]: unknown;
     };
 }
 

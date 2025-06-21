@@ -29,8 +29,12 @@ const ContactPageContent = () => {
       } else {
         setResponseMessage(texts.failureMessage);
       }
-    } catch (error: any) {
-      setResponseMessage(texts.errorMessagePrefix + error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setResponseMessage(texts.errorMessagePrefix + error.message);
+      } else {
+        setResponseMessage(texts.errorMessagePrefix + 'Unexpected error occurred.');
+      }
     }
   };
 
@@ -42,8 +46,7 @@ const ContactPageContent = () => {
             <div className="full-width md-mb80">
               <div className="sec-head md-mb80">
                 <h2 className="text-u">
-                  Let's make your <br /> brand{" "}
-                  <span className="fw-200">{texts.headerHighlight}</span>
+                  Let&rsquo;s make your <br /> brand <span className="fw-200">{texts.headerHighlight}</span>
                 </h2>
                 <p className="mt-20 mb-20">{texts.description}</p>
                 <div className="row">
@@ -156,10 +159,10 @@ const ContactPageContent = () => {
                         <div className="d-flex align-items-center">
                           <span>{texts.submitButton}</span>
                           <span className="icon ml-10">
-                            <Image 
-                            src={ArrowRightTop} 
-                            alt=""
-                             />
+                            <Image
+                              src={ArrowRightTop}
+                              alt=""
+                            />
                           </span>
                         </div>
                       </button>

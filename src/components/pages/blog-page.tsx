@@ -5,22 +5,24 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
 import gsap from 'gsap';
-import postsData from '@/data/api/posts.json';
+import rawPostsData from '@/data/api/posts.json';
 import texts from '@/data/blog.json';
 import Logo from '@/assets/imgs/logo.png';
 import { Sidebar } from '@/components';
 import { PostBlog } from '@/components/types';
 
 const Bloginfo: React.FC = () => {
-  const [inputValue, setInputValue] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const postsRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
   const category = searchParams.get('category') || '';
 
-  const posts: PostBlog[] = postsData.posts || [];
-  const isCategoryValid = category ? [...new Set(posts.map((post) => post.category))].includes(category) : true;
+  const posts: PostBlog[] = useMemo(() => rawPostsData.posts || [], []);
+
+  const isCategoryValid = category
+    ? [...new Set(posts.map((post) => post.category))].includes(category)
+    : true;
 
   const filteredPosts = useMemo(() => {
     let filtered = posts;
@@ -47,7 +49,7 @@ const Bloginfo: React.FC = () => {
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        postsRef.current.children,
+        postsRef.current!.children,
         { opacity: 0, y: 10 },
         { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1 }
       );
@@ -58,11 +60,9 @@ const Bloginfo: React.FC = () => {
 
   const handleSearch = (term: string) => {
     setSearchTerm(term);
-    setInputValue(term);
   };
 
   const handleReset = () => {
-    setInputValue('');
     setSearchTerm('');
     router.push('/blog');
   };
@@ -92,7 +92,9 @@ const Bloginfo: React.FC = () => {
             <div className="col-lg-8">
               <div className="main-blog md-mb80" ref={postsRef}>
                 {!isCategoryValid ? (
-                  <p>Category "{category}" does not exist.</p>
+                  <p>
+                    Category &quot;{category}&quot; does not exist.
+                  </p>
                 ) : filteredPosts.length === 0 ? (
                   <p>{texts.noPostsFound}</p>
                 ) : (
@@ -123,7 +125,7 @@ const Bloginfo: React.FC = () => {
                       </div>
                       <div className="img fit-img mt-30">
                         <Image
-                          src={`https://farhamaghdasi.ir${post.thumbnail}` || '/default-image.jpg'}
+                          src={post.thumbnail ? `https://farhamaghdasi.ir${post.thumbnail}` : '/default-image.jpg'}
                           alt={post.title || 'Blog Post'}
                           width={1200}
                           height={630}

@@ -1,11 +1,12 @@
-"use client"
-import React, { useState, useEffect, ChangeEvent, FC } from 'react';
+"use client";
+import React, { useState, useEffect, ChangeEvent, FC, useCallback } from 'react';
 
 type CreateCaptchaProps = {
   onCaptchaChange: (value: string) => void;
 };
 
 const CreateCaptcha: FC<CreateCaptchaProps> = ({ onCaptchaChange }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [captchaCode, setCaptchaCode] = useState<string>('');
   const [captchaImage, setCaptchaImage] = useState<string>('');
 
@@ -52,16 +53,16 @@ const CreateCaptcha: FC<CreateCaptchaProps> = ({ onCaptchaChange }) => {
     return canvas.toDataURL('image/png');
   };
 
-  const getCaptcha = (): void => {
+  const getCaptcha = useCallback((): void => {
     const newCaptchaCode = generateCaptchaCode();
     const newCaptchaImage = generateCaptchaImage(newCaptchaCode);
     setCaptchaCode(newCaptchaCode);
     setCaptchaImage(newCaptchaImage);
-  };
+  }, []);
 
   useEffect(() => {
     getCaptcha();
-  }, []);
+  }, [getCaptcha]);
 
   const handleCaptchaInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     onCaptchaChange(e.target.value);
@@ -70,6 +71,7 @@ const CreateCaptcha: FC<CreateCaptchaProps> = ({ onCaptchaChange }) => {
   return (
     <div className="col-12">
       <div className="form-group d-flex align-items-center mt-4">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={captchaImage}
           alt="Captcha"

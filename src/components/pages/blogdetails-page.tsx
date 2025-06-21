@@ -3,13 +3,11 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { Share, Captcha, Comments } from '@/components';
-import { Sidebar } from '@/components';
+import { useRouter } from 'next/navigation';
+import { Share, Captcha, Comments, Sidebar } from '@/components';
 import authorImage from '@/assets/imgs/logo.png';
 import texts from '@/data/blog-details.json';
-import { PostDetails, BlogInfoProps, FormData } from '@/components/types';
-
+import { BlogInfoProps, FormData } from '@/components/types';
 
 const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
   const [formData, setFormData] = useState<FormData>({
@@ -19,13 +17,7 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
     captcha: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [inputValue, setInputValue] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const category = searchParams.get('category') || '';
-  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -36,13 +28,10 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
   };
 
   const handleSearch = (term: string) => {
-    setSearchTerm(term);
-    setInputValue(term);
+    router.push(`/blog?search=${encodeURIComponent(term)}`);
   };
 
   const handleReset = () => {
-    setInputValue('');
-    setSearchTerm('');
     router.push('/blog');
   };
 
@@ -62,7 +51,6 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
     }
 
     setIsSubmitting(true);
-    setError(null);
 
     try {
       const response = await fetch('https://api.farhamaghdasi.ir/setcomments', {
