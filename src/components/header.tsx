@@ -4,15 +4,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { gsap } from 'gsap';
-import { useRouter, usePathname } from 'next/navigation';
 
 import content from '@/data/header.json';
 import logoLight from '@/assets/imgs/Logo-light.png';
 import arrowIcon from '@/assets/imgs/icons/arrow-top-right.svg';
 
 const Header = () => {
-    const router = useRouter();
-    const pathname = usePathname();
     const [isHovered, setIsHovered] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -20,13 +17,13 @@ const Header = () => {
     const [isProgressActive, setIsProgressActive] = useState(false);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [subMenuOpen, setSubMenuOpen] = useState(false);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [subSubMenuOpen, setSubSubMenuOpen] = useState(false);
-    const [isScrolled, setIsScrolled] = useState(false);
 
     const svgRef = useRef<SVGPathElement | null>(null);
     const cursorRef = useRef<HTMLDivElement | null>(null);
     const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-    const menuRef = useRef<HTMLDivElement | null>(null); // رفرنس برای منوی همبرگری
+    const menuRef = useRef<HTMLDivElement | null>(null);
 
     const openMenuWithAnimation = () => {
         const menuEl = menuRef.current;
@@ -96,7 +93,6 @@ const Header = () => {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 300);
             const navbar = document.querySelector('.navbar');
             if (window.scrollY > 300) {
                 navbar?.classList.add('nav-scroll');
@@ -141,24 +137,25 @@ const Header = () => {
             if (hoverAnim) hoverAnim.style.transform = `translate(${xMove}px, ${yMove}px)`;
             if (e.type === 'mouseleave') hoverAnim.style.transform = '';
         };
-
+    
         const editCursor = (e: MouseEvent) => {
             if (cursorRef.current) {
                 cursorRef.current.style.left = `${e.clientX}px`;
                 cursorRef.current.style.top = `${e.clientY}px`;
             }
         };
-
-        linkRefs.current.forEach((link) => {
+    
+        const links = [...linkRefs.current]; // 👈 کپی امن برای cleanup
+        links.forEach((link) => {
             if (link) {
                 link.addEventListener('mousemove', animateit);
                 link.addEventListener('mouseleave', animateit);
             }
         });
         window.addEventListener('mousemove', editCursor);
-
+    
         return () => {
-            linkRefs.current.forEach((link) => {
+            links.forEach((link) => {
                 if (link) {
                     link.removeEventListener('mousemove', animateit);
                     link.removeEventListener('mouseleave', animateit);
@@ -167,6 +164,7 @@ const Header = () => {
             window.removeEventListener('mousemove', editCursor);
         };
     }, []);
+    
 
     const toggleMenu = () => {
         if (isMenuOpen) {
@@ -183,10 +181,6 @@ const Header = () => {
 
     const handleSubMenuToggle = () => {
         setSubMenuOpen(!subMenuOpen);
-    };
-
-    const handleSubSubMenuToggle = () => {
-        setSubSubMenuOpen(!subSubMenuOpen);
     };
 
     const scrollToTop = () => {

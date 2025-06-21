@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import DefaultProfile from '@/assets/imgs/profile.png';
 import '@/assets/css/comments.css';
+
 
 interface Comment {
   id: number;
@@ -17,7 +18,7 @@ interface CommentsSectionProps {
   url: string;
 }
 
-export default function CommentsSection({ url }: CommentsSectionProps) {
+const CommentsSection: React.FC<CommentsSectionProps> = ({ url }) => {
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export default function CommentsSection({ url }: CommentsSectionProps) {
     <div className="comments-list">
       {comments.length > 0 ? (
         comments
-          .filter(comment => comment.parent_id === null)
+          .filter(comment => comment.parent_id === null) // کامنت‌های اصلی
           .map(comment => (
             <div key={comment.id} className="comment">
               <div className="comment-header">
@@ -60,7 +61,7 @@ export default function CommentsSection({ url }: CommentsSectionProps) {
               </div>
               <div className="replies">
                 {comments
-                  .filter(reply => reply.parent_id === comment.id)
+                  .filter(reply => reply.parent_id === comment.id) // پاسخ‌ها
                   .map(reply => (
                     <div key={reply.id} className="comment reply">
                       <div className="comment-header">
@@ -89,4 +90,6 @@ export default function CommentsSection({ url }: CommentsSectionProps) {
       )}
     </div>
   );
-}
+};
+
+export default CommentsSection;

@@ -1,11 +1,12 @@
-"use client"
+"use client";
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 import portfoliosData from '@/data/api/portfolio.json';
 import templatesData from '@/data/api/template.json';
 
-import { PortfolioItem , TemplateItem } from '../types'
+import { PortfolioItem, TemplateItem } from '../types';
 
 const Work: React.FC = () => {
   const portfolios: PortfolioItem[] = portfoliosData.portfolio || [];
@@ -18,14 +19,19 @@ const Work: React.FC = () => {
           <h2>My Projects <br />and Website Templates</h2>
         </div>
         <div className="row">
+
+          {/* Portfolio Section */}
           {portfolios.length > 0 ? (
             portfolios.slice(0, 2).map((portfolio) => (
               <div className="col-lg-6 fade-up" key={portfolio.url}>
                 <div className="item md-mb50">
                   <div className="img fit-img">
-                    <img
-                      src={`https://farhamaghdasi.ir/uploads/${portfolio.thumbnail}`}
+                    <Image
+                      src={`https://farhamaghdasi.ir/${portfolio.thumbnail}`}
                       alt={portfolio.title}
+                      width={800}
+                      height={600}
+                      style={{ objectFit: 'cover' }}
                     />
                   </div>
                   <div className="cont mt-30">
@@ -49,14 +55,18 @@ const Work: React.FC = () => {
             </div>
           )}
 
+          {/* Template Section */}
           {htmlTemplates.length > 0 ? (
             htmlTemplates.slice(0, 2).map((template) => (
               <div className="col-lg-6 fade-up" key={template.url}>
                 <div className="item md-mb50">
                   <div className="img fit-img">
-                    <img
-                      src={`https://farhamaghdasi.ir/uploads/${template.thumbnail}`}
+                    <Image
+                      src={`https://farhamaghdasi.ir/${template.thumbnail}`}
                       alt={template.title}
+                      width={800}
+                      height={600}
+                      style={{ objectFit: 'cover' }}
                     />
                   </div>
                   <div className="cont mt-30">
@@ -79,6 +89,7 @@ const Work: React.FC = () => {
               <p>No HTML templates available at the moment.</p>
             </div>
           )}
+
         </div>
       </div>
     </section>
