@@ -4,6 +4,14 @@ export interface ImageItem {
     alt: string;
 }
 
+export interface Comment {
+    id: number;
+    parent_id: number | null;
+    author_name: string;
+    content: string;
+    date: string;
+  }
+
 export interface ContentSection {
     sectionClass: string;
     containerClass?: string;

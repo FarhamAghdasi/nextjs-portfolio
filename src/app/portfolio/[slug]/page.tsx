@@ -10,9 +10,7 @@ function stripHtmlTags(str: string): string {
 }
 
 interface PageProps {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>; // اصلاح نوع params به Promise
 }
 
 export async function generateStaticParams() {
@@ -22,13 +20,15 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const portfolio = portfoliosData.portfolio.find((p) => p.url === params.slug);
+  const { slug } = await params;
+
+  const portfolio = portfoliosData.portfolio.find((p) => p.url === slug);
 
   if (!portfolio) {
     return {
       ...defaultMetadata,
-      title: `Not Found | ${defaultMetadata.title.default}`,
-      description: texts.portfolioNotFound,
+      title: `Not Found | ${defaultMetadata.title?.default ?? ''}`,
+      description: texts.portfolioNotFound ?? 'Portfolio not found.',
       robots: {
         index: false,
         follow: false,
@@ -38,8 +38,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const imagePrimary = `https://farhamaghdasi.ir/${portfolio.thumbnail}` || '/default-thumbnail.jpg';
   const pageUrl = `https://farhamaghdasi.ir/portfolio/${portfolio.url}`;
-  const pageTitle = portfolio.title || texts.seoDefaultTitle;
-  const pageDescription = stripHtmlTags(portfolio.Shortdescription) || texts.seoDefaultDescription;
+  const pageTitle = portfolio.title || texts.seoDefaultTitle || 'Portfolio';
+  const pageDescription = stripHtmlTags(portfolio.Shortdescription) || texts.seoDefaultDescription || '';
 
   return {
     ...defaultMetadata,
@@ -71,8 +71,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function PortfolioPage({ params }: PageProps) {
-  const portfolio = portfoliosData.portfolio.find((p) => p.url === params.slug);
+export default async function PortfolioPage({ params }: PageProps) {
+  const { slug } = await params;
+
+  const portfolio = portfoliosData.portfolio.find((p) => p.url === slug);
 
   if (!portfolio) {
     notFound();

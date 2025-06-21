@@ -11,7 +11,7 @@ function stripHtmlTags(str: string): string {
 }
 
 interface TemplatePageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>; // اصلاح نوع params به Promise
 }
 
 export async function generateStaticParams() {
@@ -21,12 +21,14 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: TemplatePageProps): Promise<Metadata> {
-  const template = templateData.templates.find((t: TemplateDetails2) => t.url === params.slug);
+  const { slug } = await params; // باز کردن Promise برای دسترسی به slug
+
+  const template = templateData.templates.find((t: TemplateDetails2) => t.url === slug);
 
   if (!template) {
     return {
       ...defaultMetadata,
-      title: `Not Found | ${defaultMetadata.title.default}`,
+      title: `Not Found | ${defaultMetadata.title?.default ?? ''}`,
       description: texts.postNotFound || 'Template not found.',
       robots: {
         index: false,
@@ -35,10 +37,10 @@ export async function generateMetadata({ params }: TemplatePageProps): Promise<M
     };
   }
 
-  const pageTitle = template.title || texts.defaultTitle;
-  const pageDescription = stripHtmlTags(template.Shortdescription) || texts.defaultDescription;
+  const pageTitle = template.title || texts.defaultTitle || 'Template';
+  const pageDescription = stripHtmlTags(template.Shortdescription) || texts.defaultDescription || '';
   const pageUrl = `https://farhamaghdasi.ir/templates/${template.url}`;
-  const pageImage = `https://farhamaghdasi.ir/${template.thumbnail}` || defaultMetadata.openGraph.images[0].url;
+  const pageImage = `https://farhamaghdasi.ir/${template.thumbnail}` || defaultMetadata.openGraph?.images?.[0]?.url || '';
 
   return {
     ...defaultMetadata,
@@ -70,8 +72,10 @@ export async function generateMetadata({ params }: TemplatePageProps): Promise<M
   };
 }
 
-export default function Template({ params }: TemplatePageProps) {
-  const template = templateData.templates.find((t: TemplateDetails2) => t.url === params.slug);
+export default async function Template({ params }: TemplatePageProps) {
+  const { slug } = await params; // باز کردن Promise برای دسترسی به slug
+
+  const template = templateData.templates.find((t: TemplateDetails2) => t.url === slug);
 
   if (!template) {
     notFound();

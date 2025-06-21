@@ -15,15 +15,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Bio() {
   const { sectionClass, containerClass, rowClass, colClass, content } = bioData as ContentSection;
-  const imageRefs = useRef<HTMLDivElement[]>([]);
+  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (!imageRefs.current) return;
-
     imageRefs.current.forEach((ref, index) => {
+      if (!ref) return; // بررسی null بودن ref
+
       gsap.fromTo(
         ref,
-        { x: index % 2 === 0 ? -50 : 50, opacity: 0 },
+        { x: index % 2 === 0 ? -50 : 50, opacity: 0 }, // اصلاح شرط به عدد
         {
           x: 0,
           opacity: 1,
@@ -53,10 +53,12 @@ export default function Bio() {
                 <div
                   key={index}
                   className={image.class}
-                  ref={(el) => (imageRefs.current[index] = el!)}
+                  ref={(el) => {
+                    imageRefs.current[index] = el;
+                  }}
                 >
                   <Image
-                    src={images[index]}
+                    src={images[index] ?? '/fallback-image.webp'}
                     alt={image.alt}
                     width={400}
                     height={300}

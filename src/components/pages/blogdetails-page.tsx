@@ -3,21 +3,28 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Suspense } from 'react';
 import { Share, Captcha, Comments, Sidebar } from '@/components';
 import authorImage from '@/assets/imgs/logo.png';
 import texts from '@/data/blog-details.json';
-import { BlogInfoProps, FormData } from '@/components/types';
+import { BlogInfoProps, FormData, Comment } from '@/components/types'; // Import Comment
+import { useSearchParams } from 'next/navigation';
 
-const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
-  const [formData, setFormData] = useState<FormData>({
+interface ExtendedBlogInfoProps extends BlogInfoProps {
+  searchTerm?: string; // Make it optional to match the default value of ""
+  initialComments?: Comment[];
+}
+
+const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComments = [] }) => {
+  const searchParams = useSearchParams();
+  const searchTerm = searchParams.get('search') || '';
+    const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     message: '',
     captcha: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -28,11 +35,11 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
   };
 
   const handleSearch = (term: string) => {
-    router.push(`/blog?search=${encodeURIComponent(term)}`);
+    window.location.href = `/blog?search=${encodeURIComponent(term)}`;
   };
 
   const handleReset = () => {
-    router.push('/blog');
+    window.location.href = '/blog';
   };
 
   const handleCaptchaChange = (value: string) => {
@@ -176,7 +183,9 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
                       <div className="valign">
                         <span>{texts.shareLabel} :</span>
                       </div>
-                      <Share currentUrl={currentUrl} currentTitle={currentTitle} />
+                      <Suspense fallback={<div>Loading share buttons...</div>}>
+                        <Share currentUrl={currentUrl} currentTitle={currentTitle} />
+                      </Suspense>
                     </div>
                   </div>
                 </div>
@@ -247,7 +256,9 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
                           />
                         </div>
                       </div>
-                      <Captcha onCaptchaChange={handleCaptchaChange} />
+                      <Suspense fallback={<div>Loading captcha...</div>}>
+                        <Captcha onCaptchaChange={handleCaptchaChange} />
+                      </Suspense>
                       <div className="text-center">
                         <button type="submit" className="mt-30" disabled={isSubmitting}>
                           {isSubmitting ? texts.submitting : texts.postComment}
@@ -255,12 +266,16 @@ const BlogInfo: React.FC<BlogInfoProps> = ({ post, posts }) => {
                       </div>
                     </div>
                   </form>
-                  <Comments url={post.url} />
+                  <Suspense fallback={<div>Loading comments...</div>}>
+                    <Comments url={post.url} initialComments={initialComments} />
+                  </Suspense>
                 </div>
               </div>
             </div>
             <div className="col-lg-4">
-             <Sidebar posts={posts} onSearch={handleSearch} onReset={handleReset} />
+              <Suspense fallback={<div>Loading sidebar...</div>}>
+                <Sidebar posts={posts} onSearch={handleSearch} onReset={handleReset} initialSearch={searchTerm} />
+              </Suspense>
             </div>
           </div>
         </div>

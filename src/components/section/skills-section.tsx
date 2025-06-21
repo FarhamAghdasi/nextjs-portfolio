@@ -15,6 +15,9 @@ import seoIcon from '@/assets/imgs/skills/seo.png';
 import tailwindIcon from '@/assets/imgs/skills/tailwindcss.png';
 import nextjsIcon from '@/assets/imgs/skills/nextjs.png';
 
+// Add fallback image
+import fallbackImage from '@/assets/imgs/fallback.png'; // Ensure this image exists in your assets
+
 import { Skill, NumberItem, ExperienceItem } from '../types';
 
 interface ExperienceYear {
@@ -33,7 +36,7 @@ const skillImages: { [key: string]: StaticImageData } = {
 };
 
 const Skills: React.FC = () => {
-  const { header, skills, numbers, marquee, marquee2 , resumeHeader, experience } = skillsData;
+  const { header, skills, numbers, marquee, marquee2, resumeHeader, experience } = skillsData;
 
   return (
     <section className="gray-box section-padding">
@@ -79,17 +82,13 @@ const Skills: React.FC = () => {
                 <div className={`item ${index < skills.length - 1 ? 'md-mb30' : ''}`}>
                   <div className="box">
                     <div className="img">
-                      {skillImages[skill.name] ? (
-                        <Image
-                          src={skillImages[skill.name]}
-                          alt={skill.name}
-                          width={64}
-                          height={64}
-                          style={{ objectFit: 'contain' }}
-                        />
-                      ) : (
-                        <span className="no-image">No Image</span>
-                      )}
+                      <Image
+                        src={skillImages[skill.name] || fallbackImage} // Use fallback image
+                        alt={skill.name}
+                        width={64}
+                        height={64}
+                        style={{ objectFit: 'contain' }}
+                      />
                     </div>
                     <h2>{skill.level}</h2>
                   </div>
@@ -163,7 +162,6 @@ const Skills: React.FC = () => {
           </div>
         </div>
       </div>
-          
 
       {/* Resume Section */}
       <div className="resume">

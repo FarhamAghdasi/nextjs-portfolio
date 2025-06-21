@@ -1,13 +1,12 @@
-"use client";
-
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 import { ErrorPage } from '@/components';
 import errorTexts from '@/data/errors.json';
 import { defaultMetadata } from '@/components/addon/seo';
 
 export const metadata: Metadata = {
   ...defaultMetadata,
-  title: `404 | ${defaultMetadata.title.default}`,
+  title: `404 | ${defaultMetadata.title?.default ?? ''}`,
   description: errorTexts["404"] || errorTexts.default,
   robots: {
     index: false,
@@ -27,5 +26,9 @@ export const metadata: Metadata = {
 };
 
 export default function NotFound() {
-  return <ErrorPage statusCode={404} reset={() => window.location.href = "/"} />;
+  return (
+    <Suspense fallback={<div>Loading error page...</div>}>
+      <ErrorPage statusCode={404} />
+    </Suspense>
+  );
 }

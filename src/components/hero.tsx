@@ -25,6 +25,7 @@ const Hero = () => {
     const maxRotation = 15;
 
     function onMouseMove(e: MouseEvent) {
+      if (!headerEl) return; // بررسی null بودن headerEl
       const rect = headerEl.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -48,6 +49,7 @@ const Hero = () => {
     }
 
     function onMouseLeave() {
+      if (!titleEl) return; // بررسی null بودن titleEl
       if (animation.current) animation.current.kill();
 
       animation.current = gsap.to(titleEl, {
@@ -105,7 +107,12 @@ const Hero = () => {
                   </a>
                 ))}
               </div>
-              <p>{content.description} <br /> <Link href="/resume.pdf" target='_blank' className='link'>See My Resume</Link></p>
+              <p>
+                {content.description} <br />{' '}
+                <Link href="/resume.pdf" target="_blank" className="link">
+                  See My Resume
+                </Link>
+              </p>
             </div>
           </div>
         </div>

@@ -15,6 +15,9 @@ import nextjsIcon from '@/assets/imgs/skills/nextjs.png';
 import servicesData from '@/data/service-section.json';
 import { ServiceTitle } from '../types';
 
+// Define a fallback image in case service.image is not found
+import fallbackImage from '@/assets/imgs/fallback.png'; // Add a fallback image in your assets
+
 const serviceImages: { [key: string]: StaticImageData } = {
   '/imgs/skills/s4.png': reactIcon,
   '/imgs/skills/seo.png': seoIcon,
@@ -72,17 +75,13 @@ const Services = () => {
                     ))}
                   </div>
                   <div className="img fit-img">
-                    {serviceImages[service.image] ? (
-                      <Image
-                        src={serviceImages[service.image]}
-                        alt={service.title}
-                        width={400}
-                        height={300}
-                        style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
-                      />
-                    ) : (
-                      <span className="no-image">No Image</span>
-                    )}
+                    <Image
+                      src={serviceImages[service.image] || fallbackImage} // Use fallback image if service.image is not found
+                      alt={service.title}
+                      width={400}
+                      height={300}
+                      style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+                    />
                   </div>
                 </div>
               ))}
