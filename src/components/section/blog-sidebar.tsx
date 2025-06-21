@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import texts from '@/data/blog.json';
+import { useRouter } from 'next/navigation';
 import { PostBlog } from '@/components/types';
 
 interface SidebarProps {
@@ -14,18 +15,27 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset }) => {
   const [inputValue, setInputValue] = useState('');
+  const router = useRouter();
 
   const availableCategories = [...new Set(posts.map((post) => post.category))];
 
   const handleSearch = () => {
+    if (inputValue.trim()) {
+      // اضافه کردن پارامتر جستجو به URL صفحه /blog
+      router.push(`/blog?search=${encodeURIComponent(inputValue.trim())}`);
+    }
     if (onSearch) {
       onSearch(inputValue);
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && onSearch) {
-      onSearch(inputValue);
+    if (e.key === 'Enter' && inputValue.trim()) {
+      // اضافه کردن پارامتر جستجو به URL صفحه /blog هنگام زدن Enter
+      router.push(`/blog?search=${encodeURIComponent(inputValue.trim())}`);
+      if (onSearch) {
+        onSearch(inputValue);
+      }
     }
   };
 
