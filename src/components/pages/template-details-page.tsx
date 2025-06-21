@@ -13,7 +13,7 @@ interface TemplatePageProps {
 }
 
 export default function TemplatePage({ template }: TemplatePageProps) {
-  const ImagePrimary = `https://farhamaghdasi.ir/${template.thumbnail}` || '/default-image.jpg';
+  const ImagePrimary = template.thumbnail ? `/assets/imgs/uploads/${template.thumbnail}` : '/default-image.jpg';
 
   return (
     <>

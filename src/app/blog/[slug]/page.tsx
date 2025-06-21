@@ -26,7 +26,7 @@ export async function generateMetadata({
   const post = postsData.posts.find(p => p.url === slug);
 
   if (!post) {
-    console.log(`Post not found for slug: ${slug}`); // Debug log
+    console.log(`Post not found for slug: ${slug}`);
     return {
       ...defaultMetadata,
       title: `Not Found | ${defaultMetadata.title?.default ?? ''}`,
@@ -42,7 +42,7 @@ export async function generateMetadata({
   const pageDescription = post.short_description || texts.defaultDescription || '';
   const pageUrl = `https://farhamaghdasi.ir/blog/${post.url}`;
   const pageImage = post.thumbnail
-    ? `https://farhamaghdasi.ir${post.thumbnail}`
+    ? `https://farhamaghdasi.ir/assets/imgs/uploads/${post.thumbnail}` // Use absolute URL for metadata
     : defaultMetadata.openGraph?.images?.[0]?.url || '';
 
   return {
@@ -80,7 +80,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
   const post = postsData.posts.find(p => p.url === slug);
   const posts = postsData.posts;
 
-  console.log(`Slug: ${slug}, Post found: ${!!post}`); // Debug log
+  console.log(`Slug: ${slug}, Post found: ${!!post}`);
 
   if (!post) notFound();
 
@@ -96,6 +96,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
   return (
     <Suspense fallback={<div>Loading blog post...</div>}>
-      <BlogDetails post={post} posts={posts} searchTerm="" initialComments={initialComments} />    </Suspense>
+      <BlogDetails post={post} posts={posts} searchTerm="" initialComments={initialComments} />
+    </Suspense>
   );
 }

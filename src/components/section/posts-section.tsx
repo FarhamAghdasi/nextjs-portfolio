@@ -1,12 +1,12 @@
-"use client"
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 import postsData from '@/data/api/posts.json';
 import postConfig from '@/data/posts-section.json';
-import ArrowRightTop from "@/assets/imgs/icons/arrow-top-right.svg"
-
+import ArrowRightTop from '@/assets/imgs/icons/arrow-top-right.svg';
 import type { PostsData, PostConfig, Post } from '@/components/types';
 
 const Blog: React.FC = () => {
@@ -25,12 +25,12 @@ const Blog: React.FC = () => {
   const getThumbnail = (thumbnail?: string) => {
     if (!thumbnail) return fallbackPost.thumbnail;
     if (thumbnail.startsWith('http') || thumbnail.startsWith('/')) return thumbnail;
-    return `https://farhamaghdasi.ir${thumbnail}`;
+    return `/assets/imgs/uploads/${thumbnail}`; // Updated to relative path
   };
 
   return (
     <section className={sectionClass}>
-      <div className={containerClass }>
+      <div className={containerClass}>
         <div className={header.class}>
           <div className="d-flex">
             <div>
@@ -51,15 +51,15 @@ const Blog: React.FC = () => {
                   }}
                 />
                 <Link href={header.viewAllLink} className="butn-under mt-15">
-                    {header.viewAllText}{' '}
-                    <span className="icon invert">
-                      <Image
-                        src={ArrowRightTop}
-                        alt="arrow"
-                        width={16}
-                        height={16}
-                      />
-                    </span>
+                  {header.viewAllText}{' '}
+                  <span className="icon invert">
+                    <Image
+                      src={ArrowRightTop}
+                      alt="arrow"
+                      width={16}
+                      height={16}
+                    />
+                  </span>
                 </Link>
               </div>
             </div>
@@ -80,14 +80,14 @@ const Blog: React.FC = () => {
                       priority={index < 3}
                     />
                     <Link href={`/blog/${post.url}/`} className="butn">
-                        <span className="icon">
-                          <Image
-                            src={ArrowRightTop}
-                            alt="arrow"
-                            width={16}
-                            height={16}
-                          />
-                        </span>
+                      <span className="icon">
+                        <Image
+                          src={ArrowRightTop}
+                          alt="arrow"
+                          width={16}
+                          height={16}
+                        />
+                      </span>
                     </Link>
                   </div>
                   <div className="cont mt-30">

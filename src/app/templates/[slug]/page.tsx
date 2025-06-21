@@ -11,7 +11,7 @@ function stripHtmlTags(str: string): string {
 }
 
 interface TemplatePageProps {
-  params: Promise<{ slug: string }>; // اصلاح نوع params به Promise
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
@@ -21,7 +21,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: TemplatePageProps): Promise<Metadata> {
-  const { slug } = await params; // باز کردن Promise برای دسترسی به slug
+  const { slug } = await params;
 
   const template = templateData.templates.find((t: TemplateDetails2) => t.url === slug);
 
@@ -40,7 +40,9 @@ export async function generateMetadata({ params }: TemplatePageProps): Promise<M
   const pageTitle = template.title || texts.defaultTitle || 'Template';
   const pageDescription = stripHtmlTags(template.Shortdescription) || texts.defaultDescription || '';
   const pageUrl = `https://farhamaghdasi.ir/templates/${template.url}`;
-  const pageImage = `https://farhamaghdasi.ir/${template.thumbnail}` || defaultMetadata.openGraph?.images?.[0]?.url || '';
+  const pageImage = template.thumbnail
+    ? `https://farhamaghdasi.ir/assets/imgs/uploads/${template.thumbnail}` // Use absolute URL for metadata
+    : defaultMetadata.openGraph?.images?.[0]?.url || '';
 
   return {
     ...defaultMetadata,
@@ -73,7 +75,7 @@ export async function generateMetadata({ params }: TemplatePageProps): Promise<M
 }
 
 export default async function Template({ params }: TemplatePageProps) {
-  const { slug } = await params; // باز کردن Promise برای دسترسی به slug
+  const { slug } = await params;
 
   const template = templateData.templates.find((t: TemplateDetails2) => t.url === slug);
 

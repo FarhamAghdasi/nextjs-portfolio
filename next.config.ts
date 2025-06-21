@@ -1,15 +1,20 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
+    domains: ['farhamaghdasi.ir'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'farhamaghdasi.ir',
-        pathname: '/uploads/**',
+        pathname: '/assets/img/uploads/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 's8.uupload.ir',
+        pathname: '/files/**',
       },
     ],
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

@@ -140,7 +140,7 @@ export default function HtmlTemplates() {
                   </div>
                   <div className="img fit-img mt-30">
                     <Image
-                      src={`https://farhamaghdasi.ir/${template.thumbnail}` || '/default-image.jpg'}
+                      src={template.thumbnail ? `/assets/imgs/uploads/${template.thumbnail}` : '/default-image.jpg'}
                       alt={template.title || 'Template Image'}
                       width={800}
                       height={500}

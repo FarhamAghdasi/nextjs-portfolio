@@ -27,8 +27,8 @@ const Work: React.FC = () => {
                 <div className="item md-mb50">
                   <div className="img fit-img">
                     <Image
-                      src={`https://farhamaghdasi.ir/${portfolio.thumbnail}`}
-                      alt={portfolio.title}
+                      src={portfolio.thumbnail ? `/assets/imgs/uploads/${portfolio.thumbnail}` : '/default-image.jpg'}
+                      alt={portfolio.title || 'Portfolio Image'}
                       width={800}
                       height={600}
                       style={{ objectFit: 'cover' }}
@@ -62,8 +62,8 @@ const Work: React.FC = () => {
                 <div className="item md-mb50">
                   <div className="img fit-img">
                     <Image
-                      src={`https://farhamaghdasi.ir/${template.thumbnail}`}
-                      alt={template.title}
+                      src={template.thumbnail ? `/assets/imgs/uploads/${template.thumbnail}` : '/default-image.jpg'}
+                      alt={template.title || 'Template Image'}
                       width={800}
                       height={600}
                       style={{ objectFit: 'cover' }}
