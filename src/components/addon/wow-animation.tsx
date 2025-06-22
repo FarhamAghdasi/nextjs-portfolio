@@ -5,7 +5,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { usePathname } from 'next/navigation';
 
-// Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
 interface ScrollAnimationProps {
@@ -32,9 +31,8 @@ const ScrollAnimation: React.FC<ScrollAnimationProps> = ({
 
   useEffect(() => {
     if (ref.current) {
-      // Define initial and final animation states based on animationType
-      let fromProps: gsap.TweenVars = { opacity: 0 };
-      let toProps: gsap.TweenVars = { opacity: 1, duration, ease, delay };
+      const fromProps: gsap.TweenVars = { opacity: 0 };
+      const toProps: gsap.TweenVars = { opacity: 1, duration, ease, delay };
 
       switch (animationType) {
         case 'fadeInUp':
@@ -42,7 +40,6 @@ const ScrollAnimation: React.FC<ScrollAnimationProps> = ({
           toProps.y = 0;
           break;
         case 'fadeIn':
-          // Only opacity change
           break;
         case 'zoomIn':
           fromProps.scale = 0.8;
@@ -61,7 +58,6 @@ const ScrollAnimation: React.FC<ScrollAnimationProps> = ({
           toProps.y = 0;
       }
 
-      // Create GSAP animation
       const animation = gsap.fromTo(
         ref.current,
         fromProps,
@@ -70,17 +66,15 @@ const ScrollAnimation: React.FC<ScrollAnimationProps> = ({
           scrollTrigger: {
             trigger: ref.current,
             start,
-            toggleActions: 'play none none none', // Play once, no replay on scroll up
+            toggleActions: 'play none none none',
           },
         }
       );
 
-      // Refresh ScrollTrigger on route change
       ScrollTrigger.refresh();
 
-      // Cleanup animation on unmount
       return () => {
-        animation.kill(); // Only kill this specific animation
+        animation.kill();
       };
     }
   }, [animationType, duration, delay, ease, start, pathname]);

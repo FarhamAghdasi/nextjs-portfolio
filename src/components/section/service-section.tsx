@@ -33,45 +33,45 @@ const Services = () => {
   const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (!containerRef.current || !itemsRef.current.length) return;
+    const container = containerRef.current;
+    const items = itemsRef.current;
 
-    const setupAnimations = () => {
-      itemsRef.current.forEach((el, index) => {
-        if (el) {
-          gsap.fromTo(
-            el,
-            { opacity: 0, y: 50 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              ease: 'power2.out',
-              delay: 0, // stagger effect
-              scrollTrigger: {
-                trigger: el,
-                start: 'top 80%',
-                toggleActions: 'play none none none',
-                markers: false,
-              },
-            }
-          );
-        }
-      });
-    };
+    if (!container || items.length === 0) return;
 
-    setupAnimations();
+    items.forEach((el) => {
+      if (el) {
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            delay: 0,
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+              markers: false,
+            },
+          }
+        );
+      }
+    });
 
     ScrollTrigger.refresh();
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.trigger && containerRef.current?.contains(trigger.trigger)) {
+        if (trigger.trigger && container?.contains(trigger.trigger)) {
           trigger.kill();
         }
       });
-      gsap.killTweensOf(itemsRef.current);
+      gsap.killTweensOf(items);
     };
   }, []);
+
 
   return (
     <section
@@ -115,6 +115,7 @@ const Services = () => {
           <div className="col-lg-8">
             <div className="serv-items">
               {services.map((service, index) => (
+                // eslint-disable-next-line react/no-array-index-key
                 <div
                   key={index}
                   className="item"

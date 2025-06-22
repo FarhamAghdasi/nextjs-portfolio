@@ -8,7 +8,7 @@ import gsap from 'gsap';
 import rawPostsData from '@/data/api/posts.json';
 import texts from '@/data/blog.json';
 import Logo from '@/assets/imgs/logo.png';
-import { Sidebar } from '@/components';
+import { Sidebar } from '@/components'; // فرض کردم نام فایل Sidebar.tsx است
 import { PostBlog } from '@/components/types';
 
 const Bloginfo: React.FC = () => {
@@ -92,9 +92,7 @@ const Bloginfo: React.FC = () => {
             <div className="col-lg-8">
               <div className="main-blog md-mb80" ref={postsRef}>
                 {!isCategoryValid ? (
-                  <p>
-                    Category "{category}" does not exist.
-                  </p>
+                  <p>Category &quot;{category}&quot; does not exist.</p>
                 ) : filteredPosts.length === 0 ? (
                   <p>{texts.noPostsFound}</p>
                 ) : (

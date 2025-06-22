@@ -6,7 +6,7 @@ import texts from '@/data/portfolio-page.json';
 export async function generateMetadata(): Promise<Metadata> {
   return {
     ...defaultMetadata,
-    title: texts.seoTitle,
+    title: "My Works | Farham Aghdasi",
     description: texts.seoDescription,
     openGraph: {
       ...defaultMetadata.openGraph,
