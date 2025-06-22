@@ -28,7 +28,7 @@ const TextSplitter: React.FC<TextSplitterProps> = ({
     const spans = textRef.current?.querySelectorAll('span');
     if (!spans || spans.length === 0) return;
 
-    let fromVars: gsap.TweenVars = { opacity: 0 };
+    const fromVars: gsap.TweenVars = { opacity: 0 };
     switch (animationType) {
       case 'fadeInUp':
         fromVars.y = 20;
@@ -52,7 +52,7 @@ const TextSplitter: React.FC<TextSplitterProps> = ({
       delay,
       ease: 'power2.out',
     });
-  }, [text]);
+  }, [text, animationType, duration, stagger, delay]);
 
   const parts =
     split === 'word' ? text.split(' ') : text.split('');

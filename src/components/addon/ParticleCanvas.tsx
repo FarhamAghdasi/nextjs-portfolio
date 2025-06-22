@@ -1,5 +1,5 @@
-'use client'
-import { useEffect , useRef } from "react";
+'use client';
+import { useEffect, useRef } from 'react';
 
 const ParticleCanvas = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -18,16 +18,16 @@ const ParticleCanvas = () => {
         const perspective = 600;
         const particleCount = 60;
         const maxParticles = 100;
-        const particles: any[] = [];
+        const particles: Particle[] = [];
 
         class Particle {
-            x: number;
-            y: number;
-            z: number;
-            vx: number;
-            vy: number;
-            vz: number;
-            radius: number;
+            x!: number;
+            y!: number;
+            z!: number;
+            vx!: number;
+            vy!: number;
+            vz!: number;
+            radius!: number;
 
             constructor() {
                 this.reset();
@@ -80,13 +80,13 @@ const ParticleCanvas = () => {
 
         const drawConnections = () => {
             for (let i = 0; i < particles.length; i++) {
-                const p1 = particles[i];
+                const p1 = particles[i]!;
                 const scale1 = perspective / (perspective + p1.z);
                 const x1 = width / 2 + p1.x * scale1;
                 const y1 = height / 2 + p1.y * scale1;
 
                 for (let j = i + 1; j < particles.length; j++) {
-                    const p2 = particles[j];
+                    const p2 = particles[j]!;
                     const scale2 = perspective / (perspective + p2.z);
                     const x2 = width / 2 + p2.x * scale2;
                     const y2 = height / 2 + p2.y * scale2;
@@ -111,15 +111,15 @@ const ParticleCanvas = () => {
         const animate = () => {
             ctx.clearRect(0, 0, width, height);
 
-            for (let p of particles) {
+            for (const p of particles) {
                 p.update();
 
                 const dx = (mouse.current.x - width / 2) - p.x;
                 const dy = (mouse.current.y - height / 2) - p.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 if (dist < 150) {
-                    p.vx += dx / dist * 0.05;
-                    p.vy += dy / dist * 0.05;
+                    p.vx += (dx / dist) * 0.05;
+                    p.vy += (dy / dist) * 0.05;
                 }
 
                 p.draw(ctx);
@@ -161,4 +161,4 @@ const ParticleCanvas = () => {
     );
 };
 
-export default ParticleCanvas
+export default ParticleCanvas;

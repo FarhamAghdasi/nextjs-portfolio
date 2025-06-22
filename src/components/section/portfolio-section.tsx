@@ -18,9 +18,13 @@ const Work: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const section = sectionRef.current;
+    const portfolios = portfolioRefs.current;
+    const templates = templateRefs.current;
+
     const setupAnimations = () => {
-      if (portfolioRefs.current.length > 0) {
-        portfolioRefs.current.forEach((el, index) => {
+      if (portfolios.length > 0) {
+        portfolios.forEach((el, index) => {
           if (el) {
             gsap.fromTo(
               el,
@@ -30,7 +34,7 @@ const Work: React.FC = () => {
                 y: 0,
                 duration: 0.8,
                 ease: 'power2.out',
-                delay: index * 0.4, // stagger effect
+                delay: index * 0.4,
                 scrollTrigger: {
                   trigger: el,
                   start: 'top 80%',
@@ -42,8 +46,8 @@ const Work: React.FC = () => {
         });
       }
 
-      if (templateRefs.current.length > 0) {
-        templateRefs.current.forEach((el, index) => {
+      if (templates.length > 0) {
+        templates.forEach((el, index) => {
           if (el) {
             gsap.fromTo(
               el,
@@ -53,7 +57,7 @@ const Work: React.FC = () => {
                 y: 0,
                 duration: 0.8,
                 ease: 'power2.out',
-                delay: index * 0.4, // stagger effect
+                delay: index * 0.4,
                 scrollTrigger: {
                   trigger: el,
                   start: 'top 80%',
@@ -72,14 +76,15 @@ const Work: React.FC = () => {
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.trigger && sectionRef.current?.contains(trigger.trigger)) {
+        if (trigger.trigger && section?.contains(trigger.trigger)) {
           trigger.kill();
         }
       });
-      gsap.killTweensOf(portfolioRefs.current);
-      gsap.killTweensOf(templateRefs.current);
+      gsap.killTweensOf(portfolios);
+      gsap.killTweensOf(templates);
     };
   }, []);
+
 
   return (
     <section className="work-min ontop bord-thin-top-light" ref={sectionRef}>

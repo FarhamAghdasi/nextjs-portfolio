@@ -27,7 +27,7 @@ const Hero = () => {
     const maxRotation = 15;
 
     function onMouseMove(e: MouseEvent) {
-      const rect = headerEl.getBoundingClientRect();
+      const rect = headerEl!.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       const centerX = rect.width / 2;

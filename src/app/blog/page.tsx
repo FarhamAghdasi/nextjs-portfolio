@@ -1,34 +1,30 @@
 import { Metadata } from 'next';
-import {Bloginfo} from '@/components';
+import { BloginfoClient } from '@/components';
 import { defaultMetadata } from '@/components/addon/seo';
 import texts from '@/data/blog.json';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pageTitle = 'Blog';
-  const pageDescription = texts.pageDescription;
-  const pageUrl = 'https://farhamaghdasi.ir/blog';
-
   return {
     ...defaultMetadata,
-    title: pageTitle,
-    description: pageDescription,
+    title: 'Blog | Farham Aghdasi',
+    description: texts.pageDescription,
     openGraph: {
       ...defaultMetadata.openGraph,
-      title: pageTitle,
-      description: pageDescription,
-      url: pageUrl,
+      title: 'Blog | Farham Aghdasi',
+      description: texts.pageDescription,
+      url: 'https://farhamaghdasi.ir/blog',
     },
     twitter: {
       ...defaultMetadata.twitter,
-      title: pageTitle,
-      description: pageDescription,
+      title: 'Blog | Farham Aghdasi',
+      description: texts.pageDescription,
     },
     alternates: {
-      canonical: pageUrl,
+      canonical: 'https://farhamaghdasi.ir/blog',
     },
   };
 }
 
 export default function BlogPage() {
-  return <Bloginfo />;
+  return <BloginfoClient />;
 }
