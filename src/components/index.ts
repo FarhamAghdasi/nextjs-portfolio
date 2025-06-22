@@ -29,6 +29,8 @@ export { default as ScrollTop } from './addon/scroll-top';
 export { default as Share } from './addon/share';
 export { default as SmoothScroll } from './addon/smoothScroll';
 export { default as ScrollAnimation } from './addon/wow-animation';
+export { default as ParticleCanvas } from './addon/ParticleCanvas';
+export { default as TextSplitter } from './addon/TextSplitter';
 
 /** Page */
 export { default as WorksPage } from './pages/portfolio-page';

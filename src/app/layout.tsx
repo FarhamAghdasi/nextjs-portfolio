@@ -1,3 +1,5 @@
+'use client';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
 
@@ -8,15 +10,14 @@ import '@/assets/css/personal.css';
 
 import localFont from 'next/font/local';
 import { ReactNode } from 'react';
-import type { Metadata } from 'next';
-import { Header, Footer , ScrollAnimation , PageTransition } from '@/components';
-import { defaultMetadata } from '@/components/addon/seo';
+import { usePathname } from 'next/navigation';
+import { Header, Footer, ScrollAnimation, PageTransition } from '@/components';
 import PageInitializer from '@/components/PageInitializer';
 
 const outfit = localFont({
   src: [
     {
-      path: "../assets/fonts/outfit.woff2",
+      path: '../assets/fonts/outfit.woff2',
       weight: '100 900',
       style: 'normal',
     },
@@ -25,17 +26,25 @@ const outfit = localFont({
   variable: '--font-outfit',
 });
 
-export const metadata: Metadata = defaultMetadata;
-
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+
+  const shouldAnimateFooter = !(pathname === '/template');
+
   return (
     <html lang="en" className={outfit.className}>
       <body>
         <Header />
         <PageTransition>{children}</PageTransition>
-        <ScrollAnimation animationType="fadeInUp" duration={.5} delay={0.3}>
+
+        {shouldAnimateFooter ? (
+          <ScrollAnimation animationType="fadeInUp" duration={0.5} delay={0.3}>
+            <Footer />
+          </ScrollAnimation>
+        ) : (
           <Footer />
-        </ScrollAnimation>
+        )}
+
         <PageInitializer />
       </body>
     </html>
