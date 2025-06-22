@@ -615,7 +615,7 @@
 }
 
 .testimonials-cst .controls {
-    background-image: url(../imgs/smoke-bg.jpg);
+    background-image: url(/imgs/smoke-bg.jpg);
     background-size: cover;
     border-radius: 30px;
     display: -webkit-box;

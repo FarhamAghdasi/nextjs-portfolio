@@ -9,7 +9,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import postsData from '@/data/api/posts.json';
 import postConfig from '@/data/posts-section.json';
-import ArrowRightTop from '@/assets/imgs/icons/arrow-top-right.svg';
+const ArrowRightTop = '/assets/imgs/icons/arrow-top-right.svg';
 import type { PostsData, PostConfig, Post } from '@/components/types';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -94,7 +94,7 @@ const Blog: React.FC = () => {
                 <Link href={header.viewAllLink} className="butn-under mt-15">
                   {header.viewAllText}{' '}
                   <span className="icon invert">
-                    <Image src={ArrowRightTop} alt="arrow" width={16} height={16} />
+                    <Image src={ArrowRightTop} alt="arrow" width={16} height={16} unoptimized />
                   </span>
                 </Link>
               </div>
@@ -120,10 +120,11 @@ const Blog: React.FC = () => {
                       fill
                       style={{ objectFit: 'cover' }}
                       priority={index < 3}
+                      unoptimized
                     />
                     <Link href={`/blog/${post.url}/`} className="butn">
                       <span className="icon">
-                        <Image src={ArrowRightTop} alt="arrow" width={16} height={16} />
+                        <Image src={ArrowRightTop} alt="arrow" width={16} height={16} unoptimized/>
                       </span>
                     </Link>
                   </div>

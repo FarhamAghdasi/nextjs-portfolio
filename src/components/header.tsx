@@ -6,8 +6,8 @@ import Image from 'next/image';
 import { gsap } from 'gsap';
 
 import content from '@/data/header.json';
-import logoLight from '@/assets/imgs/Logo-light.png';
-import arrowIcon from '@/assets/imgs/icons/arrow-top-right.svg';
+const logoLight = '/assets/imgs/Logo-light.png';
+const arrowIcon = '/assets/imgs/icons/arrow-top-right.svg';
 
 const Header = () => {
     const [isHovered, setIsHovered] = useState(false);
@@ -241,7 +241,7 @@ const Header = () => {
             <nav className="navbar navbar-expand-lg">
                 <div className="container">
                     <Link href="/" className="logo">
-                        <Image src={logoLight} alt={content.logoAlt} width={100} height={50} />
+                        <Image src={logoLight} alt={content.logoAlt} width={100} height={50} unoptimized/>
                     </Link>
 
                     <div className={`collapse navbar-collapse ${isNavbarOpen ? 'show' : ''}`}>
@@ -270,7 +270,7 @@ const Header = () => {
                             <div className="d-flex align-items-center">
                                 <span>{content.ctaText}</span>
                                 <span className="icon ml-10">
-                                    <Image src={arrowIcon} alt="Arrow" width={20} height={20} />
+                                    <Image src={arrowIcon} alt="Arrow" width={20} height={20} unoptimized/>
                                 </span>
                             </div>
                         </Link>

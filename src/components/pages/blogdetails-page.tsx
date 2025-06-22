@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { Share, Captcha, Comments, Sidebar } from '@/components';
-import authorImage from '@/assets/imgs/logo.png';
+const authorImage = '/assets/imgs/logo.png';
 import texts from '@/data/blog-details.json';
 import { BlogInfoProps, FormData, Comment } from '@/components/types';
 import { useSearchParams } from 'next/navigation';
@@ -125,6 +125,7 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                             className="circle-img"
                             width={60}
                             height={60}
+                            unoptimized
                           />
                         </Link>
                         <Link href="#" className="ml-20">

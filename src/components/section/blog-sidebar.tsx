@@ -88,6 +88,7 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
                     width={100}
                     height={70}
                     style={{ objectFit: 'cover' }}
+                    unoptimized
                   />
                   <span className="date">
                     <span>{post.date}</span>

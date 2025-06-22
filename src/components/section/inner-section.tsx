@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import smokeBg from '@/assets/imgs/smoke-bg.jpg';
+const smokeBg = '/assets/imgs/smoke-bg.jpg';
 import { ParticleCanvas } from '@/components'
 
 import { InnerProps } from '@/components/types';
@@ -47,7 +47,7 @@ const Inner: React.FC<InnerProps> = ({ title, first, secend, paragraph, links, c
         ) : !noimage ? (
           <div
             className="bg-img"
-            style={{ backgroundImage: `url(${smokeBg.src})` }}
+            style={{ backgroundImage: `url(${smokeBg})` }}
           />
         ) : null}
       </header>
