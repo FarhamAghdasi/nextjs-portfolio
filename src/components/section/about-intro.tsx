@@ -1,9 +1,14 @@
-"use client"
+'use client';
+
+import React from 'react';
 import aboutData from '@/data/about-section.json';
 import { AboutContent } from '@/components/types';
+import { usePathname } from 'next/navigation';
+import { TextSplitter } from '@/components';
 
 export default function AboutIntro() {
   const { sectionClass, header, content } = aboutData as AboutContent;
+  const pathname = usePathname();
 
   return (
     <section className={sectionClass}>
@@ -18,7 +23,17 @@ export default function AboutIntro() {
           </div>
           <div className="col-lg-9">
             <div className="text">
-              <h3 className={content.class}>{content.text}</h3>
+              <h3 className={content.class}>
+                <TextSplitter
+                  key={pathname}
+                  text={content.text}
+                  animationType="fadeInUp"
+                  duration={0.5}
+                  stagger={0.04}
+                  delay={3}
+                  split="char"
+                />
+              </h3>
             </div>
           </div>
         </div>
