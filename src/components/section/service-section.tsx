@@ -3,28 +3,19 @@
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import type { StaticImageData } from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-import smokeBg from '@/assets/imgs/smoke-bg.jpg';
-import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
-import reactIcon from '@/assets/imgs/skills/s4.png';
-import seoIcon from '@/assets/imgs/skills/seo.png';
-import editIcon from '@/assets/imgs/skills/s2.png';
-import nextjsIcon from '@/assets/imgs/skills/nextjs.png';
-import fallbackImage from '@/assets/imgs/fallback.png';
 
 import servicesData from '@/data/service-section.json';
 import { ServiceTitle } from '../types';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const serviceImages: { [key: string]: StaticImageData } = {
-  '/imgs/skills/s4.png': reactIcon,
-  '/imgs/skills/seo.png': seoIcon,
-  '/imgs/skills/s2.png': editIcon,
-  '/imgs/skills/nextjs.png': nextjsIcon,
+const serviceImages: { [key: string]: string } = {
+  '/imgs/skills/s4.png': '/assets/imgs/skills/s4.png',
+  '/imgs/skills/seo.png': '/assets/imgs/skills/seo.png',
+  '/imgs/skills/s2.png': '/assets/imgs/skills/s2.png',
+  '/imgs/skills/nextjs.png': '/assets/imgs/skills/nextjs.png',
 };
 
 const Services = () => {
@@ -76,7 +67,7 @@ const Services = () => {
   return (
     <section
       className="services-personal section-padding bg-img"
-      style={{ backgroundImage: `url(${smokeBg.src})` }}
+      style={{ backgroundImage: `url('/assets/imgs/smoke-bg.jpg')` }}
       ref={containerRef}
     >
       <div className="container pt-30 bord-thin-top-light ontop">
@@ -102,7 +93,13 @@ const Services = () => {
                 <Link href="/about/" className="butn-under mt-15">
                   Read About My Skills{' '}
                   <span className="icon invert">
-                    <Image src={arrowTopRight} alt="Arrow" width={16} height={16} />
+                    <Image
+                      src="/assets/imgs/icons/arrow-top-right.svg"
+                      alt="Arrow"
+                      width={16}
+                      height={16}
+                      unoptimized
+                    />
                   </span>
                 </Link>
               </div>
@@ -115,7 +112,6 @@ const Services = () => {
           <div className="col-lg-8">
             <div className="serv-items">
               {services.map((service, index) => (
-                // eslint-disable-next-line react/no-array-index-key
                 <div
                   key={index}
                   className="item"
@@ -131,7 +127,7 @@ const Services = () => {
                   </div>
                   <div className="img fit-img">
                     <Image
-                      src={serviceImages[service.image] || fallbackImage}
+                      src={serviceImages[service.image] || '/assets/imgs/fallback.png'}
                       alt={service.title}
                       width={400}
                       height={300}

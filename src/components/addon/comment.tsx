@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import DefaultProfile from '@/assets/imgs/profile.png';
+const DefaultProfile = '/assets/imgs/profile.png';
 import '@/assets/css/comments.css';
 import { Comment } from '@/components/types'; // Import Comment
 
@@ -45,6 +45,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ url, initialComments 
                   className="avatar"
                   width={40}
                   height={40}
+                  unoptimized
                 />
                 <div className="comment-details">
                   <h6>{comment.author_name}</h6>
@@ -66,6 +67,7 @@ const CommentsSection: React.FC<CommentsSectionProps> = ({ url, initialComments 
                           className="avatar"
                           width={40}
                           height={40}
+                          unoptimized
                         />
                         <div className="comment-details">
                           <h6>{reply.author_name}</h6>

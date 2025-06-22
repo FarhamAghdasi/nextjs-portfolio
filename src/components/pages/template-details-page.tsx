@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { AccordionSection } from '@/components';
 import texts from '@/data/template-page.json';
-import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
+const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
 import { TemplateDetails2 } from '@/components/types';
 
 interface TemplatePageProps {
@@ -61,6 +61,7 @@ export default function TemplatePage({ template }: TemplatePageProps) {
               width={1200}
               height={600}
               style={{ objectFit: 'cover' }}
+              unoptimized
             />
           </div>
         </div>
@@ -89,7 +90,7 @@ export default function TemplatePage({ template }: TemplatePageProps) {
                     <div className="crv-butn mt-80 d-flex justify-content-center align-items-center">
                       <span className="text">{texts.more_templates}</span>
                       <span className="icon">
-                        <Image src={arrowTopRight} alt="Arrow" width={20} height={20} />
+                        <Image src={arrowTopRight} alt="Arrow" width={20} height={20} unoptimized />
                       </span>
                     </div>
                   </Link>

@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Inner } from '@/components';
-import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
+const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
 import templateData from '@/data/api/template.json';
 import { Template } from '@/components/types';
 
@@ -121,7 +121,7 @@ export default function HtmlTemplates() {
                         <div className="d-flex align-items-center">
                           <span>Buy Now</span>
                           <span className="icon invert ml-10 n">
-                            <Image src={arrowTopRight} alt="Arrow Icon" width={16} height={16} />
+                            <Image src={arrowTopRight} alt="Arrow Icon" width={16} height={16} unoptimized />
                           </span>
                         </div>
                       </a>
@@ -132,7 +132,7 @@ export default function HtmlTemplates() {
                         <div className="d-flex align-items-center">
                           <span>View Template</span>
                           <span className="icon invert ml-10 n">
-                            <Image src={arrowTopRight} alt="Arrow Icon" width={16} height={16} />
+                            <Image src={arrowTopRight} alt="Arrow Icon" width={16} height={16} unoptimized/>
                           </span>
                         </div>
                       </Link>
@@ -146,6 +146,7 @@ export default function HtmlTemplates() {
                       height={500}
                       className="w-full rounded-xl"
                       style={{ objectFit: 'cover' }}
+                      unoptimized
                     />
                   </div>
                 </div>

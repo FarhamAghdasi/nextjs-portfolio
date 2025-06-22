@@ -3,21 +3,13 @@
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import type { StaticImageData } from 'next/image';
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import skillsData from '@/data/skills.json';
-import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
-import htmlIcon from '@/assets/imgs/skills/html.png';
-import jsIcon from '@/assets/imgs/skills/js.png';
-import bootstrapIcon from '@/assets/imgs/skills/bootstrap.png';
-import reactIcon from '@/assets/imgs/skills/s4.png';
-import seoIcon from '@/assets/imgs/skills/seo.png';
-import tailwindIcon from '@/assets/imgs/skills/tailwindcss.png';
-import nextjsIcon from '@/assets/imgs/skills/nextjs.png';
-import fallbackImage from '@/assets/imgs/fallback.png';
+const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
+const fallbackImage = '/assets/imgs/fallback.png';
 
 import { Skill, NumberItem, ExperienceItem } from '../types';
 
@@ -28,14 +20,14 @@ interface ExperienceYear {
 
 gsap.registerPlugin(ScrollTrigger);
 
-const skillImages: { [key: string]: StaticImageData } = {
-  'HTML/CSS': htmlIcon,
-  JavaScript: jsIcon,
-  Bootstrap: bootstrapIcon,
-  React: reactIcon,
-  SEO: seoIcon,
-  Tailwindcss: tailwindIcon,
-  Nextjs: nextjsIcon,
+const skillImages: { [key: string]: string } = {
+  'HTML/CSS': '/assets/imgs/skills/html.png',
+  JavaScript: '/assets/imgs/skills/js.png',
+  Bootstrap: '/assets/imgs/skills/bootstrap.png',
+  React: '/assets/imgs/skills/s4.png',
+  SEO: '/assets/imgs/skills/seo.png',
+  Tailwindcss: '/assets/imgs/skills/tailwindcss.png',
+  Nextjs: '/assets/imgs/skills/nextjs.png',
 };
 
 const Skills: React.FC = () => {
@@ -158,7 +150,7 @@ const Skills: React.FC = () => {
                   <Link href="/about" className="butn-under mt-15">
                     {header.viewSkills}{' '}
                     <span className="icon">
-                      <Image src={arrowTopRight} alt="Arrow" width={20} height={20} />
+                      <Image src={arrowTopRight} alt="Arrow" width={20} height={20} unoptimized />
                     </span>
                   </Link>
                 </div>
@@ -182,6 +174,7 @@ const Skills: React.FC = () => {
                           width={64}
                           height={64}
                           style={{ objectFit: 'contain' }}
+                          unoptimized
                         />
                       </div>
                       <h2>{skill.level}</h2>

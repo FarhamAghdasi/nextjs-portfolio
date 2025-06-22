@@ -8,8 +8,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import bioData from '@/data/bio-service.json';
 import { ContentSection } from '@/components/types';
 
-import img1 from '@/assets/imgs/intro/1.webp';
-import img2 from '@/assets/imgs/intro/2.webp';
+const img1 = '/assets/imgs/intro/1.webp';
+const img2 = '/assets/imgs/intro/2.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,6 +64,7 @@ export default function Bio() {
                     height={300}
                     sizes="(max-width: 768px) 100vw, 50vw"
                     priority={index === 0}
+                    unoptimized
                   />
                 </div>
               ))}

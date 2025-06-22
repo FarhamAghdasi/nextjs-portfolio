@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import Image from 'next/image';
-import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
+const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
 import servicesData from '@/data/services-line.json';
 import { Service } from '../types';
 
@@ -51,7 +51,7 @@ const ServicesLine: React.FC = () => {
                   <div className="col-md-4 d-flex">
                     <a href="#0" className="ml-auto">
                       <span className="icon invert">
-                        <Image src={arrowTopRight} alt="arrow icon" width={16} height={16} />
+                        <Image src={arrowTopRight} alt="arrow icon" width={16} height={16} unoptimized/>
                       </span>
                     </a>
                   </div>

@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Inner } from '@/components';
-import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
+const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
 import portfoliosData from '@/data/api/portfolio.json';
 import texts from '@/data/portfolio-page.json';
 import { Portfolio } from '@/components/types';
@@ -122,7 +122,7 @@ const WorksPage: React.FC = () => {
                         <div className="d-flex align-items-center">
                           <span>{texts.viewProject}</span>
                           <span className="icon invert ml-10 n">
-                            <Image src={arrowTopRight} alt="Arrow" width={16} height={16} />
+                            <Image src={arrowTopRight} alt="Arrow" width={16} height={16} unoptimized/>
                           </span>
                         </div>
                       </Link>
@@ -136,6 +136,7 @@ const WorksPage: React.FC = () => {
                         width={600}
                         height={400}
                         style={{ objectFit: 'cover', height: '100%' }}
+                        unoptimized
                       />
                     ) : (
                       <span className="no-image">No Image Available</span>

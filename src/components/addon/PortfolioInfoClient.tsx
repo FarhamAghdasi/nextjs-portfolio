@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { Header, Footer } from '@/components';
-import arrowTopRight from '@/assets/imgs/icons/arrow-top-right.svg';
+const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
 import texts from '@/data/portfolio-details.json';
 import { Portfolio } from '@/components/types';
 
@@ -31,7 +31,9 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
     );
   }
 
-  const imagePrimary = portfolio.thumbnail ? `/assets/imgs/uploads/${portfolio.thumbnail}` : '/default-image.jpg';
+  const imagePrimary = portfolio.thumbnail
+  ? `/assets/imgs/uploads/${portfolio.thumbnail}`
+  : '/assets/imgs/default-image.jpg';
 
   return (
     <>
@@ -76,6 +78,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
               alt={portfolio.title || 'Portfolio Image'}
               width={1200}
               height={600}
+              unoptimized
             />
           </div>
         </div>
@@ -94,20 +97,22 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
             <div className="col-md-6">
               <div className="img sm-mb30">
                 <Image
-                  src="/default-image1.jpg"
+                  src="/assets/imgs/default-image1.jpg"
                   alt="Portfolio Image 1"
                   width={600}
                   height={400}
+                  unoptimized
                 />
               </div>
             </div>
             <div className="col-md-6">
               <div className="img">
                 <Image
-                  src="/default-image2.jpg"
+                  src="/assets/imgs/default-image2.jpg"
                   alt="Portfolio Image 2"
                   width={600}
                   height={400}
+                  unoptimized
                 />
               </div>
             </div>
@@ -153,7 +158,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
                     <div className="d-flex">
                       <span className="text">{texts.checkMorePortfolios}</span>
                       <span className="icon">
-                        <Image src={arrowTopRight} alt="Arrow" width={16} height={16} />
+                        <Image src={arrowTopRight} alt="Arrow" width={16} height={16} unoptimized/>
                       </span>
                     </div>
                   </Link>

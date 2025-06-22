@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import data from '@/data/contactus-page.json';
-import ArrowRightTop from '@/assets/imgs/icons/arrow-top-right.svg'
+const ArrowRightTop = '/assets/imgs/icons/arrow-top-right.svg'
 
 const ContactPageContent = () => {
   const { contact, texts } = data;
@@ -162,6 +162,7 @@ const ContactPageContent = () => {
                             <Image
                               src={ArrowRightTop}
                               alt=""
+                              unoptimized
                             />
                           </span>
                         </div>

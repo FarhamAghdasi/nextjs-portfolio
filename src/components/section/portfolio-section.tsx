@@ -111,6 +111,7 @@ const Work: React.FC = () => {
                       width={800}
                       height={600}
                       style={{ objectFit: 'cover' }}
+                      unoptimized
                     />
                   </div>
                   <div className="cont mt-30">
@@ -152,6 +153,7 @@ const Work: React.FC = () => {
                       width={800}
                       height={600}
                       style={{ objectFit: 'cover' }}
+                      unoptimized
                     />
                   </div>
                   <div className="cont mt-30">

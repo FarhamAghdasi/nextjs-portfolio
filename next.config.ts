@@ -14,7 +14,8 @@ const nextConfig = {
         hostname: 's8.uupload.ir',
         pathname: '/files/**',
       },
-    ],    
+    ],
+    unoptimized: true,  // اضافه کن این خط رو
   },
 };
 

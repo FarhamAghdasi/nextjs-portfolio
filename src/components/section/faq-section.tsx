@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import data from '@/data/faq-section.json';
-import FaqImage from '@/assets/imgs/faqs.jpg';
+const FaqImage = '/assets/imgs/faqs.jpg';
 
 export default function Faq() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -22,7 +22,7 @@ export default function Faq() {
         <div className="row lg-marg">
           <div className="col-lg-5">
             <div className="fit-img img md-hide">
-              <Image src={FaqImage} alt="FAQs Image" />
+              <Image src={FaqImage} alt="FAQs Image" unoptimized />
             </div>
           </div>
           <div className="col-lg-7 pt-30 pb-30">

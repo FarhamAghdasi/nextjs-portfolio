@@ -7,7 +7,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import gsap from 'gsap';
 import rawPostsData from '@/data/api/posts.json';
 import texts from '@/data/blog.json';
-import Logo from '@/assets/imgs/logo.png';
+const defaultLogo = '/assets/imgs/logo.png';
 import { Sidebar } from '@/components'; // فرض کردم نام فایل Sidebar.tsx است
 import { PostBlog } from '@/components/types';
 
@@ -103,10 +103,11 @@ const Bloginfo: React.FC = () => {
                           <div>
                             <div className="author-img fit-img">
                               <Image
-                                src={post.authorImage || Logo}
+                                src={post.authorImage || defaultLogo}
                                 alt={post.author || 'Author'}
                                 width={50}
                                 height={50}
+                                unoptimized
                               />
                             </div>
                           </div>
@@ -128,6 +129,7 @@ const Bloginfo: React.FC = () => {
                           width={1200}
                           height={630}
                           style={{ objectFit: 'cover' }}
+                          unoptimized
                         />
                       </div>
                       <div className="cont mt-30">
