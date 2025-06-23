@@ -97,7 +97,7 @@ const Work: React.FC = () => {
           {portfolios.length > 0 ? (
             portfolios.slice(0, 2).map((portfolio, index) => (
               <div
-                className="col-lg-6"
+                className="col-lg-6 mb-2 mt-2"
                 key={portfolio.url}
                 ref={(el) => {
                   portfolioRefs.current[index] = el;
@@ -148,7 +148,7 @@ const Work: React.FC = () => {
                 <div className="item md-mb50">
                   <div className="img fit-img">
                     <Image
-                      src={template.thumbnail ? `/assets/imgs/uploads/${template.thumbnail}` : '/default-image.jpg'}
+                      src={template.thumbnail ? template.thumbnail : '/default-image.jpg'}
                       alt={template.title || 'Template Image'}
                       width={800}
                       height={600}

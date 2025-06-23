@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: TemplatePageProps): Promise<M
   const pageDescription = stripHtmlTags(template.Shortdescription) || texts.defaultDescription || '';
   const pageUrl = `https://farhamaghdasi.ir/templates/${template.url}`;
   const pageImage = template.thumbnail
-    ? `https://farhamaghdasi.ir/assets/imgs/uploads/${template.thumbnail}`
+    ? template.thumbnail
     : defaultMetadata.openGraph?.images?.[0]?.url || '';
 
   return {
@@ -56,8 +56,8 @@ export async function generateMetadata({ params }: TemplatePageProps): Promise<M
       images: [
         {
           url: pageImage,
-          width: 1200,
-          height: 630,
+          width: 2100,
+          height: 1040,
           alt: template.title || 'Template Image',
         },
       ],

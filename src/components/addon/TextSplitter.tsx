@@ -16,8 +16,8 @@ interface TextSplitterProps {
 const TextSplitter: React.FC<TextSplitterProps> = ({
   text,
   animationType = 'fadeInUp',
-  duration = 0.5,
-  stagger = 0.04,
+  duration = 0,
+  stagger = 0,
   delay = 0,
   split = 'char',
   className = '',

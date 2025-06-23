@@ -31,6 +31,7 @@ export { default as SmoothScroll } from './addon/smoothScroll';
 export { default as ScrollAnimation } from './addon/wow-animation';
 export { default as ParticleCanvas } from './addon/ParticleCanvas';
 export { default as TextSplitter } from './addon/TextSplitter';
+export { default as Pagination } from './addon/pagination';
 
 /** Page */
 export { default as WorksPage } from './pages/portfolio-page';
