@@ -25,13 +25,15 @@ export default function Pagination({
   const renderPageNumbers = () => {
     const pages = [];
     const maxPagesToShow = 5;
+  
     let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
-    let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
-
-    if (endPage - startPage + 1 < maxPagesToShow) {
+    let endPage = startPage + maxPagesToShow - 1;
+  
+    if (endPage > totalPages) {
+      endPage = totalPages;
       startPage = Math.max(1, endPage - maxPagesToShow + 1);
     }
-
+  
     for (let i = startPage; i <= endPage; i++) {
       pages.push(
         <button
@@ -43,9 +45,10 @@ export default function Pagination({
         </button>
       );
     }
-
+  
     return pages;
   };
+  
 
   return (
     <div className="pagination-container mt-50 d-flex justify-content-center align-items-center flex-wrap gap-2">
