@@ -1,4 +1,5 @@
 {
+  "pageTitle": "Our Templates",
   "postNotFound": "Template not found.",
   "defaultTitle": "Untitled Template",
   "defaultDescription": "No description available.",
@@ -8,5 +9,8 @@
   "link": "this link",
   "faq_title": "Frequently Asked Questions",
   "faq_text": "Find answers to common questions about this template.",
-  "more_templates": "Explore More Templates"
+  "more_templates": "Explore More Templates",
+  "sortByDate": "Sort by Date",
+  "sortByPrice": "Sort by Price",
+  "total_templates": "Total Templates"
 }

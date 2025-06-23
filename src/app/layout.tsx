@@ -29,8 +29,10 @@ const outfit = localFont({
 export default function RootLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
-  const shouldAnimateFooter = !(pathname === '/template');
-
+  const shouldAnimateFooter = !(
+    pathname === '/template' || pathname.startsWith('/template/')
+  );
+  
   return (
     <html lang="en" className={outfit.className}>
       <body>

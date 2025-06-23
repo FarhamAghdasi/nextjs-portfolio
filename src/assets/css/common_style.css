@@ -12,21 +12,33 @@ body {
     height: auto;
     overflow: visible;
 }
+
 body {
     overflow: hidden;
+}
+
+.product-widget ul li {
+    list-style: disc;
+}
+.product-widget ul {
+    margin-top: .5rem;
 }
 
 [data-smooth-scroll] {
     will-change: transform;
 }
-
+.pagination-container button:not(.d-flex) {
+    padding: 9px 16px;
+}
 .cards {
     position: relative;
     width: 100%;
 }
+
 .accordion-button {
     color: #fff;
 }
+
 .card-item {
     transform-origin: 50% center;
     will-change: transform;
@@ -40,13 +52,16 @@ body {
 .faqs-pg .accordion-collapse.fade.show {
     opacity: 1;
 }
+
 .card-item {
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
+
 a.link {
     color: var(--main-color);
     transition: ease .3s all;
-} 
+}
+
 a.link:hover {
     color: #fff;
 }
@@ -460,7 +475,7 @@ html {
 
 .hamenu:after {
     content: '';
-    background-image: url(/imgs/menu-shape.png);
+    background-image: url(/assets/imgs/menu-shape.png);
     background-size: contain;
     background-repeat: repeat;
     position: absolute;
@@ -1233,6 +1248,51 @@ a:hover {
 
 /* Buttons
 -----------------------------------------------------------------*/
+
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.select-custom {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    padding: 12px 40px 12px 25px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.4s;
+    color: #fff;
+}
+
+.select-custom:hover {
+    background-color: #212121;
+    border-color: #212121;
+}
+
+.select-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #555;
+}
+
+.active-page {
+    background-color: #212121;
+    color: #fff;
+    border-color: #212121;
+}
+
+.pagination-container button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 .butn {
     font-size: 14px;
