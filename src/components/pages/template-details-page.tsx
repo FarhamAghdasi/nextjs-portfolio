@@ -62,6 +62,7 @@ export default function TemplatePage({ template }: TemplatePageProps) {
               height={600}
               style={{ objectFit: 'cover' }}
               unoptimized
+              id='primaryimage'
             />
           </div>
         </div>
