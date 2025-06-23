@@ -3,7 +3,7 @@ name: Build and Deploy Next.js Project
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
   build-and-deploy:
@@ -18,11 +18,19 @@ jobs:
       with:
         node-version: 18
 
+    - name: Fix NPM registry in case of timeout
+      run: npm config set registry https://registry.npmjs.org/
+
     - name: Install dependencies
       run: npm install
 
-    - name: Build
+    - name: Build with PurgeCSS active in production
+      env:
+        NODE_ENV: production
       run: npm run build
+
+    - name: Export static site
+      run: npm run export
 
     - name: Deploy to FTP server
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
@@ -32,4 +40,3 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./out/
         server-dir: /public_html/
-    
