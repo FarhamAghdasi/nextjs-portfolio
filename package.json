@@ -30,6 +30,11 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.31",
+    "postcss-import": "^15.1.0",
+    "@fullhuman/postcss-purgecss": "^4.1.3",
+    "purgecss": "^7.0.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
