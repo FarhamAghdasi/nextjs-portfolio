@@ -24,11 +24,8 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Export static site
-        run: npm run export
-
       - name: Generate sitemap
-        run: npx next-sitemap
+        run: npm run postbuild
 
       - name: Deploy to FTP server
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
