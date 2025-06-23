@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "postexport": "next-sitemap"
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "animate.css": "^4.1.1",
