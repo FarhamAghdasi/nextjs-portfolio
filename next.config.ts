@@ -2,6 +2,8 @@
 const nextConfig = {
   output: 'export',
   reactStrictMode: true,
+  trailingSlash: false,
+
   images: {
     domains: ['farhamaghdasi.ir'],
     remotePatterns: [
@@ -17,7 +19,6 @@ const nextConfig = {
       },
     ],
     unoptimized: true,
-    trailingSlash: false
   },
 };
 
