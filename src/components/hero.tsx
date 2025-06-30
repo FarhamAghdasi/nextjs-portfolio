@@ -5,8 +5,91 @@ import { gsap } from 'gsap';
 import { Typewriter } from 'react-simple-typewriter';
 import Link from 'next/link';
 import content from '@/data/hero.json';
-import { ParticleCanvas } from '@/components'
 
+// ParticleCanvas Component
+const ParticleCanvas = () => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Detect mobile view
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Set canvas size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Particle settings
+    const particleCount = isMobile ? 20 : 100; // Reduce particles on mobile
+    const particles: { x: number; y: number; vx: number; vy: number; radius: number }[] = [];
+
+    // Initialize particles
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 2,
+        vy: (Math.random() - 0.5) * 2,
+        radius: Math.random() * 3 + 1,
+      });
+    }
+
+    // Animation loop
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+
+      particles.forEach((particle) => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        // Bounce off edges
+        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+
+        // Draw particle
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    // Handle window resize
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isMobile]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}
+    />
+  );
+};
 
 const Hero = () => {
   const [startTyping, setStartTyping] = useState(false);
@@ -46,7 +129,6 @@ const Hero = () => {
         rotateY,
         transformStyle: 'preserve-3d',
       });
-
     }
 
     function onMouseLeave() {
@@ -57,7 +139,6 @@ const Hero = () => {
         rotateX: 0,
         rotateY: 0,
       });
-
     }
 
     headerEl.addEventListener('mousemove', onMouseMove);
