@@ -201,10 +201,10 @@ const Header = () => {
 
     const hamburgerMenuItems = [
         { label: 'Home', href: '/' },
-        { label: 'About Me', href: '/about' },
-        { label: 'Portfolio', href: '/portfolio', hasSubMenu: true },
-        { label: 'Contact Me', href: '/contact' },
-        { label: 'Blog', href: '/blog' },
+        { label: 'About Me', href: '/about/' },
+        { label: 'Portfolio', href: '/portfolio/', hasSubMenu: true },
+        { label: 'Contact Me', href: '/contact/' },
+        { label: 'Blog', href: '/blog/' },
     ];
 
     return (

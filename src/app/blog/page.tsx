@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
       ...defaultMetadata.openGraph,
       title: 'Blog | Farham Aghdasi',
       description: texts.pageDescription,
-      url: 'https://farhamaghdasi.ir/blog',
+      url: 'https://farhamaghdasi.ir/blog/',
     },
     twitter: {
       ...defaultMetadata.twitter,
@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: texts.pageDescription,
     },
     alternates: {
-      canonical: 'https://farhamaghdasi.ir/blog',
+      canonical: 'https://farhamaghdasi.ir/blog/',
     },
   };
 }

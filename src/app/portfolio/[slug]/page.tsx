@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const imagePrimary = `https://farhamaghdasi.ir/${portfolio.thumbnail}` || '/default-thumbnail.jpg';
-  const pageUrl = `https://farhamaghdasi.ir/portfolio/${portfolio.url}`;
+  const pageUrl = `https://farhamaghdasi.ir/portfolio/${portfolio.url}/`;
   const pageTitle = portfolio.title || texts.seoDefaultTitle;
   const pageDescription = stripHtmlTags(portfolio.Shortdescription) || texts.seoDefaultDescription;
 

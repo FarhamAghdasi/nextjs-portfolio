@@ -38,7 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
 
   const handleReset = () => {
     setInputValue('');
-    window.location.href = '/blog';
+    window.location.href = '/blog/';
     if (onReset) {
       onReset();
     }
@@ -81,7 +81,7 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
           <div className="item d-flex align-items-center" key={post.id}>
             <div>
               <div className="img">
-                <Link href={`/blog/${post.url}`}>
+                <Link href={`/blog/${post.url}/`}>
                   <Image
                     src={post.thumbnail ? `/assets/imgs/uploads/${post.thumbnail}` : '/default-image.jpg'}
                     alt={post.title || 'Blog Post'}
@@ -103,7 +103,7 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
                 </Link>
               </span>
               <h6>
-                <Link href={`/blog/${post.url}`}>{post.title}</Link>
+                <Link href={`/blog/${post.url}/`}>{post.title}</Link>
               </h6>
             </div>
           </div>

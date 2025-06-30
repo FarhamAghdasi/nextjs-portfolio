@@ -109,7 +109,7 @@ const WorksPage: React.FC = () => {
                         <a href="#">{portfolio.category}</a>
                       </div>
                       <h3 className="title">
-                        <Link href={`/portfolio/${portfolio.url}`}>{portfolio.title}</Link>
+                        <Link href={`/portfolio/${portfolio.url}/`}>{portfolio.title}</Link>
                       </h3>
                     </div>
                     <div className="ml-auto">

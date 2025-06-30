@@ -2,15 +2,15 @@
     "logoAlt": "Logo",
     "menuItems": [
       { "label": "Home", "href": "/" },
-      { "label": "About Me", "href": "/about" },
-      { "label": "Services", "href": "/services" },
-      { "label": "Portfolio", "href": "/portfolio" },
-      { "label": "HTML Templates", "href": "/templates" },
-      { "label": "Blog", "href": "/blog" },
-      { "label": "Contact Me", "href": "/contact" }
+      { "label": "About Me", "href": "/about/" },
+      { "label": "Services", "href": "/services/" },
+      { "label": "Portfolio", "href": "/portfolio/" },
+      { "label": "HTML Templates", "href": "/templates/" },
+      { "label": "Blog", "href": "/blog/" },
+      { "label": "Contact Me", "href": "/contact/" }
     ],
     "ctaText": "Start Project",
-    "ctaHref": "/contact",
+    "ctaHref": "/contact/",
     "contactLocation": "Amol, Mazandaran Province, Iran",
     "contactPhone": "+98 939 121 3094",
     "contactEmail": "farhamaghdasi08@gmail.com",

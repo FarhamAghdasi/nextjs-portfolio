@@ -40,7 +40,7 @@ export async function generateMetadata({
 
   const pageTitle = post.title || texts.defaultTitle || 'Blog Post';
   const pageDescription = post.short_description || texts.defaultDescription || '';
-  const pageUrl = `https://farhamaghdasi.ir/blog/${post.url}`;
+  const pageUrl = `https://farhamaghdasi.ir/blog/${post.url}/`;
   const pageImage = post.thumbnail
     ? `https://farhamaghdasi.ir/assets/imgs/uploads/${post.thumbnail}` // Use absolute URL for metadata
     : defaultMetadata.openGraph?.images?.[0]?.url || '';

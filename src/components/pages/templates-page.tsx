@@ -188,7 +188,7 @@ export default function HtmlTemplates() {
                           )}
                         </div>
                         <h3 className="title">
-                          <Link href={`/templates/${template.url}`}>{template.title}</Link>
+                          <Link href={`/templates/${template.url}/`}>{template.title}</Link>
                         </h3>
                       </div>
                       <div className="ml-auto">
@@ -206,7 +206,7 @@ export default function HtmlTemplates() {
                           </div>
                         </a>
                         <Link
-                          href={`/templates/${template.url}`}
+                          href={`/templates/${template.url}/`}
                           className="mr-3 butn butn-md butn-bord butn-rounded"
                         >
                           <div className="d-flex align-items-center">
