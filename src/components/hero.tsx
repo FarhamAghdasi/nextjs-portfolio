@@ -5,14 +5,18 @@ import { gsap } from 'gsap';
 import { Typewriter } from 'react-simple-typewriter';
 import Link from 'next/link';
 import content from '@/data/hero.json';
+import { ParticleCanvas } from '@/components';
 
-// ParticleCanvas Component
-const ParticleCanvas = () => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+const Hero = () => {
+  const [startTyping, setStartTyping] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const headerRef = useRef<HTMLElement | null>(null);
+  const animation = useRef<gsap.core.Tween | null>(null);
+  const lastMouseMove = useRef<number>(Date.now());
 
+  // Detect mobile device
   useEffect(() => {
-    // Detect mobile view
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -21,95 +25,27 @@ const ParticleCanvas = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // Set canvas size
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    // Particle settings
-    const particleCount = isMobile ? 20 : 100; // Reduce particles on mobile
-    const particles: { x: number; y: number; vx: number; vy: number; radius: number }[] = [];
-
-    // Initialize particles
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 2,
-        vy: (Math.random() - 0.5) * 2,
-        radius: Math.random() * 3 + 1,
-      });
-    }
-
-    // Animation loop
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-
-      particles.forEach((particle) => {
-        particle.x += particle.vx;
-        particle.y += particle.vy;
-
-        // Bounce off edges
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-
-        // Draw particle
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    // Handle window resize
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [isMobile]);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}
-    />
-  );
-};
-
-const Hero = () => {
-  const [startTyping, setStartTyping] = useState(false);
-  const titleRef = useRef<HTMLHeadingElement | null>(null);
-  const headerRef = useRef<HTMLElement | null>(null);
-  const animation = useRef<gsap.core.Tween | null>(null);
-
+  // Start typewriter effect
   useEffect(() => {
     const timer = setTimeout(() => setStartTyping(true), 1000);
     return () => clearTimeout(timer);
   }, []);
 
+  // Mouse movement animation for desktop only
   useEffect(() => {
+    if (isMobile) return; // Skip animation on mobile
+
     const headerEl = headerRef.current;
     const titleEl = titleRef.current;
     if (!headerEl || !titleEl) return;
 
     const maxRotation = 15;
+    const normalDuration = 0.6;
+    const slowDuration = 2; // Slower duration after inactivity
+    let inactivityTimeout: NodeJS.Timeout;
 
     function onMouseMove(e: MouseEvent) {
+      lastMouseMove.current = Date.now();
       const rect = headerEl!.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -122,19 +58,33 @@ const Hero = () => {
       if (animation.current) animation.current.kill();
 
       animation.current = gsap.to(titleEl, {
-        duration: 0.6,
+        duration: normalDuration,
         ease: 'power2.out',
         transformPerspective: 800,
         rotateX,
         rotateY,
         transformStyle: 'preserve-3d',
       });
+
+      // Reset inactivity timeout
+      clearTimeout(inactivityTimeout);
+      inactivityTimeout = setTimeout(() => {
+        if (Date.now() - lastMouseMove.current >= 1000) {
+          if (animation.current) animation.current.kill();
+          animation.current = gsap.to(titleEl, {
+            duration: slowDuration,
+            ease: 'power2.out',
+            rotateX: 0,
+            rotateY: 0,
+          });
+        }
+      }, 1000);
     }
 
     function onMouseLeave() {
       if (animation.current) animation.current.kill();
       animation.current = gsap.to(titleEl, {
-        duration: 1,
+        duration: slowDuration,
         ease: 'power2.out',
         rotateX: 0,
         rotateY: 0,
@@ -147,12 +97,13 @@ const Hero = () => {
     return () => {
       headerEl.removeEventListener('mousemove', onMouseMove);
       headerEl.removeEventListener('mouseleave', onMouseLeave);
+      clearTimeout(inactivityTimeout);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
-      <ParticleCanvas />
+      {!isMobile && <ParticleCanvas />}
       <header ref={headerRef} className="header-personal" style={{ position: 'relative', zIndex: 1 }}>
         <div className="container ontop">
           <div className="caption text-center">
