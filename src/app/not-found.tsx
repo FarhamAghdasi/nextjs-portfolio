@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     ...defaultMetadata.openGraph,
     title: "404 Not Found",
     description: errorTexts["404"] || errorTexts.default,
-    url: 'https://farhamaghdasi.ir/404',
+    url: 'https://farhamaghdasi.ir/404/',
   },
   twitter: {
     ...defaultMetadata.twitter,

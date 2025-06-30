@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: TemplatePageProps): Promise<M
 
   const pageTitle = template.title || texts.defaultTitle || 'Template';
   const pageDescription = stripHtmlTags(template.Shortdescription) || texts.defaultDescription || '';
-  const pageUrl = `https://farhamaghdasi.ir/templates/${template.url}`;
+  const pageUrl = `https://farhamaghdasi.ir/templates/${template.url}/`;
   const pageImage = template.thumbnail
     ? template.thumbnail
     : defaultMetadata.openGraph?.images?.[0]?.url || '';
@@ -89,7 +89,7 @@ export default async function Template({ params }: TemplatePageProps) {
     '@graph': [
       {
         '@type': 'ImageObject',
-        '@id': `https://farhamaghdasi.ir/templates/${slug}#primaryimage`,
+        '@id': `https://farhamaghdasi.ir/templates/${slug}/#primaryimage`,
         'inLanguage': 'en-US',
         'url': template.thumbnail || '/default-image.jpg',
         'contentUrl': template.thumbnail || '/default-image.jpg',
@@ -129,8 +129,8 @@ export default async function Template({ params }: TemplatePageProps) {
         'position': 2,
         'item': {
           '@type': 'WebPage',
-          '@id': `https://farhamaghdasi.ir/templates/${slug}`,
-          'url': `https://farhamaghdasi.ir/templates/${slug}`,
+          '@id': `https://farhamaghdasi.ir/templates/${slug}/`,
+          'url': `https://farhamaghdasi.ir/templates/${slug}/`,
           'name': template.title || 'Template',
         },
       },
@@ -142,7 +142,7 @@ export default async function Template({ params }: TemplatePageProps) {
     '@type': 'Product',
     '@id': `https://farhamaghdasi.ir/templates/${slug}#product`,
     'name': template.title || 'Template',
-    'url': `https://farhamaghdasi.ir/templates/${slug}`,
+    'url': `https://farhamaghdasi.ir/templates/${slug}/`,
     'logo': template.thumbnail || '/default-image.jpg',
     'description': template.Shortdescription || 'No description available.',
     'sku': template.url || 'unknown-sku',
@@ -161,7 +161,7 @@ export default async function Template({ params }: TemplatePageProps) {
       'priceValidUntil': '2025-06-23',
       'priceCurrency': 'IRR',
       'availability': 'https://schema.org/InStock',
-      'url': `https://farhamaghdasi.ir/templates/${slug}`,
+      'url': `https://farhamaghdasi.ir/templates/${slug}/`,
       'priceSpecification': {
         '@type': 'PriceSpecification',
         'priceCurrency': 'IRR',

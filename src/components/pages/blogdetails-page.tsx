@@ -94,7 +94,7 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
     return <div>{texts.postNotFound}</div>;
   }
 
-  const currentUrl = `https://farhamaghdasi.ir/blog/${post.url}`;
+  const currentUrl = `https://farhamaghdasi.ir/blog/${post.url}/`;
   const currentTitle = post.title || texts.defaultTitle;
 
   return (
@@ -335,7 +335,7 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                     </div>
                   </div>
                   <div className="img fit-img mt-30">
-                    <Link href={`/blog/${p.url}`}>
+                    <Link href={`/blog/${p.url}/`}>
                       <Image
                         src={p.thumbnail ? `/assets/imgs/uploads/${p.thumbnail}` : '/default-image.jpg'}
                         alt={p.title || 'Blog Post'}
@@ -347,7 +347,7 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                   </div>
                   <div className="cont mt-30">
                     <h6>
-                      <Link href={`/blog/${p.url}`}>
+                      <Link href={`/blog/${p.url}/`}>
                         {p.title || texts.defaultTitle}
                       </Link>
                     </h6>

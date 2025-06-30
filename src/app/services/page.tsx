@@ -6,7 +6,7 @@ import servicesText from '@/data/services.json';
 export async function generateMetadata(): Promise<Metadata> {
   const pageTitle = servicesText.seoTitle;
   const pageDescription = servicesText.seoDescription;
-  const pageUrl = 'https://farhamaghdasi.ir/services';
+  const pageUrl = 'https://farhamaghdasi.ir/services/';
 
   return {
     ...defaultMetadata,

@@ -139,7 +139,7 @@ const Bloginfo: React.FC = () => {
                           </Link>
                         </span>
                         <h3>
-                          <Link href={`/blog/${post.url}`}>{post.title}</Link>
+                          <Link href={`/blog/${post.url}/`}>{post.title}</Link>
                         </h3>
                         <div className="text mt-25">
                           <p>{post.short_description}</p>

@@ -2,7 +2,7 @@
 const nextConfig = {
   output: 'export',
   reactStrictMode: true,
-  trailingSlash: false,
+  trailingSlash: true,
 
   images: {
     domains: ['farhamaghdasi.ir'],

@@ -5,7 +5,7 @@ import { defaultMetadata } from '@/components/addon/seo';
 export async function generateMetadata(): Promise<Metadata> {
   const pageTitle = 'Contact Us | Farham Aghdasi';
   const pageDescription = 'Get in touch with Farham Aghdasi for programming inquiries, projects, or collaborations..';
-  const pageUrl = 'https://farhamaghdasi.ir/contact';
+  const pageUrl = 'https://farhamaghdasi.ir/contact/';
 
   return {
     ...defaultMetadata,

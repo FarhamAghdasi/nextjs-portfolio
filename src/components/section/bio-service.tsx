@@ -19,11 +19,11 @@ export default function Bio() {
 
   useEffect(() => {
     imageRefs.current.forEach((ref, index) => {
-      if (!ref) return; // بررسی null بودن ref
+      if (!ref) return;
 
       gsap.fromTo(
         ref,
-        { x: index % 2 === 0 ? -50 : 50, opacity: 0 }, // اصلاح شرط به عدد
+        { x: index % 2 === 0 ? -50 : 50, opacity: 0 },
         {
           x: 0,
           opacity: 1,
