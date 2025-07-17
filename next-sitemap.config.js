@@ -32,4 +32,17 @@ module.exports = {
       ...templatePaths,
     ];
   },
+
+  robotsTxtOptions: {
+    policies: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: ['/rtlthemes/', '/rtlthemes/kanter/'],
+      },
+    ],
+    additionalSitemaps: [
+      'https://farhamaghdasi.ir/sitemap.xml',
+    ],
+  },
 };
