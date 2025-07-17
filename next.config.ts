@@ -1,6 +1,5 @@
-const withOptimizedImages = require('next-optimized-images');
-
-const nextConfig = withOptimizedImages({
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   output: 'export',
   reactStrictMode: true,
   trailingSlash: true,
@@ -19,8 +18,8 @@ const nextConfig = withOptimizedImages({
         pathname: '/files/**',
       },
     ],
+    unoptimized: true,
   },
-  
-  optimizeImagesInDev: false,
-});
+};
+
 module.exports = nextConfig;
