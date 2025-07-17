@@ -132,6 +132,67 @@ export default function Home() {
     ],
   };
 
+  const personSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Farham Aghdasi',
+    url: 'https://farhamaghdasi.ir',
+    jobTitle: 'Front-end Developer & SEO Specialist',
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Freelance'
+    },
+    alumniOf: [
+      { '@type': 'EducationalOrganization', name: 'YouTube' },
+      { '@type': 'EducationalOrganization', name: '7Lern' },
+      { '@type': 'EducationalOrganization', name: 'Rocket' }
+    ],
+    knowsAbout: [
+      'HTML', 'CSS', 'JavaScript', 'React', 'Bootstrap', 'Tailwind', 'Next.js', 'PHP', 'SEO'
+    ],
+    award: [
+      'Third Place Nationwide in the Khwarizmi Youth Festival (2024)',
+      'Silver Medal at the National Youth Skills Competition (2025)'
+    ],
+    hasOccupation: {
+      '@type': 'Occupation',
+      name: 'Template Developer',
+      description: 'Selling web templates via rtl-theme.com',
+      estimatedSalary: {
+        '@type': 'MonetaryAmount',
+        value: {
+          '@type': 'QuantitativeValue',
+          value: 400,
+          unitText: 'Templates Sold'
+        },
+        currency: 'IRR'
+      }
+    },
+    project: [
+      {
+        '@type': 'CreativeWork',
+        name: 'AntiRip.js',
+        description: 'Advanced web-ripper blocker'
+      },
+      {
+        '@type': 'WebSite',
+        name: 'khooshesanat Website',
+        description: 'FullStack + SEO site'
+      },
+      {
+        '@type': 'WebSite',
+        name: 'acoachgroup Website',
+        description: 'React Dashboard and Landing Page'
+      },
+      {
+        '@type': 'WebSite',
+        name: 'Arzland Website',
+        description: 'Sarmaex bypass platform'
+      }
+    ]
+  };
+
+
   return (
     <>
       <Head>
@@ -146,6 +207,12 @@ export default function Home() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personSchema)
+          }}
         />
       </Head>
       <HomePage />
