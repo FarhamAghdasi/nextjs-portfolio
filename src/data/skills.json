@@ -9,10 +9,10 @@
       { "name": "HTML/CSS", "level": "90%", "image": "/imgs/skills/html.png" },
       { "name": "JavaScript", "level": "65%", "image": "/imgs/skills/js.png" },
       { "name": "Bootstrap", "level": "88%", "image": "/imgs/skills/bootstrap.png" },
-      { "name": "React", "level": "70%", "image": "/imgs/skills/s4.png" },
+      { "name": "React", "level": "75%", "image": "/imgs/skills/s4.png" },
       { "name": "SEO", "level": "76%", "image": "/imgs/skills/seo.png" },
-      { "name": "Tailwindcss", "level": "86%", "image": "/imgs/skills/tailwindcss.png" },
-      { "name": "Nextjs", "level": "5%", "image": "/imgs/skills/nextjs.png" }
+      { "name": "Tailwindcss", "level": "90%", "image": "/imgs/skills/tailwindcss.png" },
+      { "name": "Nextjs", "level": "62%", "image": "/imgs/skills/nextjs.png" }
     ],
     "numbers": [
       { "count": "40+", "label": "HTML Templates", "link": "https://www.rtl-theme.com/author/farhamaghdasi/" },
