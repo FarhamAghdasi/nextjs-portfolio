@@ -136,7 +136,7 @@ const Skills: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="row mt-30">
+            <div className="row mt-30 mb-30">
               <div className="col-lg-7 offset-lg-3">
                 <div>
                   <h2 className="text-indent">
