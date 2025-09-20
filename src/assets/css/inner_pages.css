@@ -1299,6 +1299,7 @@
 
 .sidebar .search-box input:focus {
     border-color: #fff;
+    outline: none !important;
 }
 
 .sidebar .search-box .icon {

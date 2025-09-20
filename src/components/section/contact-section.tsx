@@ -161,7 +161,9 @@ const ContactPageContent = () => {
                           <span className="icon ml-10">
                             <Image
                               src={ArrowRightTop}
-                              alt=""
+                              alt="Arrow top right"
+                              width={24}
+                              height={24}
                               unoptimized
                             />
                           </span>

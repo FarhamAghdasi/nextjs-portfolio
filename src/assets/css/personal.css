@@ -368,13 +368,13 @@
 }
 /* --------------- Clients --------------- */
 
-.skills .item {
-    text-align: center;
-}
-
 .skills .item:hover .img {
     -webkit-filter: grayscale(0);
     filter: grayscale(0);
+}
+
+.skills .item:not(.resume .item) {
+    text-align: center;
 }
 
 .skills .item .box {
