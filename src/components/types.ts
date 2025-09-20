@@ -150,7 +150,7 @@ export interface PortfolioItem {
     author: string;
     category?: string;
     accordionTitle?: string;
-    accordionContent?: string;
+    accordionContent?: string | { title: string; content: string }[]; // Allow both string and array of objects
     serviceTitle1?: string;
     serviceTitle2?: string;
     serviceTitle3?: string;
@@ -159,7 +159,7 @@ export interface PortfolioItem {
     description?: string;
     Shortdescription: string;
     thumbnail: string;
-}
+  }
 
 export interface TemplateItem {
     title: string;
@@ -240,7 +240,7 @@ export interface Portfolio {
     author: string;
     category: string;
     accordionTitle: string;
-    accordionContent: string;
+    accordionContent: string | { title: string; content: string }[]; // Support both string and array of objects
     serviceTitle1: string;
     serviceTitle2: string;
     serviceTitle3: string;
@@ -249,7 +249,7 @@ export interface Portfolio {
     description: string;
     Shortdescription: string;
     thumbnail: string;
-}
+  }
 
 export interface TemplateDetails2 {
     url: string;
