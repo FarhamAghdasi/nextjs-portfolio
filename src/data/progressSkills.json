@@ -1,0 +1,18 @@
+{
+    "progressSkills": [
+      { "name": "Nextjs", "level": "60%", "image": "/assets/imgs/skills/nextjs.png" },
+      { "name": "React", "level": "80%", "image": "/assets/imgs/skills/s4.png" },
+      { "name": "Tailwindcss", "level": "80%", "image": "/assets/imgs/skills/tailwindcss.png" },
+      { "name": "HTML", "level": "90%", "image": "/assets/imgs/skills/html.png" },
+      { "name": "CSS", "level": "90%", "image": "/assets/imgs/skills/html.png" },
+      { "name": "JavaScript", "level": "70%", "image": "/assets/imgs/skills/js.png" },
+      { "name": "Node.js (Express, Prisma)", "level": "50%", "image": "/assets/imgs/skills/nodejs.png" },
+      { "name": "PHP", "level": "80%", "image": "/assets/imgs/skills/php.png" },
+      { "name": "MySQL", "level": "70%", "image": "/assets/imgs/skills/mysql.png" },
+      { "name": "SEO", "level": "50%", "image": "/assets/imgs/skills/seo.png" },
+      { "name": "Bootstrap", "level": "80%", "image": "/assets/imgs/skills/bootstrap.png" },
+      { "name": "Git", "level": "100%", "image": "/assets/imgs/skills/git.png" },
+      { "name": "Forex (ICT)", "level": "5%", "image": "/assets/imgs/skills/ict.png" },
+      { "name": "Adobe Photshop", "level": "60%", "image": "/assets/imgs/skills/photoshop.png" }
+    ]
+  }

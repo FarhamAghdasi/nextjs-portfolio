@@ -1,87 +1,83 @@
 {
-    "header": {
-      "subHead": "My Skills",
-      "clients": "7k+ Clients",
-      "title": "Get to know my professional skills! I build your dream website",
-      "viewSkills": "View My Skills"
+  "header": {
+    "subHead": "My Skills",
+    "clients": "7k+ Clients",
+    "title": "Discover my professional skills and how I can build your dream website.",
+    "viewSkills": "View My Skills"
+  },
+  "skills": [
+    { "name": "HTML/CSS", "level": "90%", "image": "/imgs/skills/html.png" },
+    { "name": "JavaScript", "level": "65%", "image": "/imgs/skills/js.png" },
+    { "name": "Bootstrap", "level": "88%", "image": "/imgs/skills/bootstrap.png" },
+    { "name": "React", "level": "75%", "image": "/imgs/skills/s4.png" },
+    { "name": "SEO", "level": "76%", "image": "/imgs/skills/seo.png" },
+    { "name": "Tailwindcss", "level": "90%", "image": "/imgs/skills/tailwindcss.png" },
+    { "name": "Nextjs", "level": "62%", "image": "/imgs/skills/nextjs.png" }
+  ],
+  "marquee": [
+    "React",
+    "Nextjs",
+    "Tailwindcss",
+    "Bootstrap",
+    "Jquery",
+    "HTML"
+  ],
+  "marquee2": [
+    "SEO",
+    "Teamwork",
+    "FastLearner",
+    "CleanUI",
+    "Performance",
+    "Security",
+    "UX/UI"
+  ],
+  "resumeHeader": {
+    "subHead": "About Me",
+    "author": "Farham Aghdasi 💻",
+    "title": "My Experience"
+  },
+  "experience": [
+    {
+      "year": "2022",
+      "items": [
+        { "title": "Learning HTML & CSS", "desc": "YouTube, 7Learn, Rocket" },
+        { "title": "Entered RTL Theme Market", "desc": "Started selling templates on https://www.rtl-theme.com/" },
+        { "title": "Built First Template (Flex-iT)", "desc": "Designed and published first HTML/CSS template" },
+        { "title": "Learning JavaScript", "desc": "YouTube, 7Learn, Rocket" }
+      ]
     },
-    "skills": [
-      { "name": "HTML/CSS", "level": "90%", "image": "/imgs/skills/html.png" },
-      { "name": "JavaScript", "level": "65%", "image": "/imgs/skills/js.png" },
-      { "name": "Bootstrap", "level": "88%", "image": "/imgs/skills/bootstrap.png" },
-      { "name": "React", "level": "75%", "image": "/imgs/skills/s4.png" },
-      { "name": "SEO", "level": "76%", "image": "/imgs/skills/seo.png" },
-      { "name": "Tailwindcss", "level": "90%", "image": "/imgs/skills/tailwindcss.png" },
-      { "name": "Nextjs", "level": "62%", "image": "/imgs/skills/nextjs.png" }
-    ],
-    "numbers": [
-      { "count": "40+", "label": "HTML Templates", "link": "https://www.rtl-theme.com/author/farhamaghdasi/" },
-      { "count": "500+", "label": "Hours With ☕" },
-      { "count": "+2", "label": "Website Created" },
-      { "count": "2+", "label": "Website Conversions" }
-    ],
-    "marquee": [
-      "React",
-      "Nextjs",
-      "Tailwindcss",
-      "Bootstrap",
-      "Jquery",
-      "HTML"
-    ],
-    "marquee2": [
-      "SEO",
-      "Team",
-      "FastLearner",
-      "CleanUI",
-      "Performance",
-      "Security",
-      "UX/UI"
-    ],
-    "resumeHeader": {
-      "subHead": "About Me",
-      "author": "Farham Aghdasi 💻",
-      "title": "My Experience."
+    {
+      "year": "2023",
+      "items": [
+        { "title": "First Project", "desc": "Converted HTML to React" },
+        { "title": "Learning React Fundamentals", "desc": "YouTube" },
+        { "title": "Learning Bootstrap 5", "desc": "YouTube" },
+        { "title": "100+ Sales on RTL Theme", "desc": "Achieved over 100 template sales" }
+      ]
     },
-    "experience": [
-      {
-        "year": "2022",
-        "items": [
-          { "title": "Lerning HTML , CSS", "desc": "YouTube , 7lern , Rocket" },
-          { "title": "Start Creating HTML Templates", "desc": "rtl-theme.com" },
-          { "title": "Lerning JS", "desc": "YouTube , 7lern , Rocket" }
-        ]
-      },
-      {
-        "year": "2023",
-        "items": [
-          { "title": "First Project", "desc": "HTML To React" },
-          { "title": "Lerning React", "desc": "Youtube" },
-          { "title": "Lerning Bootstrap5", "desc": "Youtube" },
-          { "title": "100 Sale", "desc": "rtl-theme.com" }
-        ]
-      },
-      {
-        "year": "2024",
-        "items": [
-          { "title": "khooshesanat Website", "desc": "FullStack & SEO" },
-          {
-            "title": "Third Place Nationwide in the Khwarizmi Youth Festival, Web Development",
-            "desc": "AntiRip.js | advanced web-ripper blocker"
-          },
-          { "title": "+300 Sale", "desc": "rtl-theme.com" },
-          { "title": "acoachgroup Website", "desc": "Dashboard & Landing Page React" },
-          { "title": "Lerning Tailwind", "desc": "Youtube" }
-        ]
-      },
-      {
-        "year": "2025",
-        "items": [
-          { "title": "Silver medal at the National Youth Skills Competition", "desc": "React in front-end and php in backend" },
-          { "title": "400+ Sale", "desc": "rtl-theme.com" },
-          { "title": "Arzland Website", "desc": "bypass website sarmaex" },
-          { "title": "Lerning Nextjs", "desc": "on youtube" }
-        ]
-      }
-    ]
-  }
-  
+    {
+      "year": "2024",
+      "items": [
+        { "title": "Khooshesanat Website", "desc": "Full-Stack Development & SEO" },
+        {
+          "title": "Third Place Nationwide in Khwarizmi Youth Festival (Web Development)",
+          "desc": "AntiRip.js | Advanced Web-Ripper Blocker"
+        },
+        { "title": "300+ Sales", "desc": "Reached 300 sales milestone on RTL Theme" },
+        { "title": "Acoachgroup Website", "desc": "React Dashboard & Landing Page" },
+        { "title": "Arzland Website", "desc": "Bypass solution for Sarmaex" },
+        { "title": "Learning Tailwind CSS", "desc": "YouTube" }
+      ]
+    },
+    {
+      "year": "2025",
+      "items": [
+        { "title": "Silver Medal at National Youth Skills Competition", "desc": "React (Frontend) & PHP (Backend)" },
+        { "title": "400+ Sales", "desc": "Reached 400 sales milestone on RTL Theme" },
+        { "title": "Learning Next.js", "desc": "YouTube" },
+        { "title": "Reached Interview Stage in Khwarizmi Youth Festival", "desc": "Advanced to interview round" },
+        { "title": "First Place Nationwide in Khwarizmi Youth Festival (Web Development)", "desc": "RipHunter | Advanced WAF + Client-Side Protector" }
+      ]
+    }
+  ]
+}
