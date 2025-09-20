@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params; // Await params to resolve the Promise
+  const { slug } = await params;
   const portfolio = portfoliosData.portfolio.find((p) => p.url === slug);
 
   if (!portfolio) {
@@ -35,7 +35,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const imagePrimary = `https://farhamaghdasi.ir/${portfolio.thumbnail}` || '/default-thumbnail.jpg';
+  const imagePrimary = portfolio.thumbnail
+    ? `https://farhamaghdasi.ir/assets/imgs/uploads/${portfolio.thumbnail}`
+    : '/default-thumbnail.jpg';
   const pageUrl = `https://farhamaghdasi.ir/portfolio/${portfolio.url}/`;
   const pageTitle = portfolio.title || texts.seoDefaultTitle;
   const pageDescription = stripHtmlTags(portfolio.Shortdescription) || texts.seoDefaultDescription;
@@ -71,7 +73,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function PortfolioPage({ params }: PageProps) {
-  const { slug } = await params; // Await params to resolve the Promise
+  const { slug } = await params;
   const portfolio = portfoliosData.portfolio.find((p) => p.url === slug);
 
   if (!portfolio) {

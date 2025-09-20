@@ -32,8 +32,71 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
   }
 
   const imagePrimary = portfolio.thumbnail
-  ? `/assets/imgs/uploads/${portfolio.thumbnail}`
-  : '/assets/imgs/default-image.jpg';
+    ? `/assets/imgs/uploads/${portfolio.thumbnail}`
+    : '/assets/imgs/default-image.jpg';
+
+  // Helper function to render accordion content
+  const renderAccordionContent = () => {
+    if (typeof portfolio.accordionContent === 'string') {
+      // Handle string case (e.g., Khooshesanat Amol)
+      return (
+        <div className={`accordion-item ${activeIndex === 0 ? 'active' : ''}`}>
+          <h2 className="accordion-header" id="heading0">
+            <button
+              className="accordion-button"
+              type="button"
+              onClick={() => handleToggle(0)}
+              aria-expanded={activeIndex === 0}
+              aria-controls="collapse0"
+            >
+              {portfolio.accordionTitle}
+            </button>
+          </h2>
+          <div
+            id="collapse0"
+            className={`accordion-collapse collapse ${activeIndex === 0 ? 'show' : ''}`}
+            aria-labelledby="heading0"
+            data-bs-parent="#accordionExample"
+          >
+            <div className="accordion-body">
+              <p>{portfolio.accordionContent || texts.defaultAccordionContent}</p>
+            </div>
+          </div>
+        </div>
+      );
+    } else if (Array.isArray(portfolio.accordionContent)) {
+      // Handle array case (e.g., Rip Hunter)
+      return portfolio.accordionContent.map((item: { title: string; content: string }, index: number) => (
+        <div
+          className={`accordion-item ${activeIndex === index ? 'active' : ''}`}
+          key={index}
+        >
+          <h2 className="accordion-header" id={`heading${index}`}>
+            <button
+              className="accordion-button"
+              type="button"
+              onClick={() => handleToggle(index)}
+              aria-expanded={activeIndex === index}
+              aria-controls={`collapse${index}`}
+            >
+              {item.title}
+            </button>
+          </h2>
+          <div
+            id={`collapse${index}`}
+            className={`accordion-collapse collapse ${activeIndex === index ? 'show' : ''}`}
+            aria-labelledby={`heading${index}`}
+            data-bs-parent="#accordionExample"
+          >
+            <div className="accordion-body">
+              <p>{item.content}</p>
+            </div>
+          </div>
+        </div>
+      ));
+    }
+    return <p>{texts.noAccordionContent}</p>;
+  };
 
   return (
     <>
@@ -93,30 +156,6 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
               />
             </div>
           </div>
-          <div className="row mt-80">
-            <div className="col-md-6">
-              <div className="img sm-mb30">
-                <Image
-                  src="/assets/imgs/default-image1.jpg"
-                  alt="Portfolio Image 1"
-                  width={600}
-                  height={400}
-                  unoptimized
-                />
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="img">
-                <Image
-                  src="/assets/imgs/default-image2.jpg"
-                  alt="Portfolio Image 2"
-                  width={600}
-                  height={400}
-                  unoptimized
-                />
-              </div>
-            </div>
-          </div>
           <div className="row justify-content-center mt-80">
             <div className="col-lg-7">
               <div className="content">
@@ -125,40 +164,16 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
                   <p>{texts.faqDescription}</p>
                 </div>
                 <div className="accordion" id="accordionExample">
-                  {portfolio.accordionTitle && portfolio.accordionContent ? (
-                    <div className={`accordion-item ${activeIndex === 0 ? 'active' : ''}`}>
-                      <h2 className="accordion-header" id="heading0">
-                        <button
-                          className="accordion-button"
-                          type="button"
-                          onClick={() => handleToggle(0)}
-                          aria-expanded={activeIndex === 0}
-                          aria-controls="collapse0"
-                        >
-                          {portfolio.accordionTitle}
-                        </button>
-                      </h2>
-                      <div
-                        id="collapse0"
-                        className={`accordion-collapse collapse ${activeIndex === 0 ? 'show' : ''}`}
-                        aria-labelledby="heading0"
-                        data-bs-parent="#accordionExample"
-                      >
-                        <div className="accordion-body">
-                          <p>{portfolio.accordionContent || texts.defaultAccordionContent}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <p>{texts.noAccordionContent}</p>
-                  )}
+                  {portfolio.accordionTitle && portfolio.accordionContent
+                    ? renderAccordionContent()
+                    : <p>{texts.noAccordionContent}</p>}
                 </div>
                 <div className="text-center">
                   <Link href="/portfolio" className="crv-butn mt-80">
                     <div className="d-flex">
                       <span className="text">{texts.checkMorePortfolios}</span>
                       <span className="icon">
-                        <Image src={arrowTopRight} alt="Arrow" width={16} height={16} unoptimized/>
+                        <Image src={arrowTopRight} alt="Arrow" width={16} height={16} unoptimized />
                       </span>
                     </div>
                   </Link>

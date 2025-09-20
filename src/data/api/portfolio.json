@@ -1,23 +1,60 @@
 {
-    "total_items": 1,
-    "total_pages": 1,
-    "current_page": 1,
-    "portfolio": [
-      {
-        "title": "Khooshesanat Amol",
-        "date": "2024-12-13",
-        "author": "farham aghdasi",
-        "category": "Website With Dashbaord",
-        "accordionTitle": "What technologies were used?",
-        "accordionContent": "HTML CSS JS PHP Gsap Jquery",
-        "serviceTitle1": "With Dashboard",
-        "serviceTitle2": "SEO And Speed Optimized",
-        "serviceTitle3": "Fullstack Develoment",
-        "Previewurl": "https://khooshesanat.ir/",
-        "url": "khooshesanat-amol",
-        "description": "\u003Ch2\u003EIntroduction\u003C/h2\u003E\u003Cp\u003E\u003Ca href=\"https://khooshesanat.ir/\" target=\"_blank\"\u003Ekhooshesanat \u003C/a\u003E website is a powerful website with \u003Cb\u003Efullstack development\u003C/b\u003E that uses \u003Cb\u003EPHP \u003C/b\u003Efor the \u003Cb\u003Ebackend \u003C/b\u003Eand \u003Cb\u003EjQuery\u003C/b\u003E and \u003Cb\u003EGSAP \u003C/b\u003Efor the \u003Cb\u003Efrontend\u003C/b\u003E.\u003C/p\u003E\u003Cp\u003E\u003Cbr\u003E\u003C/p\u003E\u003Cp\u003E This website also contains dashboard pages to create content that makes a dedicated website and reception. This website is also \u003Cb\u003Eoptimized for SEO and speed\u003C/b\u003E and security is also provided to some extent. This project was done from zero to one hundred by \u003Cb\u003EFarham Aghdasi\u003C/b\u003E and was completed within 1 month.\u003C/p\u003E\u003Cp\u003E\u003Cbr\u003E\u003C/p\u003E\u003Cp\u003EAll pages of this website are words and keywords in all products to have the best performance in this field. This website is a corporate site and will become a store website in the future.\u003C/p\u003E\u003Cp\u003EIt is also equipped with a logging system with the help of Telegram bots that shows the number of visitors who call.\u003C/p\u003E\u003Cp\u003E\u003Cbr\u003E\u003C/p\u003E\u003Ch2\u003EHome Page :\u003C/h2\u003E\u003Cp\u003E\u003Cimg  src=\"https://s8.uupload.ir/files/1_r67a.png\"\u003E\u003Cbr\u003E\u003C/p\u003E\u003Ch2\u003EDashbaord add post page:\u003C/h2\u003E\u003Cp\u003E\u003Cimg src=\"https://s8.uupload.ir/files/3_iqep.png\"\u003E\u003Cbr\u003E\u003C/p\u003E\u003Ch2\u003Eproduct page:\u003C/h2\u003E\u003Cp\u003E\u003Cimg  src=\"https://s8.uupload.ir/files/2_igmu.png\"\u003E\u003Cbr\u003E\u003C/p\u003E\u003Cp\u003Eyou can visit other pages in website !\u003C/p\u003E\u003Cp\u003E\u003Cbr\u003E\u003C/p\u003E",
-        "Shortdescription": "khooshesanat website is a powerful website with fullstack development that uses PHP for the backend and jQuery and GSAP for the frontend....",
-        "thumbnail": "thumbnail_675c3a09771bd2.62468791.png"
-      }
-    ]
-  }
+  "total_items": 2,
+  "total_pages": 1,
+  "current_page": 1,
+  "portfolio": [
+    {
+      "title": "Khooshesanat Amol",
+      "date": "2024-12-13",
+      "author": "farham aghdasi",
+      "category": "Website With Dashboard",
+      "accordionTitle": "What technologies were used?",
+      "accordionContent": "HTML CSS JS PHP Gsap Jquery",
+      "serviceTitle1": "With Dashboard",
+      "serviceTitle2": "SEO And Speed Optimized",
+      "serviceTitle3": "Fullstack Develoment",
+      "Previewurl": "https://khooshesanat.ir/",
+      "url": "khooshesanat-amol",
+      "description": "<h2>Introduction</h2><p><a href=\"https://khooshesanat.ir/\" target=\"_blank\">khooshesanat </a> website is a powerful website with <b>fullstack development</b> that uses <b>PHP </b>for the <b>backend </b>and <b>jQuery</b> and <b>GSAP </b>for the <b>frontend</b>.</p><p><br></p><p> This website also contains dashboard pages to create content that makes a dedicated website and reception. This website is also <b>optimized for SEO and speed</b> and security is also provided to some extent. This project was done from zero to one hundred by <b>Farham Aghdasi</b> and was completed within 1 month.</p><p><br></p><p>All pages of this website are words and keywords in all products to have the best performance in this field. This website is a corporate site and will become a store website in the future.</p><p>It is also equipped with a logging system with the help of Telegram bots that shows the number of visitors who call.</p><p><br></p><h2>Home Page :</h2><p><img  src=\"https://s8.uupload.ir/files/1_r67a.png\"><br></p><h2>Dashbaord add post page:</h2><p><img src=\"https://s8.uupload.ir/files/3_iqep.png\"><br></p><h2>product page:</h2><p><img  src=\"https://s8.uupload.ir/files/2_igmu.png\"><br></p><p>you can visit other pages in website !</p><p><br></p>",
+      "Shortdescription": "khooshesanat website is a powerful website with fullstack development that uses PHP for the backend and jQuery and GSAP for the frontend....",
+      "thumbnail": "khooshesanat_amol.png"
+    },
+    {
+      "title": "Rip Hunter",
+      "date": "2025-09-20",
+      "author": "Farham Aghdasi",
+      "category": "Web Security and Anti-Ripping Tool",
+      "accordionTitle": "What technologies and features are included?",
+      "accordionContent": [
+        {
+          "title": "Core Technologies",
+          "content": "PHP, Node.js, React, JavaScript, jQuery, Machine Learning (Stacking Models), ApexCharts, Chart.js, Bootstrap 5, CodeMirror, Next.js, Swiper, Wow.js, Animate.css, Telegram Bots, MySQL Database"
+        },
+        {
+          "title": "Detection Algorithms",
+          "content": "User Agent Analysis, Traffic and Request Monitoring, Malicious Link Trap, Machine Learning Integration for user classification, Subdomain and XSS prevention algorithms"
+        },
+        {
+          "title": "Client-Side Protections",
+          "content": "Domain and protocol enforcement, disabled developer tools, right-click restrictions, React pre-render protections"
+        },
+        {
+          "title": "Monitoring and Alerts",
+          "content": "Real-time visitor and ripper monitoring via charts and logs, Telegram bot alerts for detected threats, customizable dashboards"
+        },
+        {
+          "title": "Additional Features",
+          "content": "HTML file encryption/decryption, crawler simulator, backup/restore database, light/dark theme toggles, account management"
+        }
+      ],
+      "serviceTitle1": "Advanced Ripper Detection Algorithms",
+      "serviceTitle2": "User-Friendly Monitoring Dashboard",
+      "serviceTitle3": "Multi-Platform Compatibility and Customization",
+      "Previewurl": "https://riphunter.farhamaghdasi.ir/",
+      "url": "rip-hunter",
+      "description": "<h2>Introduction</h2><p><a href=\"https://rtl-theme.com/\" target=\"_blank\">Rip Hunter</a> is an innovative <b>web security tool</b> developed by <b>Farham Aghdasi</b> for the Khwarizmi Youth Festival in the programming category. It prevents unauthorized <b>website ripping</b> (downloading entire websites offline) and copying across platforms like HTML, PHP, Node.js, and React. Tailored for website owners and template sellers on platforms like <a href=\"https://rtl-theme.com/\" target=\"_blank\">RTL-Theme.com</a>, Rip Hunter blocks malicious rippers, monitors traffic in real-time, and offers customizable protections with <b>zero performance impact</b>. It secured <b>2nd place</b> in national skills competitions and <b>3rd place</b> in the Khwarizmi festival.</p><p><br></p><p><br></p><h2>Core Features</h2><p>Rip Hunter includes a landing page, a comprehensive user dashboard, a server-side firewall (PHP and Node.js), and client-side scripts (Vanilla JS/jQuery and React versions). Key features include:</p><ul style=\"list-style-type: disc; padding-left: 40px; font-size: 16px; line-height: 1.8;\"><li>Real-time monitoring of visitors and rippers via interactive charts and logs.</li><li>Automated blocking of suspicious IPs, stored in .htaccess or databases.</li><li>Customizable restrictions: disable right-click, source code viewing, and domain/protocol limits.</li><li>Telegram bot alerts for detected threats.</li><li>HTML file encryption and decryption tools.</li><li>Crawler simulator to test protections.</li><li>Backup/restore database, account management, and light/dark theme toggles.</li></ul><p><br></p><p><br></p><h2>Detection Algorithms</h2><p>Rip Hunter uses four advanced algorithms to detect and block rippers:</p><ul style=\"list-style-type: disc; padding-left: 40px; font-size: 16px; line-height: 1.8;\"><li><b>User Agent Analysis:</b> Identifies non-browser agents (e.g., Python-urllib vs. Chrome) using a predefined ripper list.</li><li><b>Traffic Monitoring:</b> Tracks data consumption and request rates over 60 seconds, blocking IPs exceeding thresholds (>10MB or >100 requests).</li><li><b>Malicious Link Trap:</b> Inserts hidden links that only rippers follow, triggering instant blocks.</li><li><b>Machine Learning:</b> Stacked models classify users as normal (2), suspicious (1), or malicious (0) based on live data.</li></ul><p>Additional algorithms handle subdomain checks, XSS prevention, and data logging.</p><p><br></p><p><br></p><h2>Client-Side Protections</h2><p>The client-side module enhances security by restricting:</p><ul style=\"list-style-type: disc; padding-left: 40px; font-size: 16px; line-height: 1.8;\"><li>Domain and protocol enforcement.</li><li>Disabled developer tools, right-click, and source viewing.</li><li>React pre-render protections to prevent early source access.</li></ul><p><br></p><p><br></p><h2>Innovation and Advantages</h2><p>Rip Hunter’s <b>lightweight design</b> ensures no performance overhead, unlike competitors. It reduces server load, analyzes ripper origins (ISP, country), and provides graphical analytics for visitor vs. ripper ratios.</p><p><b>Comparison with Competitors:</b></p><table class=\"table table-striped table-bordered table-hover\" style=\"width: 100%; font-size: 16px; margin: 20px 0;\"><thead class=\"table-dark\"><tr><th scope=\"col\">Feature</th><th scope=\"col\">Rip Hunter</th><th scope=\"col\">Cloudflare (Competitor)</th></tr></thead><tbody><tr><td>Performance Impact</td><td>None (background processing)</td><td>High (slows down site loading)</td></tr><tr><td>Ripper Blocking Guarantee</td><td>High (multi-algorithm + ML)</td><td>Variable (no specific anti-ripper focus)</td></tr><tr><td>Customization</td><td>Extensive (per-platform configs, real-time dashboard)</td><td>Limited to general security rules</td></tr><tr><td>Cost</td><td>Free/Open for integration, commercial use in templates</td><td>Paid tiers for advanced features</td></tr><tr><td>Platform Support</td><td>HTML, PHP, Node.js, React</td><td>General web, less targeted</td></tr></tbody></table><p>Rip Hunter excels with its targeted anti-ripping focus, ML-driven detection, and seamless integration for high-value content sites.</p><p><br></p><p><br></p><h2>Commercialization</h2><p>Integrated into HTML templates sold on <a href=\"https://rtl-theme.com/\" target=\"_blank\">RTL-Theme.com</a> (Rastchin), Rip Hunter protects templates from unauthorized copying, enhancing sales security. Examples include dashboards like 'Daftar' and 'Gridya'. It prevents offline ripping, ensuring buyers cannot redistribute content, boosting trust and revenue for template sellers.</p><p><br></p><p><br></p><h2>Screenshots</h2><p><img src=\"https://s6.uupload.ir/files/riphunter-landing_lxo.png\" alt=\"Dashboard Overview\" style=\"max-width: 100%; margin: 20px 0;\"><br></p><p><img src=\"https://s6.uupload.ir/files/dashboard_jefl.png\" alt=\"Ripper Analytics Chart\" style=\"max-width: 100%; margin: 20px 0;\"><br></p><p><img src=\"https://s6.uupload.ir/files/dashboard-config_9x1.png\" alt=\"Configuration Panel\" style=\"max-width: 100%; margin: 20px 0;\"><br></p><p><br></p><p>For more details, explore the full project documentation.</p>",
+      "Shortdescription": "Rip Hunter is an advanced web security tool that prevents unauthorized website ripping and copying using multi-algorithm detection, machine learning, and a user-friendly dashboard, offering superior performance over competitors like Cloudflare.",
+      "thumbnail": "riphunter.png"
+    }
+  ]
+}
