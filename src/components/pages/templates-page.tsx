@@ -55,12 +55,6 @@ export default function HtmlTemplates() {
     // Set initial state for cards
     gsap.set(cards, { opacity: 1, border: '2px solid rgba(255,255,255,0)' });
 
-    // Create ScrollTriggers for stacking effect
-    const firstCardST = ScrollTrigger.create({
-      trigger: cards[0],
-      start: 'center center',
-    });
-
     const lastCardST = ScrollTrigger.create({
       trigger: cards[cards.length - 1],
       start: 'bottom bottom',
