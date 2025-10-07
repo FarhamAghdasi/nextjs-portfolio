@@ -103,7 +103,10 @@ const Hero = () => {
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
-      {!isMobile && <ParticleCanvas />}
+      <ParticleCanvas 
+        particleCount={isMobile ? 25 : 60} 
+        speed={isMobile ? 0.4 : 1} 
+      />
       <header ref={headerRef} className="header-personal" style={{ position: 'relative', zIndex: 1 }}>
         <div className="container ontop">
           <div className="caption text-center">
