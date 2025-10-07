@@ -4,10 +4,10 @@ import { defaultMetadata } from '@/components/addon/seo';
 import Head from 'next/head';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pageTitle = 'Farham Aghdasi | Front-end Developer';
+  const pageTitle = 'Farham Aghdasi | Full-Stack Developer';
   const pageDescription = 'Welcome to my personal website. I am Farham Aghdasi, a programmer specializing in web development and software solutions.';
   const pageUrl = 'https://farhamaghdasi.ir/';
-  const pageImage = 'https://farhamaghdasi.ir/images/og-image.jpg';
+  const pageImage = 'https://farhamaghdasi.ir/assets/imgs/rtl-banner.png';
 
   return {
     ...defaultMetadata,
@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: defaultMetadata.title.template,
     },
     description: pageDescription,
-    keywords: ['Farham Aghdasi', 'Front-end Developer', 'Web Development', 'Software Solutions', 'Programmer', 'React', 'Next.js'],
+    keywords: ['Farham Aghdasi', 'Full-Stack Developer', 'Web Development', 'Software Solutions', 'Programmer', 'React', 'Next.js'],
     robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     themeColor: '#1a73e8',
     openGraph: {
@@ -63,7 +63,7 @@ export default function Home() {
       'width': 160,
       'height': 48,
     },
-    'description': 'Farham Aghdasi is a Front-end Developer specializing in web development and software solutions, with expertise in React, Next.js, and modern JavaScript frameworks.',
+    'description': 'Farham Aghdasi is a Full-Stack Developer specializing in web development and software solutions, with expertise in React, Next.js, and modern JavaScript frameworks.',
     'foundingDate': '2020',
     'contactPoint': [
       {
@@ -85,7 +85,7 @@ export default function Home() {
     '@type': 'WebPage',
     '@id': 'https://farhamaghdasi.ir/#webpage',
     'url': 'https://farhamaghdasi.ir/',
-    'name': 'Farham Aghdasi | Front-end Developer',
+    'name': 'Farham Aghdasi | Full-Stack Developer',
     '@language': 'en-US',
     'description': 'Welcome to my personal website. I am Farham Aghdasi, a programmer specializing in web development and software solutions.',
     'isPartOf': {
@@ -137,7 +137,7 @@ export default function Home() {
     '@type': 'Person',
     name: 'Farham Aghdasi',
     url: 'https://farhamaghdasi.ir',
-    jobTitle: 'Front-end Developer & SEO Specialist',
+    jobTitle: 'Full-Stack Developer & SEO Specialist',
     worksFor: {
       '@type': 'Organization',
       name: 'Freelance'

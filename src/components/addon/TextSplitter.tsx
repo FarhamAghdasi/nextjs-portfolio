@@ -16,17 +16,23 @@ interface TextSplitterProps {
 const TextSplitter: React.FC<TextSplitterProps> = ({
   text,
   animationType = 'fadeInUp',
-  duration = 0,
-  stagger = 0,
-  delay = 0,
+  duration = 0.3,
+  stagger = 0.02,
+  delay = 0.3,
   split = 'char',
   className = '',
 }) => {
   const textRef = useRef<HTMLDivElement>(null);
+  const isAnimated = useRef(false);
 
   useEffect(() => {
+    if (isAnimated.current) return;
+
     const spans = textRef.current?.querySelectorAll('span');
-    if (!spans || spans.length === 0) return;
+    if (!spans || spans.length === 0) {
+      console.warn('TextSplitter: No spans found for animation');
+      return;
+    }
 
     const fromVars: gsap.TweenVars = { opacity: 0 };
     switch (animationType) {
@@ -51,11 +57,18 @@ const TextSplitter: React.FC<TextSplitterProps> = ({
       stagger,
       delay,
       ease: 'power2.out',
+      onComplete: () => {
+        isAnimated.current = true;
+        console.log('TextSplitter: Animation completed');
+      },
     });
+
+    return () => {
+      isAnimated.current = false;
+    };
   }, [text, animationType, duration, stagger, delay]);
 
-  const parts =
-    split === 'word' ? text.split(' ') : text.split('');
+  const parts = split === 'word' ? text.split(' ') : text.split('');
 
   return (
     <div className={className} ref={textRef}>
@@ -65,7 +78,7 @@ const TextSplitter: React.FC<TextSplitterProps> = ({
           style={{
             display: 'inline-block',
             willChange: 'opacity, transform',
-            whiteSpace: 'pre',
+            whiteSpace: part === ' ' ? 'pre' : 'normal',
           }}
         >
           {split === 'word' ? part + ' ' : part === ' ' ? '\u00A0' : part}
