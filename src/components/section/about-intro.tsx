@@ -28,9 +28,9 @@ export default function AboutIntro() {
                   key={pathname}
                   text={content.text}
                   animationType="fadeInUp"
-                  duration={0.5}
-                  stagger={0.04}
-                  delay={3}
+                  duration={1}
+                  stagger={0.02}
+                  delay={0.3}
                   split="char"
                 />
               </h3>
