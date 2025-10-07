@@ -1,7 +1,12 @@
 'use client';
 import { useEffect, useRef } from 'react';
 
-const ParticleCanvas = () => {
+interface ParticleCanvasProps {
+    particleCount?: number;
+    speed?: number;
+}
+
+const ParticleCanvas = ({ particleCount, speed }: ParticleCanvasProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const mouse = useRef({ x: 0, y: 0 });
 
@@ -14,10 +19,16 @@ const ParticleCanvas = () => {
         let width = (canvas.width = window.innerWidth);
         let height = (canvas.height = window.innerHeight);
 
+        const isMobile = width <= 768;
+        
+        const finalParticleCount = particleCount || (isMobile ? 25 : 60);
+        const finalSpeed = speed || (isMobile ? 0.4 : 1);
+        const maxParticles = isMobile ? 40 : 100;
+        const connectionDistance = isMobile ? 100 : 120;
+        const mouseInteractionDistance = isMobile ? 100 : 150;
+
         const depth = 400;
         const perspective = 600;
-        const particleCount = 60;
-        const maxParticles = 100;
         const particles: Particle[] = [];
 
         class Particle {
@@ -37,9 +48,9 @@ const ParticleCanvas = () => {
                 this.x = (Math.random() - 0.5) * width;
                 this.y = (Math.random() - 0.5) * height;
                 this.z = Math.random() * depth;
-                this.vx = (Math.random() - 0.5) * 0.3;
-                this.vy = (Math.random() - 0.5) * 0.3;
-                this.vz = (Math.random() - 0.5) * 0.2;
+                this.vx = (Math.random() - 0.5) * 0.3 * finalSpeed;
+                this.vy = (Math.random() - 0.5) * 0.3 * finalSpeed;
+                this.vz = (Math.random() - 0.5) * 0.2 * finalSpeed;
                 this.radius = 2 + Math.random() * 2;
             }
 
@@ -52,7 +63,9 @@ const ParticleCanvas = () => {
                 if (this.x < -width / 2 || this.x > width / 2) this.vx *= -1;
                 if (this.y < -height / 2 || this.y > height / 2) this.vy *= -1;
 
-                if (Math.random() < 0.001 && particles.length < maxParticles) {
+                // کاهش احتمال ایجاد ذرات جدید در موبایل
+                const spawnChance = isMobile ? 0.0003 : 0.001;
+                if (Math.random() < spawnChance && particles.length < maxParticles) {
                     particles.push(new Particle());
                 }
             }
@@ -74,7 +87,7 @@ const ParticleCanvas = () => {
             }
         }
 
-        for (let i = 0; i < particleCount; i++) {
+        for (let i = 0; i < finalParticleCount; i++) {
             particles.push(new Particle());
         }
 
@@ -95,8 +108,8 @@ const ParticleCanvas = () => {
                     const dy = y1 - y2;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < 120) {
-                        const alpha = (120 - dist) / 120;
+                    if (dist < connectionDistance) {
+                        const alpha = (connectionDistance - dist) / connectionDistance;
                         ctx.beginPath();
                         ctx.moveTo(x1, y1);
                         ctx.lineTo(x2, y2);
@@ -117,9 +130,10 @@ const ParticleCanvas = () => {
                 const dx = (mouse.current.x - width / 2) - p.x;
                 const dy = (mouse.current.y - height / 2) - p.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 150) {
-                    p.vx += (dx / dist) * 0.05;
-                    p.vy += (dy / dist) * 0.05;
+                if (dist < mouseInteractionDistance) {
+                    const force = isMobile ? 0.03 : 0.05;
+                    p.vx += (dx / dist) * force;
+                    p.vy += (dy / dist) * force;
                 }
 
                 p.draw(ctx);
@@ -134,18 +148,30 @@ const ParticleCanvas = () => {
             mouse.current.y = e.clientY;
         };
 
-        window.addEventListener('resize', () => {
+        const handleTouch = (e: TouchEvent) => {
+            if (e.touches.length > 0) {
+                mouse.current.x = e.touches[0]!.clientX;
+                mouse.current.y = e.touches[0]!.clientY;
+            }
+        };
+
+        const handleResize = () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
-        });
+        };
 
+        window.addEventListener('resize', handleResize);
         window.addEventListener('mousemove', handleMouse);
+        window.addEventListener('touchmove', handleTouch, { passive: true });
+        
         animate();
 
         return () => {
+            window.removeEventListener('resize', handleResize);
             window.removeEventListener('mousemove', handleMouse);
+            window.removeEventListener('touchmove', handleTouch);
         };
-    }, []);
+    }, [particleCount, speed]);
 
     return (
         <canvas
