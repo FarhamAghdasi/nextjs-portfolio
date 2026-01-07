@@ -8,7 +8,7 @@ import gsap from 'gsap';
 import rawPostsData from '@/data/api/posts.json';
 import texts from '@/data/blog.json';
 const defaultLogo = '/assets/imgs/logo.png';
-import { Sidebar } from '@/components'; // فرض کردم نام فایل Sidebar.tsx است
+import { Sidebar } from '@/components';
 import { PostBlog } from '@/components/types';
 
 const Bloginfo: React.FC = () => {

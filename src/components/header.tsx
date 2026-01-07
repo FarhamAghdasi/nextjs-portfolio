@@ -145,7 +145,7 @@ const Header = () => {
             }
         };
     
-        const links = [...linkRefs.current]; // 👈 کپی امن برای cleanup
+        const links = [...linkRefs.current];
         links.forEach((link) => {
             if (link) {
                 link.addEventListener('mousemove', animateit);
