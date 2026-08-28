@@ -24,7 +24,6 @@ export default function AccordionSection({ template }: AccordionSectionProps) {
       <div className={`accordion-item ${activeIndex === 0 ? 'active' : ''}`}>
         <h2 className="accordion-header" id="heading0">
           <button
-            className="accordion-button"
             type="button"
             onClick={() => handleToggle(0)}
             aria-expanded={activeIndex === 0}
@@ -35,9 +34,9 @@ export default function AccordionSection({ template }: AccordionSectionProps) {
         </h2>
         <div
           id="collapse0"
-          className={`accordion-collapse collapse ${activeIndex === 0 ? 'show' : ''}`}
+          className="accordion-collapse"
+          style={{ maxHeight: activeIndex === 0 ? '500px' : '0', opacity: activeIndex === 0 ? 1 : 0 }}
           aria-labelledby="heading0"
-          data-bs-parent="#accordionExample"
         >
           <div className="accordion-body">
             <p>{content}</p>

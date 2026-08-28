@@ -1,7 +1,6 @@
 'use client';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'animate.css';
+import '@/assets/css/tailwind.css';
 
 import '@/assets/css/common_style.css';
 import '@/assets/css/font.css';

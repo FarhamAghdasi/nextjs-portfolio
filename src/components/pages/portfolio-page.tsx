@@ -103,7 +103,7 @@ const WorksPage: React.FC = () => {
                     transformOrigin: '50% center',
                   }}
                 >
-                  <div className="d-lg-flex align-items-end mt-4">
+                  <div className="flex items-end mt-4 lg:flex-row flex-col">
                     <div>
                       <div className="tags">
                         <a href="#">{portfolio.category}</a>
@@ -119,7 +119,7 @@ const WorksPage: React.FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <div className="d-flex align-items-center">
+                        <div className="flex items-center">
                           <span>{texts.viewProject}</span>
                           <span className="icon invert ml-10 n">
                             <Image src={arrowTopRight} alt="Arrow" width={16} height={16} unoptimized/>

@@ -87,16 +87,16 @@ const Work: React.FC = () => {
 
   return (
     <section className="work-min ontop bord-thin-top-light pb-50" ref={sectionRef}>
-      <div className="container pt-30 bord-thin-top-light">
-        <div className="sec-head mb-80 col-lg-7 offset-lg-3">
+      <div className="container mx-auto px-4 pt-30 bord-thin-top-light">
+        <div className="sec-head mb-80 lg:w-7/12 lg:ml-[25%]">
           <h2>My Projects <br />and Website Templates</h2>
         </div>
-        <div className="row gx-sm-3 gx-md-4 gx-lg-5 gy-sm-3 gy-md-4 gy-lg-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-3 md:gap-x-4 lg:gap-x-5 gap-y-3 md:gap-y-4 lg:gap-y-5">
           {/* Portfolio Section */}
           {portfolios.length > 0 ? (
             portfolios.slice(0, 2).map((portfolio, index) => (
               <div
-                className="col-lg-6 col-md-6 col-sm-12 mb-sm-3 mb-md-4 mb-lg-5"
+                className="col-span-1"
                 key={portfolio.url}
                 ref={(el) => {
                   portfolioRefs.current[index] = el;
@@ -129,7 +129,7 @@ const Work: React.FC = () => {
               </div>
             ))
           ) : (
-            <div className="col-lg-12">
+            <div className="col-span-full">
               <p>No portfolios available at the moment.</p>
             </div>
           )}
@@ -138,7 +138,7 @@ const Work: React.FC = () => {
           {htmlTemplates.length > 0 ? (
             htmlTemplates.slice(0, 2).map((template, index) => (
               <div
-                className="col-lg-6 col-md-6 col-sm-12 mb-sm-3 mb-md-4 mb-lg-5"
+                className="col-span-1"
                 key={template.url}
                 ref={(el) => {
                   templateRefs.current[index] = el;
@@ -171,7 +171,7 @@ const Work: React.FC = () => {
               </div>
             ))
           ) : (
-            <div className="col-lg-12">
+            <div className="col-span-full">
               <p>No HTML templates available at the moment.</p>
             </div>
           )}

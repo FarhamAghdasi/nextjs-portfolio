@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@source "./src/**/*.{tsx,ts,jsx,ts}";
+@source "./src/**/*.html";
+@source "./src/data/*.json";
+
+/*
+  Design tokens — mirrors the values that used to live only in
+  common_style.css / personal.css `:root`. Kept as the same variable
+  names so any not-yet-converted custom CSS keeps working, and exposed
+  to Tailwind via @theme so utilities like bg-bg, bg-theme, bg-main,
+  text-main, border-main, etc. are available.
+*/
+@theme {
+  --color-bg: #1E1D1E;
+  --color-theme: #100F0F;
+  --color-main: #d0ff71;
+  --color-main-dark: #222;
+  --color-gray-light: #b7b7b7;
+  --color-gray-dark: #444;
+  --color-gray-1414: #141414;
+  --color-gray-1816: #181616;
+  --color-overlay-dark: #141414;
+  --font-body: "Outfit", sans-serif;
+  --font-sacramento: "Sacramento", cursive;
+  --spacing-section: 140px;
+  --spacing-section-sm: 120px;
+}
+
+:root {
+  --bg-color: var(--color-bg);
+  --theme-color: var(--color-theme);
+  --main-color: var(--color-main);
+}
+
+@utility container {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+

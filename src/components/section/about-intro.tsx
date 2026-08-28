@@ -13,15 +13,15 @@ export default function AboutIntro() {
   return (
     <section className={sectionClass}>
       <div className="container">
-        <div className="row">
-          <div className="col-lg-3">
+        <div className="flex flex-wrap">
+          <div className="w-full lg:w-3/12">
             <div className={header.class}>
               <div className={header.bractClass}>
                 <span>{header.title}</span>
               </div>
             </div>
           </div>
-          <div className="col-lg-9">
+          <div className="w-full lg:w-9/12 lg:ml-[6.25%]">
             <div className="text">
               <h3 className={content.class}>
                 <TextSplitter

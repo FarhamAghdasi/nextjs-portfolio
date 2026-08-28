@@ -82,7 +82,7 @@ const Blog: React.FC = () => {
       <div className={containerClass}>
         {/* Header Section */}
         <div className={header.class}>
-          <div className="d-flex">
+          <div className="flex">
             <div>
               <span className="sub-head">{header.subTitle}</span>
             </div>
@@ -92,8 +92,8 @@ const Blog: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="row mt-30">
-            <div className="col-lg-7 offset-lg-3">
+          <div className="flex flex-wrap mt-30">
+            <div className="w-full lg:w-7/12 lg:ml-[25%]">
               <div>
                 {/* Dynamically set inner HTML for title (allowing HTML formatting) */}
                 <h2
@@ -114,12 +114,12 @@ const Blog: React.FC = () => {
         </div>
 
         {/* Posts Grid */}
-        <div className="row md-marg">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {posts.length > 0 ? (
             // Render first 3 posts
             posts.slice(0, 3).map((post, index) => (
               <div
-                className="col-lg-4"
+                className="col-span-1"
                 key={index}
                 ref={(el) => {
                   // Store ref for each post item for animation
@@ -157,7 +157,7 @@ const Blog: React.FC = () => {
             ))
           ) : (
             // Show message if no posts exist
-            <div className="col-lg-12">
+            <div className="col-span-full">
               <p>{noPostsMessage}</p>
             </div>
           )}

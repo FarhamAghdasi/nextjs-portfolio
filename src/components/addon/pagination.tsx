@@ -51,11 +51,11 @@ export default function Pagination({
   
 
   return (
-    <div className="pagination-container mt-50 d-flex justify-content-center align-items-center flex-wrap gap-2">
+    <div className="pagination-container mt-50 flex justify-center items-center flex-wrap gap-2">
       <button
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}
-        className="butn butn-md butn-rounded butn-bord d-flex align-items-center gap-2"
+        className="butn butn-md butn-rounded butn-bord flex items-center gap-2"
       >
         <i className="fas fa-chevron-left" /> Previous
       </button>
@@ -65,7 +65,7 @@ export default function Pagination({
       <button
         onClick={() => goToPage(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="butn butn-md butn-rounded butn-bord d-flex align-items-center gap-2"
+        className="butn butn-md butn-rounded butn-bord flex items-center gap-2"
       >
         Next <i className="fas fa-chevron-right" />
       </button>

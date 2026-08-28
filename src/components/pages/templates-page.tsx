@@ -120,8 +120,8 @@ export default function HtmlTemplates() {
         <div className="container">
           <div className="templatesContainer" ref={templatesRef}>
             <div className="filters mb-4">
-              <div className="filters mb-4 d-flex gap-3 flex-wrap justify-content-center mt-5">
-                <div className="select-wrapper position-relative">
+              <div className="filters mb-4 flex gap-3 flex-wrap justify-center mt-5">
+                <div className="select-wrapper relative">
                   <select
                     className="select-custom"
                     onChange={(e) => setSortBy(e.target.value as 'date' | 'price' | null)}
@@ -134,7 +134,7 @@ export default function HtmlTemplates() {
                   </select>
                   <i className="fa fa-chevron-down select-icon"></i>
                 </div>
-                <div className="select-wrapper position-relative">
+                <div className="select-wrapper relative">
                   <select
                     className="select-custom"
                     onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
@@ -161,7 +161,7 @@ export default function HtmlTemplates() {
                   <i className="fa fa-chevron-down select-icon"></i>
                 </div>
               </div>
-              <div className="d-flex justify-content-center">
+              <div className="flex justify-center">
                 <p>Total {templates.length}</p>
               </div>
             </div>
@@ -182,9 +182,9 @@ export default function HtmlTemplates() {
                       position: 'relative',
                     }}
                   >
-                    <div className="d-lg-flex align-items-end mt-4">
-                      <div>
-                        <div className="tags">
+               <div className="flex flex-col items-start lg:flex-row lg:items-end mt-4">
+                       <div>
+                         <div className="tags">
                           {template.category ? (
                             <Link href={`/templates?category=${encodeURIComponent(template.category)}`}>
                               {template.category}
@@ -197,32 +197,32 @@ export default function HtmlTemplates() {
                           <Link href={`/templates/${template.url}/`}>{template.title}</Link>
                         </h3>
                       </div>
-                      <div className="ml-auto">
-                        <a
-                          href={template.buyLink || '#'}
-                          className="mr-3 butn butn-md butn-bord butn-rounded hover-scale"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div className="d-flex align-items-center">
-                            <span>Buy Now</span>
-                            <span className="icon invert ml-10">
-                              <Image src={arrowTopRight} alt="Arrow Icon" width={16} height={16} unoptimized />
-                            </span>
-                          </div>
-                        </a>
-                        <Link
-                          href={`/templates/${template.url}/`}
-                          className="mr-3 butn butn-md butn-bord butn-rounded hover-scale"
-                        >
-                          <div className="d-flex align-items-center">
-                            <span>View Template</span>
-                            <span className="icon invert ml-10">
-                              <Image src={arrowTopRight} alt="Arrow Icon" width={16} height={16} unoptimized />
-                            </span>
-                          </div>
-                        </Link>
-                      </div>
+                     <div className="ml-auto">
+                         <a
+                           href={template.buyLink || '#'}
+                           className="mr-3 butn butn-md butn-bord butn-rounded hover-scale"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                         >
+                           <div className="flex items-center">
+                             <span>Buy Now</span>
+                             <span className="icon invert ml-10">
+                               <Image src={arrowTopRight} alt="Arrow Icon" width={16} height={16} unoptimized />
+                             </span>
+                           </div>
+                         </a>
+                         <Link
+                           href={`/templates/${template.url}/`}
+                           className="mr-3 butn butn-md butn-bord butn-rounded hover-scale"
+                         >
+                           <div className="flex items-center">
+                             <span>View Template</span>
+                             <span className="icon invert ml-10">
+                               <Image src={arrowTopRight} alt="Arrow Icon" width={16} height={16} unoptimized />
+                             </span>
+                           </div>
+                         </Link>
+                       </div>
                     </div>
                     <div className="img fit-img mt-30">
                       <Image
@@ -251,31 +251,6 @@ export default function HtmlTemplates() {
           </div>
         </div>
       </section>
-
-      <style jsx>{`
-        .butn.hover-scale:hover {
-          transform: scale(1.05);
-          transition: transform 0.2s ease-in-out;
-        }
-        @media (max-width: 767px) {
-          .card-item {
-            margin-bottom: 30px;
-          }
-          .d-lg-flex {
-            flex-direction: column;
-            align-items: flex-start !important;
-          }
-          .ml-auto {
-            margin-left: 0 !important;
-            margin-top: 20px;
-          }
-          .butn {
-            width: 100%;
-            text-align: center;
-            margin-bottom: 10px;
-          }
-        }
-      `}</style>
     </>
   );
 }

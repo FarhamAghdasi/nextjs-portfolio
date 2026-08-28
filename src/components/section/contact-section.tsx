@@ -41,22 +41,22 @@ const ContactPageContent = () => {
   return (
     <section className="contact-pg section-padding">
       <div className="container">
-        <div className="row">
-          <div className="col-lg-5 valign">
-            <div className="full-width md-mb80">
-              <div className="sec-head md-mb80">
+        <div className="flex flex-wrap">
+          <div className="w-full lg:w-5/12 flex items-center lg:mt-0 mt-4">
+            <div className="full-width md:mb-80">
+              <div className="sec-head md:mb-80">
                 <h2 className="text-u">
                   Let&rsquo;s make your <br /> brand <span className="fw-200">{texts.headerHighlight}</span>
                 </h2>
                 <p className="mt-20 mb-20">{texts.description}</p>
-                <div className="row">
-                  <div className="col-md-6">
+                <div className="flex flex-wrap">
+                  <div className="w-full md:w-6/12">
                     <div className="morinfo mt-30">
                       <h6 className="mb-15">Address</h6>
                       <p>{contact.address}</p>
                     </div>
                   </div>
-                  <div className="col-md-6">
+                  <div className="w-full md:w-6/12">
                     <div className="morinfo mt-30">
                       <h6 className="mb-15">Email</h6>
                       {contact.emails.map(email => (
@@ -68,7 +68,7 @@ const ContactPageContent = () => {
                 <div className="phone fz-30 fw-600 mt-30 underline main-color">
                   <a href={`tel:${contact.phone}`}>{contact.phone}</a>
                 </div>
-                <ul className="rest social-text d-flex mt-60 fz-16">
+                <ul className="rest social-text flex mt-60 fz-16">
                   <li className="mr-30">
                     <a href={contact.social.telegram} target='_blank' rel="noreferrer" className="hover-this">
                       <span className="hover-anim">Telegram</span>
@@ -93,15 +93,15 @@ const ContactPageContent = () => {
               </div>
             </div>
           </div>
-          <div className="col-lg-6 offset-lg-1 valign">
+          <div className="w-full lg:w-6/12 lg:ml-[8.33%] flex items-center mt-4">
             <div className="full-width">
               <div className="sec-head mb-50">
                 <h6 className="sub-head">{texts.contactTitle}</h6>
               </div>
               <form id="contact-form" onSubmit={handleSubmit}>
                 <div className="messages">{responseMessage}</div>
-                <div className="controls row">
-                  <div className="col-lg-6">
+                <div className="controls flex flex-wrap">
+                  <div className="w-full lg:w-6/12">
                     <div className="form-group mb-30">
                       <input
                         id="form_name"
@@ -114,7 +114,7 @@ const ContactPageContent = () => {
                       />
                     </div>
                   </div>
-                  <div className="col-lg-6">
+                  <div className="w-full lg:w-6/12">
                     <div className="form-group mb-30">
                       <input
                         id="form_email"
@@ -127,7 +127,7 @@ const ContactPageContent = () => {
                       />
                     </div>
                   </div>
-                  <div className="col-12">
+                  <div className="w-full">
                     <div className="form-group mb-30">
                       <input
                         id="form_subject"
@@ -139,7 +139,7 @@ const ContactPageContent = () => {
                       />
                     </div>
                   </div>
-                  <div className="col-12">
+                  <div className="w-full">
                     <div className="form-group">
                       <textarea
                         id="form_message"
@@ -156,7 +156,7 @@ const ContactPageContent = () => {
                         type="submit"
                         className="butn butn-md butn-bord butn-rounded"
                       >
-                        <div className="d-flex align-items-center">
+                        <div className="flex items-center">
                           <span>{texts.submitButton}</span>
                           <span className="icon ml-10">
                             <Image

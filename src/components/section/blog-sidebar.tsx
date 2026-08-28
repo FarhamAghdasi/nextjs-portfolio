@@ -45,8 +45,8 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
   };
 
   return (
-    <div className="sidebar">
-      <div className="search-box mb-4 d-flex gap-2">
+      <div className="sidebar">
+      <div className="search-box mb-4 flex gap-2">
         <input
           type="text"
           name="search-post"
@@ -54,7 +54,6 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyPress={handleKeyPress}
-          className="form-control"
         />
         {onSearch && (
           <>
@@ -78,7 +77,7 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
       <div className="widget last-post-thum">
         <h6 className="title-widget">{texts.latestPostsTitle}</h6>
         {posts.slice(0, 3).map((post) => (
-          <div className="item d-flex align-items-center" key={post.id}>
+          <div className="item flex items-center" key={post.id}>
             <div>
               <div className="img">
                 <Link href={`/blog/${post.url}/`}>

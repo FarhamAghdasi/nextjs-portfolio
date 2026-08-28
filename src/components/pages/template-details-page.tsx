@@ -21,8 +21,8 @@ export default function TemplatePage({ template }: TemplatePageProps) {
         <div className="container">
           <div className="caption mb-80">
             <h1 className="fz-80 fw-600">{template.title || texts.defaultTitle}</h1>
-            <div className="row justify-content-end">
-              <div className="col-lg-3 mt-30">
+            <div className="flex flex-wrap justify-end">
+              <div className="w-full lg:w-3/12 mt-30">
                 <p>
                   {texts.category}: <b>{template.category || 'N/A'}</b>
                 </p>
@@ -30,7 +30,7 @@ export default function TemplatePage({ template }: TemplatePageProps) {
                   {texts.author}: <b>{template.author || 'Unknown'}</b>
                 </p>
               </div>
-              <div className="col-lg-5">
+              <div className="w-full lg:w-5/12">
                 <div className="text mt-30">
                   <p>
                     {template.Shortdescription || texts.defaultDescription} <br />
@@ -41,7 +41,7 @@ export default function TemplatePage({ template }: TemplatePageProps) {
                   </p>
                 </div>
               </div>
-              <div className="col-lg-4">
+              <div className="w-full lg:w-4/12">
                 <div className="list mt-30">
                   <ul>
                     <li>{template.serviceTitle1 || 'Service 1'}</li>
@@ -53,7 +53,7 @@ export default function TemplatePage({ template }: TemplatePageProps) {
             </div>
           </div>
         </div>
-        <div className="container-fluid">
+        <div className="w-full px-4">
           <div className="fit-img radius-15 scale">
             <Image
               src={ImagePrimary}
@@ -70,14 +70,14 @@ export default function TemplatePage({ template }: TemplatePageProps) {
 
       <section className="serv-details section-padding">
         <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-lg-10">
+          <div className="flex flex-wrap justify-center">
+            <div className="w-full lg:w-10/12">
               <div className="content" dangerouslySetInnerHTML={{ __html: template.description || '' }} />
             </div>
           </div>
 
-          <div className="row justify-content-center mt-80">
-            <div className="col-lg-7">
+          <div className="flex flex-wrap justify-center mt-80">
+            <div className="w-full lg:w-7/12">
               <div className="content">
                 <h3>{texts.faq_title}</h3>
                 <div className="text mt-30 mb-50">
@@ -88,7 +88,7 @@ export default function TemplatePage({ template }: TemplatePageProps) {
 
                 <div className="text-center">
                   <Link href="/templates">
-                    <div className="crv-butn mt-80 d-flex justify-content-center align-items-center">
+                    <div className="crv-butn mt-80 flex justify-center items-center">
                       <span className="text">{texts.more_templates}</span>
                       <span className="icon">
                         <Image src={arrowTopRight} alt="Arrow" width={20} height={20} unoptimized />

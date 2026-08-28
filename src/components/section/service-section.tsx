@@ -70,10 +70,10 @@ const Services = () => {
       style={{ backgroundImage: `url('/assets/imgs/smoke-bg.jpg')` }}
       ref={containerRef}
     >
-      <div className="container pt-30 bord-thin-top-light ontop">
+      <div className="container mx-auto px-4 pt-30 bord-thin-top-light ontop">
         {/* Header */}
         <div className="sec-head mb-80">
-          <div className="d-flex">
+          <div className="flex">
             <div>
               <span className="sub-head">What I Do ?</span>
             </div>
@@ -83,8 +83,8 @@ const Services = () => {
               </div>
             </div>
           </div>
-          <div className="row mt-30">
-            <div className="col-lg-7 offset-lg-3">
+          <div className="flex flex-wrap mt-30">
+            <div className="w-full lg:w-7/12 lg:ml-[25%]">
               <div>
                 <h2>
                   What areas am I
@@ -108,8 +108,8 @@ const Services = () => {
         </div>
 
         {/* Services */}
-        <div className="row justify-content-end">
-          <div className="col-lg-8">
+        <div className="flex flex-wrap justify-end">
+          <div className="w-full lg:w-8/12">
             <div className="serv-items">
               {services.map((service, index) => (
                 <div

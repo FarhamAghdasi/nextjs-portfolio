@@ -101,34 +101,34 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
     <>
       <header className="post-header pt-20">
         <div
-          className="out container-xl bg-img mt-80"
+          className="out bg-img mt-80 max-w-[1400px] mx-auto"
           data-overlay-dark="4"
           style={{ backgroundImage: `url(/assets/imgs/uploads/${post.thumbnail})` }}
         >
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="caption">
+           <div className="flex flex-wrap">
+             <div className="w-full lg:w-12/12">
+               <div className="caption">
                 <div className="tags fz-14">
                   <Link href={`/blog?category=${encodeURIComponent(post.category)}`}>{post.category}</Link>
                 </div>
                 <h1 className="fz-55 mt-30">{post.title || texts.defaultTitle}</h1>
               </div>
-              <div className="info d-flex mt-40 align-items-center">
+              <div className="info flex mt-40 items-center">
                 <div className="left-info sm-mb30">
-                  <div className="d-flex align-items-center">
+                  <div className="flex items-center">
                     <div className="author-info">
-                      <div className="d-flex align-items-center">
-                        <Link href="#" className="circle-60">
-                          <Image
-                            src={authorImage}
-                            alt={texts.authorAlt}
-                            className="circle-img"
-                            width={60}
-                            height={60}
-                            unoptimized
-                          />
-                        </Link>
-                        <Link href="#" className="ml-20">
+                  <div className="flex items-center">
+                    <Link href="#" className="circle-60">
+                      <Image
+                        src={authorImage}
+                        alt={texts.authorAlt}
+                        className="circle-img"
+                        width={60}
+                        height={60}
+                        unoptimized
+                      />
+                    </Link>
+                    <Link href="#" className="ml-20">
                           <span className="opacity-7 mb-5">{texts.authorLabel}</span>
                           <h6 className="fz-16">{post.author || texts.unknownAuthor}</h6>
                         </Link>
@@ -154,10 +154,10 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
         </div>
       </header>
 
-      <section className="blog section-padding">
-        <div className="container">
-          <div className="row xlg-marg">
-            <div className="col-lg-8">
+       <section className="blog section-padding">
+         <div className="container">
+           <div className="flex flex-wrap xlg-marg">
+             <div className="w-full lg:w-8/12">
               <div className="main-post">
                 <div className="item pb-60">
                   <article>
@@ -217,8 +217,8 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                     <h3>{texts.leaveComment}</h3>
                   </div>
                   <form onSubmit={submitComment}>
-                    <div className="controls row">
-                      <div className="col-lg-6">
+                    <div className="controls flex flex-wrap">
+                      <div className="w-full lg:w-6/12">
                         <div className="form-group mb-30">
                           <input
                             id="form_name"
@@ -231,7 +231,7 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                           />
                         </div>
                       </div>
-                      <div className="col-lg-6">
+                      <div className="w-full lg:w-6/12">
                         <div className="form-group mb-30">
                           <input
                             id="form_email"
@@ -244,7 +244,7 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                           />
                         </div>
                       </div>
-                      <div className="col-12">
+                      <div className="w-full">
                         <div className="form-group">
                           <textarea
                             id="form_message"
@@ -273,7 +273,7 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                 </div>
               </div>
             </div>
-            <div className="col-lg-4">
+             <div className="w-full lg:w-4/12">
               <Suspense fallback={<div>Loading sidebar...</div>}>
                 <Sidebar posts={posts} onSearch={handleSearch} onReset={handleReset} initialSearch={searchTerm} />
               </Suspense>
@@ -285,17 +285,17 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
       <div className="blog-mp">
         <div className="container section-padding bord-thin-top-light">
           <div className="sec-head mb-80">
-            <div className="row">
-              <div className="col-lg-6">
+            <div className="flex flex-wrap">
+              <div className="w-full lg:w-6/12">
                 <h2>{texts.recentNews}</h2>
               </div>
-              <div className="col-lg-6">
-                <div className="d-flex">
+              <div className="w-full lg:w-6/12">
+                <div className="flex">
                   <Link
                     href="/blog"
                     className="butn butn-md butn-bord butn-rounded ml-auto"
                   >
-                    <div className="d-flex align-items-center">
+                   <div className="flex items-center">
                       <span>{texts.allArticles}</span>
                       <span className="icon ml-20">
                         <i className="fa-solid fa-chevron-right" />
@@ -306,12 +306,12 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
               </div>
             </div>
           </div>
-          <div className="row xlg-marg">
-            {posts.slice(0, 3).map((p) => (
-              <div key={p.id} className="col-lg-4 bord">
+    <div className="flex flex-wrap xlg-marg">
+              {posts.slice(0, 3).map((p) => (
+                <div key={p.id} className="w-full lg:w-4/12 bord">
                 <div className="item">
-                  <div className="info d-flex align-items-center">
-                    <div className="d-flex align-items-center">
+                    <div className="info flex items-center">
+                      <div className="flex items-center">
                       <div>
                         <div className="author-img fit-img">
                           <Image

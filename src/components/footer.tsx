@@ -78,7 +78,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer>
-      <div className="container">
+      <div className="container mx-auto px-4">
         <div className="top-content text-center">
           <h2>
             <Link href="/contact/" className="underline">
@@ -95,8 +95,8 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="main-content">
-          <div className="row justify-content-between">
-            <div className="col-lg-5">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-8">
+            <div className="lg:col-span-5">
               <div className="text">
                 <p
                   className="js-splittext-lines"
@@ -105,7 +105,7 @@ const Footer: React.FC = () => {
               </div>
             </div>
 
-            <div className="col-lg-7">
+            <div className="lg:col-span-7">
               <a
                 href={`tel:${footerData.phoneNumber.replace(/\s+/g, '')}`}
                 className="contact-number fz-60"

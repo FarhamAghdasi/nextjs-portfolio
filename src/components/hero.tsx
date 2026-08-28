@@ -102,20 +102,20 @@ const Hero = () => {
   }, [isMobile]);
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
+    <div className="relative w-full h-screen overflow-hidden">
       <ParticleCanvas 
         particleCount={isMobile ? 25 : 60} 
         speed={isMobile ? 0.4 : 1} 
       />
-      <header ref={headerRef} className="header-personal" style={{ position: 'relative', zIndex: 1 }}>
+      <header ref={headerRef} className="header-personal relative z-[1]">
         <div className="container ontop">
           <div className="caption text-center">
             <h1 ref={titleRef} style={{ transformStyle: 'preserve-3d' }}>
               {content.nameLine1} <br /> {content.nameLine2}
             </h1>
           </div>
-          <div className="row justify-content-center text">
-            <div className="col-lg-7 col-md-10">
+          <div className="flex flex-wrap justify-center text">
+            <div className="w-full md:w-10/12 lg:w-7/12">
               <div className="text-center">
                 <h2>
                   {startTyping && (

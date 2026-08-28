@@ -234,9 +234,9 @@ const Skills: React.FC = () => {
   return (
     <section className="gray-box section-padding" ref={sectionRef}>
       <div className="skills">
-        <div className="container pt-30 section-padding bord-thin-top pb-0">
+        <div className="container mx-auto px-4 pt-30 section-padding bord-thin-top pb-0">
           <div className="sec-head mb-80">
-            <div className="d-flex align-items-center">
+            <div className="flex items-center">
               <div>
                 <span className="sub-head">{header.subHead}</span>
               </div>
@@ -246,8 +246,8 @@ const Skills: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="row mt-30 mb-30">
-              <div className="col-lg-7 offset-lg-3">
+            <div className="flex flex-wrap mt-30 mb-30">
+              <div className="w-full lg:w-7/12 lg:ml-[25%]">
                 <div>
                   <h2 className="text-indent">
                     {header.title.split('\n').map((line, i) => (
@@ -266,11 +266,11 @@ const Skills: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="row justify-content-center">
+            <div className="flex flex-wrap justify-center">
               {skills.map((skill: Skill, index: number) => (
                 <div
                   key={index}
-                  className="col-lg col-md-4 col-6 skill-item"
+                  className="w-1/2 md:w-1/3 lg:flex-1 skill-item"
                   ref={(el) => {
                     skillItemsRef.current[index] = el;
                   }}
@@ -296,12 +296,12 @@ const Skills: React.FC = () => {
             </div>
           </div>
           <section className="numbers-sec pt-0">
-            <div className="container">
-              <div className="row">
+            <div className="container mx-auto px-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                 {numbers.map((num: NumberItem, idx: number) => (
                   <div
                     key={idx}
-                    className="col-lg-3 col-md-6 number-item"
+                    className="number-item"
                     ref={(el) => {
                       numberItemsRef.current[idx] = el;
                     }}
@@ -326,12 +326,12 @@ const Skills: React.FC = () => {
             </div>
           </section>
           <section className="progress-sec pt-50 pb-50">
-            <div className="container">
-              <div className="row">
+            <div className="container mx-auto px-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
                 {progressSkills.map((skill: Skill, index: number) => (
-                  <div key={index} className="col-lg-6 col-md-6 col-sm-12 mb-30">
+                  <div key={index} className="mb-30">
                     <div className="progress-item">
-                      <div className="d-flex justify-content-between mb-10">
+                      <div className="flex justify-between mb-10">
                         <h6 className="progress-label">{skill.name}</h6>
                         <span className="progress-value">{skill.level}</span>
                       </div>
@@ -352,7 +352,7 @@ const Skills: React.FC = () => {
         </div>
         <div className="marquee section-padding pt-0">
           <div className="main-marq shadow-off ontop">
-            <div className="slide-har st1 d-flex">
+            <div className="slide-har st1 flex">
               {Array.from({ length: 2 }).map((_, boxIdx) => (
                 <div key={boxIdx} className="box">
                   {marquee.map((item: string, i: number) => (
@@ -369,7 +369,7 @@ const Skills: React.FC = () => {
         </div>
         <div className="marquee skills-padding pb-0">
           <div className="main-marq shadow-off ontop">
-            <div className="slide-har st2 d-flex">
+            <div className="slide-har st2 flex">
               {Array.from({ length: 2 }).map((_, boxIdx) => (
                 <div key={boxIdx} className="box">
                   {marquee2.map((item: string, i: number) => (
@@ -385,9 +385,9 @@ const Skills: React.FC = () => {
           </div>
         </div>
         <div className="resume">
-          <div className="container pt-30 bord-thin-top">
+          <div className="container mx-auto px-4 pt-30 bord-thin-top">
             <div className="sec-head mb-80">
-              <div className="d-flex align-items-center">
+              <div className="flex items-center">
                 <div>
                   <span className="sub-head">{resumeHeader.subHead}</span>
                 </div>
@@ -397,17 +397,17 @@ const Skills: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="row mt-30">
-                <div className="col-lg-12 text-center">
+              <div className="flex flex-wrap mt-30">
+                <div className="w-full text-center">
                   <h2 className="fz-60">{resumeHeader.title}</h2>
                 </div>
               </div>
             </div>
-            <div className="row">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
               {experience.map((yearExp: ExperienceYear, idx: number) => (
                 <div
                   key={idx}
-                  className="col-lg-3 col-md-6 resume-col"
+                  className="resume-col"
                   ref={(el) => {
                     resumeColsRef.current[idx] = el;
                   }}

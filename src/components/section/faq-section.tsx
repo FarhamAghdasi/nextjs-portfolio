@@ -19,37 +19,37 @@ export default function Faq() {
   return (
     <section className="faqs-pg section-padding">
       <div className="container">
-        <div className="row lg-marg">
-          <div className="col-lg-5">
-            <div className="fit-img img md-hide">
+        <div className="flex flex-wrap gap-10">
+          <div className="w-full lg:w-5/12">
+            <div className="fit-img img hidden lg:block">
               <Image src={FaqImage} alt="FAQs Image" unoptimized />
             </div>
           </div>
-          <div className="col-lg-7 pt-30 pb-30">
+          <div className="w-full lg:w-7/12 lg:ml-[8.33%] pt-30 pb-30">
             <div className="sec-head mb-60">
               <h6 className="sub-head mb-15">{data.sectionTitle}</h6>
               <h2>{data.sectionSubtitle}</h2>
             </div>
-            <div className="row justify-content-center">
-              <div className="col-lg-10">
-                <div className="accordion">
+            <div className="flex flex-wrap justify-center">
+              <div className="w-full lg:w-10/12">
+                <div className="accordion" id="faqAccordion">
                   {data.items.map((item, index) => {
                     const isActive = index === activeIndex;
                     return (
                       <div key={index} className={`accordion-item ${isActive ? 'active' : ''}`}>
                         <h4 className="accordion-header">
                           <button
-                            className={`accordion-button ${!isActive ? 'collapsed' : ''}`}
                             type="button"
                             onClick={() => toggleIndex(index)}
                             aria-expanded={isActive}
+                            className={isActive ? '' : 'collapsed'}
                           >
                             {item.question}
                           </button>
                         </h4>
                         <div
-                          className={`accordion-collapse ${isActive ? 'fade show' : 'fade'}`}
-                          style={{ maxHeight: isActive ? '500px' : '0' }}
+                          className="accordion-collapse"
+                          style={{ maxHeight: isActive ? '500px' : '0', opacity: isActive ? 1 : 0 }}
                           aria-hidden={!isActive}
                         >
                           <p

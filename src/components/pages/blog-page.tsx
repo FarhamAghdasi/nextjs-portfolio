@@ -71,13 +71,13 @@ const Bloginfo: React.FC = () => {
     <>
       <header className="blog-hed">
         <div className="container section-padding bord-thin-bottom-light">
-          <div className="row">
-            <div className="col-lg-7">
+          <div className="flex flex-wrap">
+            <div className="w-full lg:w-7/12">
               <div className="caption md-mb30">
                 <h1 className="text-indent">{texts.headerTitle}</h1>
               </div>
             </div>
-            <div className="col-lg-4 offset-lg-1 d-flex align-items-end">
+            <div className="w-full lg:w-4/12 lg:ml-[8.33%] flex items-end">
               <div className="text">
                 <p>{texts.headerText}</p>
               </div>
@@ -88,8 +88,8 @@ const Bloginfo: React.FC = () => {
 
       <div className="blog-mp section-padding">
         <div className="container">
-          <div className="row xlg-marg">
-            <div className="col-lg-8">
+          <div className="flex flex-wrap xlg-marg">
+            <div className="w-full lg:w-8/12">
               <div className="main-blog md-mb80" ref={postsRef}>
                 {!isCategoryValid ? (
                   <p>Category &quot;{category}&quot; does not exist.</p>
@@ -98,8 +98,8 @@ const Bloginfo: React.FC = () => {
                 ) : (
                   filteredPosts.map((post) => (
                     <div className="item mb-80" key={post.id}>
-                      <div className="info d-flex align-items-center">
-                        <div className="d-flex align-items-center">
+                      <div className="info flex items-center">
+                        <div className="flex items-center">
                           <div>
                             <div className="author-img fit-img">
                               <Image
@@ -150,7 +150,7 @@ const Bloginfo: React.FC = () => {
                 )}
               </div>
             </div>
-            <div className="col-lg-4">
+            <div className="w-full lg:w-4/12">
               <Sidebar posts={posts} onSearch={handleSearch} onReset={handleReset} />
             </div>
           </div>

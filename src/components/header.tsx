@@ -238,21 +238,21 @@ const Header = () => {
                 </svg>
             </div>
 
-            <nav className="navbar navbar-expand-lg">
-                <div className="container">
+            <nav className="navbar">
+                <div className="container mx-auto px-4 flex items-center justify-between gap-6">
                     <Link href="/" className="logo">
                         <Image src={logoLight} alt={content.logoAlt} width={100} height={50} unoptimized/>
                     </Link>
 
-                    <div className={`collapse navbar-collapse ${isNavbarOpen ? 'show' : ''}`}>
-                        <ul className="navbar-nav">
+                    <div className={`${isNavbarOpen ? 'flex' : 'hidden'} lg:flex`}>
+                        <ul className="navbar-nav flex list-none m-0 p-0 items-center">
                             {content.menuItems
                                 .filter((item) => item.label !== 'Contact Me')
                                 .map((item, idx) => (
-                                    <li key={idx} className="nav-item">
+                                    <li key={idx}>
                                         <Link
                                             href={item.href}
-                                            className="nav-link"
+                                            className="nav-link no-underline"
                                             onClick={() => closeMenuWithAnimation()}
                                             ref={(el) => {
                                                 linkRefs.current[idx] = el;
@@ -265,11 +265,11 @@ const Header = () => {
                         </ul>
                     </div>
 
-                    <div className="topnav d-flex align-items-center">
+                    <div className="topnav flex items-center">
                         <Link href={content.ctaHref} className="butn butn-rounded">
-                            <div className="d-flex align-items-center">
+                            <div className="flex items-center">
                                 <span>{content.ctaText}</span>
-                                <span className="icon ml-10">
+                                <span className="icon ml-[10px]">
                                     <Image src={arrowIcon} alt="Arrow" width={20} height={20} unoptimized/>
                                 </span>
                             </div>
@@ -288,7 +288,7 @@ const Header = () => {
 
             <div ref={menuRef} className={`hamenu ${isMenuOpen ? 'open' : ''}`} style={{ left: isMenuOpen ? '0' : '-100%' }}>
                 <div className="close-menu cursor-pointer" onClick={toggleMenu}>✕</div>
-                <div className="container-fluid rest d-lg-flex">
+                <div className="w-full px-4 lg:flex">
                     <div className="menu-links">
                         <ul className="main-menu rest">
                             {hamburgerMenuItems.map((item, idx) => (

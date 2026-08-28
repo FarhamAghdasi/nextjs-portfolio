@@ -69,8 +69,8 @@ const CreateCaptcha: FC<CreateCaptchaProps> = ({ onCaptchaChange }) => {
   };
 
   return (
-    <div className="col-12">
-      <div className="form-group d-flex align-items-center mt-4">
+    <div className="w-full">
+      <div className="form-group flex items-center mt-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={captchaImage}
