@@ -12,6 +12,22 @@ import { Skill, NumberItem, ExperienceItem } from '../types';
 const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
 const fallbackImage = '/assets/imgs/fallback.png';
 
+interface ParsedCount {
+  prefix: string;
+  value: number;
+  suffix: string;
+}
+
+const parseCount = (count: string): ParsedCount | null => {
+  const match = count.match(/^(\D*)(\d+)(\D*)$/);
+  if (!match) return null;
+  return {
+    prefix: match[1],
+    value: parseInt(match[2], 10),
+    suffix: match[3],
+  };
+};
+
 interface ExperienceYear {
   year: string;
   items: ExperienceItem[];
@@ -61,6 +77,8 @@ const Skills: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const skillItemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const numberItemsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const countRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const countTweenRefs = useRef<gsap.core.Tween[]>([]);
   const resumeColsRef = useRef<(HTMLDivElement | null)[]>([]);
   const progressBarsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [numbers, setNumbers] = useState<NumberItem[]>([
@@ -71,8 +89,16 @@ const Skills: React.FC = () => {
   ]);
 
   useEffect(() => {
+    const CACHE_KEY = 'skills-numbers-cache';
+
     const fetchNumbers = async () => {
       try {
+        const cached = sessionStorage.getItem(CACHE_KEY);
+        if (cached) {
+          setNumbers(JSON.parse(cached));
+          return;
+        }
+
         const response = await fetch('https://api.farhamaghdasi.ir/rtl-scraper', {
           method: 'GET',
           headers: {
@@ -80,7 +106,7 @@ const Skills: React.FC = () => {
             'Accept-Language': 'fa',
           },
         });
-        if (!response.ok) throw new Error('Failed to fetch numbers');
+        if (!response.ok) throw new Error(`Failed to fetch numbers: ${response.status}`);
         const data = await response.json();
         if (data.success) {
           const updatedNumbers: NumberItem[] = [
@@ -103,6 +129,7 @@ const Skills: React.FC = () => {
             },
           ];
           setNumbers(updatedNumbers);
+          sessionStorage.setItem(CACHE_KEY, JSON.stringify(updatedNumbers));
         } else {
           console.error('API error:', data.message);
         }
@@ -113,6 +140,32 @@ const Skills: React.FC = () => {
 
     fetchNumbers();
   }, []);
+
+  useEffect(() => {
+    countRefs.current.forEach((el, i) => {
+      if (!el) return;
+      const parsed = parseCount(numbers[i]?.count ?? '');
+      if (!parsed) return;
+
+      countTweenRefs.current[i]?.scrollTrigger?.kill();
+      countTweenRefs.current[i]?.kill();
+
+      const proxy = { val: 0 };
+      countTweenRefs.current[i] = gsap.to(proxy, {
+        val: parsed.value,
+        duration: 2,
+        ease: 'power1.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          once: true,
+        },
+        onUpdate: () => {
+          el.textContent = `${parsed.prefix}${Math.floor(proxy.val)}${parsed.suffix}`;
+        },
+      });
+    });
+  }, [numbers]);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -306,9 +359,19 @@ const Skills: React.FC = () => {
                       numberItemsRef.current[idx] = el;
                     }}
                   >
-                    <div className={`item ${idx === numbers.length - 1 ? '' : 'mb-[60px]'}`}>
+                    <div className={`item text-center ${idx === numbers.length - 1 ? '' : 'mb-[60px]'}`}>
                       <h2 className="text-[100px] leading-none overflow-hidden border-b border-white/10">
-                        <span className="relative -bottom-[25px] transition-all duration-400 group-hover:bottom-0">{num.count}</span>
+                        <span
+                          ref={(el) => {
+                            countRefs.current[idx] = el;
+                          }}
+                          className="relative -bottom-[25px] transition-all duration-400 group-hover:bottom-0"
+                        >
+                          {(() => {
+                            const p = parseCount(num.count);
+                            return p ? `${p.prefix}0${p.suffix}` : num.count;
+                          })()}
+                        </span>
                       </h2>
                       <p className="text-base mt-[5px]">
                         {num.link ? (

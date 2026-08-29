@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import data from '@/data/faq-section.json';
 const FaqImage = '/assets/imgs/faqs.jpg';
 
 export default function Faq() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const collapseRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const toggleIndex = (index: number) => {
     if (activeIndex === index) {
@@ -17,15 +18,15 @@ export default function Faq() {
   };
 
   return (
-    <section className="section-padding">
+    <section className="faqs-pg section-padding">
       <div className="container">
         <div className="flex flex-wrap gap-10">
           <div className="w-full lg:w-5/12">
-            <div className="fit-img img hidden lg:block h-full">
-              <Image src={FaqImage} alt="FAQs Image" unoptimized />
-            </div>
-          </div>
-          <div className="w-full lg:w-7/12 lg:ml-[8.33%] pt-[30px] pb-[30px]">
+             <div className="fit-img img relative hidden lg:block lg:h-[600px]">
+               <Image src={FaqImage} alt="FAQs Image" fill unoptimized className="object-cover" />
+             </div>
+           </div>
+           <div className="w-full lg:w-6/12 pt-[30px] pb-[30px]">
             <div className="sec-head mb-[60px]">
               <h6 className="sub-head mb-[15px]">{data.sectionTitle}</h6>
               <h2 className="max-md:text-[30px]">{data.sectionSubtitle}</h2>
@@ -49,7 +50,15 @@ export default function Faq() {
                         </h4>
                         <div
                           className="accordion-collapse"
-                          style={{ maxHeight: isActive ? '500px' : '0', opacity: isActive ? 1 : 0 }}
+                          ref={(el) => {
+                            collapseRefs.current[index] = el;
+                          }}
+                          style={{
+                            maxHeight: isActive
+                              ? `${collapseRefs.current[index]?.scrollHeight ?? 500}px`
+                              : '0px',
+                            opacity: isActive ? 1 : 0,
+                          }}
                           aria-hidden={!isActive}
                         >
                           <p

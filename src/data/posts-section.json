@@ -5,7 +5,7 @@
       "subTitle": "My Article's",
       "title": "Check My Blog <br /> Content in the web world",
       "clientCount": "1+ Clients",
-      "class": "sec-head mb-80",
+      "class": "sec-head mb-[80px]",
       "viewAllText": "View All Posts",
       "viewAllLink": "/blog",
       "arrowIcon": "@/assets/imgs/icons/arrow-top-right.svg"

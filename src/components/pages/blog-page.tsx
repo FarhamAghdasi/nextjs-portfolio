@@ -116,7 +116,7 @@ const Bloginfo: React.FC = () => {
                             <span className="sub-color capitalize!">{post.role || texts.authorRoleFallback}</span>
                           </div>
                         </div>
-                        <div className="date ml-auto text-[13px] uppercase [&_span]:block [&_span]:leading-[22px]">
+                        <div className="date ml-auto pr-[15px] text-[13px] uppercase [&_span]:block [&_span]:leading-[22px]">
                           <span className="sub-color">
                             <i className="fa-regular fa-clock mr-[15px] opacity-70" /> {post.date}
                           </span>

@@ -10,12 +10,12 @@ import { InnerProps } from '@/components/types';
 
 const Inner: React.FC<InnerProps> = ({ title, first, secend, paragraph, links, contact, cpage, noimage }) => {
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
+    <div style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
       <ParticleCanvas />
-      <header className="pt-[180px]">
+      <header className="pt-[120px]">
         <div className="container">
           <div className="text-center">
-            <div className="caption mb-[100px]">
+            <div className="caption mb-[50px]">
               <h1 className="text-[110px] mb-[15px] max-md:text-[60px]">{title}</h1>
               <h6 className="text-base font-normal uppercase tracking-[1px]">
                 ( <Link href="/" className="px-[5px]">{first}</Link> - <span className="px-[5px] text-main">{secend}</span> )

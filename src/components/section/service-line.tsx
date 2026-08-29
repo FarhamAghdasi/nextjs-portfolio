@@ -11,7 +11,7 @@ const ServicesLine: React.FC = () => {
   const services: Service[] = servicesData;
 
   return (
-    <section className="section-padding pt-[0px] relative z-[3]">
+    <section className="services-cst section-padding pt-[0px] relative z-[3]">
       <div className="container">
         <div className="sec-sm-head text-center mb-[30px]">
           <div className="bract">
@@ -21,7 +21,7 @@ const ServicesLine: React.FC = () => {
         {services.map((service, index) => (
           <div
             key={service.id}
-            className={`item relative py-[25px] px-[15px] border-t border-white/20 last-of-type:border-b last-of-type:border-white/20 after:content-[''] after:absolute after:top-0 after:left-0 after:w-full after:h-0 [&>div]:w-full ${activeItem === index ? 'active text-[#111] after:h-full [&_.invert_img]:invert-0! [&_p]:text-[#1E1D1E]' : ''}`}
+            className={`item relative py-[25px] px-[15px] border-t border-white/20 last-of-type:border-b last-of-type:border-white/20 cursor-pointer ${activeItem === index ? 'active' : ''}`}
             onClick={() => setActiveItem(index)}
             onMouseEnter={() => setActiveItem(index)}
           >

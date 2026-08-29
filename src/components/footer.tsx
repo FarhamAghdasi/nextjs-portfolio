@@ -80,7 +80,7 @@ const Footer: React.FC = () => {
     <footer>
       <div className="container mx-auto px-4">
         <div className="top-content text-center">
-          <h2>
+          <h2 className="whitespace-nowrap">
             <Link href="/contact/" className="transition-all duration-500 ease-in-out hover:my-6">
               {footerData.cta}
             </Link>

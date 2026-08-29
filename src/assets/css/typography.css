@@ -245,9 +245,13 @@ a:hover {
     color: #212121;
 }
 
+.icon.invert {
+    filter: none !important;
+}
+
 .icon.invert img {
-    -webkit-filter: invert(1);
-    filter: invert(1);
+    -webkit-filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1);
 }
 
 .butn .icon {

@@ -21,11 +21,14 @@ export default function Bio() {
     imageRefs.current.forEach((ref, index) => {
       if (!ref) return;
 
+      const rotation = index % 2 === 0 ? -8 : 8;
+
       gsap.fromTo(
         ref,
-        { x: index % 2 === 0 ? -50 : 50, opacity: 0 },
+        { x: index % 2 === 0 ? -50 : 50, rotation, opacity: 0 },
         {
           x: 0,
+          rotation,
           opacity: 1,
           ease: 'power1.out',
           scrollTrigger: {

@@ -1278,8 +1278,12 @@ body.loaded {
     color: #212121;
 }
 
+.icon.invert {
+    filter: none !important;
+}
+
 .icon.invert img {
-    filter: invert(1);
+    filter: brightness(0) invert(1);
 }
 
 .butn:hover .n img {
@@ -1318,3 +1322,94 @@ body.loaded {
 }
 
 /* ====================== [ End Overlay ] ====================== */
+
+/* ====================== [ Start Intro Section ] ====================== */
+
+.intro h2 {
+    font-size: 55px;
+    font-weight: 400;
+    text-wrap: pretty;
+    position: relative;
+    z-index: 4;
+}
+
+.intro h2 span {
+    font-weight: 600;
+}
+
+.intro .img {
+    width: 150px;
+    height: 165px;
+    border-radius: 5px;
+    position: absolute;
+}
+
+.intro .img1 {
+    bottom: -30px;
+    left: -30px;
+    -webkit-transform: rotate(-8deg);
+    transform: rotate(-8deg);
+}
+
+.intro .img2 {
+    top: -15px;
+    right: -30px;
+    -webkit-transform: rotate(8deg);
+    transform: rotate(8deg);
+}
+
+@media (max-width: 992px) {
+    .intro h2 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .intro {
+        overflow: hidden;
+        padding: 100px 0 !important;
+    }
+    .intro h2 {
+        font-size: 30px !important;
+    }
+    .intro .img {
+        display: none;
+    }
+}
+
+/* ====================== [ End Intro Section ] ====================== */
+
+/* ====================== [ Start Services List ] ====================== */
+
+.services-cst .item:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: var(--main-color);
+    -webkit-transition: all .4s linear;
+    -o-transition: all .4s linear;
+    transition: all .4s linear;
+    z-index: -1;
+}
+
+.services-cst .item.active:after {
+    height: 100%;
+}
+
+.services-cst .item.active {
+    color: #111;
+}
+
+.services-cst .item.active .icon.invert img {
+    -webkit-filter: invert(0) !important;
+    filter: invert(0) !important;
+}
+
+.services-cst .item.active p {
+    color: #1E1D1E;
+}
+
+/* ====================== [ End Services List ] ====================== */
