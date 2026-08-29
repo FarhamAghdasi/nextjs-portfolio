@@ -107,9 +107,9 @@ const Hero = () => {
         particleCount={isMobile ? 25 : 60} 
         speed={isMobile ? 0.4 : 1} 
       />
-      <header ref={headerRef} className="relative z-[1] pt-[40px]">
+      <header ref={headerRef} className="relative z-[1] pt-[160px]">
         <div className="container ontop">
-          <div className="caption text-center max-md:top-[25%]">
+          <div className="relative caption text-center max-md:top-[25%]">
             <h1
               ref={titleRef}
               className="relative text-[8.5vw] font-semibold uppercase leading-none max-md:text-[14vw]"

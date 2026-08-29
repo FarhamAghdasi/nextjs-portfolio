@@ -266,16 +266,16 @@ const Skills: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap justify-center">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:flex gap-[30px]">
               {skills.map((skill: Skill, index: number) => (
                 <div
                   key={index}
-                  className="w-1/2 md:w-1/3 lg:flex-1 skill-item"
+                  className="lg:flex-1 skill-item"
                   ref={(el) => {
                     skillItemsRef.current[index] = el;
                   }}
                 >
-                  <div className={`item group text-center ${index < skills.length - 1 ? 'max-[992px]:mb-[30px]' : ''}`}>
+                  <div className="item group text-center">
                     <div className="box bg-[#EBEBEB] rounded-[150px] py-[60px] mb-[30px]">
                       <div className="img w-[90px] mx-auto mb-[10px] grayscale transition-all duration-400 group-hover:grayscale-0">
                         <Image

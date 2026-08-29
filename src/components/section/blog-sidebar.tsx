@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
         <input
           type="text"
           name="search-post"
-          className="text-white p-[15px] border border-white/40 rounded-[30px] w-full bg-transparent focus:border-white focus:outline-none!"
+          className="text-white p-[15px] pr-[70px] border border-white/40 rounded-[30px] w-full bg-transparent focus:border-white focus:outline-none!"
           placeholder={texts.searchPlaceholder}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
@@ -58,8 +58,8 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
         />
         {onSearch && (
           <>
-            <a className="icon fa fa-search pr-[5%] absolute top-1/2 right-[15px] -translate-y-1/2" onClick={handleSearch} />
-            <a className="icon fa fa-remove mr-4" onClick={handleReset} />
+            <a className="icon fa fa-search pr-[5%] absolute top-1/2 right-[15px] -translate-y-1/2 cursor-pointer" onClick={handleSearch} />
+            <a className="icon fa fa-remove absolute top-1/2 right-[45px] -translate-y-1/2 cursor-pointer" onClick={handleReset} />
           </>
         )}
       </div>

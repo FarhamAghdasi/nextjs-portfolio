@@ -25,8 +25,14 @@ export default function PageTransition({ children }: PageTransitionProps) {
 
     if (
       pathname.startsWith("/templates") ||
-      (pathname.startsWith("/portfolio/") && pathname !== "/portfolio")
+      pathname.startsWith("/portfolio")
     ) {
+      // These pages run GSAP ScrollTrigger pin(true) card stacks. Leaving a
+      // lingering `transform: translate(x, y)` on this ancestor (even an
+      // identity 0,0 one left behind by the fromTo below) forces
+      // ScrollTrigger to fall back to pinType: "transform" instead of
+      // "fixed", which is what breaks the pin-spacer sizing/position on
+      // these pages. Clear it immediately instead of animating it.
       gsap.set(el, { opacity: 1, y: 0, clearProps: "opacity,y" });
       return;
     }

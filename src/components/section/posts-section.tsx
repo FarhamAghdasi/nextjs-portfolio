@@ -128,7 +128,7 @@ const Blog: React.FC = () => {
               >
                 <div className="item">
                   {/* Post Thumbnail */}
-                  <div className="img fit-img" style={{ position: 'relative', width: '100%', height: '200px' }}>
+                  <div className="img fit-img" style={{ position: 'relative', width: '100%', height: '350px' }}>
                     <Image
                       src={getThumbnail(post.thumbnail)}
                       alt={post.title}

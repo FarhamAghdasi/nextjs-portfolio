@@ -105,13 +105,13 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
           data-overlay-dark="4"
           style={{ backgroundImage: `url(/assets/imgs/uploads/${post.thumbnail})` }}
         >
-           <div className="flex flex-wrap">
-             <div className="w-full lg:w-12/12">
+           <div className="flex flex-wrap absolute inset-x-0 bottom-0 p-10 max-md:p-6">
+             <div className="w-full">
                <div className="caption">
                 <div className="tags text-[14px] [&_a]:py-[7px] [&_a]:px-5 [&_a]:border [&_a]:border-white/10 [&_a]:rounded-[30px] [&_a:hover]:bg-white [&_a:hover]:text-[#1d1d1d]!">
                   <Link href={`/blog?category=${encodeURIComponent(post.category)}`}>{post.category}</Link>
                 </div>
-                <h1 className="text-[55px] mt-[30px]">{post.title || texts.defaultTitle}</h1>
+                <h1 className="text-[64px] mt-[30px]">{post.title || texts.defaultTitle}</h1>
               </div>
               <div className="info flex mt-[40px] items-center">
                 <div className="left-info max-md:mb-[30px]">
@@ -156,8 +156,8 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
 
        <section className="blog section-padding">
          <div className="container">
-           <div className="flex flex-wrap xlg-marg">
-             <div className="w-full lg:w-8/12">
+           <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-[60px]">
+             <div className="lg:col-span-8">
               <div>
                 <div className="item pb-[60px]">
                   <article>
@@ -273,7 +273,7 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                 </div>
               </div>
             </div>
-             <div className="w-full lg:w-4/12">
+             <div className="lg:col-span-4">
               <Suspense fallback={<div>Loading sidebar...</div>}>
                 <Sidebar posts={posts} onSearch={handleSearch} onReset={handleReset} initialSearch={searchTerm} />
               </Suspense>
@@ -306,9 +306,9 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
               </div>
             </div>
           </div>
-    <div className="flex flex-wrap xlg-marg">
+    <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-x-[40px]">
               {posts.slice(0, 3).map((p) => (
-                <div key={p.id} className="w-full lg:w-4/12 relative after:content-[''] after:absolute after:inset-y-0 after:right-0 after:border-l after:border-white/10">
+                <div key={p.id} className="relative after:content-[''] after:absolute after:inset-y-0 after:right-0 after:border-l after:border-white/10">
                 <div className="item mb-[50px]">
                     <div className="info flex items-center">
                       <div className="flex items-center">

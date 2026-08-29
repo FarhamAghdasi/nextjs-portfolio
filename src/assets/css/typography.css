@@ -172,10 +172,6 @@ a:hover {
     text-indent: 20%;
 }
 
-.loader-wrap svg {
-    fill: #1d1d1d;
-}
-
 .crv-butn span {
     background: var(--main-color);
     color: #0e0f11;

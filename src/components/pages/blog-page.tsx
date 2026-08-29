@@ -88,8 +88,8 @@ const Bloginfo: React.FC = () => {
 
       <div className="section-padding">
         <div className="container">
-          <div className="flex flex-wrap xlg-marg">
-            <div className="w-full lg:w-8/12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-[60px]">
+            <div className="lg:col-span-8">
               <div className="main-blog max-[992px]:mb-[80px]" ref={postsRef}>
                 {!isCategoryValid ? (
                   <p>Category &quot;{category}&quot; does not exist.</p>
@@ -150,7 +150,7 @@ const Bloginfo: React.FC = () => {
                 )}
               </div>
             </div>
-            <div className="w-full lg:w-4/12">
+            <div className="lg:col-span-4">
               <Sidebar posts={posts} onSearch={handleSearch} onReset={handleReset} />
             </div>
           </div>

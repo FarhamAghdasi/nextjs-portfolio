@@ -72,12 +72,14 @@ const CreateCaptcha: FC<CreateCaptchaProps> = ({ onCaptchaChange }) => {
     <div className="w-full">
       <div className="form-group flex items-center mt-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={captchaImage}
-          alt="Captcha"
-          style={{ cursor: "pointer", marginRight: "10px" }}
-          onClick={getCaptcha}
-        />
+        {captchaImage && (
+          <img
+            src={captchaImage}
+            alt="Captcha"
+            style={{ cursor: "pointer", marginRight: "10px" }}
+            onClick={getCaptcha}
+          />
+        )}
         <input
           type="text"
           name="captcha"

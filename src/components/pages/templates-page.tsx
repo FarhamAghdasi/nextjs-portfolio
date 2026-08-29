@@ -180,6 +180,7 @@ export default function HtmlTemplates() {
                       transition: 'box-shadow 0.3s ease, border-color 0.3s ease',
                       marginBottom: '30px',
                       position: 'relative',
+                      zIndex: index + 1,
                     }}
                   >
                <div className="flex flex-col items-start lg:flex-row lg:items-end mt-4">

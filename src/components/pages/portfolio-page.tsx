@@ -94,13 +94,15 @@ const WorksPage: React.FC = () => {
         <div className="container">
           <div className="cards" ref={cardsWrapperRef} style={{ position: 'relative' }}>
             {portfolioData.length > 0 ? (
-              portfolioData.map((portfolio) => (
+              portfolioData.map((portfolio, index) => (
                 <div
                   className="card-item rounded-[15px] py-[30px] px-10 bg-[#181616] max-md:mb-[30px]"
                   key={portfolio.title}
                   style={{
                     marginBottom: '2rem',
                     transformOrigin: '50% center',
+                    position: 'relative',
+                    zIndex: index + 1,
                   }}
                 >
                   <div className="flex items-end mt-4 lg:flex-row flex-col">

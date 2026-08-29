@@ -95,14 +95,22 @@
 /*
   ---------------------------------------------------------------------
   Legacy component/design-system CSS (formerly common_style.css).
-  Kept here, UNLAYERED (i.e. not inside @layer base/components/utilities),
-  so it keeps its original cascade priority over Tailwind's own utility
-  classes -- exactly matching how it behaved as a separately-imported
-  stylesheet. Wrapping it in a Tailwind @layer would silently invert
-  that priority (Tailwind utilities would then win over these rules
-  wherever both target the same element), which would be a real visual
-  regression for anything still using both a class from here and a
-  Tailwind utility for the same CSS property.
+
+  Assigned to Tailwind's own `components` layer (NOT left unlayered).
+  Tailwind's layer order is theme < base < components < utilities, so
+  putting these rules in `components` means:
+    - they still beat Tailwind's base/preflight resets, same as before
+    - but Tailwind utility classes (arbitrary values like pb-[170px],
+      or plain ones like flex/gap-6) now correctly win over them again,
+      the way Tailwind utilities normally do.
+
+  Previously these files were imported unlayered, which in CSS cascade
+  terms outranks EVERY layered rule regardless of source order or
+  specificity -- so any Tailwind utility class placed on an element
+  that also carried one of these legacy classes was silently dead: it
+  stayed in the markup but never painted. That's the actual cause of
+  most of the sizing/spacing drift from the old design: values were
+  being tweaked via Tailwind classes that could never take effect.
 
   This covers cross-cutting, often JS-coupled UI chrome that isn't
   cleanly attributable to one component file: the nav/menu system,
@@ -117,9 +125,9 @@
   ---------------------------------------------------------------------
 */
 
-@import "./base.css";
-@import "./typography.css";
-@import "./components.css";
-@import "./layout.css";
-@import "./helpers.css";
-@import "./responsive.css";
+@import "./base.css" layer(components);
+@import "./typography.css" layer(components);
+@import "./components.css" layer(components);
+@import "./layout.css" layer(components);
+@import "./helpers.css" layer(components);
+@import "./responsive.css" layer(components);

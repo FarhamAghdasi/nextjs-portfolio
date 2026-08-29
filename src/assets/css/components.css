@@ -709,7 +709,7 @@ body.loaded {
     top: 0;
     width: 100vw;
     height: 110vh;
-    fill: #fff;
+    fill: #1d1d1d;
 }
 
 .loader-wrap .loader-wrap-heading .load-text {
