@@ -348,22 +348,22 @@ const Header = () => {
 
                     <div className="cont-info valign">
                         <div className="text-center full-width">
-                            <div className="social-icon mt-40">
+                            <div className="social-icon mt-[40px]">
                                 {content.socialLinks.map((link, i) => (
                                     <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
                                         <i className={link.icon} />
                                     </a>
                                 ))}
                             </div>
-                            <div className="item mt-30">
+                            <div className="item mt-[30px]">
                                 <h5>{content.contactLocation}</h5>
                             </div>
-                            <div className="item mt-10">
+                            <div className="item mt-[10px]">
                                 <h5>
                                     <a href={`tel:${content.contactPhone.replace(/\s+/g, '')}`}>{content.contactPhone}</a>
                                 </h5>
                             </div>
-                            <div className="item mt-10">
+                            <div className="item mt-[10px]">
                                 <h5>
                                     <a href={`mailto:${content.contactEmail}`}>{content.contactEmail}</a>
                                 </h5>

@@ -69,12 +69,12 @@ const Bloginfo: React.FC = () => {
 
   return (
     <>
-      <header className="blog-hed">
+      <header>
         <div className="container section-padding bord-thin-bottom-light">
           <div className="flex flex-wrap">
             <div className="w-full lg:w-7/12">
-              <div className="caption md-mb30">
-                <h1 className="text-indent">{texts.headerTitle}</h1>
+              <div className="caption max-[992px]:mb-[30px]">
+                <h1 className="text-indent text-[55px] max-md:text-[35px] max-md:indent-0">{texts.headerTitle}</h1>
               </div>
             </div>
             <div className="w-full lg:w-4/12 lg:ml-[8.33%] flex items-end">
@@ -86,22 +86,22 @@ const Bloginfo: React.FC = () => {
         </div>
       </header>
 
-      <div className="blog-mp section-padding">
+      <div className="section-padding">
         <div className="container">
           <div className="flex flex-wrap xlg-marg">
             <div className="w-full lg:w-8/12">
-              <div className="main-blog md-mb80" ref={postsRef}>
+              <div className="main-blog max-[992px]:mb-[80px]" ref={postsRef}>
                 {!isCategoryValid ? (
                   <p>Category &quot;{category}&quot; does not exist.</p>
                 ) : filteredPosts.length === 0 ? (
                   <p>{texts.noPostsFound}</p>
                 ) : (
                   filteredPosts.map((post) => (
-                    <div className="item mb-80" key={post.id}>
+                    <div className="item" key={post.id}>
                       <div className="info flex items-center">
                         <div className="flex items-center">
                           <div>
-                            <div className="author-img fit-img">
+                            <div className="author-img fit-img w-10 h-10 rounded-full">
                               <Image
                                 src={post.authorImage || defaultLogo}
                                 alt={post.author || 'Author'}
@@ -111,18 +111,18 @@ const Bloginfo: React.FC = () => {
                               />
                             </div>
                           </div>
-                          <div className="author-info ml-10">
+                          <div className="author-info ml-[10px] text-[13px] uppercase [&_span]:block [&_span]:leading-[22px]">
                             <span>{post.author}</span>
-                            <span className="sub-color">{post.role || texts.authorRoleFallback}</span>
+                            <span className="sub-color capitalize!">{post.role || texts.authorRoleFallback}</span>
                           </div>
                         </div>
-                        <div className="date ml-auto">
+                        <div className="date ml-auto text-[13px] uppercase [&_span]:block [&_span]:leading-[22px]">
                           <span className="sub-color">
-                            <i className="fa-regular fa-clock mr-15 opacity-7" /> {post.date}
+                            <i className="fa-regular fa-clock mr-[15px] opacity-70" /> {post.date}
                           </span>
                         </div>
                       </div>
-                      <div className="img fit-img mt-30">
+                      <div className="img fit-img mt-[30px] rounded-[15px] overflow-hidden h-[350px]">
                         <Image
                           src={post.thumbnail ? `/assets/imgs/uploads/${post.thumbnail}` : '/default-image.jpg'}
                           alt={post.title || 'Blog Post'}
@@ -132,16 +132,16 @@ const Bloginfo: React.FC = () => {
                           unoptimized
                         />
                       </div>
-                      <div className="cont mt-30">
-                        <span className="sub-color fz-14 text-u mb-15">
+                      <div className="cont mt-[30px]">
+                        <span className="sub-color text-[14px] text-u mb-[15px]">
                           <Link href={`/blog?category=${encodeURIComponent(post.category)}`}>
-                            <i className="fa-solid fa-tag mr-10 opacity-7" /> {post.category}
+                            <i className="fa-solid fa-tag mr-[10px] opacity-70" /> {post.category}
                           </Link>
                         </span>
                         <h3>
                           <Link href={`/blog/${post.url}/`}>{post.title}</Link>
                         </h3>
-                        <div className="text mt-25">
+                        <div className="text mt-[25px]">
                           <p>{post.short_description}</p>
                         </div>
                       </div>

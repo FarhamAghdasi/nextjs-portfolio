@@ -1,0 +1,264 @@
+/* ========= [ typography ]  =========*/
+
+/* Typography
+-----------------------------------------------------------------*/
+
+*{
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
+}
+*:not(.content ul , .content li) {
+    list-style: none;
+}
+
+body {
+    font-size: 18px;
+    font-weight: 400;
+    font-family: "Outfit", sans-serif;
+    line-height: 1.4;
+    color: #fff;
+    background-color: var(--theme-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 500;
+    margin: 0;
+}
+
+h1 {
+    font-size: 64px;
+}
+
+h2 {
+    font-size: 48px;
+}
+
+h3 {
+    font-size: 40px;
+}
+
+h4 {
+    font-size: 36px;
+}
+
+h5 {
+    font-size: 28px;
+}
+
+h6 {
+    font-size: 22px;
+}
+
+p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #a4a4a4;
+    margin: 0;
+}
+
+a {
+    transition: all 0.3s;
+}
+
+a,
+a:hover {
+    color: inherit;
+}
+
+span {
+    display: inline-block;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+.sub-bg {
+    background: var(--bg-color);
+}
+
+.main-color {
+    color: var(--main-color);
+}
+
+.sub-head {
+    font-size: 20px;
+}
+
+.title-font {
+    font-family: "Six Caps", sans-serif;
+    letter-spacing: normal;
+}
+
+.bract {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.bract span {
+    padding: 0 10px;
+}
+
+.sec-head .sub-head {
+    position: relative;
+    padding-left: 25px;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.sec-head .sub-head:after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 8px;
+    left: 0;
+}
+
+.sec-head h2 {
+    font-size: 54px;
+    line-height: 1.2;
+}
+
+.gray-box {
+    background: #E1E1E1;
+    border-radius: 30px;
+    color: #0e0f11;
+}
+
+.gray-box .butn.butn-bord {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.gray-box .butn.butn-bord img {
+    -webkit-filter: invert(0);
+    filter: invert(0);
+}
+
+.gray-box .butn.butn-bord:hover {
+    background: var(--main-color);
+    color: #212121;
+}
+
+.gray-box p {
+    color: #4d4949;
+}
+
+.gray-box .sec-head .sub-head:after {
+    background: #111;
+}
+
+.text-indent {
+    text-indent: 20%;
+}
+
+.loader-wrap svg {
+    fill: #1d1d1d;
+}
+
+.crv-butn span {
+    background: var(--main-color);
+    color: #0e0f11;
+}
+
+.crv-butn .text {
+    line-height: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 0 20px;
+    border-radius: 30px;
+    position: relative;
+}
+
+.crv-butn .text:after {
+    content: '';
+    width: 30px;
+    height: 30px;
+    background: var(--main-color);
+    position: absolute;
+    top: 5px;
+    right: -15px;
+    z-index: -1;
+    -webkit-transition: all .4s;
+    -o-transition: all .4s;
+    transition: all .4s;
+}
+
+.crv-butn .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 35px;
+    margin-left: -10px;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+
+.crv-butn .icon img {
+    width: 15px;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+
+.crv-butn:hover .text:after {
+    border-radius: 50%;
+    top: calc(50% - 5px);
+    right: 0;
+    height: 10px;
+}
+
+.crv-butn:hover .icon {
+    margin-left: 5px;
+}
+
+.crv-butn:hover .icon img {
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.butn.butn-bord {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.butn.butn-bord:hover {
+    background: #fff;
+    color: #212121;
+}
+
+.icon.invert img {
+    -webkit-filter: invert(1);
+    filter: invert(1);
+}
+
+.butn .icon {
+    width: 18px;
+}
+
+.butn:hover .icon.invert img {
+    -webkit-filter: invert(0);
+    filter: invert(0);
+}

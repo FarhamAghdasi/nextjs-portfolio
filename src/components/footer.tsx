@@ -81,12 +81,12 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="top-content text-center">
           <h2>
-            <Link href="/contact/" className="underline">
+            <Link href="/contact/" className="transition-all duration-500 ease-in-out hover:my-6">
               {footerData.cta}
             </Link>
           </h2>
           <h6
-            className="float_txt js-title"
+            className="float_txt js-title max-md:text-[40px] max-md:-mt-2"
             ref={subtitleRef}
             onMouseEnter={handleHover}
           >
@@ -108,13 +108,13 @@ const Footer: React.FC = () => {
             <div className="lg:col-span-7">
               <a
                 href={`tel:${footerData.phoneNumber.replace(/\s+/g, '')}`}
-                className="contact-number fz-60"
+                className="contact-number text-[60px] max-md:text-[35px]! max-md:mt-[10px]"
               >
                 {footerData.phoneNumber}
               </a>
 
-              <ul className="fz-18 mt-30 rest">
-                <li className="mb-15">
+              <ul className="text-[18px] mt-[30px] rest">
+                <li className="mb-[15px]">
                   <a href={`mailto:${footerData.email}`}>{footerData.email}</a>
                 </li>
               </ul>

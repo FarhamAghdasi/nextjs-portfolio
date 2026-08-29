@@ -40,13 +40,14 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
     if (typeof portfolio.accordionContent === 'string') {
       // Handle string case (e.g., Khooshesanat Amol)
       return (
-      <div className={`accordion-item ${activeIndex === 0 ? 'active' : ''}`}>
-           <h2 className="accordion-header" id="heading0">
+      <div className={`accordion-item bg-transparent border-0 border-t border-white rounded-none ${activeIndex === 0 ? 'active border-main' : ''}`}>
+           <h2 className="accordion-header bg-transparent text-white" id="heading0">
              <button
                type="button"
                onClick={() => handleToggle(0)}
                aria-expanded={activeIndex === 0}
                aria-controls="collapse0"
+               className={`bg-transparent text-inherit text-xl font-medium leading-7 py-[15px] after:hidden ${activeIndex === 0 ? '!text-main' : ''}`}
              >
                {portfolio.accordionTitle}
              </button>
@@ -57,8 +58,8 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
              style={{ maxHeight: activeIndex === 0 ? '500px' : '0', opacity: activeIndex === 0 ? 1 : 0 }}
              aria-labelledby="heading0"
            >
-             <div className="accordion-body">
-               <p>{portfolio.accordionContent || texts.defaultAccordionContent}</p>
+             <div className="accordion-body pt-[0px] pr-[0px] pb-[15px] pl-[90px]">
+               <p className="text-sm">{portfolio.accordionContent || texts.defaultAccordionContent}</p>
              </div>
            </div>
          </div>
@@ -67,15 +68,16 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
       // Handle array case (e.g., Rip Hunter)
       return portfolio.accordionContent.map((item: { title: string; content: string }, index: number) => (
         <div
-          className={`accordion-item ${activeIndex === index ? 'active' : ''}`}
+          className={`accordion-item bg-transparent border-0 border-t border-white rounded-none ${activeIndex === index ? 'active border-main' : ''}`}
           key={index}
         >
-          <h2 className="accordion-header" id={`heading${index}`}>
+          <h2 className="accordion-header bg-transparent text-white" id={`heading${index}`}>
             <button
               type="button"
               onClick={() => handleToggle(index)}
               aria-expanded={activeIndex === index}
               aria-controls={`collapse${index}`}
+              className={`bg-transparent text-inherit text-xl font-medium leading-7 py-[15px] after:hidden ${activeIndex === index ? '!text-main' : ''}`}
             >
               {item.title}
             </button>
@@ -86,8 +88,8 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
             style={{ maxHeight: activeIndex === index ? '500px' : '0', opacity: activeIndex === index ? 1 : 0 }}
             aria-labelledby={`heading${index}`}
           >
-            <div className="accordion-body">
-              <p>{item.content}</p>
+            <div className="accordion-body pt-[0px] pr-[0px] pb-[15px] pl-[90px]">
+              <p className="text-sm">{item.content}</p>
             </div>
           </div>
         </div>
@@ -98,12 +100,12 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
 
   return (
     <>
-      <header className="serv-hed2 section-padding pb-0">
+      <header className="section-padding pb-[0px]">
         <div className="container">
-          <div className="caption mb-80">
-            <h1 className="fz-80 fw-600">{portfolio.title || texts.defaultTitle}</h1>
-            <div className="flex flex-wrap justify-end">
-              <div className="w-full lg:w-3/12 mt-30">
+          <div className="caption mb-[80px]">
+            <h1 className="text-[80px] font-semibold max-md:text-[40px]!">{portfolio.title || texts.defaultTitle}</h1>
+            <div className="flex flex-wrap justify-end max-[992px]:justify-start">
+              <div className="w-full lg:w-3/12 mt-[30px]">
                 <p>
                   {texts.categoryLabel}: <b>{portfolio.category}</b>
                 </p>
@@ -112,7 +114,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
                 </p>
               </div>
               <div className="w-full lg:w-5/12">
-                <div className="text mt-30">
+                <div className="text mt-[30px]">
                   <p>
                     {portfolio.Shortdescription || texts.defaultShortDescription}{' '}
                     <br /> You Can See Website With This{' '}
@@ -121,7 +123,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
                 </div>
               </div>
               <div className="w-full lg:w-4/12">
-                <div className="list mt-30">
+                <div className="list mt-[30px] max-md:[&_ul]:p-0">
                   <ul>
                     <li>{portfolio.serviceTitle1 || texts.defaultService}</li>
                     <li>{portfolio.serviceTitle2 || texts.defaultService}</li>
@@ -144,7 +146,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
           </div>
         </div>
       </header>
-      <section className="serv-details section-padding">
+      <section className="section-padding">
         <div className="container">
           <div className="flex flex-wrap justify-center">
             <div className="w-full lg:w-10/12">
@@ -154,11 +156,11 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
               />
             </div>
           </div>
-          <div className="flex flex-wrap justify-center mt-80">
+          <div className="flex flex-wrap justify-center mt-[80px]">
             <div className="w-full lg:w-7/12">
               <div className="content">
                 <h3>{texts.faqTitle}</h3>
-                <div className="text mt-30 mb-50">
+                <div className="text mt-[30px] mb-[50px]">
                   <p>{texts.faqDescription}</p>
                 </div>
                 <div className="accordion" id="accordionExample">
@@ -167,7 +169,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
                     : <p>{texts.noAccordionContent}</p>}
                 </div>
                 <div className="text-center">
-                  <Link href="/portfolio" className="crv-butn mt-80">
+                  <Link href="/portfolio" className="crv-butn mt-[80px]">
                     <div className="flex justify-center items-center">
                       <span className="text">{texts.checkMorePortfolios}</span>
                       <span className="icon">

@@ -86,9 +86,9 @@ const Work: React.FC = () => {
   }, []);
 
   return (
-    <section className="work-min ontop bord-thin-top-light pb-50" ref={sectionRef}>
-      <div className="container mx-auto px-4 pt-30 bord-thin-top-light">
-        <div className="sec-head mb-80 lg:w-7/12 lg:ml-[25%]">
+    <section className="ontop bord-thin-top-light pb-[50px]" ref={sectionRef}>
+      <div className="container mx-auto px-4 pt-[30px] bord-thin-top-light">
+        <div className="sec-head mb-[80px] lg:w-7/12 lg:ml-[25%]">
           <h2>My Projects <br />and Website Templates</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-3 md:gap-x-4 lg:gap-x-5 gap-y-3 md:gap-y-4 lg:gap-y-5">
@@ -102,8 +102,8 @@ const Work: React.FC = () => {
                   portfolioRefs.current[index] = el;
                 }}
               >
-                <div className="item md-mb50">
-                  <div className="img fit-img">
+                <div className="item max-[992px]:mb-[50px]">
+                  <div className="img fit-img rounded-[15px] overflow-hidden max-md:h-[280px]">
                     <Image
                       src={portfolio.thumbnail ? `/assets/imgs/uploads/${portfolio.thumbnail}` : '/default-image.jpg'}
                       alt={portfolio.title || 'Portfolio Image'}
@@ -113,9 +113,9 @@ const Work: React.FC = () => {
                       unoptimized
                     />
                   </div>
-                  <div className="cont mt-30">
-                    <div className="info">
-                      <span className="date">{new Date(portfolio.date).getFullYear()}</span>
+                  <div className="cont mt-[30px]">
+                    <div className="info mb-[10px] text-sm font-light">
+                      <span className="date relative mr-[30px] after:content-[''] after:absolute after:top-1/2 after:-right-5 after:w-[5px] after:h-[5px] after:rounded-full after:bg-white">{new Date(portfolio.date).getFullYear()}</span>
                       <span className="tag">{portfolio.category || 'Portfolio'}</span>
                     </div>
                     <h5>
@@ -144,8 +144,8 @@ const Work: React.FC = () => {
                   templateRefs.current[index] = el;
                 }}
               >
-                <div className="item md-mb50">
-                  <div className="img fit-img">
+                <div className="item max-[992px]:mb-[50px]">
+                  <div className="img fit-img rounded-[15px] overflow-hidden max-md:h-[280px]">
                     <Image
                       src={template.thumbnail ? template.thumbnail : '/default-image.jpg'}
                       alt={template.title || 'Template Image'}
@@ -155,9 +155,9 @@ const Work: React.FC = () => {
                       unoptimized
                     />
                   </div>
-                  <div className="cont mt-30">
-                    <div className="info">
-                      <span className="date">{new Date(template.date).getFullYear()}</span>
+                  <div className="cont mt-[30px]">
+                    <div className="info mb-[10px] text-sm font-light">
+                      <span className="date relative mr-[30px] after:content-[''] after:absolute after:top-1/2 after:-right-5 after:w-[5px] after:h-[5px] after:rounded-full after:bg-white">{new Date(template.date).getFullYear()}</span>
                       <span className="tag">{template.category || 'HTML Template'}</span>
                     </div>
                     <h5>

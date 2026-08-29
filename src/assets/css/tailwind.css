@@ -40,3 +40,86 @@
   padding-inline: 1rem;
 }
 
+/*
+  Global heading tightening on small screens. This is a bare-tag reset
+  (applies to every h1–h4 regardless of class), so it belongs in
+  Tailwind's base layer rather than repeated as a utility on every
+  heading in every component.
+*/
+@layer base {
+  @media screen and (max-width: 768px) {
+    h1 {
+      letter-spacing: -1px;
+    }
+    h2 {
+      letter-spacing: -1px;
+    }
+    h3 {
+      font-size: 32px;
+      letter-spacing: normal;
+    }
+    h4 {
+      font-size: 28px;
+      letter-spacing: normal;
+    }
+  }
+}
+
+/*
+  .sec-head is a cross-cutting layout pattern reused across many
+  section headers (skills, services, faq, portfolio, blog, contact).
+  Its responsive child behavior is defined once here (Tailwind
+  components layer) instead of repeated as arbitrary variants on
+  every section that uses it.
+*/
+@layer components {
+  @media screen and (max-width: 992px) {
+    .sec-head .sub-head {
+      margin-bottom: 15px !important;
+    }
+    .sec-head .text-indent {
+      text-indent: 0;
+    }
+    .sec-head .ml-auto {
+      margin: 15px 0 0 !important;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .sec-head h2 {
+      font-size: 30px;
+      line-height: 1.2;
+    }
+  }
+}
+
+/*
+  ---------------------------------------------------------------------
+  Legacy component/design-system CSS (formerly common_style.css).
+  Kept here, UNLAYERED (i.e. not inside @layer base/components/utilities),
+  so it keeps its original cascade priority over Tailwind's own utility
+  classes -- exactly matching how it behaved as a separately-imported
+  stylesheet. Wrapping it in a Tailwind @layer would silently invert
+  that priority (Tailwind utilities would then win over these rules
+  wherever both target the same element), which would be a real visual
+  regression for anything still using both a class from here and a
+  Tailwind utility for the same CSS property.
+
+  This covers cross-cutting, often JS-coupled UI chrome that isn't
+  cleanly attributable to one component file: the nav/menu system,
+  buttons (.butn*), the custom cursor follower, the preloader, the
+  GSAP-driven marquee, progress bars/circles, the custom select
+  dropdown, pagination, and shared spacing/typography helpers reused
+  across many components (.bord-thin-*, .valign, .radius-15, etc).
+
+  All simple, single-component, non-JS-coupled rules from the original
+  file have already been converted to inline Tailwind utility classes
+  directly on their JSX elements.
+  ---------------------------------------------------------------------
+*/
+
+@import "./base.css";
+@import "./typography.css";
+@import "./components.css";
+@import "./layout.css";
+@import "./helpers.css";
+@import "./responsive.css";

@@ -12,13 +12,13 @@ const Inner: React.FC<InnerProps> = ({ title, first, secend, paragraph, links, c
   return (
     <div style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
       <ParticleCanvas />
-      <header className="header-pg">
+      <header className="pt-[180px]">
         <div className="container">
           <div className="text-center">
-            <div className="caption mb-100">
-              <h1>{title}</h1>
-              <h6>
-                ( <Link href="/">{first}</Link> - <span>{secend}</span> )
+            <div className="caption mb-[100px]">
+              <h1 className="text-[110px] mb-[15px] max-md:text-[60px]">{title}</h1>
+              <h6 className="text-base font-normal uppercase tracking-[1px]">
+                ( <Link href="/" className="px-[5px]">{first}</Link> - <span className="px-[5px] text-main">{secend}</span> )
               </h6>
 
               {paragraph && links && (
@@ -33,9 +33,10 @@ const Inner: React.FC<InnerProps> = ({ title, first, secend, paragraph, links, c
         </div>
 
         {contact ? (
-          <div className="google-map">
+          <div className="relative h-[540px] w-full grayscale rounded-[15px] overflow-hidden">
             <iframe
               id="gmap_canvas"
+              className="absolute inset-0 w-full h-full"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2159.8977309932147!2d52.349218173573426!3d36.4535717972231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8fbd12fbf1d8c9%3A0x92ce3372fb40c254!2z2YXYrNiq2YXYuSDYp9mE2YXYp9iz!5e1!3m2!1sen!2s!4v1750163834917!5m2!1sen!2s"
               width="100%"
               height="450"
@@ -46,7 +47,7 @@ const Inner: React.FC<InnerProps> = ({ title, first, secend, paragraph, links, c
           </div>
         ) : !noimage ? (
           <div
-            className="bg-img"
+            className="relative h-[500px] max-md:h-[300px] after:content-[''] after:absolute after:-bottom-[5%] after:left-0 after:w-full after:h-[90%] after:z-[3] after:[background-image:linear-gradient(to_top,var(--theme-color)_20%,transparent)]"
             style={{ backgroundImage: `url(${smokeBg})` }}
           />
         ) : null}

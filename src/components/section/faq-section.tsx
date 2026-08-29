@@ -17,18 +17,18 @@ export default function Faq() {
   };
 
   return (
-    <section className="faqs-pg section-padding">
+    <section className="section-padding">
       <div className="container">
         <div className="flex flex-wrap gap-10">
           <div className="w-full lg:w-5/12">
-            <div className="fit-img img hidden lg:block">
+            <div className="fit-img img hidden lg:block h-full">
               <Image src={FaqImage} alt="FAQs Image" unoptimized />
             </div>
           </div>
-          <div className="w-full lg:w-7/12 lg:ml-[8.33%] pt-30 pb-30">
-            <div className="sec-head mb-60">
-              <h6 className="sub-head mb-15">{data.sectionTitle}</h6>
-              <h2>{data.sectionSubtitle}</h2>
+          <div className="w-full lg:w-7/12 lg:ml-[8.33%] pt-[30px] pb-[30px]">
+            <div className="sec-head mb-[60px]">
+              <h6 className="sub-head mb-[15px]">{data.sectionTitle}</h6>
+              <h2 className="max-md:text-[30px]">{data.sectionSubtitle}</h2>
             </div>
             <div className="flex flex-wrap justify-center">
               <div className="w-full lg:w-10/12">
@@ -36,13 +36,13 @@ export default function Faq() {
                   {data.items.map((item, index) => {
                     const isActive = index === activeIndex;
                     return (
-                      <div key={index} className={`accordion-item ${isActive ? 'active' : ''}`}>
-                        <h4 className="accordion-header">
+                      <div key={index} className={`accordion-item bg-transparent rounded-none border-0 border-b border-white/10 mb-[5px] ${isActive ? 'active' : ''}`}>
+                        <h4 className="accordion-header bg-transparent">
                           <button
                             type="button"
                             onClick={() => toggleIndex(index)}
                             aria-expanded={isActive}
-                            className={isActive ? '' : 'collapsed'}
+                            className={`bg-transparent text-white text-2xl font-medium leading-8 py-[30px] shadow-none after:invert max-md:text-xl ${isActive ? '' : 'collapsed'}`}
                           >
                             {item.question}
                           </button>
@@ -53,7 +53,7 @@ export default function Faq() {
                           aria-hidden={!isActive}
                         >
                           <p
-                            className="accordion-body"
+                            className="accordion-body p-0 pt-[0px] pr-[100px] pb-[30px] pl-[0px] text-sm"
                             dangerouslySetInnerHTML={{ __html: item.answer }}
                           />
                         </div>

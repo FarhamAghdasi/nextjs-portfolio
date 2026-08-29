@@ -92,7 +92,7 @@ const Blog: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap mt-30">
+          <div className="flex flex-wrap mt-[30px]">
             <div className="w-full lg:w-7/12 lg:ml-[25%]">
               <div>
                 {/* Dynamically set inner HTML for title (allowing HTML formatting) */}
@@ -102,7 +102,7 @@ const Blog: React.FC = () => {
                   }}
                 />
                 {/* "View All" link */}
-                <Link href={header.viewAllLink} className="butn-under mt-15">
+                <Link href={header.viewAllLink} className="butn-under mt-[15px]">
                   {header.viewAllText}{' '}
                   <span className="icon invert">
                     <Image src={ArrowRightTop} alt="arrow" width={16} height={16} unoptimized />
@@ -145,7 +145,7 @@ const Blog: React.FC = () => {
                     </Link>
                   </div>
                   {/* Post Content */}
-                  <div className="cont mt-30">
+                  <div className="cont mt-[30px]">
                     <h5>
                       <Link href={`/blog/${post.url}/`}>{post.title}</Link>
                     </h5>

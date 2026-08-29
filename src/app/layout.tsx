@@ -2,10 +2,7 @@
 
 import '@/assets/css/tailwind.css';
 
-import '@/assets/css/common_style.css';
 import '@/assets/css/font.css';
-import '@/assets/css/inner_pages.css';
-import '@/assets/css/personal.css';
 
 import localFont from 'next/font/local';
 import { ReactNode } from 'react';

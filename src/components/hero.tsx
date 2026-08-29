@@ -107,17 +107,21 @@ const Hero = () => {
         particleCount={isMobile ? 25 : 60} 
         speed={isMobile ? 0.4 : 1} 
       />
-      <header ref={headerRef} className="header-personal relative z-[1]">
+      <header ref={headerRef} className="relative z-[1] pt-[40px]">
         <div className="container ontop">
-          <div className="caption text-center">
-            <h1 ref={titleRef} style={{ transformStyle: 'preserve-3d' }}>
+          <div className="caption text-center max-md:top-[25%]">
+            <h1
+              ref={titleRef}
+              className="relative text-[8.5vw] font-semibold uppercase leading-none max-md:text-[14vw]"
+              style={{ transformStyle: 'preserve-3d' }}
+            >
               {content.nameLine1} <br /> {content.nameLine2}
             </h1>
           </div>
-          <div className="flex flex-wrap justify-center text">
+          <div className="flex flex-wrap justify-center relative z-[8] pb-[20px] [text-wrap:pretty]">
             <div className="w-full md:w-10/12 lg:w-7/12">
               <div className="text-center">
-                <h2>
+                <h2 className="mt-4 text-[5vw] font-light leading-[1.5] min-[1300px]:text-[2.9vw] max-md:text-[7vw]">
                   {startTyping && (
                     <Typewriter
                       words={content.typewriterRoles}

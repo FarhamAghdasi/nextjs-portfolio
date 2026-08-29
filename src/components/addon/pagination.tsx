@@ -51,7 +51,7 @@ export default function Pagination({
   
 
   return (
-    <div className="pagination-container mt-50 flex justify-center items-center flex-wrap gap-2">
+    <div className="pagination-container mt-[50px] flex justify-center items-center flex-wrap gap-2">
       <button
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}

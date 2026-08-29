@@ -17,12 +17,12 @@ export default function TemplatePage({ template }: TemplatePageProps) {
 
   return (
     <>
-      <header className="serv-hed2 section-padding pb-0">
+      <header className="section-padding pb-[0px]">
         <div className="container">
-          <div className="caption mb-80">
-            <h1 className="fz-80 fw-600">{template.title || texts.defaultTitle}</h1>
-            <div className="flex flex-wrap justify-end">
-              <div className="w-full lg:w-3/12 mt-30">
+          <div className="caption mb-[80px]">
+            <h1 className="text-[80px] font-semibold max-md:text-[40px]!">{template.title || texts.defaultTitle}</h1>
+            <div className="flex flex-wrap justify-end max-[992px]:justify-start">
+              <div className="w-full lg:w-3/12 mt-[30px]">
                 <p>
                   {texts.category}: <b>{template.category || 'N/A'}</b>
                 </p>
@@ -31,7 +31,7 @@ export default function TemplatePage({ template }: TemplatePageProps) {
                 </p>
               </div>
               <div className="w-full lg:w-5/12">
-                <div className="text mt-30">
+                <div className="text mt-[30px]">
                   <p>
                     {template.Shortdescription || texts.defaultDescription} <br />
                     {texts.preview}{' '}
@@ -42,7 +42,7 @@ export default function TemplatePage({ template }: TemplatePageProps) {
                 </div>
               </div>
               <div className="w-full lg:w-4/12">
-                <div className="list mt-30">
+                <div className="list mt-[30px] max-md:[&_ul]:p-0">
                   <ul>
                     <li>{template.serviceTitle1 || 'Service 1'}</li>
                     <li>{template.serviceTitle2 || 'Service 2'}</li>
@@ -68,7 +68,7 @@ export default function TemplatePage({ template }: TemplatePageProps) {
         </div>
       </header>
 
-      <section className="serv-details section-padding">
+      <section className="section-padding">
         <div className="container">
           <div className="flex flex-wrap justify-center">
             <div className="w-full lg:w-10/12">
@@ -76,11 +76,11 @@ export default function TemplatePage({ template }: TemplatePageProps) {
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-center mt-80">
+          <div className="flex flex-wrap justify-center mt-[80px]">
             <div className="w-full lg:w-7/12">
               <div className="content">
                 <h3>{texts.faq_title}</h3>
-                <div className="text mt-30 mb-50">
+                <div className="text mt-[30px] mb-[50px]">
                   <p>{texts.faq_text}</p>
                 </div>
 
@@ -88,7 +88,7 @@ export default function TemplatePage({ template }: TemplatePageProps) {
 
                 <div className="text-center">
                   <Link href="/templates">
-                    <div className="crv-butn mt-80 flex justify-center items-center">
+                    <div className="crv-butn mt-[80px] flex justify-center items-center">
                       <span className="text">{texts.more_templates}</span>
                       <span className="icon">
                         <Image src={arrowTopRight} alt="Arrow" width={20} height={20} unoptimized />

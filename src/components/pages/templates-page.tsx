@@ -116,11 +116,11 @@ export default function HtmlTemplates() {
     <>
       <Inner title="HTML Templates" first="Home" secend="Templates" />
 
-      <section className="work-card section-padding pt-0">
+      <section className="section-padding pt-[0px]">
         <div className="container">
-          <div className="templatesContainer" ref={templatesRef}>
+          <div ref={templatesRef}>
             <div className="filters mb-4">
-              <div className="filters mb-4 flex gap-3 flex-wrap justify-center mt-5">
+              <div className="filters mb-4 flex gap-3 flex-wrap justify-center mt-[5px]">
                 <div className="select-wrapper relative">
                   <select
                     className="select-custom"
@@ -173,7 +173,7 @@ export default function HtmlTemplates() {
               {paginatedTemplates.length > 0 ? (
                 paginatedTemplates.map((template, index) => (
                   <div
-                    className="card-item rounded-xl"
+                    className="card-item rounded-[15px] py-[30px] px-10 bg-[#181616] max-md:mb-[30px]"
                     key={index}
                     style={{
                       border: '2px solid rgba(255,255,255,0)',
@@ -184,7 +184,7 @@ export default function HtmlTemplates() {
                   >
                <div className="flex flex-col items-start lg:flex-row lg:items-end mt-4">
                        <div>
-                         <div className="tags">
+                         <div className="tags [&_a]:text-[#ccc] [&_a]:text-sm [&_a]:pt-[10px] [&_a]:px-5 [&_a]:pb-2 [&_a]:rounded-[30px] [&_a]:border [&_a]:border-white/30 [&_a]:mb-[15px] [&_a]:inline-block">
                           {template.category ? (
                             <Link href={`/templates?category=${encodeURIComponent(template.category)}`}>
                               {template.category}
@@ -193,11 +193,11 @@ export default function HtmlTemplates() {
                             <span>No category</span>
                           )}
                         </div>
-                        <h3 className="title">
+                        <h3 className="title max-md:mb-[30px]">
                           <Link href={`/templates/${template.url}/`}>{template.title}</Link>
                         </h3>
                       </div>
-                     <div className="ml-auto">
+                     <div className="ml-auto max-md:ml-[0px]! max-md:mt-[5px]">
                          <a
                            href={template.buyLink || '#'}
                            className="mr-3 butn butn-md butn-bord butn-rounded hover-scale"
@@ -206,7 +206,7 @@ export default function HtmlTemplates() {
                          >
                            <div className="flex items-center">
                              <span>Buy Now</span>
-                             <span className="icon invert ml-10">
+                             <span className="icon invert ml-[10px]">
                                <Image src={arrowTopRight} alt="Arrow Icon" width={16} height={16} unoptimized />
                              </span>
                            </div>
@@ -217,20 +217,20 @@ export default function HtmlTemplates() {
                          >
                            <div className="flex items-center">
                              <span>View Template</span>
-                             <span className="icon invert ml-10">
+                             <span className="icon invert ml-[10px]">
                                <Image src={arrowTopRight} alt="Arrow Icon" width={16} height={16} unoptimized />
                              </span>
                            </div>
                          </Link>
                        </div>
                     </div>
-                    <div className="img fit-img mt-30">
+                    <div className="img fit-img mt-[30px] relative h-[450px] max-md:h-[400px] rounded-[15px] overflow-hidden">
                       <Image
                         src={template.thumbnail ? template.thumbnail : '/default-image.jpg'}
                         alt={template.title || 'Template Image'}
                         width={800}
                         height={500}
-                        className="w-full rounded-xl"
+                        className="w-full h-full rounded-[15px]"
                         style={{ objectFit: 'cover' }}
                         unoptimized
                       />
@@ -238,7 +238,7 @@ export default function HtmlTemplates() {
                   </div>
                 ))
               ) : (
-                <p className="no-data-message">No templates found.</p>
+                <p className="no-data-message relative w-full z-[999999] text-white">No templates found.</p>
               )}
             </div>
 

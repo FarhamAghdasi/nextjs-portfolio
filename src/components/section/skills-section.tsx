@@ -233,9 +233,9 @@ const Skills: React.FC = () => {
 
   return (
     <section className="gray-box section-padding" ref={sectionRef}>
-      <div className="skills">
-        <div className="container mx-auto px-4 pt-30 section-padding bord-thin-top pb-0">
-          <div className="sec-head mb-80">
+      <div>
+        <div className="container mx-auto px-4 pt-[30px] section-padding bord-thin-top pb-[0px]">
+          <div className="sec-head mb-[80px]">
             <div className="flex items-center">
               <div>
                 <span className="sub-head">{header.subHead}</span>
@@ -246,7 +246,7 @@ const Skills: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap mt-30 mb-30">
+            <div className="flex flex-wrap mt-[30px] mb-[30px]">
               <div className="w-full lg:w-7/12 lg:ml-[25%]">
                 <div>
                   <h2 className="text-indent">
@@ -257,7 +257,7 @@ const Skills: React.FC = () => {
                       </React.Fragment>
                     ))}
                   </h2>
-                  <Link href="/about" className="butn-under mt-15">
+                  <Link href="/about" className="butn-under mt-[15px]">
                     {header.viewSkills}{' '}
                     <span className="icon">
                       <Image src={arrowTopRight} alt="Arrow" width={20} height={20} unoptimized />
@@ -275,9 +275,9 @@ const Skills: React.FC = () => {
                     skillItemsRef.current[index] = el;
                   }}
                 >
-                  <div className={`item ${index < skills.length - 1 ? 'md-mb30' : ''}`}>
-                    <div className="box">
-                      <div className="img">
+                  <div className={`item group text-center ${index < skills.length - 1 ? 'max-[992px]:mb-[30px]' : ''}`}>
+                    <div className="box bg-[#EBEBEB] rounded-[150px] py-[60px] mb-[30px]">
+                      <div className="img w-[90px] mx-auto mb-[10px] grayscale transition-all duration-400 group-hover:grayscale-0">
                         <Image
                           src={skillImages[skill.name] || fallbackImage}
                           alt={skill.name}
@@ -295,22 +295,22 @@ const Skills: React.FC = () => {
               ))}
             </div>
           </div>
-          <section className="numbers-sec pt-0">
+          <section className="pt-[0px]">
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                 {numbers.map((num: NumberItem, idx: number) => (
                   <div
                     key={idx}
-                    className="number-item"
+                    className="number-item group"
                     ref={(el) => {
                       numberItemsRef.current[idx] = el;
                     }}
                   >
-                    <div className={`item ${idx === numbers.length - 1 ? '' : 'mb-60'}`}>
-                      <h2>
-                        <span>{num.count}</span>
+                    <div className={`item ${idx === numbers.length - 1 ? '' : 'mb-[60px]'}`}>
+                      <h2 className="text-[100px] leading-none overflow-hidden border-b border-white/10">
+                        <span className="relative -bottom-[25px] transition-all duration-400 group-hover:bottom-0">{num.count}</span>
                       </h2>
-                      <p>
+                      <p className="text-base mt-[5px]">
                         {num.link ? (
                           <a href={num.link} rel="noopener noreferrer" target="_blank">
                             {num.label}
@@ -325,13 +325,13 @@ const Skills: React.FC = () => {
               </div>
             </div>
           </section>
-          <section className="progress-sec pt-50 pb-50">
+          <section className="progress-sec pt-[50px] pb-[50px]">
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
                 {progressSkills.map((skill: Skill, index: number) => (
-                  <div key={index} className="mb-30">
+                  <div key={index} className="mb-[30px]">
                     <div className="progress-item">
-                      <div className="flex justify-between mb-10">
+                      <div className="flex justify-between mb-[10px]">
                         <h6 className="progress-label">{skill.name}</h6>
                         <span className="progress-value">{skill.level}</span>
                       </div>
@@ -350,15 +350,15 @@ const Skills: React.FC = () => {
             </div>
           </section>
         </div>
-        <div className="marquee section-padding pt-0">
+        <div className="section-padding pt-[0px]">
           <div className="main-marq shadow-off ontop">
             <div className="slide-har st1 flex">
               {Array.from({ length: 2 }).map((_, boxIdx) => (
                 <div key={boxIdx} className="box">
                   {marquee.map((item: string, i: number) => (
-                    <div key={`${boxIdx}-${i}`} className="item">
-                      <p>
-                        <span>{item}</span>
+                    <div key={`${boxIdx}-${i}`} className="item px-[80px]!">
+                      <p className="text-[10vw] font-semibold text-black">
+                        <span className={i % 2 === 1 ? 'text-transparent! [-webkit-text-stroke:1px_#000]' : ''}>{item}</span>
                       </p>
                     </div>
                   ))}
@@ -367,15 +367,15 @@ const Skills: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="marquee skills-padding pb-0">
+        <div className="skills-padding pb-[0px]">
           <div className="main-marq shadow-off ontop">
             <div className="slide-har st2 flex">
               {Array.from({ length: 2 }).map((_, boxIdx) => (
                 <div key={boxIdx} className="box">
                   {marquee2.map((item: string, i: number) => (
-                    <div key={`${boxIdx}-${i}`} className="item">
-                      <p>
-                        <span>{item}</span>
+                    <div key={`${boxIdx}-${i}`} className="item px-[80px]!">
+                      <p className="text-[10vw] font-semibold text-black">
+                        <span className={i % 2 === 1 ? 'text-transparent! [-webkit-text-stroke:1px_#000]' : ''}>{item}</span>
                       </p>
                     </div>
                   ))}
@@ -384,9 +384,9 @@ const Skills: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="resume">
-          <div className="container mx-auto px-4 pt-30 bord-thin-top">
-            <div className="sec-head mb-80">
+        <div>
+          <div className="container mx-auto px-4 pt-[30px] bord-thin-top">
+            <div className="sec-head mb-[80px]">
               <div className="flex items-center">
                 <div>
                   <span className="sub-head">{resumeHeader.subHead}</span>
@@ -397,9 +397,9 @@ const Skills: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-wrap mt-30">
+              <div className="flex flex-wrap mt-[30px]">
                 <div className="w-full text-center">
-                  <h2 className="fz-60">{resumeHeader.title}</h2>
+                  <h2 className="text-[60px] max-md:text-[40px]!">{resumeHeader.title}</h2>
                 </div>
               </div>
             </div>
@@ -413,11 +413,11 @@ const Skills: React.FC = () => {
                   }}
                 >
                   <div className="clumn">
-                    <span className="date">{yearExp.year}</span>
+                    <span className="date text-sm opacity-80 mb-[10px]">{yearExp.year}</span>
                     {yearExp.items.map((item: ExperienceItem, i: number) => (
-                      <div key={i} className={`item ${i < yearExp.items.length - 1 ? 'mb-40' : ''}`}>
-                        <h4>{item.title}</h4>
-                        <p>{item.desc}</p>
+                      <div key={i} className={`item ${i < yearExp.items.length - 1 ? 'mb-[40px]' : ''}`}>
+                        <h4 className="text-2xl">{item.title}</h4>
+                        <p className="text-sm mt-[10px] opacity-80">{item.desc}</p>
                       </div>
                     ))}
                   </div>

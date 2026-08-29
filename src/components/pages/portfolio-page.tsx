@@ -90,13 +90,13 @@ const WorksPage: React.FC = () => {
         paragraph={texts.innerParagraph}
         links={texts.innerLinks}
       />
-      <section className="work-card section-padding pt-0">
+      <section className="section-padding pt-[0px]">
         <div className="container">
           <div className="cards" ref={cardsWrapperRef} style={{ position: 'relative' }}>
             {portfolioData.length > 0 ? (
               portfolioData.map((portfolio) => (
                 <div
-                  className="card-item rounded-xl"
+                  className="card-item rounded-[15px] py-[30px] px-10 bg-[#181616] max-md:mb-[30px]"
                   key={portfolio.title}
                   style={{
                     marginBottom: '2rem',
@@ -105,14 +105,14 @@ const WorksPage: React.FC = () => {
                 >
                   <div className="flex items-end mt-4 lg:flex-row flex-col">
                     <div>
-                      <div className="tags">
+                      <div className="tags [&_a]:text-[#ccc] [&_a]:text-sm [&_a]:pt-[10px] [&_a]:px-5 [&_a]:pb-2 [&_a]:rounded-[30px] [&_a]:border [&_a]:border-white/30 [&_a]:mb-[15px] [&_a]:inline-block">
                         <a href="#">{portfolio.category}</a>
                       </div>
-                      <h3 className="title">
+                      <h3 className="title max-md:mb-[30px]">
                         <Link href={`/portfolio/${portfolio.url}/`}>{portfolio.title}</Link>
                       </h3>
                     </div>
-                    <div className="ml-auto">
+                    <div className="ml-auto max-md:ml-[0px]! max-md:mt-[5px]">
                       <Link
                         href={portfolio.Previewurl || '#'}
                         className="butn butn-md butn-bord butn-rounded"
@@ -121,14 +121,14 @@ const WorksPage: React.FC = () => {
                       >
                         <div className="flex items-center">
                           <span>{texts.viewProject}</span>
-                          <span className="icon invert ml-10 n">
+                          <span className="icon invert ml-[10px] n">
                             <Image src={arrowTopRight} alt="Arrow" width={16} height={16} unoptimized/>
                           </span>
                         </div>
                       </Link>
                     </div>
                   </div>
-                  <div className="img fit-img mt-30" style={{ height: '400px' }}>
+                  <div className="img fit-img mt-[30px] relative rounded-[15px] overflow-hidden" style={{ height: '400px' }}>
                     {portfolio.thumbnail ? (
                       <Image
                         src={`/assets/imgs/uploads/${portfolio.thumbnail}`}
@@ -145,7 +145,7 @@ const WorksPage: React.FC = () => {
                 </div>
               ))
             ) : (
-              <p className="no-data-message">{texts.noDataMessage}</p>
+              <p className="no-data-message relative w-full z-[999999] text-white">{texts.noDataMessage}</p>
             )}
           </div>
         </div>
