@@ -40,56 +40,68 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
     if (typeof portfolio.accordionContent === 'string') {
       // Handle string case (e.g., Khooshesanat Amol)
       return (
-      <div className={`accordion-item bg-transparent border-0 border-t border-white rounded-none ${activeIndex === 0 ? 'active border-main' : ''}`}>
-           <h2 className="accordion-header bg-transparent text-white" id="heading0">
-             <button
-               type="button"
-               onClick={() => handleToggle(0)}
-               aria-expanded={activeIndex === 0}
-               aria-controls="collapse0"
-               className={`bg-transparent text-inherit text-xl font-medium leading-7 py-[15px] after:hidden ${activeIndex === 0 ? '!text-main' : ''}`}
-             >
-               {portfolio.accordionTitle}
-             </button>
-           </h2>
-           <div
-             id="collapse0"
-             className="accordion-collapse"
-             style={{ maxHeight: activeIndex === 0 ? '500px' : '0', opacity: activeIndex === 0 ? 1 : 0 }}
-             aria-labelledby="heading0"
-           >
-             <div className="accordion-body pt-[0px] pr-[0px] pb-[15px] pl-[90px]">
-               <p className="text-sm">{portfolio.accordionContent || texts.defaultAccordionContent}</p>
-             </div>
-           </div>
-         </div>
+        <div className={`accordion-item border-t border-white/15 transition-colors duration-300 ${activeIndex === 0 ? 'active border-main' : ''}`}>
+          <h2 className="accordion-header" id="heading0">
+            <button
+              type="button"
+              onClick={() => handleToggle(0)}
+              aria-expanded={activeIndex === 0}
+              aria-controls="collapse0"
+              className="flex w-full items-center justify-between gap-[15px] bg-transparent py-[18px] text-left text-xl font-medium leading-7 text-white transition-colors duration-300 hover:text-main"
+            >
+              <span className={activeIndex === 0 ? 'text-main' : ''}>{portfolio.accordionTitle}</span>
+              <span
+                className={`grid h-[28px] w-[28px] shrink-0 place-items-center rounded-full border border-white/25 text-main transition-transform duration-300 ${activeIndex === 0 ? 'rotate-180' : ''}`}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+            </button>
+          </h2>
+          <div
+            id="collapse0"
+            className={`accordion-collapse ${activeIndex === 0 ? 'open' : ''}`}
+            aria-labelledby="heading0"
+          >
+            <div className="accordion-body">
+              <p className="pb-[18px] pl-[2px] pt-[4px] text-sm text-white/70">{portfolio.accordionContent || texts.defaultAccordionContent}</p>
+            </div>
+          </div>
+        </div>
       );
     } else if (Array.isArray(portfolio.accordionContent)) {
       // Handle array case (e.g., Rip Hunter)
       return portfolio.accordionContent.map((item: { title: string; content: string }, index: number) => (
         <div
-          className={`accordion-item bg-transparent border-0 border-t border-white rounded-none ${activeIndex === index ? 'active border-main' : ''}`}
+          className={`accordion-item border-t border-white/15 transition-colors duration-300 ${activeIndex === index ? 'active border-main' : ''}`}
           key={index}
         >
-          <h2 className="accordion-header bg-transparent text-white" id={`heading${index}`}>
+          <h2 className="accordion-header" id={`heading${index}`}>
             <button
               type="button"
               onClick={() => handleToggle(index)}
               aria-expanded={activeIndex === index}
               aria-controls={`collapse${index}`}
-              className={`bg-transparent text-inherit text-xl font-medium leading-7 py-[15px] after:hidden ${activeIndex === index ? '!text-main' : ''}`}
+              className="flex w-full items-center justify-between gap-[15px] bg-transparent py-[18px] text-left text-xl font-medium leading-7 text-white transition-colors duration-300 hover:text-main"
             >
-              {item.title}
+              <span className={activeIndex === index ? 'text-main' : ''}>{item.title}</span>
+              <span
+                className={`grid h-[28px] w-[28px] shrink-0 place-items-center rounded-full border border-white/25 text-main transition-transform duration-300 ${activeIndex === index ? 'rotate-180' : ''}`}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
             </button>
           </h2>
           <div
             id={`collapse${index}`}
-            className="accordion-collapse"
-            style={{ maxHeight: activeIndex === index ? '500px' : '0', opacity: activeIndex === index ? 1 : 0 }}
+            className={`accordion-collapse ${activeIndex === index ? 'open' : ''}`}
             aria-labelledby={`heading${index}`}
           >
-            <div className="accordion-body pt-[0px] pr-[0px] pb-[15px] pl-[90px]">
-              <p className="text-sm">{item.content}</p>
+            <div className="accordion-body">
+              <p className="pb-[18px] pl-[2px] pt-[4px] text-sm text-white/70">{item.content}</p>
             </div>
           </div>
         </div>
@@ -167,7 +179,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
                 <div className="text mt-[30px] mb-[50px]">
                   <p>{texts.faqDescription}</p>
                 </div>
-                <div className="accordion" id="accordionExample">
+                <div className="accordion proj-accordion" id="accordionExample">
                   {portfolio.accordionTitle && portfolio.accordionContent
                     ? renderAccordionContent()
                     : <p>{texts.noAccordionContent}</p>}
