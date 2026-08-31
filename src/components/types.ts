@@ -133,6 +133,7 @@ export interface Skill {
     name: string;
     level: string;
     image: string;
+    category: string;
 }
 export interface NumberItem {
     count: string;

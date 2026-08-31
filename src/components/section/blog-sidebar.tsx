@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import texts from '@/data/blog.json';
@@ -19,30 +19,32 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
   const availableCategories = [...new Set(posts.map((post) => post.category))];
 
   const handleSearch = () => {
-    if (inputValue.trim()) {
-      window.location.href = `/blog?search=${encodeURIComponent(inputValue.trim())}`;
-      if (onSearch) {
-        onSearch(inputValue);
-      }
+    if (onSearch && inputValue.trim()) {
+      onSearch(inputValue);
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputValue.trim()) {
-      window.location.href = `/blog?search=${encodeURIComponent(inputValue.trim())}`;
-      if (onSearch) {
-        onSearch(inputValue);
-      }
+    if (e.key === 'Enter') {
+      handleSearch();
     }
   };
 
   const handleReset = () => {
     setInputValue('');
-    window.location.href = '/blog/';
     if (onReset) {
       onReset();
     }
   };
+
+  useEffect(() => {
+    if (!onSearch) return;
+    const term = inputValue.trim();
+    const delay = setTimeout(() => {
+      onSearch(term.length >= 3 ? term : '');
+    }, 300);
+    return () => clearTimeout(delay);
+  }, [inputValue, onSearch]);
 
   return (
       <div>
@@ -57,10 +59,12 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
           onKeyPress={handleKeyPress}
         />
         {onSearch && (
-          <>
-            <a className="icon fa fa-search pr-[5%] absolute top-1/2 right-[15px] -translate-y-1/2 cursor-pointer" onClick={handleSearch} />
-            <a className="icon fa fa-remove absolute top-1/2 right-[45px] -translate-y-1/2 cursor-pointer" onClick={handleReset} />
-          </>
+          <div className="absolute top-1/2 right-[15px] -translate-y-1/2 flex items-center gap-3">
+            <a className="icon fa fa-search cursor-pointer" onClick={handleSearch} />
+            {inputValue && (
+              <a className="icon fa fa-remove cursor-pointer" onClick={handleReset} />
+            )}
+          </div>
         )}
       </div>
 
@@ -78,25 +82,27 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
       <div className="widget last-post-thum mt-[50px]">
         <h6 className="title-widget mb-[30px] pt-[5px] border-t border-white/[0.08]">{texts.latestPostsTitle}</h6>
         {posts.slice(0, 3).map((post) => (
-          <div className="item group flex items-center mb-[30px] last-of-type:mb-[0px]" key={post.id}>
-            <div>
-              <div className="img w-[90px] h-[100px] rounded-[5px] overflow-hidden">
-                <Link href={`/blog/${post.url}/`} className="w-full h-full relative block">
-                  <Image
-                    src={post.thumbnail ? `/assets/imgs/uploads/${post.thumbnail}` : '/default-image.jpg'}
-                    alt={post.title || 'Blog Post'}
-                    width={100}
-                    height={70}
-                    style={{ objectFit: 'cover' }}
-                    unoptimized
-                  />
-                  <span className="date absolute top-1/2 left-1/2 text-sm w-[50px] h-[50px] text-center bg-black/10 backdrop-blur-[10px] rounded-full -translate-x-1/2 -translate-y-1/2 z-[3] opacity-0 transition-all duration-400 group-hover:opacity-100">
-                    <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 leading-none">{post.date}</span>
-                  </span>
-                </Link>
-              </div>
+          <div
+            className="item group flex items-center mb-[30px] last-of-type:mb-[0px]"
+            key={post.id}
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+            <div
+              className="img w-[90px] h-[100px] shrink-0 rounded-[5px] overflow-hidden"
+              style={{ flex: '0 0 90px', height: '100px' }}
+            >
+              <Link href={`/blog/${post.url}/`} className="w-full h-full relative block">
+                <Image
+                  src={post.thumbnail ? `/assets/imgs/uploads/${post.thumbnail}` : '/default-image.jpg'}
+                  alt={post.title || 'Blog Post'}
+                  width={100}
+                  height={70}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  unoptimized
+                />
+              </Link>
             </div>
-            <div className="cont pl-[25px]">
+            <div className="cont flex-1 pl-[25px]" style={{ flex: 1, paddingLeft: 25 }}>
               <span className="tag text-xs py-[5px] px-[15px] rounded-[30px] bg-white/[0.03] mb-[10px]">
                 <Link href={`/blog?category=${encodeURIComponent(post.category)}`}>
                   {post.category}

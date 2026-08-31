@@ -232,6 +232,7 @@ img.left {
 
 .about-pg-sec.section-padding {
     padding-top: 40px;
+    padding-bottom: 20px;
 }
 
 .skills-padding {
@@ -948,6 +949,19 @@ img.left {
 .padding-rl-50 {
     padding-right: 50px;
     padding-left: 50px;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.skill-item .item:hover .img {
+    filter: grayscale(0);
+    -webkit-filter: grayscale(0);
 }
 
 /* ====================== [ End Helper Classes  ] ====================== */

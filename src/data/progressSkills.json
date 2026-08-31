@@ -13,6 +13,11 @@
       { "name": "Bootstrap", "level": "80%", "image": "/assets/imgs/skills/bootstrap.png" },
       { "name": "Git", "level": "100%", "image": "/assets/imgs/skills/git.png" },
       { "name": "Forex (ICT)", "level": "5%", "image": "/assets/imgs/skills/ict.png" },
-      { "name": "Adobe Photshop", "level": "60%", "image": "/assets/imgs/skills/photoshop.png" }
+      { "name": "Adobe Photshop", "level": "60%", "image": "/assets/imgs/skills/photoshop.png" },
+      { "name": "TypeScript", "level": "68%", "image": "/assets/imgs/skills/typescript.svg" },
+      { "name": "Filmora", "level": "55%", "image": "/assets/imgs/skills/filmora.svg" },
+      { "name": "Premier", "level": "58%", "image": "/assets/imgs/skills/adobepremierepro.svg" },
+      { "name": "Docker", "level": "50%", "image": "/assets/imgs/skills/docker.svg" },
+      { "name": "Aplinejs", "level": "45%", "image": "/assets/imgs/skills/alpinejs.svg" }
     ]
   }

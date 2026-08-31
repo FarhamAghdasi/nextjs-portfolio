@@ -24,60 +24,29 @@ const WorksPage: React.FC = () => {
   useEffect(() => {
     if (!portfolioData.length || !cardsWrapperRef.current) return;
 
-    const cards = Array.from(cardsWrapperRef.current.children) as HTMLElement[];
+    const cards = Array.from(cardsWrapperRef.current.querySelectorAll<HTMLElement>('.card-item'));
     if (!cards.length) return;
 
-    const triggers: ScrollTrigger[] = [];
-
-    const lastCard = cards[cards.length - 1];
-    const lastCardST = ScrollTrigger.create({
-      trigger: lastCard,
-      start: 'bottom bottom',
-    });
-
-    cards.forEach((card, index) => {
-      const scale = 1 - (cards.length - index) * 0.025;
-      const activeShadow = '0 10px 30px rgba(0,0,0,0.2)';
-      const activeBorderColor = 'rgba(255, 255, 255, 0.8)';
-      const inactiveShadow = '0 0 0 rgba(0,0,0,0)';
-      const inactiveBorderColor = 'rgba(255, 255, 255, 0)';
-
-      const anim = gsap.to(card, {
-        scale,
-        boxShadow: activeShadow,
-        borderColor: activeBorderColor,
-        transformOrigin: `50% ${lastCardST.start}px`,
-        ease: 'power2.out',
-        paused: true,
+    const ctx = gsap.context(() => {
+      cards.forEach((card, i) => {
+        if (i === cards.length - 1) return;
+        gsap.to(card, {
+          scale: 0.92,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: cards[i + 1],
+            start: 'top bottom',
+            end: 'top top',
+            scrub: true,
+          },
+        });
       });
+    }, cardsWrapperRef);
 
-      const trigger = ScrollTrigger.create({
-        trigger: card,
-        start: 'center center',
-        end: () => lastCardST.start,
-        pin: true,
-        pinSpacing: false,
-        animation: anim,
-        toggleActions: 'restart none none reverse',
-        scrub: 0.3,
-        onEnter: () => {
-          gsap.to(card, { boxShadow: activeShadow, borderColor: activeBorderColor, duration: 0.3 });
-        },
-        onLeaveBack: () => {
-          gsap.to(card, { boxShadow: inactiveShadow, borderColor: inactiveBorderColor, duration: 0.3 });
-        },
-        onLeave: () => {
-          gsap.to(card, { boxShadow: inactiveShadow, borderColor: inactiveBorderColor, duration: 0.3 });
-        },
-      });
-
-      triggers.push(trigger);
-    });
+    ScrollTrigger.refresh();
 
     return () => {
-      triggers.forEach((t) => t.kill());
-      lastCardST.kill();
-      ScrollTrigger.getAll().forEach((st) => st.kill());
+      ctx.revert();
     };
   }, [portfolioData]);
 
@@ -100,8 +69,8 @@ const WorksPage: React.FC = () => {
                   key={portfolio.title}
                   style={{
                     marginBottom: '2rem',
-                    transformOrigin: '50% center',
-                    position: 'relative',
+                    position: 'sticky',
+                    top: '120px',
                     zIndex: index + 1,
                   }}
                 >

@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { gsap } from 'gsap';
 
 import content from '@/data/header.json';
-const logoLight = '/assets/imgs/Logo-light.png';
 const arrowIcon = '/assets/imgs/icons/arrow-top-right.svg';
 
 const Header = () => {
@@ -121,7 +120,14 @@ const Header = () => {
             .to(svgRef.current, { duration: 0.5, attr: { d: content.svgCurve }, ease: 'power2.easeIn' })
             .to(svgRef.current, { duration: 0.5, attr: { d: content.svgFlat }, ease: 'power2.easeOut' })
             .to('.loader-wrap', { y: -1500 })
-            .to('.loader-wrap', { zIndex: -1, display: 'none' });
+            .to('.loader-wrap', {
+                zIndex: -1,
+                display: 'none',
+                onComplete: () => {
+                    (window as Window & { __appLoaded?: boolean }).__appLoaded = true;
+                    window.dispatchEvent(new Event('appLoaded'));
+                },
+            });
     }, []);
 
     useEffect(() => {
@@ -241,7 +247,7 @@ const Header = () => {
             <nav className="navbar">
                 <div className="container mx-auto px-4 flex items-center justify-between gap-6">
                     <Link href="/" className="logo">
-                        <Image src={logoLight} alt={content.logoAlt} width={100} height={50} unoptimized/>
+                        <span className="text-2xl font-bold uppercase">farham</span>
                     </Link>
 
                     <div className={`${isNavbarOpen ? 'flex' : 'hidden'} lg:flex`}>

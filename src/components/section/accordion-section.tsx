@@ -10,37 +10,41 @@ interface AccordionSectionProps {
 }
 
 export default function AccordionSection({ template }: AccordionSectionProps) {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  const handleToggle = (index: number) => {
-    setActiveIndex((prev) => (prev === index ? null : index));
-  };
+  const [active, setActive] = useState<boolean>(false);
 
   const title = template.accordionTitle || 'No Title Provided';
   const content = template.accordionContent || 'No Content Provided';
 
   return (
-    <div className="accordion" id="accordionExample">
-      <div className={`accordion-item bg-transparent border-0 border-t border-white rounded-none ${activeIndex === 0 ? 'active border-main' : ''}`}>
-        <h2 className="accordion-header bg-transparent text-white" id="heading0">
+    <div className="accordion proj-accordion" id="accordionExample">
+      <div
+        className={`accordion-item border-t border-white/15 transition-colors duration-300 ${
+          active ? 'active border-main' : ''
+        }`}
+      >
+        <h2 className="accordion-header" id="heading0">
           <button
             type="button"
-            onClick={() => handleToggle(0)}
-            aria-expanded={activeIndex === 0}
+            onClick={() => setActive((prev) => !prev)}
+            aria-expanded={active}
             aria-controls="collapse0"
-            className={`bg-transparent text-inherit text-xl font-medium leading-7 py-[15px] after:hidden ${activeIndex === 0 ? '!text-main' : ''}`}
+            className="flex w-full items-center justify-between gap-[15px] bg-transparent py-[18px] text-left text-xl font-medium leading-7 text-white transition-colors duration-300 hover:text-main"
           >
-            {title}
+            <span className={active ? 'text-main' : ''}>{title}</span>
+            <span
+              className={`grid h-[28px] w-[28px] shrink-0 place-items-center rounded-full border border-white/25 text-main transition-transform duration-300 ${
+                active ? 'rotate-180' : ''
+              }`}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
           </button>
         </h2>
-        <div
-          id="collapse0"
-          className="accordion-collapse"
-          style={{ maxHeight: activeIndex === 0 ? '500px' : '0', opacity: activeIndex === 0 ? 1 : 0 }}
-          aria-labelledby="heading0"
-        >
-          <div className="accordion-body pt-[0px] pr-[0px] pb-[15px] pl-[90px]">
-            <p className="text-sm">{content}</p>
+        <div id="collapse0" className={`accordion-collapse ${active ? 'open' : ''}`} aria-labelledby="heading0">
+          <div className="accordion-body">
+            <p className="pb-[18px] pl-[2px] pt-[4px] text-sm text-white/70">{content}</p>
           </div>
         </div>
       </div>

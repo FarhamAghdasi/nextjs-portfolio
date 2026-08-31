@@ -7,9 +7,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import skillsData from '@/data/skills.json';
 import progressSkillsData from '@/data/progressSkills.json';
-import { Skill, NumberItem, ExperienceItem } from '../types';
+import servicesData from '@/data/service-section.json';
+import { Skill, NumberItem, ExperienceItem, ServiceTitle } from '../types';
 
 const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
+const arrowLeft = '/assets/imgs/icons/chevron-left.svg';
+const arrowRight = '/assets/imgs/icons/chevron-right.svg';
 const fallbackImage = '/assets/imgs/fallback.png';
 
 interface ParsedCount {
@@ -27,6 +30,34 @@ const parseCount = (count: string): ParsedCount | null => {
     suffix: match[3],
   };
 };
+
+const MarqueeStrip = ({
+  items,
+  wrapperClass,
+  slideClass,
+}: {
+  items: string[];
+  wrapperClass: string;
+  slideClass: string;
+}) => (
+  <div className={wrapperClass}>
+    <div className="main-marq shadow-off ontop">
+      <div className={`slide-har ${slideClass} flex`}>
+        {Array.from({ length: 2 }).map((_, boxIdx) => (
+          <div key={boxIdx} className="box">
+            {items.map((item, i) => (
+              <div key={`${boxIdx}-${i}`} className="item px-[80px]!">
+                <p className="text-[10vw] font-semibold text-black">
+                  <span className={i % 2 === 1 ? 'text-transparent! [-webkit-text-stroke:1px_#000]' : ''}>{item}</span>
+                </p>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
 
 interface ExperienceYear {
   year: string;
@@ -58,28 +89,42 @@ interface ProgressSkillsData {
 gsap.registerPlugin(ScrollTrigger);
 
 const skillImages: { [key: string]: string } = {
-  'HTML/CSS': '/assets/imgs/skills/html.png',
-  JavaScript: '/assets/imgs/skills/js.png',
-  Bootstrap: '/assets/imgs/skills/bootstrap.png',
-  React: '/assets/imgs/skills/s4.png',
+  'HTML/CSS': '/assets/imgs/skills/html.svg',
+  JavaScript: '/assets/imgs/skills/js.svg',
+  Bootstrap: '/assets/imgs/skills/bootstrap.svg',
+  React: '/assets/imgs/skills/react.svg',
   SEO: '/assets/imgs/skills/seo.png',
-  Tailwindcss: '/assets/imgs/skills/tailwindcss.png',
-  Nextjs: '/assets/imgs/skills/nextjs.png',
-  'Node.js (Express, Prisma)': '/assets/imgs/skills/nodejs.png',
-  PHP: '/assets/imgs/skills/php.png',
-  MySQL: '/assets/imgs/skills/mysql.png',
-  Git: '/assets/imgs/skills/git.png',
+  Tailwindcss: '/assets/imgs/skills/tailwindcss.svg',
+  Nextjs: '/assets/imgs/skills/nextjs.svg',
+  MySQL: '/assets/imgs/skills/mysql.svg',
+  Laravel: '/assets/imgs/skills/laravel.svg',
+  Photoshop: '/assets/imgs/skills/adobephotoshop.svg',
+  Filmora: '/assets/imgs/skills/filmora.svg',
+  Premier: '/assets/imgs/skills/adobepremierepro.svg',
+  Docker: '/assets/imgs/skills/docker.svg',
+  Aplinejs: '/assets/imgs/skills/alpinejs.svg',
+  Git: '/assets/imgs/skills/git.svg',
+  TypeScript: '/assets/imgs/skills/typescript.svg',
 };
 
 const Skills: React.FC = () => {
   const { header, skills, marquee, marquee2, resumeHeader, experience } = skillsData as SkillsData;
   const { progressSkills } = progressSkillsData as ProgressSkillsData;
+  const serviceCategories = (servicesData as ServiceTitle[]).map((s) => s.title);
+  const tabs = ['All', ...serviceCategories];
+  const yearList = [...experience].sort((a, b) => Number(a.year) - Number(b.year));
   const sectionRef = useRef<HTMLElement>(null);
   const skillItemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const numberItemsRef = useRef<(HTMLDivElement | null)[]>([]);
   const countRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const countTweenRefs = useRef<gsap.core.Tween[]>([]);
-  const resumeColsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const expContentRef = useRef<HTMLDivElement>(null);
+  const timelineScrollRef = useRef<HTMLDivElement>(null);
+  const dragState = useRef<{ active: boolean; startX: number; startScroll: number }>({
+    active: false,
+    startX: 0,
+    startScroll: 0,
+  });
   const progressBarsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [numbers, setNumbers] = useState<NumberItem[]>([
     { count: '57', label: 'HTML Templates', link: 'https://www.rtl-theme.com/author/farhamaghdasi/' },
@@ -87,6 +132,24 @@ const Skills: React.FC = () => {
     { count: '+2', label: 'Website Created' },
     { count: '629', label: 'Total Sell' },
   ]);
+
+  const [activeTab, setActiveTab] = useState<string>('All');
+  const [activeYear, setActiveYear] = useState<string>(yearList[yearList.length - 1]?.year ?? '');
+
+  const handleSkillTilt = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top) / rect.height;
+    const rotateY = (px - 0.5) * 16;
+    const rotateX = (0.5 - py) * 16;
+    el.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+  };
+
+  const resetSkillTilt = (e: React.MouseEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    el.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)';
+  };
 
   useEffect(() => {
     const CACHE_KEY = 'skills-numbers-cache';
@@ -168,57 +231,35 @@ const Skills: React.FC = () => {
   }, [numbers]);
 
   useEffect(() => {
+    const visible = skillItemsRef.current.filter(
+      (el): el is HTMLDivElement => !!el && !el.classList.contains('hidden')
+    );
+    if (!visible.length) return;
+    gsap.fromTo(
+      visible,
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.05 }
+    );
+  }, [activeTab]);
+
+  useEffect(() => {
+    if (timelineScrollRef.current) timelineScrollRef.current.scrollLeft = 0;
+    if (!expContentRef.current) return;
+    const items = expContentRef.current.querySelectorAll('.exp-item');
+    if (!items.length) return;
+    gsap.fromTo(
+      items,
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.05 }
+    );
+  }, [activeYear]);
+
+  useEffect(() => {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Skill items animation
-      skillItemsRef.current.forEach((el, index) => {
-        if (el) {
-          gsap.fromTo(
-            el,
-            { opacity: 0, y: 50 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              ease: 'power2.out',
-              delay: index * 0.3,
-              scrollTrigger: {
-                trigger: el,
-                start: 'top 85%',
-                toggleActions: 'play none none none',
-                markers: false,
-              },
-            }
-          );
-        }
-      });
-
       // Number items animation
       numberItemsRef.current.forEach((el, index) => {
-        if (el) {
-          gsap.fromTo(
-            el,
-            { opacity: 0, y: 50 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              ease: 'power2.out',
-              delay: index * 0.3,
-              scrollTrigger: {
-                trigger: el,
-                start: 'top 85%',
-                toggleActions: 'play none none none',
-                markers: false,
-              },
-            }
-          );
-        }
-      });
-
-      // Resume columns animation
-      resumeColsRef.current.forEach((el, index) => {
         if (el) {
           gsap.fromTo(
             el,
@@ -287,7 +328,7 @@ const Skills: React.FC = () => {
   return (
     <section className="gray-box section-padding" ref={sectionRef}>
       <div>
-        <div className="container mx-auto px-4 pt-[30px] section-padding bord-thin-top pb-[0px]">
+        <div className="container mx-auto px-4 pt-[30px] bord-thin-top pb-[0px]">
           <div className="sec-head mb-[80px]">
             <div className="flex items-center">
               <div>
@@ -319,37 +360,62 @@ const Skills: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:flex gap-[30px]">
-              {skills.map((skill: Skill, index: number) => (
-                <div
-                  key={index}
-                  className="lg:flex-1 skill-item"
-                  ref={(el) => {
-                    skillItemsRef.current[index] = el;
-                  }}
-                >
-                  <div className="item group text-center">
-                    <div className="box bg-[#EBEBEB] rounded-[150px] py-[60px] mb-[30px]">
-                      <div className="img w-[90px] mx-auto mb-[10px] grayscale transition-all duration-400 group-hover:grayscale-0">
-                        <Image
-                          src={skillImages[skill.name] || fallbackImage}
-                          alt={skill.name}
-                          width={64}
-                          height={64}
-                          style={{ objectFit: 'contain' }}
-                          unoptimized
-                        />
+            <div className="flex flex-wrap justify-center mt-[30px] mb-[40px]">
+              <div className="inline-flex flex-wrap justify-center rounded-full border border-black/30 overflow-hidden">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab}
+                    type="button"
+                    onClick={() => setActiveTab(tab)}
+                    className={`px-[30px] py-[12px] text-[16px] font-semibold transition-all duration-300 border-r border-black/20 last:border-r-0 ${
+                      activeTab === tab
+                        ? 'bg-black text-white'
+                        : 'text-black hover:bg-black/5'
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-wrap justify-center gap-[30px]">
+              {skills.map((skill: Skill, index: number) => {
+                const isHidden = activeTab !== 'All' && skill.category !== activeTab;
+                return (
+                   <div
+                     key={skill.name}
+                     className={`skill-item ${isHidden ? 'hidden' : ''}`}
+                     ref={(el) => {
+                      skillItemsRef.current[index] = el;
+                    }}
+                  >
+                      <div className="item group text-center">
+                        <div
+                          className="box w-fit bg-[#EBEBEB] rounded-[150px] px-[30px] h-[320px] flex flex-col items-center justify-center mb-[30px] transition-transform duration-300 ease-out [transform-style:preserve-3d] group-hover:shadow-2xl"
+                          onMouseMove={handleSkillTilt}
+                          onMouseLeave={resetSkillTilt}
+                        >
+                          <div className="img w-[90px] mx-auto mb-[40px] grayscale transition-all duration-400 group-hover:grayscale-0 group-hover:[transform:translateZ(40px)]">
+                          <Image
+                            src={skillImages[skill.name] || fallbackImage}
+                            alt={skill.name}
+                            width={64}
+                            height={64}
+                            style={{ objectFit: 'contain' }}
+                            unoptimized
+                          />
+                        </div>
+                        <h2>{skill.level}</h2>
                       </div>
-                      <h2>{skill.level}</h2>
+                      <h6 className="truncate">{skill.name}</h6>
                     </div>
-                    <h6>{skill.name}</h6>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
           <section className="pt-[0px]">
-            <div className="container mx-auto px-4">
+            <div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                 {numbers.map((num: NumberItem, idx: number) => (
                   <div
@@ -360,7 +426,7 @@ const Skills: React.FC = () => {
                     }}
                   >
                     <div className={`item text-center ${idx === numbers.length - 1 ? '' : 'mb-[60px]'}`}>
-                      <h2 className="text-[100px] leading-none overflow-hidden border-b border-white/10">
+                      <h2 className="text-[100px] max-md:text-[56px] leading-none overflow-hidden border-b border-white/10">
                         <span
                           ref={(el) => {
                             countRefs.current[idx] = el;
@@ -389,7 +455,7 @@ const Skills: React.FC = () => {
             </div>
           </section>
           <section className="progress-sec pt-[50px] pb-[50px]">
-            <div className="container mx-auto px-4">
+            <div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
                 {progressSkills.map((skill: Skill, index: number) => (
                   <div key={index} className="mb-[30px]">
@@ -413,40 +479,8 @@ const Skills: React.FC = () => {
             </div>
           </section>
         </div>
-        <div className="section-padding pt-[0px]">
-          <div className="main-marq shadow-off ontop">
-            <div className="slide-har st1 flex">
-              {Array.from({ length: 2 }).map((_, boxIdx) => (
-                <div key={boxIdx} className="box">
-                  {marquee.map((item: string, i: number) => (
-                    <div key={`${boxIdx}-${i}`} className="item px-[80px]!">
-                      <p className="text-[10vw] font-semibold text-black">
-                        <span className={i % 2 === 1 ? 'text-transparent! [-webkit-text-stroke:1px_#000]' : ''}>{item}</span>
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="skills-padding pb-[0px]">
-          <div className="main-marq shadow-off ontop">
-            <div className="slide-har st2 flex">
-              {Array.from({ length: 2 }).map((_, boxIdx) => (
-                <div key={boxIdx} className="box">
-                  {marquee2.map((item: string, i: number) => (
-                    <div key={`${boxIdx}-${i}`} className="item px-[80px]!">
-                      <p className="text-[10vw] font-semibold text-black">
-                        <span className={i % 2 === 1 ? 'text-transparent! [-webkit-text-stroke:1px_#000]' : ''}>{item}</span>
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <MarqueeStrip items={marquee} wrapperClass="section-padding pt-[0px]" slideClass="st1" />
+        <MarqueeStrip items={marquee2} wrapperClass="skills-padding pb-[0px]" slideClass="st2" />
         <div>
           <div className="container mx-auto px-4 pt-[30px] bord-thin-top">
             <div className="sec-head mb-[80px]">
@@ -466,26 +500,73 @@ const Skills: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-              {experience.map((yearExp: ExperienceYear, idx: number) => (
-                <div
-                  key={idx}
-                  className="resume-col"
-                  ref={(el) => {
-                    resumeColsRef.current[idx] = el;
+            <div className="mt-[30px]">
+              <div className="flex items-center justify-center gap-[28px] mb-[30px]">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const idx = yearList.findIndex((e) => e.year === activeYear);
+                    if (idx > 0) setActiveYear(yearList[idx - 1].year);
                   }}
+                  disabled={yearList.findIndex((e) => e.year === activeYear) <= 0}
+                  aria-label="Previous year"
+                  className="p-[6px] transition-opacity duration-300 hover:opacity-60 disabled:opacity-20 disabled:cursor-not-allowed"
                 >
-                  <div className="clumn">
-                    <span className="date text-sm opacity-80 mb-[10px]">{yearExp.year}</span>
-                    {yearExp.items.map((item: ExperienceItem, i: number) => (
-                      <div key={i} className={`item ${i < yearExp.items.length - 1 ? 'mb-[40px]' : ''}`}>
+                  <Image src={arrowLeft} alt="Previous" width={38} height={38} unoptimized />
+                </button>
+                <span className="text-[64px] font-extrabold leading-none text-center min-w-[150px]">{activeYear}</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const idx = yearList.findIndex((e) => e.year === activeYear);
+                    if (idx < yearList.length - 1) setActiveYear(yearList[idx + 1].year);
+                  }}
+                  disabled={yearList.findIndex((e) => e.year === activeYear) >= yearList.length - 1}
+                  aria-label="Next year"
+                  className="p-[6px] transition-opacity duration-300 hover:opacity-60 disabled:opacity-20 disabled:cursor-not-allowed"
+                >
+                  <Image src={arrowRight} alt="Next" width={38} height={38} unoptimized />
+                </button>
+              </div>
+              <div ref={expContentRef} className="-mx-[calc(50vw_-_50%)]">
+                <div
+                  ref={timelineScrollRef}
+                  onPointerDown={(e) => {
+                    const el = timelineScrollRef.current;
+                    if (!el) return;
+                    dragState.current = { active: true, startX: e.clientX, startScroll: el.scrollLeft };
+                    el.setPointerCapture(e.pointerId);
+                  }}
+                  onPointerMove={(e) => {
+                    const el = timelineScrollRef.current;
+                    if (!el || !dragState.current.active) return;
+                    el.scrollLeft = dragState.current.startScroll - (e.clientX - dragState.current.startX);
+                  }}
+                  onPointerUp={(e) => {
+                    dragState.current.active = false;
+                    timelineScrollRef.current?.releasePointerCapture(e.pointerId);
+                  }}
+                  onPointerLeave={() => {
+                    dragState.current.active = false;
+                  }}
+                  className="no-scrollbar flex gap-[32px] overflow-x-auto px-[10px] pb-[40px] pt-[10px] cursor-grab active:cursor-grabbing select-none"
+                >
+                  {(() => {
+                    const yearExp = experience.find((e) => e.year === activeYear);
+                    if (!yearExp) return null;
+                    return yearExp.items.map((item: ExperienceItem, i: number) => (
+                      <div
+                        key={i}
+                        className="exp-item relative min-w-[340px] md:flex-1 border-t-2 border-black/20 pt-[34px] px-[18px]"
+                      >
+                        <span className="absolute top-[-7px] left-1/2 -translate-x-1/2 w-[14px] h-[14px] rounded-full bg-black"></span>
                         <h4 className="text-2xl">{item.title}</h4>
                         <p className="text-sm mt-[10px] opacity-80">{item.desc}</p>
                       </div>
-                    ))}
-                  </div>
+                    ));
+                  })()}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>

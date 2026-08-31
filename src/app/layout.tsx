@@ -4,6 +4,8 @@ import '@/assets/css/tailwind.css';
 
 import '@/assets/css/font.css';
 
+import '@/assets/css/blog-tables.css';
+
 import localFont from 'next/font/local';
 import { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';

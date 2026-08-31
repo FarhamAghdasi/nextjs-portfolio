@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Hero, Portfolio, Service, Skills, Posts } from '@/components';
+import { Hero, Portfolio, Skills, Posts } from '@/components';
 import { ScrollAnimation } from '@/components';
 
 const HomePage: React.FC = () => {
@@ -14,9 +14,6 @@ const HomePage: React.FC = () => {
         <Portfolio />
       </ScrollAnimation>
       <ScrollAnimation animationType="zoomIn" duration={0.6} delay={0.3}>
-        <Service />
-      </ScrollAnimation>
-      <ScrollAnimation animationType="slideLeft" duration={0.6} delay={0.4}>
         <Skills />
       </ScrollAnimation>
       <ScrollAnimation animationType="slideRight" duration={0.6} delay={0.5}>

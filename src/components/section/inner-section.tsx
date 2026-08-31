@@ -47,7 +47,7 @@ const Inner: React.FC<InnerProps> = ({ title, first, secend, paragraph, links, c
           </div>
         ) : !noimage ? (
           <div
-            className="relative h-[500px] max-md:h-[300px] after:content-[''] after:absolute after:-bottom-[5%] after:left-0 after:w-full after:h-[90%] after:z-[3] after:[background-image:linear-gradient(to_top,var(--theme-color)_20%,transparent)]"
+            className=""
             style={{ backgroundImage: `url(${smokeBg})` }}
           />
         ) : null}

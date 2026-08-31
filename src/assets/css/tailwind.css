@@ -90,6 +90,52 @@
       line-height: 1.2;
     }
   }
+
+  /* Sidebar latest-posts item: explicit row + vertical middle so it does
+     not depend on per-component Tailwind utility chunking reaching the client. */
+  .last-post-thum .item {
+    display: flex;
+    align-items: center;
+  }
+  .last-post-thum .item .img {
+    flex: 0 0 90px;
+    height: 100px;
+  }
+  .last-post-thum .item .img a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .last-post-thum .item .img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .last-post-thum .item .cont {
+    flex: 1;
+    padding-left: 25px;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .animate-shimmer {
+    animation: shimmer 1.5s infinite;
+    background: linear-gradient(90deg, #181616 25%, #2a2a2a 50%, #181616 75%);
+    background-size: 200% 100%;
+  }
+
+  .crv-butn .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .crv-butn .icon img {
+    vertical-align: middle;
+  }
 }
 
 /*

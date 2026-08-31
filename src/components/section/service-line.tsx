@@ -1,38 +1,66 @@
 "use client"
-import React, { useState } from 'react';
-import Image from 'next/image';
-const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
+import React, { useRef, useState } from 'react';
 import servicesData from '@/data/services-line.json';
 import { Service } from '../types';
 
 const ServicesLine: React.FC = () => {
   const [activeItem, setActiveItem] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const services: Service[] = servicesData;
 
+  const focusItem = (index: number) => {
+    const items = containerRef.current?.querySelectorAll<HTMLElement>('[data-service-item]');
+    if (!items || items.length === 0) return;
+    const next = (index + items.length) % items.length;
+    items[next]?.focus();
+  };
+
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLDivElement>,
+    index: number
+  ) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setActiveItem(index);
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      focusItem(index + 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      focusItem(index - 1);
+    }
+  };
+
   return (
     <section className="services-cst section-padding pt-[0px] relative z-[3]">
-      <div className="container">
+      <div className="container" ref={containerRef}>
         <div className="sec-sm-head text-center mb-[30px]">
           <div className="bract">
             {"{"} <span>My Services</span> {"}"}
           </div>
         </div>
-        {services.map((service, index) => (
-          <div
-            key={service.id}
-            className={`item relative py-[25px] px-[15px] border-t border-white/20 last-of-type:border-b last-of-type:border-white/20 cursor-pointer ${activeItem === index ? 'active' : ''}`}
-            onClick={() => setActiveItem(index)}
-            onMouseEnter={() => setActiveItem(index)}
-          >
-            <div className="flex flex-wrap items-center">
-              <div className="w-full lg:w-6/12">
-                <div className="flex flex-wrap items-center">
-                  <div className="w-full md:w-4/12">
-                    <span className="numb">{service.number}</span>
+        <div className="services-list">
+          {services.map((service, index) => {
+            const isActive = activeItem === index;
+            return (
+              <div
+                key={service.id}
+                data-service-item
+                role="button"
+                tabIndex={0}
+                aria-pressed={isActive}
+                aria-label={`${service.title} — ${service.description.replace(/\n/g, ', ')}`}
+                className={`item relative py-[25px] px-[15px] border-t border-white/20 last-of-type:border-b last-of-type:border-white/20 cursor-pointer ${isActive ? 'active' : ''}`}
+                onClick={() => setActiveItem(index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+              >
+                <div className="flex flex-wrap items-center w-full lg:justify-between">
+                  <div className="w-full lg:w-auto lg:max-w-[55%]">
+                    <h2 className="text-[65px] leading-[1.05] font-semibold uppercase pt-[15px]">{service.title}</h2>
                   </div>
-                  <div className="w-full md:w-8/12">
-                    <p className="max-md:mt-[5px]">
+                  <div className="w-full lg:w-auto lg:text-right">
+                    <p className="max-md:mt-[5px] text-right">
                       {service.description.split('\n').map((line, i) => (
                         <span key={i}>
                           {line}
@@ -43,23 +71,9 @@ const ServicesLine: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-full lg:w-6/12">
-                <div className="flex flex-wrap items-center">
-                  <div className="w-full md:w-8/12">
-                    <h2 className="text-[65px] font-semibold uppercase pt-[15px]">{service.title}</h2>
-                  </div>
-                  <div className="w-full md:w-4/12 flex">
-                    <a href="#0" className="ml-auto max-md:ml-[0px]! max-md:mt-[15px]">
-                      <span className="icon invert">
-                        <Image src={arrowTopRight} alt="arrow icon" width={16} height={16} unoptimized/>
-                      </span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

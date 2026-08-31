@@ -14,13 +14,14 @@ interface TemplatePageProps {
 
 export default function TemplatePage({ template }: TemplatePageProps) {
   const ImagePrimary = template.thumbnail ? template.thumbnail : '/default-image.jpg';
+  const [isImageLoaded, setIsImageLoaded] = React.useState(false);
 
   return (
     <>
       <header className="section-padding pb-[0px]">
         <div className="container">
-          <div className="caption mb-[80px]">
-            <h1 className="text-[80px] font-semibold max-md:text-[40px]!">{template.title || texts.defaultTitle}</h1>
+          <div className="caption mb-[40px]">
+            <h1 className="text-[52px] font-semibold max-md:text-[28px]!">{template.title || texts.defaultTitle}</h1>
             <div className="flex flex-wrap justify-end max-[992px]:justify-start">
               <div className="w-full lg:w-3/12 mt-[30px]">
                 <p>
@@ -54,15 +55,20 @@ export default function TemplatePage({ template }: TemplatePageProps) {
           </div>
         </div>
         <div className="w-full px-4">
-          <div className="fit-img radius-15 scale">
+            <div className="fit-img radius-15 scale max-w-[900px] mx-auto">
+            {!isImageLoaded && (
+              <div className="animate-shimmer rounded-[15px]" style={{ height: '400px' }} />
+            )}
             <Image
               src={ImagePrimary}
               alt={template.title || 'Template Image'}
               width={1200}
               height={600}
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: 'contain', opacity: isImageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+              className="hero-img-anim"
               unoptimized
               id='primaryimage'
+              onLoadingComplete={() => setIsImageLoaded(true)}
             />
           </div>
         </div>

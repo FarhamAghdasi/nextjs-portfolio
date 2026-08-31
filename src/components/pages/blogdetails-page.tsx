@@ -4,11 +4,10 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { Share, Captcha, Comments, Sidebar } from '@/components';
+import { Share, Captcha, Comments } from '@/components';
 const authorImage = '/assets/imgs/logo.png';
 import texts from '@/data/blog-details.json';
 import { BlogInfoProps, FormData, Comment } from '@/components/types';
-import { useSearchParams } from 'next/navigation';
 
 interface ExtendedBlogInfoProps extends BlogInfoProps {
   searchTerm?: string;
@@ -16,8 +15,6 @@ interface ExtendedBlogInfoProps extends BlogInfoProps {
 }
 
 const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComments = [] }) => {
-  const searchParams = useSearchParams();
-  const searchTerm = searchParams.get('search') || '';
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -32,14 +29,6 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
       ...prevData,
       [name]: value,
     }));
-  };
-
-  const handleSearch = (term: string) => {
-    window.location.href = `/blog?search=${encodeURIComponent(term)}`;
-  };
-
-  const handleReset = () => {
-    window.location.href = '/blog';
   };
 
   const handleCaptchaChange = (value: string) => {
@@ -157,8 +146,7 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
        <section className="blog section-padding">
          <div className="container">
            <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-x-[60px]">
-             <div className="lg:col-span-8">
-              <div>
+              <div className="lg:col-span-12">
                 <div className="item pb-[60px]">
                   <article>
                     <div className="text" dangerouslySetInnerHTML={{ __html: post.description || '' }} />
@@ -190,28 +178,8 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                     </div>
                   </div>
                 </div>
-                <div className="author-area mt-[50px] bord-thin-bottom p-10 bg-white/[0.02] backdrop-blur-[2px]">
-                  <div className="flex">
-                    <div className="author-img mr-[30px]">
-                      <div className="img w-[100px] h-[100px] rounded-[10px] overflow-hidden">
-                        <Image
-                          src={authorImage}
-                          alt={texts.authorAlt}
-                          className="circle-img"
-                          width={60}
-                          height={60}
-                        />
-                      </div>
-                    </div>
-                    <div className="cont valign">
-                      <div className="full-width">
-                        <h6 className="font-semibold mb-[10px]">{post.author || texts.authorName}</h6>
-                        <p>{post.role || texts.authorRole}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
 
+                {false && (
                 <div className="comments-from mt-[80px] max-[992px]:mb-[80px]">
                   <div className="mb-[60px]">
                     <h3>{texts.leaveComment}</h3>
@@ -268,19 +236,14 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                     </div>
                   </form>
                   <Suspense fallback={<div>Loading comments...</div>}>
-                    <Comments url={post.url} initialComments={initialComments} />
+                    <Comments url={post?.url ?? ''} initialComments={initialComments} />
                   </Suspense>
                 </div>
+                )}
               </div>
-            </div>
-             <div className="lg:col-span-4">
-              <Suspense fallback={<div>Loading sidebar...</div>}>
-                <Sidebar posts={posts} onSearch={handleSearch} onReset={handleReset} initialSearch={searchTerm} />
-              </Suspense>
-            </div>
-          </div>
-        </div>
-      </section>
+           </div>
+         </div>
+       </section>
 
       <div>
         <div className="container section-padding bord-thin-top-light">

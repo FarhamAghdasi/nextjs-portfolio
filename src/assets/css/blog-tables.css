@@ -1,0 +1,30 @@
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+  color: #fff;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+.table-dark {
+  background-color: #181616;
+  color: #fff;
+}
+.table-dark th {
+  border-color: #333;
+  padding: 12px;
+  font-weight: 600;
+}
+.table-bordered {
+  border: 1px solid #333;
+}
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #333;
+  padding: 10px 12px;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+.table-hover tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+}

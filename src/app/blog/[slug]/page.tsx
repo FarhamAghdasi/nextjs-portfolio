@@ -84,7 +84,9 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
   if (!post) notFound();
 
+  // Comment system disabled — comment-fetch logic kept for re-enabling later.
   let initialComments: Comment[] = [];
+  /*
   try {
     const response = await fetch(`https://api.farhamaghdasi.ir/comments?url=${slug}`);
     if (response.ok) {
@@ -93,6 +95,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
   } catch (err) {
     console.error('Error fetching comments server-side:', err);
   }
+  */
 
   return (
     <Suspense fallback={<div>Loading blog post...</div>}>

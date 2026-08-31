@@ -102,45 +102,49 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
     <>
       <header className="section-padding pb-[0px]">
         <div className="container">
-          <div className="caption mb-[80px]">
-            <h1 className="text-[80px] font-semibold max-md:text-[40px]!">{portfolio.title || texts.defaultTitle}</h1>
-            <div className="flex flex-wrap justify-end max-[992px]:justify-start">
-              <div className="w-full lg:w-3/12 mt-[30px]">
-                <p>
-                  {texts.categoryLabel}: <b>{portfolio.category}</b>
-                </p>
-                <p>
-                  {texts.authorLabel}: <b>{portfolio.author}</b>
-                </p>
-              </div>
-              <div className="w-full lg:w-5/12">
-                <div className="text mt-[30px]">
-                  <p>
-                    {portfolio.Shortdescription || texts.defaultShortDescription}{' '}
-                    <br /> You Can See Website With This{' '}
-                    <a href={portfolio.Previewurl}>{texts.viewLinkText}</a>
-                  </p>
+          <div className="caption mb-[40px]">
+            <h1 className="text-[52px] font-semibold max-md:text-[28px]!">{portfolio.title || texts.defaultTitle}</h1>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-[40px] gap-y-[40px]">
+                <div className="lg:col-span-3">
+                  <div className="space-y-[10px]">
+                    <p>
+                      {texts.categoryLabel}: <b>{portfolio.category}</b>
+                    </p>
+                    <p>
+                      {texts.authorLabel}: <b>{portfolio.author}</b>
+                    </p>
+                  </div>
+                </div>
+                <div className="lg:col-span-5">
+                  <div className="text leading-relaxed">
+                    <p>
+                      {portfolio.Shortdescription || texts.defaultShortDescription}{' '}
+                      <br /> You Can See Website With This{' '}
+                      <a href={portfolio.Previewurl}>{texts.viewLinkText}</a>
+                    </p>
+                  </div>
+                </div>
+                <div className="lg:col-span-4">
+                  <div className="list max-md:[&_ul]:p-0">
+                    <ul className="space-y-[12px]">
+                      <li>{portfolio.serviceTitle1 || texts.defaultService}</li>
+                      <li>{portfolio.serviceTitle2 || texts.defaultService}</li>
+                      <li>{portfolio.serviceTitle3 || texts.defaultService}</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-              <div className="w-full lg:w-4/12">
-                <div className="list mt-[30px] max-md:[&_ul]:p-0">
-                  <ul>
-                    <li>{portfolio.serviceTitle1 || texts.defaultService}</li>
-                    <li>{portfolio.serviceTitle2 || texts.defaultService}</li>
-                    <li>{portfolio.serviceTitle3 || texts.defaultService}</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div className="w-full px-4">
-          <div className="fit-img radius-15 scale">
+            <div className="fit-img radius-15 scale max-w-[900px] mx-auto">
             <Image
               src={imagePrimary}
               alt={portfolio.title || 'Portfolio Image'}
               width={1200}
               height={600}
+              style={{ objectFit: 'contain' }}
+              className="hero-img-anim"
               unoptimized
             />
           </div>

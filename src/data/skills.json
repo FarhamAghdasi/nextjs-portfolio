@@ -6,13 +6,22 @@
     "viewSkills": "View My Skills"
   },
   "skills": [
-    { "name": "HTML/CSS", "level": "90%", "image": "/imgs/skills/html.png" },
-    { "name": "JavaScript", "level": "65%", "image": "/imgs/skills/js.png" },
-    { "name": "Bootstrap", "level": "88%", "image": "/imgs/skills/bootstrap.png" },
-    { "name": "React", "level": "75%", "image": "/imgs/skills/s4.png" },
-    { "name": "SEO", "level": "76%", "image": "/imgs/skills/seo.png" },
-    { "name": "Tailwindcss", "level": "90%", "image": "/imgs/skills/tailwindcss.png" },
-    { "name": "Nextjs", "level": "62%", "image": "/imgs/skills/nextjs.png" }
+    { "name": "HTML/CSS", "level": "90%", "image": "/imgs/skills/html.png", "category": "Front-End" },
+    { "name": "JavaScript", "level": "65%", "image": "/imgs/skills/js.png", "category": "Front-End" },
+    { "name": "Bootstrap", "level": "88%", "image": "/imgs/skills/bootstrap.png", "category": "Front-End" },
+    { "name": "React", "level": "75%", "image": "/imgs/skills/s4.png", "category": "Front-End" },
+    { "name": "SEO", "level": "76%", "image": "/imgs/skills/seo.png", "category": "SEO" },
+    { "name": "Tailwindcss", "level": "90%", "image": "/imgs/skills/tailwindcss.png", "category": "Front-End" },
+    { "name": "Nextjs", "level": "62%", "image": "/imgs/skills/nextjs.png", "category": "Front-End" },
+    { "name": "MySQL", "level": "72%", "image": "/imgs/skills/mysql.svg", "category": "Back-End" },
+    { "name": "Laravel", "level": "65%", "image": "/imgs/skills/laravel.svg", "category": "Back-End" },
+    { "name": "Photoshop", "level": "60%", "image": "/imgs/skills/adobephotoshop.svg", "category": "Edit" },
+    { "name": "Filmora", "level": "55%", "image": "/imgs/skills/filmora.svg", "category": "Edit" },
+    { "name": "Premier", "level": "58%", "image": "/imgs/skills/adobepremierepro.svg", "category": "Edit" },
+    { "name": "Docker", "level": "50%", "image": "/imgs/skills/docker.svg", "category": "Back-End" },
+    { "name": "Aplinejs", "level": "45%", "image": "/imgs/skills/alpinejs.svg", "category": "Front-End" },
+    { "name": "Git", "level": "80%", "image": "/imgs/skills/git.svg", "category": "Front-End" },
+    { "name": "TypeScript", "level": "68%", "image": "/imgs/skills/typescript.svg", "category": "Front-End" }
   ],
   "marquee": [
     "React",

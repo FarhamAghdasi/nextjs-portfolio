@@ -11,6 +11,7 @@ const AboutPage: React.FC = () => {
       <ScrollAnimation animationType="fadeInUp" duration={0.5} delay={0.1}>
         <About />
       </ScrollAnimation>
+
       <ScrollAnimation animationType="zoomIn" duration={0.8} delay={0.2}>
         <Skills />
       </ScrollAnimation>

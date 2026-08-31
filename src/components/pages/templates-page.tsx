@@ -1,8 +1,6 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
 const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
 import Link from 'next/link';
@@ -11,17 +9,73 @@ import { Pagination } from '@/components';
 import templateData from '@/data/api/template.json';
 import { Template } from '@/components/types';
 
-gsap.registerPlugin(ScrollTrigger);
+const TemplateActions = ({ template }: { template: Template }) => {
+  const [hoveredSeg, setHoveredSeg] = useState<'buy' | 'view'>('buy');
+
+  return (
+    <div
+      className="relative flex items-stretch rounded-[30px] overflow-hidden border border-white/30 text-sm font-semibold"
+      onMouseLeave={() => setHoveredSeg('buy')}
+    >
+      <span
+        className={`pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-[#d0ff71] transition-transform duration-300 ease-out ${
+          hoveredSeg === 'view' ? 'translate-x-full' : 'translate-x-0'
+        }`}
+      />
+      <a
+        href={template.buyLink || '#'}
+        target="_blank"
+        rel="noopener noreferrer"
+        onMouseEnter={() => setHoveredSeg('buy')}
+        className={`group/btn relative z-[1] flex-1 inline-flex items-center justify-center gap-2 py-2 px-4 transition-colors duration-300 ${
+          hoveredSeg === 'view' ? 'text-white' : 'text-black'
+        }`}
+      >
+        <span>Buy Now</span>
+        <span
+          className={`transition-transform duration-300 group-hover/btn:translate-x-[3px] ${
+            hoveredSeg === 'view' ? '[filter:brightness(0)_invert(1)]' : ''
+          }`}
+        >
+          <Image src={arrowTopRight} alt="Arrow" width={16} height={16} unoptimized />
+        </span>
+      </a>
+      <Link
+        href={`/templates/${template.url}/`}
+        onMouseEnter={() => setHoveredSeg('view')}
+        className={`group/btn relative z-[1] flex-1 inline-flex items-center justify-center border-l border-white/30 py-2 px-4 transition-colors duration-300 ${
+          hoveredSeg === 'view' ? 'text-black' : 'text-white'
+        }`}
+      >
+        <span>View</span>
+      </Link>
+    </div>
+  );
+};
 
 export default function HtmlTemplates() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState('');
+  const [activeCategory, setActiveCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'date' | 'price' | null>(null);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-  const itemsPerPage = 5;
+  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
+  const itemsPerPage = 6;
   const templatesRef = useRef<HTMLDivElement>(null);
 
   const templates = (templateData.templates || []) as Template[];
-  const sortedTemplates = [...templates].sort((a, b) => {
+  const categories = Array.from(
+    new Set(templates.map((t) => t.category).filter((c): c is string => Boolean(c)))
+  );
+
+  const filtered = templates.filter((t) => {
+    const q = search.trim().toLowerCase();
+    const matchSearch = !q || (t.title || '').toLowerCase().includes(q);
+    const matchCat = activeCategory === 'all' || t.category === activeCategory;
+    return matchSearch && matchCat;
+  });
+
+  const sorted = [...filtered].sort((a, b) => {
     if (!sortBy) return 0;
     if (sortBy === 'price') {
       return sortOrder === 'asc'
@@ -37,7 +91,15 @@ export default function HtmlTemplates() {
   });
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedTemplates = sortedTemplates.slice(startIndex, startIndex + itemsPerPage);
+  const paginatedTemplates = sorted.slice(startIndex, startIndex + itemsPerPage);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, activeCategory, sortBy, sortOrder]);
+
+  const handleImageLoad = (url: string) => {
+    setLoadedImages(prev => ({ ...prev, [url]: true }));
+  };
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -46,209 +108,178 @@ export default function HtmlTemplates() {
     }
   };
 
-  useEffect(() => {
-    const cards = gsap.utils.toArray<HTMLElement>('.cards .card-item');
-    if (!cards.length) return;
-
-    const triggers: ScrollTrigger[] = [];
-
-    // Set initial state for cards
-    gsap.set(cards, { opacity: 1, border: '2px solid rgba(255,255,255,0)' });
-
-    const lastCardST = ScrollTrigger.create({
-      trigger: cards[cards.length - 1],
-      start: 'bottom bottom',
-    });
-
-    cards.forEach((card, index) => {
-      const scale = 1 - (cards.length - index - 1) * 0.025; // Adjusted to ensure top card is full scale
-      const isTopCard = index === cards.length - 1; // Last card is topmost
-      const scaleDown = gsap.to(card, {
-        scale: scale,
-        border: isTopCard ? '2px solid rgba(255, 255, 255, 0.9)' : '2px solid rgba(255,255,255,0)',
-        transformOrigin: `50% ${lastCardST.start}`,
-        ease: 'power3.out',
-        duration: 0.8,
-      });
-
-      triggers.push(
-        ScrollTrigger.create({
-          trigger: card,
-          start: 'center center',
-          end: () => lastCardST.start,
-          pin: true,
-          pinSpacing: false,
-          animation: scaleDown,
-          scrub: 1,
-          toggleActions: 'restart none none reverse',
-          onEnter: () => {
-            if (index === cards.length - 1) {
-              gsap.to(card, {
-                border: '2px solid rgba(255, 255, 255, 0.9)',
-                duration: 0.3,
-                ease: 'power3.out',
-              });
-            }
-          },
-          onLeaveBack: () => {
-            if (index === cards.length - 1) {
-              gsap.to(card, {
-                border: '2px solid rgba(255,255,255,0)',
-                duration: 0.3,
-                ease: 'power3.out',
-              });
-            }
-          },
-        })
-      );
-    });
-
-    ScrollTrigger.refresh();
-
-    return () => {
-      triggers.forEach((t) => t.kill());
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      gsap.globalTimeline.clear();
-    };
-  }, [currentPage, paginatedTemplates]);
-
   return (
     <>
       <Inner title="HTML Templates" first="Home" secend="Templates" />
 
       <section className="section-padding pt-[0px]">
         <div className="container">
-          <div ref={templatesRef}>
-            <div className="filters mb-4">
-              <div className="filters mb-4 flex gap-3 flex-wrap justify-center mt-[5px]">
-                <div className="select-wrapper relative">
-                  <select
-                    className="select-custom"
-                    onChange={(e) => setSortBy(e.target.value as 'date' | 'price' | null)}
-                    defaultValue=""
-                    aria-label="Sort by"
-                  >
-                    <option value="">Sort By</option>
-                    <option value="price">Price</option>
-                    <option value="date">Date</option>
-                  </select>
-                  <i className="fa fa-chevron-down select-icon"></i>
-                </div>
-                <div className="select-wrapper relative">
-                  <select
-                    className="select-custom"
-                    onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
-                    defaultValue="asc"
-                    aria-label="Sort order"
-                  >
-                    {sortBy === 'price' ? (
-                      <>
-                        <option value="asc">Price: Low to High ↑</option>
-                        <option value="desc">Price: High to Low ↓</option>
-                      </>
-                    ) : sortBy === 'date' ? (
-                      <>
-                        <option value="asc">Date: Oldest to Newest ↑</option>
-                        <option value="desc">Date: Newest to Oldest ↓</option>
-                      </>
-                    ) : (
-                      <>
-                        <option value="asc">Low to High ↑</option>
-                        <option value="desc">High to Low ↓</option>
-                      </>
-                    )}
-                  </select>
-                  <i className="fa fa-chevron-down select-icon"></i>
-                </div>
+          <div className="flex flex-col-reverse lg:flex-row gap-[40px] items-start">
+            {/* ============ Templates (left) ============ */}
+            <div className="w-full lg:w-9/12" ref={templatesRef}>
+              <div className="flex items-center justify-between mb-[30px]">
+                <p className="text-white/70">
+                  Showing <span className="text-white">{paginatedTemplates.length}</span> of{' '}
+                  <span className="text-white">{filtered.length}</span> templates
+                </p>
               </div>
-              <div className="flex justify-center">
-                <p>Total {templates.length}</p>
-              </div>
-            </div>
-            <div
-              className="cards"
-              style={{ minHeight: '100vh', paddingBottom: '150px', position: 'relative' }}
-              ref={templatesRef}
-            >
+
               {paginatedTemplates.length > 0 ? (
-                paginatedTemplates.map((template, index) => (
-                  <div
-                    className="card-item rounded-[15px] py-[30px] px-10 bg-[#181616] max-md:mb-[30px]"
-                    key={index}
-                    style={{
-                      border: '2px solid rgba(255,255,255,0)',
-                      transition: 'box-shadow 0.3s ease, border-color 0.3s ease',
-                      marginBottom: '30px',
-                      position: 'relative',
-                      zIndex: index + 1,
-                    }}
-                  >
-               <div className="flex flex-col items-start lg:flex-row lg:items-end mt-4">
-                       <div>
-                         <div className="tags [&_a]:text-[#ccc] [&_a]:text-sm [&_a]:pt-[10px] [&_a]:px-5 [&_a]:pb-2 [&_a]:rounded-[30px] [&_a]:border [&_a]:border-white/30 [&_a]:mb-[15px] [&_a]:inline-block">
-                          {template.category ? (
-                            <Link href={`/templates?category=${encodeURIComponent(template.category)}`}>
-                              {template.category}
-                            </Link>
-                          ) : (
-                            <span>No category</span>
-                          )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-[30px]">
+                  {paginatedTemplates.map((template) => (
+                    <div
+                      key={template.url}
+                      className="tem-card group rounded-[15px] overflow-hidden bg-[#181616] border border-white/10 transition-all duration-300 hover:border-white/30 hover:shadow-2xl"
+                    >
+                      <div className="img fit-img relative h-[220px] overflow-hidden">
+                        {!loadedImages[template.url] && (
+                          <div className="absolute inset-0 animate-shimmer" />
+                        )}
+                        <Image
+                          src={template.thumbnail ? template.thumbnail : '/default-image.jpg'}
+                          alt={template.title || 'Template Image'}
+                          width={600}
+                          height={400}
+                          className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-105 ${loadedImages[template.url] ? 'opacity-100' : 'opacity-0'}`}
+                          style={{ objectFit: 'cover' }}
+                          unoptimized
+                          onLoadingComplete={() => handleImageLoad(template.url)}
+                        />
+                      </div>
+                      <div className="p-[25px]">
+                        <div className="flex items-center justify-between mb-[15px]">
+                          <span className="text-[#ccc] text-sm border border-white/30 rounded-[30px] px-5 py-2 inline-block">
+                            {template.category || 'No category'}
+                          </span>
+                          {template.price ? (
+                            <span className="text-[#d0ff71] font-semibold">
+                              {Number(template.price).toLocaleString()} T
+                            </span>
+                          ) : null}
                         </div>
-                        <h3 className="title max-md:mb-[30px]">
+                        <h3 className="title text-[22px] mb-[20px]">
                           <Link href={`/templates/${template.url}/`}>{template.title}</Link>
                         </h3>
+                        <TemplateActions template={template} />
                       </div>
-                     <div className="ml-auto max-md:ml-[0px]! max-md:mt-[5px]">
-                         <a
-                           href={template.buyLink || '#'}
-                           className="mr-3 butn butn-md butn-bord butn-rounded hover-scale"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                         >
-                           <div className="flex items-center">
-                             <span>Buy Now</span>
-                             <span className="icon invert ml-[10px]">
-                               <Image src={arrowTopRight} alt="Arrow Icon" width={16} height={16} unoptimized />
-                             </span>
-                           </div>
-                         </a>
-                         <Link
-                           href={`/templates/${template.url}/`}
-                           className="mr-3 butn butn-md butn-bord butn-rounded hover-scale"
-                         >
-                           <div className="flex items-center">
-                             <span>View Template</span>
-                             <span className="icon invert ml-[10px]">
-                               <Image src={arrowTopRight} alt="Arrow Icon" width={16} height={16} unoptimized />
-                             </span>
-                           </div>
-                         </Link>
-                       </div>
                     </div>
-                    <div className="img fit-img mt-[30px] relative h-[450px] max-md:h-[400px] rounded-[15px] overflow-hidden">
-                      <Image
-                        src={template.thumbnail ? template.thumbnail : '/default-image.jpg'}
-                        alt={template.title || 'Template Image'}
-                        width={800}
-                        height={500}
-                        className="w-full h-full rounded-[15px]"
-                        style={{ objectFit: 'cover' }}
-                        unoptimized
-                      />
-                    </div>
-                  </div>
-                ))
+                  ))}
+                </div>
               ) : (
-                <p className="no-data-message relative w-full z-[999999] text-white">No templates found.</p>
+                <p className="no-data-message text-white">No templates found.</p>
+              )}
+
+              {filtered.length > 0 && (
+                <div className="mt-[40px]">
+                  <Pagination
+                    totalItems={filtered.length}
+                    itemsPerPage={itemsPerPage}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                  />
+                </div>
               )}
             </div>
 
-            <Pagination
-              totalItems={templates.length}
-              itemsPerPage={itemsPerPage}
-              currentPage={currentPage}
-              onPageChange={handlePageChange}
-            />
+            {/* ============ Sidebar (right) ============ */}
+            <aside className="w-full lg:w-3/12">
+              <div className="sidebar-panel rounded-[15px] bg-[#181616] border border-white/10 p-[30px]">
+                <div className="search-box mb-[30px] relative">
+                  <i className="fa fa-search absolute left-3 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search templates..."
+                    aria-label="Search templates"
+                    className="w-full bg-[#0f0f0f] border border-white/10 rounded-[10px] pl-9 pr-9 py-2 text-sm text-white outline-none transition-colors focus:border-[#d0ff71]"
+                  />
+                  {search && (
+                    <button
+                      type="button"
+                      onClick={() => setSearch('')}
+                      aria-label="Clear search"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors"
+                    >
+                      <i className="fa fa-times" />
+                    </button>
+                  )}
+                </div>
+
+                <div className="filter-block mb-[30px]">
+                  <h4 className="sidebar-title mb-[15px]">Categories</h4>
+                  <ul className="flex flex-col gap-2">
+                    <li>
+                      <button
+                        type="button"
+                        onClick={() => setActiveCategory('all')}
+                        className={`text-left transition-colors ${
+                          activeCategory === 'all'
+                            ? 'text-[#d0ff71] font-semibold'
+                            : 'text-white/70 hover:text-white'
+                        }`}
+                      >
+                        All
+                      </button>
+                    </li>
+                    {categories.map((cat) => (
+                      <li key={cat}>
+                        <button
+                          type="button"
+                          onClick={() => setActiveCategory(cat)}
+                          className={`text-left text-sm transition-colors ${
+                            activeCategory === cat
+                              ? 'text-[#d0ff71] font-semibold'
+                              : 'text-white/70 hover:text-white'
+                          }`}
+                        >
+                          {cat}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="filter-block">
+                  <h4 className="sidebar-title mb-[15px]">Sort By</h4>
+                  <ul className="flex flex-col gap-3">
+                    <li>
+                      <label className="flex items-center gap-3 cursor-pointer text-white/70 hover:text-white transition-colors">
+                        <input
+                          type="checkbox"
+                          className="sort-check"
+                          checked={sortBy === 'price'}
+                          onChange={() => setSortBy(sortBy === 'price' ? null : 'price')}
+                        />
+                        <span>Price</span>
+                      </label>
+                    </li>
+                    <li>
+                      <label className="flex items-center gap-3 cursor-pointer text-white/70 hover:text-white transition-colors">
+                        <input
+                          type="checkbox"
+                          className="sort-check"
+                          checked={sortBy === 'date'}
+                          onChange={() => setSortBy(sortBy === 'date' ? null : 'date')}
+                        />
+                        <span>Date</span>
+                      </label>
+                    </li>
+                    <li>
+                      <label className="flex items-center gap-3 cursor-pointer text-white/70 hover:text-white transition-colors">
+                        <input
+                          type="checkbox"
+                          className="sort-check"
+                          checked={sortOrder === 'desc'}
+                          onChange={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}
+                        />
+                        <span>High to Low</span>
+                      </label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </aside>
           </div>
         </div>
       </section>

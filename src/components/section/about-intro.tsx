@@ -21,19 +21,28 @@ export default function AboutIntro() {
               </div>
             </div>
           </div>
-          <div className="w-full lg:w-9/12 lg:ml-[6.25%]">
+          <div className="w-full text-center">
             <div className="text">
               <h3 className={content.class}>
                 <TextSplitter
                   key={pathname}
                   text={content.text}
                   animationType="fadeInUp"
-                  duration={1}
-                  stagger={0.02}
-                  delay={0.3}
+                  duration={0.4}
+                  stagger={0.008}
+                  delay={0.1}
                   split="char"
+                  startEvent="appLoaded"
                 />
               </h3>
+              <a
+                target="_blank"
+                className="link"
+                href="/resume.pdf"
+                rel="noopener noreferrer"
+              >
+                See My Resume
+              </a>
             </div>
           </div>
         </div>

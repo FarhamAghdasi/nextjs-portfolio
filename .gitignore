@@ -39,3 +39,20 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# images
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.webp
+*.avif
+*.bmp
+*.ico
+*.tif
+*.tiff
+
+# project-specific
+/src/assets/old
+/.kilo/plans

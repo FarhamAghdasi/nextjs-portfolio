@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
 interface TextSplitterProps {
@@ -11,6 +11,7 @@ interface TextSplitterProps {
   delay?: number;
   split?: 'char' | 'word';
   className?: string;
+  startEvent?: string;
 }
 
 const TextSplitter: React.FC<TextSplitterProps> = ({
@@ -21,13 +22,13 @@ const TextSplitter: React.FC<TextSplitterProps> = ({
   delay = 0.3,
   split = 'char',
   className = '',
+  startEvent,
 }) => {
   const textRef = useRef<HTMLDivElement>(null);
   const isAnimated = useRef(false);
 
-  useEffect(() => {
+  const runAnimation = useCallback(() => {
     if (isAnimated.current) return;
-
     const spans = textRef.current?.querySelectorAll('span');
     if (!spans || spans.length === 0) {
       console.warn('TextSplitter: No spans found for animation');
@@ -59,14 +60,25 @@ const TextSplitter: React.FC<TextSplitterProps> = ({
       ease: 'power2.out',
       onComplete: () => {
         isAnimated.current = true;
-        console.log('TextSplitter: Animation completed');
       },
     });
+  }, [animationType, duration, stagger, delay]);
 
-    return () => {
-      isAnimated.current = false;
-    };
-  }, [text, animationType, duration, stagger, delay]);
+  useEffect(() => {
+    if (startEvent) {
+      const handler = () => runAnimation();
+      window.addEventListener(startEvent, handler);
+      const fallback = setTimeout(runAnimation, 6000);
+      if ((window as Window & { __appLoaded?: boolean }).__appLoaded) {
+        runAnimation();
+      }
+      return () => {
+        window.removeEventListener(startEvent, handler);
+        clearTimeout(fallback);
+      };
+    }
+    runAnimation();
+  }, [startEvent, runAnimation]);
 
   const parts = split === 'word' ? text.split(' ') : text.split('');
 

@@ -1381,35 +1381,180 @@ body.loaded {
 
 /* ====================== [ Start Services List ] ====================== */
 
+.services-cst .services-list {
+    display: -ms-grid;
+    display: grid;
+    grid-auto-rows: 1fr;
+}
+
+.services-cst .item {
+    position: relative;
+    outline: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-transition: color .4s ease;
+    -o-transition: color .4s ease;
+    transition: color .4s ease;
+}
+
 .services-cst .item:after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0;
+    inset: 0;
     background: var(--main-color);
-    -webkit-transition: all .4s linear;
-    -o-transition: all .4s linear;
-    transition: all .4s linear;
-    z-index: -1;
+    -webkit-transform: scaleY(0);
+    -ms-transform: scaleY(0);
+    transform: scaleY(0);
+    -webkit-transform-origin: bottom;
+    -ms-transform-origin: bottom;
+    transform-origin: bottom;
+    -webkit-transition: -webkit-transform .45s cubic-bezier(.16, 1, .3, 1);
+    transition: transform .45s cubic-bezier(.16, 1, .3, 1);
+    z-index: 0;
 }
 
+.services-cst .item:hover:after,
+.services-cst .item:focus-visible:after,
 .services-cst .item.active:after {
-    height: 100%;
+    -webkit-transform: scaleY(1);
+    -ms-transform: scaleY(1);
+    transform: scaleY(1);
 }
 
+.services-cst .item > * {
+    position: relative;
+    z-index: 1;
+}
+
+.services-cst .item:hover,
+.services-cst .item:focus-visible,
 .services-cst .item.active {
     color: #111;
 }
 
-.services-cst .item.active .icon.invert img {
-    -webkit-filter: invert(0) !important;
-    filter: invert(0) !important;
-}
-
+.services-cst .item:hover p,
+.services-cst .item:focus-visible p,
 .services-cst .item.active p {
     color: #1E1D1E;
 }
 
-/* ====================== [ End Services List ] ====================== */
+.services-cst .item:focus-visible {
+    -webkit-box-shadow: 0 0 0 2px var(--main-color);
+    box-shadow: 0 0 0 2px var(--main-color);
+}
+
+/* ====================== [ Project Accordion ] ====================== */
+
+.proj-accordion .accordion-collapse {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.45s ease, opacity 0.45s ease;
+}
+.proj-accordion .accordion-collapse.open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+}
+.proj-accordion .accordion-collapse > .accordion-body {
+    overflow: hidden;
+}
+
+/* ====================== [ Sidebar (Templates) ] ====================== */
+
+.sidebar-panel {
+    -webkit-transition: border-color .3s ease, box-shadow .3s ease;
+    -o-transition: border-color .3s ease, box-shadow .3s ease;
+    transition: border-color .3s ease, box-shadow .3s ease;
+}
+
+.sidebar-panel:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    -webkit-box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+.sidebar-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.sidebar-title:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 40px;
+    height: 2px;
+    background: var(--main-color);
+}
+
+/* ====================== [ Custom Checkbox ] ====================== */
+
+.sort-check {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 5px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+    -webkit-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+    flex-shrink: 0;
+}
+
+.sort-check:hover {
+    border-color: var(--main-color);
+}
+
+.sort-check:checked {
+    background: var(--main-color);
+    border-color: var(--main-color);
+}
+
+.sort-check:checked:after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #111;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* ====================== [ Hero Image Reveal ] ====================== */
+
+@keyframes heroReveal {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(1.05);
+        transform: scale(1.05);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+.hero-img-anim {
+    -webkit-animation: heroReveal 0.9s cubic-bezier(.16, 1, .3, 1) both;
+    animation: heroReveal 0.9s cubic-bezier(.16, 1, .3, 1) both;
+}

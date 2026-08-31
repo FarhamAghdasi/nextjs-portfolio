@@ -15,7 +15,6 @@ export { default as Faq } from './section/faq-section';
 export { default as Portfolio } from './section/portfolio-section';
 export { default as Posts } from './section/posts-section';
 export { default as ServiceLine } from './section/service-line';
-export { default as Service } from './section/service-section';
 export { default as Skills } from './section/skills-section';
 export { default as AccordionSection } from './section/accordion-section';
 export { default as Contact } from './section/contact-section';
