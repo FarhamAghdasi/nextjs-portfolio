@@ -139,7 +139,7 @@ img.left {
 }
 
 .error-page a {
-    color: var(--main-color) !important;
+    color: #fff !important;
     cursor: pointer;
 }
 
@@ -288,7 +288,7 @@ img.left {
 }
 
 .services-personal .item h2:hover {
-    color: var(--main-color);
+    color: #fff;
 
 }
 

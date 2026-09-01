@@ -18,6 +18,10 @@
       {
         "href": "https://github.com/FarhamAghdasi/",
         "icon": "fa-brands fa-github"
+      },
+      {
+        "href": "https://www.linkedin.com/in/farham-aghdasi/",
+        "icon": "fa-brands fa-linkedin-in"
       }
     ],
     "description": "I am always seeking to learn and improve my skills, and I plan to study advanced technologies like mongoDB, Node.js soon. With attention to detail, I have successfully completed small projects, using them as a foundation for further growth."

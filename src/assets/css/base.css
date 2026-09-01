@@ -92,12 +92,13 @@ body {
 }
 
 a.link {
-    color: var(--main-color);
+    color: #fff;
     transition: ease .3s all;
 }
 
 a.link:hover {
     color: #fff;
+    text-shadow: 0 0 8px rgba(255,255,255,0.7);
 }
 
 

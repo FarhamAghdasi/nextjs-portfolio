@@ -85,7 +85,26 @@ a {
 
 a:hover {
     text-decoration: none;
-    color: var(--main-color);
+    color: #fff;
+}
+
+a:not(.butn):not(.btn):not(.nav-link):not(.link):not(.alink):not(.sub-link):not(.hover-this):not([class*="butn"]) {
+    background-image: linear-gradient(#fff, #fff);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: background-size 0.3s ease;
+}
+
+a:not(.butn):not(.btn):not(.nav-link):not(.link):not(.alink):not(.sub-link):not(.hover-this):not([class*="butn"]):hover {
+    background-size: 100% 1px;
+}
+
+.post-title-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    background-image: none !important;
+    background-size: 0 !important;
 }
 
 .sub-bg {
@@ -93,7 +112,7 @@ a:hover {
 }
 
 .main-color {
-    color: var(--main-color);
+    color: #fff;
 }
 
 .sub-head {
@@ -156,7 +175,7 @@ a:hover {
 }
 
 .gray-box .butn.butn-bord:hover {
-    background: var(--main-color);
+    background: #fff;
     color: #212121;
 }
 
@@ -173,7 +192,7 @@ a:hover {
 }
 
 .crv-butn span {
-    background: var(--main-color);
+    background: #fff;
     color: #0e0f11;
 }
 
@@ -190,7 +209,7 @@ a:hover {
     content: '';
     width: 30px;
     height: 30px;
-    background: var(--main-color);
+    background: #fff;
     position: absolute;
     top: 5px;
     right: -15px;

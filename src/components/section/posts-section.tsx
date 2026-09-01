@@ -147,7 +147,7 @@ const Blog: React.FC = () => {
                   {/* Post Content */}
                   <div className="cont mt-[30px]">
                     <h5>
-                      <Link href={`/blog/${post.url}/`}>{post.title}</Link>
+                      <Link href={`/blog/${post.url}/`} className="post-title-link">{post.title}</Link>
                     </h5>
                     <span className="main-color">{post.category || fallbackPost.category}</span>
                     <p>{post.short_description || fallbackPost.short_description}</p>

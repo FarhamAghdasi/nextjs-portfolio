@@ -18,7 +18,7 @@ const TemplateActions = ({ template }: { template: Template }) => {
       onMouseLeave={() => setHoveredSeg('buy')}
     >
       <span
-        className={`pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-[#d0ff71] transition-transform duration-300 ease-out ${
+        className={`pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-white transition-transform duration-300 ease-out ${
           hoveredSeg === 'view' ? 'translate-x-full' : 'translate-x-0'
         }`}
       />
@@ -152,7 +152,7 @@ export default function HtmlTemplates() {
                             {template.category || 'No category'}
                           </span>
                           {template.price ? (
-                            <span className="text-[#d0ff71] font-semibold">
+                            <span className="text-white font-semibold">
                               {Number(template.price).toLocaleString()} T
                             </span>
                           ) : null}
@@ -192,7 +192,7 @@ export default function HtmlTemplates() {
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search templates..."
                     aria-label="Search templates"
-                    className="w-full bg-[#0f0f0f] border border-white/10 rounded-[10px] pl-9 pr-9 py-2 text-sm text-white outline-none transition-colors focus:border-[#d0ff71]"
+                    className="w-full bg-[#0f0f0f] border border-white/10 rounded-[10px] pl-9 pr-9 py-2 text-sm text-white outline-none transition-colors focus:border-white"
                   />
                   {search && (
                     <button
@@ -215,7 +215,7 @@ export default function HtmlTemplates() {
                         onClick={() => setActiveCategory('all')}
                         className={`text-left transition-colors ${
                           activeCategory === 'all'
-                            ? 'text-[#d0ff71] font-semibold'
+                            ? 'text-white font-semibold'
                             : 'text-white/70 hover:text-white'
                         }`}
                       >
@@ -229,7 +229,7 @@ export default function HtmlTemplates() {
                           onClick={() => setActiveCategory(cat)}
                           className={`text-left text-sm transition-colors ${
                             activeCategory === cat
-                              ? 'text-[#d0ff71] font-semibold'
+                              ? 'text-white font-semibold'
                               : 'text-white/70 hover:text-white'
                           }`}
                         >

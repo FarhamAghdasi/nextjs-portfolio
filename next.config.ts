@@ -3,6 +3,7 @@ const nextConfig = {
   output: 'export',
   reactStrictMode: true,
   trailingSlash: true,
+  allowedDevOrigins: ['127.0.0.1', 'localhost'],
 
   images: {
     domains: ['farhamaghdasi.ir'],

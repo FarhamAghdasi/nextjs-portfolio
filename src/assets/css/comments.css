@@ -28,7 +28,7 @@
 }
 
 .comments-post .item-box .replay-butn a:hover {
-    background: var(--main-color);
+    background: #fff;
     color: #1d1d1d;
 }
 
@@ -80,7 +80,7 @@
 
 .comments-from button:hover {
     color: #1d1d1d;
-    background: var(--main-color);
+    background: #fff;
 }
 
 

@@ -42,7 +42,7 @@ export default function Pagination({
           aria-label={`Page ${i}`}
           className={`w-8 h-8 inline-flex items-center justify-center rounded-full text-sm transition-colors ${
             i === currentPage
-              ? 'bg-[#d0ff71] text-black font-semibold'
+              ? 'bg-white text-black font-semibold'
               : 'text-white/70 hover:text-white'
           }`}
         >
