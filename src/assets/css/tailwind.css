@@ -127,6 +127,39 @@
     background-size: 200% 100%;
   }
 
+  @keyframes border-loop {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+  }
+
+  .post-card-border-loop {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .post-card-border-loop::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(90deg, transparent, transparent 30%, rgba(255,255,255,0.45) 50%, transparent 70%, transparent);
+    background-size: 200% 100%;
+    animation: border-loop 2.8s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(0.4px);
+  }
+
+  .post-card-border-loop:hover::before {
+    opacity: 1;
+  }
+
   .crv-butn .icon {
     display: inline-flex;
     align-items: center;

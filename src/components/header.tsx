@@ -75,6 +75,7 @@ const Header = () => {
     }, []);
 
     useEffect(() => {
+        let ticking = false;
         const updateProgress = () => {
             const scroll = window.scrollY;
             const height = document.documentElement.scrollHeight - window.innerHeight;
@@ -83,11 +84,19 @@ const Header = () => {
                 setStrokeDashoffset(pathLength - (scroll * pathLength) / height);
                 setIsProgressActive(scroll > 150);
             }
+            ticking = false;
         };
 
-        window.addEventListener('scroll', updateProgress);
+        const onScroll = () => {
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(updateProgress);
+            }
+        };
+
+        window.addEventListener('scroll', onScroll, { passive: true });
         updateProgress();
-        return () => window.removeEventListener('scroll', updateProgress);
+        return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
     useEffect(() => {
@@ -236,7 +245,6 @@ const Header = () => {
                     <path
                         d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"
                         style={{
-                            transition: 'stroke-dashoffset 10ms linear',
                             strokeDasharray: '307.919, 307.919',
                             strokeDashoffset,
                         }}

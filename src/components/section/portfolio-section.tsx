@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useEffect, useState, useMemo } from 'react';
+import React, { useRef, useEffect, useLayoutEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import portfoliosData from '@/data/api/portfolio.json';
@@ -75,6 +75,7 @@ const Work: React.FC = () => {
   const gridRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeFilter, setActiveFilter] = useState<string>('all');
+  const isInitialMount = useRef(true);
 
   const items: UnifiedItem[] = useMemo(() => {
     const list: UnifiedItem[] = [];
@@ -140,80 +141,49 @@ const Work: React.FC = () => {
     cardRefs.current = cardRefs.current.slice(0, visible.length);
   }, [visible.length]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const grid = gridRef.current;
     if (!grid) return;
 
     const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[];
-    const previous = grid.querySelectorAll('article');
 
     const ctx = gsap.context(() => {
-      gsap.to(previous, {
-        opacity: 0,
-        y: -16,
-        duration: 0.25,
-        ease: 'power2.in',
-        stagger: 0.04,
-        onComplete: () => {
-          gsap.set(previous, { clearProps: 'all' });
-        },
-      });
+      gsap.killTweensOf(cards);
 
-      cards.forEach((el, i) => {
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: 28 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.55,
-            ease: 'power3.out',
-            delay: 0.2 + i * 0.06,
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 88%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
-      });
-
-      ScrollTrigger.refresh();
-    }, grid);
-
-    return () => ctx.revert();
-  }, [activeFilter]);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[];
-
-    const triggers: ScrollTrigger[] = [];
-    cards.forEach((el, index) => {
-      const t = gsap.fromTo(
-        el,
-        { opacity: 0, y: 40 },
-        {
+      if (isInitialMount.current) {
+        isInitialMount.current = false;
+        cards.forEach((el, index) => {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              ease: 'power2.out',
+              delay: (index % 2) * 0.1,
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 88%',
+                toggleActions: 'play none none none',
+              },
+            }
+          );
+        });
+      } else {
+        gsap.set(cards, { opacity: 0, y: 30 });
+        gsap.to(cards, {
           opacity: 1,
           y: 0,
-          duration: 0.7,
-          ease: 'power2.out',
-          delay: (index % 2) * 0.1,
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 88%',
-            toggleActions: 'play none none none',
-          },
-        }
-      );
-      const st = (t as unknown as { scrollTrigger?: ScrollTrigger }).scrollTrigger;
-      if (st) triggers.push(st);
-    });
+          duration: 0.6,
+          ease: 'power3.out',
+          stagger: 0.08,
+        });
+      }
+    }, grid);
+
     ScrollTrigger.refresh();
-    return () => {
-      triggers.forEach((t) => t.kill());
-      gsap.killTweensOf(cards);
-    };
+    return () => ctx.revert();
   }, [activeFilter]);
 
   const filters: { key: string; label: string }[] = [

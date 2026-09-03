@@ -126,33 +126,43 @@ const Blog: React.FC = () => {
                   postItemsRef.current[index] = el;
                 }}
               >
-                <div className="item">
-                  {/* Post Thumbnail */}
-                  <div className="img fit-img" style={{ position: 'relative', width: '100%', height: '350px' }}>
-                    <Image
-                      src={getThumbnail(post.thumbnail)}
-                      alt={post.title}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      priority={index < 3} // Load first 3 images with priority
-                      unoptimized // Bypass Next.js image optimization (if using external or non-optimized images)
-                    />
-                    {/* Link overlay on image */}
-                    <Link href={`/blog/${post.url}/`} className="butn">
-                      <span className="icon">
-                        <Image src={ArrowRightTop} alt="arrow" width={16} height={16} unoptimized />
-                      </span>
-                    </Link>
+                  <div className="item group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.01] backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 post-card-border-loop">
+                    {/* Post Thumbnail */}
+                    <div className="relative aspect-[4/3] shrink-0 overflow-hidden md:aspect-auto md:h-[300px]">
+                      <Image
+                        src={getThumbnail(post.thumbnail)}
+                        alt={post.title}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        priority={index < 3}
+                        unoptimized
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                      <div className="absolute left-3 top-3 z-10">
+                        <span className="rounded-md border border-white/20 bg-black/40 px-2.5 py-1 text-xs font-medium text-white/80 backdrop-blur-md">
+                          {post.category || fallbackPost.category}
+                        </span>
+                      </div>
+                    </div>
+                    {/* Post Content */}
+                    <div className="flex flex-1 flex-col p-6">
+                      <h5 className="mb-2">
+                        <Link href={`/blog/${post.url}/`} className="post-title-link text-xl font-bold leading-tight text-white transition-colors hover:text-white">
+                          {post.title}
+                        </Link>
+                      </h5>
+                      <span className="main-color mb-3 text-sm text-white/70">{post.category || fallbackPost.category}</span>
+                      <p className="line-clamp-3 text-sm leading-relaxed text-white/55">{post.short_description || fallbackPost.short_description}</p>
+                      <div className="mt-auto pt-4">
+                        <Link href={`/blog/${post.url}/`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition-all hover:gap-2.5">
+                          <span>Read More</span>
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                            <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                  {/* Post Content */}
-                  <div className="cont mt-[30px]">
-                    <h5>
-                      <Link href={`/blog/${post.url}/`} className="post-title-link">{post.title}</Link>
-                    </h5>
-                    <span className="main-color">{post.category || fallbackPost.category}</span>
-                    <p>{post.short_description || fallbackPost.short_description}</p>
-                  </div>
-                </div>
               </div>
             ))
           ) : (
