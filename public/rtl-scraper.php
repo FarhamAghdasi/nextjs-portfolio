@@ -4,6 +4,11 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
+// Enable error logging
+error_reporting(E_ALL);
+ini_set('log_errors', 1);
+ini_set('error_log', 'scraper-debug.log');
+
 // Handle preflight OPTIONS request
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
@@ -29,6 +34,7 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 curl_setopt($ch, CURLOPT_USERAGENT, $userAgent);
 curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+curl_setopt($ch, CURLOPT_ENCODING, ''); // Handle gzip/deflate/br encoding
 
 // Set headers to mimic normal browser request
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -49,8 +55,15 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, [
 $response = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $error = curl_error($ch);
+$contentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 
 curl_close($ch);
+
+// LOG: Basic request info
+error_log("=== SCRAPER DEBUG LOG ===");
+error_log("HTTP Status Code: " . $httpCode);
+error_log("Content Type: " . $contentType);
+error_log("cURL Error: " . ($error ?: 'None'));
 
 if ($error || $httpCode !== 200) {
     http_response_code(500);
@@ -66,6 +79,7 @@ if ($error || $httpCode !== 200) {
 // Check if response is empty
 if (empty($response)) {
     http_response_code(500);
+    error_log("ERROR: Response is empty");
     echo json_encode([
         'error' => 'Empty response',
         'products_count' => 0,
@@ -74,83 +88,134 @@ if (empty($response)) {
     exit();
 }
 
-// Use DOMDocument for parsing (more robust than regex)
-$dom = new DOMDocument();
-libxml_use_internal_errors(true); // Suppress HTML parsing warnings
-$dom->loadHTML($response);
-libxml_clear_errors();
+// LOG: Response size
+error_log("Response size: " . strlen($response) . " bytes");
 
-// Create XPath for querying
-$xpath = new DOMXPath($dom);
-
-// Look for the specific div structure
-$items = $xpath->query('//div[contains(@class, "product-information__items")]//div[contains(@class, "product-information__items-item")]');
+// Check if the response contains the expected content
+if (strpos($response, 'product-information__items') === false) {
+    error_log("WARNING: 'product-information__items' not found in response");
+} else {
+    error_log("SUCCESS: 'product-information__items' found in response");
+}
 
 $productsCount = 0;
 $salesCount = 0;
 
-foreach ($items as $item) {
-    $textContent = trim($item->textContent);
+// METHOD 1: Extract the product-information__items div
+error_log("=== METHOD 1: Extracting product-information__items div ===");
+if (preg_match('/<div[^>]*class="[^"]*product-information__items[^"]*"[^>]*>(.*?)<\/div>\s*<\/div>\s*<\/div>/isu', $response, $sectionMatch)) {
+    $section = $sectionMatch[1];
+    error_log("Found product-information__items section, length: " . strlen($section) . " bytes");
+    error_log("Section content: " . substr($section, 0, 500) . "...");
     
-    // Check for "تعداد محصولات" pattern
-    if (preg_match('/تعداد\s+محصولات\s*:\s*(\d+)/iu', $textContent, $matches)) {
+    // Extract products count
+    if (preg_match('/تعداد\s*محصولات\s*:\s*<span[^>]*>\s*(\d+)\s*<\/span>/iu', $section, $matches)) {
         $productsCount = (int) $matches[1];
+        error_log("PRODUCTS COUNT found via METHOD 1: " . $productsCount);
+    } else {
+        error_log("METHOD 1: Products count pattern not found in section");
     }
     
-    // Check for "تعداد فروش" pattern
-    if (preg_match('/تعداد\s+فروش\s*:\s*(\d+)/iu', $textContent, $matches)) {
+    // Extract sales count
+    if (preg_match('/تعداد\s*فروش\s*:\s*<span[^>]*>\s*(\d+)\s*<\/span>/iu', $section, $matches)) {
         $salesCount = (int) $matches[1];
+        error_log("SALES COUNT found via METHOD 1: " . $salesCount);
+    } else {
+        error_log("METHOD 1: Sales count pattern not found in section");
+    }
+} else {
+    error_log("METHOD 1: product-information__items div not found");
+}
+
+// METHOD 2: Look for product-information__items-item divs
+error_log("=== METHOD 2: Looking for product-information__items-item divs ===");
+if (preg_match_all('/<div[^>]*class="[^"]*product-information__items-item[^"]*"[^>]*>(.*?)<\/div>/isu', $response, $items)) {
+    error_log("Found " . count($items[1]) . " product-information__items-item divs");
+    
+    foreach ($items[1] as $index => $item) {
+        error_log("Item " . ($index + 1) . ": " . substr($item, 0, 200) . "...");
+        
+        // Check for products count
+        if (preg_match('/تعداد\s*محصولات\s*:\s*<span[^>]*>\s*(\d+)\s*<\/span>/iu', $item, $matches)) {
+            $productsCount = (int) $matches[1];
+            error_log("PRODUCTS COUNT found via METHOD 2 (item " . ($index + 1) . "): " . $productsCount);
+        }
+        
+        // Check for sales count
+        if (preg_match('/تعداد\s*فروش\s*:\s*<span[^>]*>\s*(\d+)\s*<\/span>/iu', $item, $matches)) {
+            $salesCount = (int) $matches[1];
+            error_log("SALES COUNT found via METHOD 2 (item " . ($index + 1) . "): " . $salesCount);
+        }
+    }
+} else {
+    error_log("METHOD 2: No product-information__items-item divs found");
+}
+
+// METHOD 3: Simpler regex on the entire HTML
+error_log("=== METHOD 3: Simple regex on entire HTML ===");
+
+// Try a simpler pattern for products count
+if ($productsCount === 0) {
+    if (preg_match('/تعداد\s*محصولات\s*:\s*<span[^>]*>\s*(\d+)\s*<\/span>/iu', $response, $matches)) {
+        $productsCount = (int) $matches[1];
+        error_log("PRODUCTS COUNT found via METHOD 3 (simple): " . $productsCount);
+    } else {
+        error_log("METHOD 3: Products count not found with simple pattern");
+        
+        // Try without the span
+        if (preg_match('/تعداد\s*محصولات\s*:\s*(\d+)/iu', $response, $matches)) {
+            $productsCount = (int) $matches[1];
+            error_log("PRODUCTS COUNT found via METHOD 3 (no span): " . $productsCount);
+        }
     }
 }
 
-// If no data found with XPath, fallback to regex on the full HTML
-if ($productsCount === 0 || $salesCount === 0) {
-    // Pattern for products count
-    if (preg_match('/product-information__items[^>]*>.*?تعداد\s+محصولات\s*:\s*<[^>]*>\s*(\d+)\s*<[^>]*>/isu', $response, $matches)) {
-        $productsCount = (int) $matches[1];
-    }
-    
-    // Pattern for sales count
-    if (preg_match('/product-information__items[^>]*>.*?تعداد\s+فروش\s*:\s*<[^>]*>\s*(\d+)\s*<[^>]*>/isu', $response, $matches)) {
+// Try a simpler pattern for sales count
+if ($salesCount === 0) {
+    if (preg_match('/تعداد\s*فروش\s*:\s*<span[^>]*>\s*(\d+)\s*<\/span>/iu', $response, $matches)) {
         $salesCount = (int) $matches[1];
+        error_log("SALES COUNT found via METHOD 3 (simple): " . $salesCount);
+    } else {
+        error_log("METHOD 3: Sales count not found with simple pattern");
+        
+        // Try without the span
+        if (preg_match('/تعداد\s*فروش\s*:\s*(\d+)/iu', $response, $matches)) {
+            $salesCount = (int) $matches[1];
+            error_log("SALES COUNT found via METHOD 3 (no span): " . $salesCount);
+        }
     }
 }
 
-// Fallback: if still no data, use default values
-if ($productsCount === 0) $productsCount = 57;
-if ($salesCount === 0) $salesCount = 629;
+// METHOD 4: Check for the specific HTML structure from your source
+error_log("=== METHOD 4: Looking for exact HTML structure ===");
+if (preg_match('/<div[^>]*class="product-information__items"[^>]*>\s*<div[^>]*class="product-information__items-item"[^>]*>\s*تعداد\s*محصولات:\s*<span[^>]*>(\d+)<\/span>\s*<\/div>\s*<div[^>]*class="product-information__items-item"[^>]*>\s*تعداد\s*فروش:\s*<span[^>]*>(\d+)<\/span>\s*<\/div>\s*<\/div>/isu', $response, $matches)) {
+    $productsCount = (int) $matches[1];
+    $salesCount = (int) $matches[2];
+    error_log("PRODUCTS COUNT found via METHOD 4 (exact structure): " . $productsCount);
+    error_log("SALES COUNT found via METHOD 4 (exact structure): " . $salesCount);
+} else {
+    error_log("METHOD 4: Exact HTML structure not found");
+}
 
-// Build the numbers array with Persian labels
-$numbers = [
-    [
-        'count' => $productsCount . '+',
-        'label' => 'HTML Templates',
-        'link' => 'https://www.rtl-theme.com/author/farhamaghdasi/'
-    ],
-    [
-        'count' => '500+',
-        'label' => 'ساعات با ☕'
-    ],
-    [
-        'count' => '+2',
-        'label' => 'Website Created'
-    ],
-    [
-        'count' => $salesCount . '+',
-        'label' => 'تعداد فروش'
-    ]
-];
+// Final fallback values
+if ($productsCount === 0) {
+    error_log("WARNING: Products count is 0, using fallback");
+}
+if ($salesCount === 0) {
+    error_log("WARNING: Sales count is 0, using fallback");
+}
 
-$responseData = [
-    'success' => true,
-    'timestamp' => date('Y-m-d H:i:s'),
-    'raw_data' => [
-        'products_count' => $productsCount,
-        'sales_count' => $salesCount
-    ],
-    'numbers' => $numbers,
-    'url' => $url
-];
+// Save the response to a file for debugging (optional)
+// file_put_contents('/home/bwwsexql/domains/api.farhamaghdasi.ir/last-response.html', $response);
 
-echo json_encode($responseData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+error_log("=== FINAL RESULTS ===");
+error_log("Products Count: " . $productsCount);
+error_log("Sales Count: " . $salesCount);
+error_log("=== END DEBUG LOG ===");
+
+// Return only the requested data
+echo json_encode([
+    'products_count' => $productsCount,
+    'sales_count' => $salesCount
+], JSON_UNESCAPED_UNICODE);
 ?>

@@ -3,6 +3,10 @@ import { HomePage } from '@/components';
 import { defaultMetadata } from '@/components/addon/seo';
 import Head from 'next/head';
 
+export const viewport = {
+  themeColor: '#1a73e8',
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageTitle = 'Farham Aghdasi | Full-Stack Developer';
   const pageDescription = 'Welcome to my personal website. I am Farham Aghdasi, a programmer specializing in web development and software solutions.';
@@ -18,7 +22,6 @@ export async function generateMetadata(): Promise<Metadata> {
     description: pageDescription,
     keywords: ['Farham Aghdasi', 'Full-Stack Developer', 'Web Development', 'Software Solutions', 'Programmer', 'React', 'Next.js'],
     robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
-    themeColor: '#1a73e8',
     openGraph: {
       ...defaultMetadata.openGraph,
       title: pageTitle,

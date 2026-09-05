@@ -171,31 +171,27 @@ const Skills: React.FC = () => {
         });
         if (!response.ok) throw new Error(`Failed to fetch numbers: ${response.status}`);
         const data = await response.json();
-        if (data.success) {
-          const updatedNumbers: NumberItem[] = [
-            {
-              count: `${data.raw_data.products_count}`,
-              label: 'HTML Templates',
-              link: 'https://www.rtl-theme.com/author/farhamaghdasi/',
-            },
-            {
-              count: '500+',
-              label: 'Hours With ☕',
-            },
-            {
-              count: '+2',
-              label: 'Website Created',
-            },
-            {
-              count: `${data.raw_data.sales_count}+`,
-              label: 'Total Sell',
-            },
-          ];
-          setNumbers(updatedNumbers);
-          sessionStorage.setItem(CACHE_KEY, JSON.stringify(updatedNumbers));
-        } else {
-          console.error('API error:', data.message);
-        }
+        const updatedNumbers: NumberItem[] = [
+          {
+            count: `${data.products_count}`,
+            label: 'HTML Templates',
+            link: 'https://www.rtl-theme.com/author/farhamaghdasi/',
+          },
+          {
+            count: '500+',
+            label: 'Hours With ☕',
+          },
+          {
+            count: '+2',
+            label: 'Website Created',
+          },
+          {
+            count: `${data.sales_count}+`,
+            label: 'Total Sell',
+          },
+        ];
+        setNumbers(updatedNumbers);
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify(updatedNumbers));
       } catch (error) {
         console.error('Error fetching numbers:', error);
       }
