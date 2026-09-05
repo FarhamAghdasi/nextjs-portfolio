@@ -1297,6 +1297,34 @@ body.loaded {
     opacity: .6;
 }
 
+.social-card-telegram:hover {
+    background-color: #0088cc !important;
+    border-color: #0088cc !important;
+    color: #fff !important;
+    box-shadow: 0 0 20px -6px rgba(0, 136, 204, 0.5);
+}
+
+.social-card-github:hover {
+    background-color: #24292e !important;
+    border-color: #24292e !important;
+    color: #fff !important;
+    box-shadow: 0 0 20px -6px rgba(36, 41, 46, 0.5);
+}
+
+.social-card-linkedin:hover {
+    background-color: #0077b5 !important;
+    border-color: #0077b5 !important;
+    color: #fff !important;
+    box-shadow: 0 0 20px -6px rgba(0, 119, 181, 0.5);
+}
+
+.social-card-instagram:hover {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    box-shadow: 0 0 20px -6px rgba(220, 39, 67, 0.5);
+}
+
 [data-overlay-dark="7"]:before,
 [data-overlay-light="7"]:before {
     opacity: .7;

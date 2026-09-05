@@ -1,8 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import Image from 'next/image';
 import data from '@/data/contactus-page.json';
-const ArrowRightTop = '/assets/imgs/icons/arrow-top-right.svg'
 
 const ContactPageContent = () => {
   const { contact, texts } = data;
@@ -68,28 +66,26 @@ const ContactPageContent = () => {
                 <div className="phone text-[30px] font-semibold mt-[30px] main-color transition-all duration-500 ease-in-out hover:my-6">
                   <a href={`tel:${contact.phone}`} className="transition-all duration-300 hover:text-white">{contact.phone}</a>
                 </div>
-                <ul className="rest social-text flex mt-[60px] text-[16px]">
-                  <li className="mr-[30px]">
-                    <a href={contact.social.telegram} target='_blank' rel="noreferrer" className="hover-this">
-                      <span className="hover-anim">Telegram</span>
+                <div className="flex flex-wrap gap-3 mt-[60px]">
+                  {[
+                    { href: contact.social.telegram, label: 'Telegram', icon: 'fa-brands fa-telegram', cardClass: 'social-card-telegram' },
+                    { href: contact.social.github, label: 'GitHub', icon: 'fa-brands fa-github', cardClass: 'social-card-github' },
+                    { href: contact.social.linkedin, label: 'LinkedIn', icon: 'fa-brands fa-linkedin-in', cardClass: 'social-card-linkedin' },
+                    { href: contact.social.instagram, label: 'Instagram', icon: 'fa-brands fa-instagram', cardClass: 'social-card-instagram' },
+                  ].map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={item.label}
+                      className={`inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm font-medium text-white/70 transition-all duration-300 ${item.cardClass}`}
+                    >
+                      <i className={item.icon} />
+                      <span>{item.label}</span>
                     </a>
-                  </li>
-                  <li className="mr-[30px]">
-                    <a href={contact.social.github} target='_blank' rel="noreferrer" className="hover-this">
-                      <span className="hover-anim">Github</span>
-                    </a>
-                  </li>
-                  <li className="mr-[30px]">
-                    <a href={contact.social.linkedin} target='_blank' rel="noreferrer" className="hover-this">
-                      <span className="hover-anim">LinkedIn</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href={contact.social.instagram} target='_blank' rel="noreferrer" className="hover-this">
-                      <span className="hover-anim">Instagram</span>
-                    </a>
-                  </li>
-                </ul>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -158,20 +154,25 @@ const ContactPageContent = () => {
                     <div className="mt-[30px]">
                       <button
                         type="submit"
-                        className="butn butn-md butn-bord butn-rounded hover:text-white hover:shadow-[0_4px_20px_rgba(255,255,255,0.5)] hover:bg-black [&:hover_.icon_img]:[filter:brightness(0)_invert(1)]"
+                        className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black shadow-[0_0_35px_-6px_rgba(255,255,255,0.7)] transition-all duration-300 hover:bg-gray-200 hover:shadow-[0_0_45px_-6px_rgba(255,255,255,0.9)]"
                       >
-                        <div className="flex items-center">
-                          <span>{texts.submitButton}</span>
-                          <span className="icon ml-[10px]">
-                            <Image
-                              src={ArrowRightTop}
-                              alt="Arrow top right"
-                              width={24}
-                              height={24}
-                              unoptimized
-                            />
-                          </span>
-                        </div>
+                        <span>{texts.submitButton}</span>
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 14 14"
+                          fill="none"
+                          aria-hidden="true"
+                          className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        >
+                          <path
+                            d="M3 11L11 3M11 3H5M11 3V9"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
                       </button>
                     </div>
                   </div>
