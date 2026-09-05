@@ -9,6 +9,7 @@ import skillsData from '@/data/skills.json';
 import progressSkillsData from '@/data/progressSkills.json';
 import servicesData from '@/data/service-section.json';
 import { Skill, NumberItem, ExperienceItem, ServiceTitle } from '../types';
+import { TextSplitter } from '@/components';
 
 const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
 const arrowLeft = '/assets/imgs/icons/chevron-left.svg';
@@ -339,14 +340,23 @@ const Skills: React.FC = () => {
             <div className="flex flex-wrap mt-[30px] mb-[30px]">
               <div className="w-full lg:w-7/12 lg:ml-[25%]">
                 <div>
-                  <h2 className="text-indent">
-                    {header.title.split('\n').map((line, i) => (
-                      <React.Fragment key={i}>
-                        {line}
-                        <br />
-                      </React.Fragment>
-                    ))}
-                  </h2>
+                   <h2 className="text-indent">
+                     {header.title.split('\n').map((line, i) => (
+                       <React.Fragment key={i}>
+                         <TextSplitter
+                           text={line}
+                           animationType="fadeInUp"
+                           duration={0.4}
+                           stagger={0.02}
+                           delay={0.1}
+                           split="char"
+                           scrollTrigger
+                           triggerStart="top 85%"
+                         />
+                         <br />
+                       </React.Fragment>
+                     ))}
+                   </h2>
                   <Link href="/about" className="butn-under mt-[15px]">
                     {header.viewSkills}{' '}
                     <span className="icon">

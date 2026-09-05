@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import footerData from '@/data/footer.json';
+import { TextSplitter } from '@/components';
 
 const Footer: React.FC = () => {
   const subtitleRef = useRef<HTMLHeadingElement>(null);
@@ -82,7 +83,16 @@ const Footer: React.FC = () => {
         <div className="top-content text-center">
           <h2 className="whitespace-nowrap">
             <Link href="/contact/" className="transition-all duration-500 ease-in-out hover:my-6">
-              {footerData.cta}
+              <TextSplitter
+                text={footerData.cta}
+                animationType="fadeInUp"
+                duration={0.4}
+                stagger={0.02}
+                delay={0.1}
+                split="char"
+                scrollTrigger
+                triggerStart="top 85%"
+              />
             </Link>
           </h2>
           <h6

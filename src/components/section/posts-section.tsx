@@ -11,6 +11,7 @@ import postsData from '@/data/api/posts.json'; // Import blog posts data
 import postConfig from '@/data/posts-section.json'; // Import section configuration (styles, text, etc.)
 const ArrowRightTop = '/assets/imgs/icons/arrow-top-right.svg'; // Arrow icon for links
 import type { PostsData, PostConfig, Post } from '@/components/types'; // TypeScript type definitions
+import { TextSplitter } from '@/components';
 
 // Register the ScrollTrigger plugin with GSAP
 gsap.registerPlugin(ScrollTrigger);
@@ -94,14 +95,21 @@ const Blog: React.FC = () => {
           </div>
           <div className="flex flex-wrap mt-[30px]">
             <div className="w-full lg:w-7/12 lg:ml-[25%]">
-              <div>
-                {/* Dynamically set inner HTML for title (allowing HTML formatting) */}
-                <h2
-                  dangerouslySetInnerHTML={{
-                    __html: header.title,
-                  }}
-                />
-                {/* "View All" link */}
+               <div>
+                 {/* Dynamically set inner HTML for title (allowing HTML formatting) */}
+                 <h2>
+                   <TextSplitter
+                     text={header.title.replace(/<[^>]*>/g, '')}
+                     animationType="fadeInUp"
+                     duration={0.4}
+                     stagger={0.02}
+                     delay={0.1}
+                     split="char"
+                     scrollTrigger
+                     triggerStart="top 85%"
+                   />
+                 </h2>
+                 {/* "View All" link */}
                 <Link href={header.viewAllLink} className="butn-under mt-[15px]">
                   {header.viewAllText}{' '}
                   <span className="icon invert">

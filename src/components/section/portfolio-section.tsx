@@ -7,6 +7,7 @@ import templatesData from '@/data/api/template.json';
 import { PortfolioItem, TemplateItem } from '../types';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { TextSplitter } from '@/components';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -237,7 +238,16 @@ const Work: React.FC = () => {
             <span className="text-white">{'}'}</span>
           </h2>
           <h2 className="mt-2 text-4xl font-bold leading-[1.1] tracking-tight text-white md:text-6xl lg:text-7xl">
-            My Projects
+            <TextSplitter
+              text="My Projects"
+              animationType="fadeInUp"
+              duration={0.4}
+              stagger={0.02}
+              delay={0.1}
+              split="char"
+              scrollTrigger
+              triggerStart="top 85%"
+            />
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/60 md:text-lg">

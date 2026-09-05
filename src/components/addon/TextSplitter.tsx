@@ -1,7 +1,10 @@
 'use client';
 
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface TextSplitterProps {
   text: string;
@@ -12,6 +15,9 @@ interface TextSplitterProps {
   split?: 'char' | 'word';
   className?: string;
   startEvent?: string;
+  scrollTrigger?: boolean;
+  triggerStart?: string;
+  toggleActions?: string;
 }
 
 const TextSplitter: React.FC<TextSplitterProps> = ({
@@ -23,62 +29,94 @@ const TextSplitter: React.FC<TextSplitterProps> = ({
   split = 'char',
   className = '',
   startEvent,
+  scrollTrigger = false,
+  triggerStart = 'top 85%',
+  toggleActions = 'play none none none',
 }) => {
   const textRef = useRef<HTMLDivElement>(null);
-  const isAnimated = useRef(false);
-
-  const runAnimation = useCallback(() => {
-    if (isAnimated.current) return;
-    const spans = textRef.current?.querySelectorAll('span');
-    if (!spans || spans.length === 0) {
-      console.warn('TextSplitter: No spans found for animation');
-      return;
-    }
-
-    const fromVars: gsap.TweenVars = { opacity: 0 };
-    switch (animationType) {
-      case 'fadeInUp':
-        fromVars.y = 20;
-        break;
-      case 'fadeInDown':
-        fromVars.y = -20;
-        break;
-      case 'fadeIn':
-      default:
-        fromVars.y = 0;
-        break;
-    }
-
-    gsap.set(spans, fromVars);
-
-    gsap.to(spans, {
-      opacity: 1,
-      y: 0,
-      duration,
-      stagger,
-      delay,
-      ease: 'power2.out',
-      onComplete: () => {
-        isAnimated.current = true;
-      },
-    });
-  }, [animationType, duration, stagger, delay]);
 
   useEffect(() => {
     if (startEvent) {
-      const handler = () => runAnimation();
-      window.addEventListener(startEvent, handler);
-      const fallback = setTimeout(runAnimation, 6000);
+      const animate = () => {
+        const spans = textRef.current?.querySelectorAll('span');
+        if (!spans || spans.length === 0) return;
+
+        const fromVars: gsap.TweenVars = { opacity: 0 };
+        switch (animationType) {
+          case 'fadeInUp':
+            fromVars.y = 20;
+            break;
+          case 'fadeInDown':
+            fromVars.y = -20;
+            break;
+          case 'fadeIn':
+          default:
+            fromVars.y = 0;
+            break;
+        }
+
+        gsap.set(spans, fromVars);
+        gsap.to(spans, {
+          opacity: 1,
+          y: 0,
+          duration,
+          stagger,
+          delay,
+          ease: 'power2.out',
+        });
+      };
+
+      window.addEventListener(startEvent, animate);
+      const fallback = setTimeout(animate, 6000);
       if ((window as Window & { __appLoaded?: boolean }).__appLoaded) {
-        runAnimation();
+        animate();
       }
       return () => {
-        window.removeEventListener(startEvent, handler);
+        window.removeEventListener(startEvent, animate);
         clearTimeout(fallback);
       };
     }
-    runAnimation();
-  }, [startEvent, runAnimation]);
+
+    const ctx = gsap.context(() => {
+      const spans = textRef.current?.querySelectorAll('span');
+      if (!spans || spans.length === 0) return;
+
+      const fromVars: gsap.TweenVars = { opacity: 0 };
+      switch (animationType) {
+        case 'fadeInUp':
+          fromVars.y = 20;
+          break;
+        case 'fadeInDown':
+          fromVars.y = -20;
+          break;
+        case 'fadeIn':
+        default:
+          fromVars.y = 0;
+          break;
+      }
+
+      gsap.set(spans, fromVars);
+      gsap.to(spans, {
+        opacity: 1,
+        y: 0,
+        duration,
+        stagger,
+        delay,
+        ease: 'power2.out',
+        scrollTrigger: scrollTrigger
+          ? {
+              trigger: textRef.current,
+              start: triggerStart,
+              toggleActions,
+            }
+          : undefined,
+      });
+    }, textRef);
+
+    return () => {
+      ctx.revert();
+    };
+  }, [startEvent, scrollTrigger, animationType, duration, stagger, delay, triggerStart, toggleActions]);
 
   const parts = split === 'word' ? text.split(' ') : text.split('');
 
@@ -90,7 +128,7 @@ const TextSplitter: React.FC<TextSplitterProps> = ({
           style={{
             display: 'inline-block',
             willChange: 'opacity, transform',
-            whiteSpace: part === ' ' ? 'pre' : 'normal',
+            whiteSpace: part === ' ' || part === '\n' ? 'pre' : 'normal',
           }}
         >
           {split === 'word' ? part + ' ' : part === ' ' ? '\u00A0' : part}

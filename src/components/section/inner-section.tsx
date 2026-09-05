@@ -6,6 +6,7 @@ const smokeBg = '/assets/imgs/smoke-bg.jpg';
 import { ParticleCanvas } from '@/components'
 
 import { InnerProps } from '@/components/types';
+import { TextSplitter } from '@/components';
 
 
 const Inner: React.FC<InnerProps> = ({ title, first, secend, paragraph, links, contact, cpage, noimage }) => {
@@ -15,9 +16,20 @@ const Inner: React.FC<InnerProps> = ({ title, first, secend, paragraph, links, c
       <header className="pt-[120px]">
         <div className="container">
           <div className="text-center">
-            <div className="caption mb-[50px]">
-              <h1 className="text-[110px] mb-[15px] max-md:text-[60px]">{title}</h1>
-              <h6 className="text-base font-normal uppercase tracking-[1px]">
+             <div className="caption mb-[50px]">
+               <h1 className="text-[110px] mb-[15px] max-md:text-[60px]">
+                 <TextSplitter
+                   text={title}
+                   animationType="fadeInUp"
+                   duration={0.4}
+                   stagger={0.02}
+                   delay={0.1}
+                   split="char"
+                   scrollTrigger
+                   triggerStart="top 85%"
+                 />
+               </h1>
+               <h6 className="text-base font-normal uppercase tracking-[1px]">
                 ( <Link href="/" className="px-[5px]">{first}</Link> - <span className="px-[5px] text-main">{secend}</span> )
               </h6>
 
