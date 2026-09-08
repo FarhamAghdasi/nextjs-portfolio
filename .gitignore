@@ -53,6 +53,13 @@ next-env.d.ts
 *.tif
 *.tiff
 
+# fonts
+*.woff
+*.woff2
+*.ttf
+*.otf
+*.eot
+
 # project-specific
 /src/assets/old
 /.kilo/plans

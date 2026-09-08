@@ -223,7 +223,17 @@
     }
 
     .progress-wrap {
-        display: none;
+        bottom: 20px;
+        right: 20px;
+        height: 40px;
+        width: 40px;
+    }
+
+    .progress-wrap::after {
+        line-height: 40px;
+        font-size: 12px;
+        height: 40px;
+        width: 40px;
     }
 
     .hamenu .close-menu {

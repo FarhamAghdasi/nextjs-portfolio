@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import portfoliosData from '@/data/api/portfolio.json';
+import portfoliosData from '@/data/en/api/portfolio.json';
 import PortfolioInfoClient from '@/components/addon/PortfolioInfoClient';
 import { defaultMetadata } from '@/components/addon/seo';
-import texts from '@/data/portfolio-details.json';
+import texts from '@/data/en/portfolio-details.json';
 
 function stripHtmlTags(str: string): string {
   return str.replace(/<[^>]*>/g, '').trim();

@@ -5,8 +5,10 @@ import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import bioData from '@/data/bio-service.json';
+import bioDataEn from '@/data/en/bio-service.json';
+import bioDataFa from '@/data/fa/bio-service.json';
 import { ContentSection } from '@/components/types';
+import { useLocalizedData } from '@/i18n/LocaleProvider';
 
 const img1 = '/assets/imgs/intro/1.webp';
 const img2 = '/assets/imgs/intro/2.webp';
@@ -14,6 +16,7 @@ const img2 = '/assets/imgs/intro/2.webp';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Bio() {
+  const bioData = useLocalizedData(bioDataEn, bioDataFa);
   const { sectionClass, containerClass, rowClass, colClass, content } = bioData as ContentSection;
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
 

@@ -16,6 +16,8 @@
     "texts": {
       "header": "Let's make your brand brilliant!",
       "headerHighlight": "brilliant!",
+      "addressLabel": "Address",
+      "emailLabel": "Email",
       "description": "If you would like to work with Me or just want to get in touch, I love to hear from you!",
       "contactTitle": "Send a message",
       "formPlaceholders": {

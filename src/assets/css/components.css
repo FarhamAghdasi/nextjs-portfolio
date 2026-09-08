@@ -38,7 +38,7 @@
     padding: 2px 5px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 30px;
-    margin-left: 50px;
+    margin-inline-start: 50px;
 }
 
 .navbar .navbar-nav .nav-link {
@@ -88,7 +88,7 @@
     padding: 10px 20px;
     background: #fff;
     color: #1d1d1d;
-    margin-right: 15px;
+    margin-inline-end: 15px;
     transition: all 0.3s ease;
 }
 
@@ -864,7 +864,7 @@ body.loaded {
 
 .butn-under .icon {
     width: 18px;
-    margin-left: 10px;
+    margin-inline-start: 10px;
 }
 
 /* ========= [ cursor ]  =========*/

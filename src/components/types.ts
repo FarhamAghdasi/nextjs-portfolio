@@ -80,6 +80,7 @@ export interface PostConfig {
     header: HeaderConfig;
     fallbackPost: FallbackPost;
     noPostsMessage: string;
+    readMore: string;
 }
 
 export interface InnerProps {

@@ -1,0 +1,27 @@
+[
+    {
+      "title": "فرانت‌اند",
+      "tags": ["Bootstrap", "React", "Tailwind", "واکنش‌گرا"],
+      "image": "/imgs/skills/s4.png"
+    },
+    {
+      "title": "سئو",
+      "tags": [
+        "Google Search Console",
+        "سئو تک‌صفحه‌ای",
+        "تحقیق کلمات کلیدی",
+        "بهینه‌سازی وب‌سایت"
+      ],
+      "image": "/imgs/skills/seo.png"
+    },
+    {
+      "title": "ویرایش",
+      "tags": ["Adobe Photoshop", "Adobe Premiere"],
+      "image": "/imgs/skills/s2.png"
+    },
+    {
+      "title": "بک‌اند",
+      "tags": ["PHP", "MySQL", "SQL"],
+      "image": "/imgs/skills/nextjs.png"
+    }
+]

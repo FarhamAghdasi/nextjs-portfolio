@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 import { BlogDetails } from '@/components';
-import postsData from '@/data/api/posts.json';
-import texts from '@/data/blog-details.json';
+import postsData from '@/data/en/api/posts.json';
+import texts from '@/data/en/blog-details.json';
 import { defaultMetadata } from '@/components/addon/seo';
 import { Comment } from '@/components/types';
 
@@ -85,7 +85,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
   if (!post) notFound();
 
   // Comment system disabled — comment-fetch logic kept for re-enabling later.
-  let initialComments: Comment[] = [];
+  const initialComments: Comment[] = [];
   /*
   try {
     const response = await fetch(`https://api.farhamaghdasi.ir/comments?url=${slug}`);

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import {WorksPage} from '@/components';
-import { defaultMetadata } from '@/components/addon/seo';
-import texts from '@/data/portfolio-page.json';
+import { defaultMetadata, buildAlternates } from '@/components/addon/seo';
+import texts from '@/data/en/portfolio-page.json';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -19,9 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: texts.seoTitle,
       description: texts.seoDescription,
     },
-    alternates: {
-      canonical: 'https://farhamaghdasi.ir/portfolio/',
-    },
+    alternates: buildAlternates('/portfolio/', 'en'),
   };
 }
 

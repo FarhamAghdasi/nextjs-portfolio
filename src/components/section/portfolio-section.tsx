@@ -1,15 +1,57 @@
 'use client';
 import React, { useRef, useEffect, useLayoutEffect, useState, useMemo } from 'react';
-import Link from 'next/link';
+import Link from '@/i18n/LocaleLink';
 import Image from 'next/image';
-import portfoliosData from '@/data/api/portfolio.json';
-import templatesData from '@/data/api/template.json';
+import portfoliosDataEn from '@/data/en/api/portfolio.json';
+import portfoliosDataFa from '@/data/fa/api/portfolio.json';
+import templatesDataEn from '@/data/en/api/template.json';
+import templatesDataFa from '@/data/fa/api/template.json';
 import { PortfolioItem, TemplateItem } from '../types';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TextSplitter } from '@/components';
+import { useLocale, useLocalizedData } from '@/i18n/LocaleProvider';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const portfolioSectionText = {
+  en: {
+    badge: 'Portfolio',
+    heading1: 'Website Templates',
+    heading2: 'My Projects',
+    intro: 'Here are some of my selected projects and HTML templates. Each one is built with passion, precision, and performance in mind.',
+    filterAll: 'All Projects',
+    filterWeb: 'Web Applications',
+    filterSecurity: 'Security Tools',
+    filterTemplate: 'HTML Templates',
+    filterDashboard: 'Dashboards',
+    noProjects: 'No projects available in this category.',
+    viewTemplate: 'View Template',
+    viewProject: 'View Project',
+    viewAll: 'View All',
+    ctaTitle: 'Have a project in mind?',
+    ctaText: "Let's work together and bring your ideas to life.",
+    startProject: 'Start a Project',
+  },
+  fa: {
+    badge: 'نمونه‌کارها',
+    heading1: 'قالب‌های وب‌سایت',
+    heading2: 'پروژه‌های من',
+    intro: 'در ادامه، برخی از پروژه‌ها و قالب‌های HTML منتخب من آمده است. هرکدام با دقت، وسواس در جزئیات و تمرکز بر کارایی ساخته شده‌اند.',
+    filterAll: 'همه پروژه‌ها',
+    filterWeb: 'اپلیکیشن‌های وب',
+    filterSecurity: 'ابزارهای امنیتی',
+    filterTemplate: 'قالب‌های HTML',
+    filterDashboard: 'داشبوردها',
+    noProjects: 'در این دسته‌بندی پروژه‌ای موجود نیست.',
+    viewTemplate: 'مشاهده قالب',
+    viewProject: 'مشاهده پروژه',
+    viewAll: 'مشاهده همه',
+    ctaTitle: 'پروژه‌ای در ذهن دارید؟',
+    ctaText: 'بیایید با هم کار کنیم و ایده‌های شما را به واقعیت تبدیل کنیم.',
+    startProject: 'شروع پروژه',
+  },
+};
 
 type UnifiedItem = {
   key: string;
@@ -70,8 +112,10 @@ function parseTechnologies(raw: string | { title: string; content: string }[] | 
 }
 
 const Work: React.FC = () => {
-  const portfolios: PortfolioItem[] = portfoliosData.portfolio || [];
-  const htmlTemplates: TemplateItem[] = templatesData.templates || [];
+  const apiPortfolios = useLocalizedData(portfoliosDataEn, portfoliosDataFa);
+  const apiTemplates = useLocalizedData(templatesDataEn, templatesDataFa);
+  const portfolios: PortfolioItem[] = apiPortfolios.portfolio || [];
+  const htmlTemplates: TemplateItem[] = apiTemplates.templates || [];
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const gridRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -187,12 +231,15 @@ const Work: React.FC = () => {
     return () => ctx.revert();
   }, [activeFilter]);
 
+  const locale = useLocale();
+  const t = portfolioSectionText[locale];
+
   const filters: { key: string; label: string }[] = [
-    { key: 'all', label: 'All Projects' },
-    { key: 'web', label: 'Web Applications' },
-    { key: 'security', label: 'Security Tools' },
-    { key: 'template', label: 'HTML Templates' },
-    { key: 'dashboard', label: 'Dashboards' },
+    { key: 'all', label: t.filterAll },
+    { key: 'web', label: t.filterWeb },
+    { key: 'security', label: t.filterSecurity },
+    { key: 'template', label: t.filterTemplate },
+    { key: 'dashboard', label: t.filterDashboard },
   ];
 
   return (
@@ -220,7 +267,7 @@ const Work: React.FC = () => {
       <div className="container relative z-10 mx-auto px-4">
         <div className="mb-14 text-center md:mb-20">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_0_20px_-5px_rgba(255,255,255,0.4)]">
-            <span>Portfolio</span>
+            <span>{t.badge}</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
               <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -234,12 +281,12 @@ const Work: React.FC = () => {
 
           <h2 className="mt-6 text-4xl font-bold leading-[1.1] tracking-tight text-white md:text-6xl lg:text-7xl">
             <span className="text-white">{'{'}</span>{' '}
-            <span className="text-white">Website Templates</span>{' '}
+            <span className="text-white">{t.heading1}</span>{' '}
             <span className="text-white">{'}'}</span>
           </h2>
           <h2 className="mt-2 text-4xl font-bold leading-[1.1] tracking-tight text-white md:text-6xl lg:text-7xl">
             <TextSplitter
-              text="My Projects"
+              text={t.heading2}
               animationType="fadeInUp"
               duration={0.4}
               stagger={0.02}
@@ -251,9 +298,7 @@ const Work: React.FC = () => {
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/60 md:text-lg">
-            Here are some of my selected projects and HTML templates.
-            <br className="hidden md:block" />
-            {' '}Each one is built with passion, precision, and performance in mind.
+            {t.intro}
           </p>
         </div>
 
@@ -339,8 +384,8 @@ const Work: React.FC = () => {
                       href={item.href}
                       className="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition-all hover:gap-2.5"
                     >
-                      <span>{item.isTemplate ? 'View Template' : 'View Project'}</span>
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                      <span>{item.isTemplate ? t.viewTemplate : t.viewProject}</span>
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="rtl-flip">
                         <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </Link>
@@ -350,7 +395,7 @@ const Work: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="py-20 text-center text-white/50">No projects available in this category.</div>
+          <div className="py-20 text-center text-white/50">{t.noProjects}</div>
         )}
 
         {filtered.length > 6 && (
@@ -359,8 +404,8 @@ const Work: React.FC = () => {
               href={viewAllHref}
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-6 py-2.5 text-sm font-semibold text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:text-white"
             >
-              <span>View All</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <span>{t.viewAll}</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="rtl-flip">
                 <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
@@ -378,16 +423,16 @@ const Work: React.FC = () => {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="mb-1 text-lg font-bold text-white md:text-xl">Have a project in mind?</h4>
-                  <p className="text-sm text-white/60 md:text-base">Let&apos;s work together and bring your ideas to life.</p>
+                  <h4 className="mb-1 text-lg font-bold text-white md:text-xl">{t.ctaTitle}</h4>
+                  <p className="text-sm text-white/60 md:text-base">{t.ctaText}</p>
                 </div>
               </div>
               <Link
                 href="/contact"
                 className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black shadow-[0_0_30px_-5px_rgba(255,255,255,0.6)] transition-all duration-300 hover:bg-[#e0ff8a] hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.7)]"
               >
-                <span>Start a Project</span>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                <span>{t.startProject}</span>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="rtl-flip transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                   <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>
@@ -408,3 +453,4 @@ const Work: React.FC = () => {
 };
 
 export default Work;
+

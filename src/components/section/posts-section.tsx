@@ -1,25 +1,28 @@
 'use client'; // Indicates this is a Client Component in Next.js 13+
 
 import React, { useEffect, useRef } from 'react';
-import Link from 'next/link';
+import Link from '@/i18n/LocaleLink';
 import Image from 'next/image';
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger'; // GSAP plugin for scroll-based animations
 
-import postsData from '@/data/api/posts.json'; // Import blog posts data
-import postConfig from '@/data/posts-section.json'; // Import section configuration (styles, text, etc.)
+import postsDataEn from '@/data/en/api/posts.json';
+import postsDataFa from '@/data/fa/api/posts.json'; // Import blog posts data
+import postConfigEn from '@/data/en/posts-section.json'; // Import section configuration (styles, text, etc.)
+import postConfigFa from '@/data/fa/posts-section.json';
 const ArrowRightTop = '/assets/imgs/icons/arrow-top-right.svg'; // Arrow icon for links
 import type { PostsData, PostConfig, Post } from '@/components/types'; // TypeScript type definitions
 import { TextSplitter } from '@/components';
+import { useLocalizedData, useLocale } from '@/i18n/LocaleProvider';
 
 // Register the ScrollTrigger plugin with GSAP
 gsap.registerPlugin(ScrollTrigger);
 
 const Blog: React.FC = () => {
-  // Assign imported data to typed variables
-  const data: PostsData = postsData;
-  const config: PostConfig = postConfig;
+  const locale = useLocale();
+  const data: PostsData = useLocalizedData(postsDataEn, postsDataFa);
+  const config: PostConfig = useLocalizedData(postConfigEn, postConfigFa);
 
   // Extract posts array and configuration values
   const posts: Post[] = data.posts || [];
@@ -113,7 +116,7 @@ const Blog: React.FC = () => {
                 <Link href={header.viewAllLink} className="butn-under mt-[15px]">
                   {header.viewAllText}{' '}
                   <span className="icon invert">
-                    <Image src={ArrowRightTop} alt="arrow" width={16} height={16} unoptimized />
+                    <Image src={ArrowRightTop} alt="arrow" width={16} height={16} className="rtl-flip" unoptimized />
                   </span>
                 </Link>
               </div>
@@ -163,8 +166,8 @@ const Blog: React.FC = () => {
                       <p className="line-clamp-3 text-sm leading-relaxed text-white/55">{post.short_description || fallbackPost.short_description}</p>
                       <div className="mt-auto pt-4">
                         <Link href={`/blog/${post.url}/`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition-all hover:gap-2.5">
-                          <span>Read More</span>
-                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                          <span>{config.readMore}</span>
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className={locale === 'fa' ? 'rtl-flip' : ''}>
                             <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                         </Link>

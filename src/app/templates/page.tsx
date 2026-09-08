@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { HtmlTemplates } from '@/components';
-import { defaultMetadata } from '@/components/addon/seo';
+import { defaultMetadata, buildAlternates } from '@/components/addon/seo';
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageTitle = 'HTML Templates | Farham Aghdasi';
@@ -22,9 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: pageTitle,
       description: pageDescription,
     },
-    alternates: {
-      canonical: pageUrl,
-    },
+    alternates: buildAlternates('/templates/', 'en'),
   };
 }
 

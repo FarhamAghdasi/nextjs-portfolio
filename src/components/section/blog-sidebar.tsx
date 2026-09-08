@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import texts from '@/data/blog.json';
+import Link from '@/i18n/LocaleLink';
+import textsEn from '@/data/en/blog.json';
+import textsFa from '@/data/fa/blog.json';
 import { PostBlog } from '@/components/types';
+import { useLocalizedData, useLocale } from '@/i18n/LocaleProvider';
 
 interface SidebarProps {
   posts: PostBlog[];
@@ -14,6 +16,8 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSearch = '' }) => {
+  const locale = useLocale();
+  const texts = useLocalizedData(textsEn, textsFa);
   const [inputValue, setInputValue] = useState(initialSearch);
 
   const availableCategories = [...new Set(posts.map((post) => post.category))];
@@ -102,7 +106,7 @@ const Sidebar: React.FC<SidebarProps> = ({ posts, onSearch, onReset, initialSear
                 />
               </Link>
             </div>
-            <div className="cont flex-1 pl-[25px]" style={{ flex: 1, paddingLeft: 25 }}>
+            <div className={`cont flex-1 ${locale === 'fa' ? 'pe-[25px]' : 'pl-[25px]'}`} style={{ flex: 1, ...(locale === 'fa' ? { paddingRight: 25 } : { paddingLeft: 25 }) }}>
               <span className="tag text-xs py-[5px] px-[15px] rounded-[30px] bg-white/[0.03] mb-[10px]">
                 <Link href={`/blog?category=${encodeURIComponent(post.category)}`}>
                   {post.category}

@@ -1,0 +1,28 @@
+{
+    "nameLine1": "فرهام",
+    "nameLine2": "اقدسی",
+    "typewriterRoles": [
+      "برنامه‌نویس فول‌استک",
+      "متخصص سئو",
+      "برنامه‌نویس Next.js"
+    ],
+    "socials": [
+      {
+        "href": "https://t.me/farhamaghdasi",
+        "icon": "fa-brands fa-telegram"
+      },
+      {
+        "href": "https://instagram.com/farhamaghdasi",
+        "icon": "fa-brands fa-instagram"
+      },
+      {
+        "href": "https://github.com/FarhamAghdasi/",
+        "icon": "fa-brands fa-github"
+      },
+      {
+        "href": "https://www.linkedin.com/in/farham-aghdasi/",
+        "icon": "fa-brands fa-linkedin-in"
+      }
+    ],
+    "description": "من همیشه به دنبال یادگیری و بهبود مهارت‌هایم هستم و قصد دارم به‌زودی فناوری‌های پیشرفته‌ای مانند MongoDB و Node.js را نیز یاد بگیرم. با دقت در جزئیات، پروژه‌های کوچکی را با موفقیت به پایان رسانده‌ام و از آن‌ها به‌عنوان پایه‌ای برای رشد بیشتر استفاده می‌کنم."
+}

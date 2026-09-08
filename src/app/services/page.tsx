@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { ServicePage } from '@/components';
-import { defaultMetadata } from '@/components/addon/seo';
-import servicesText from '@/data/services.json';
+import { defaultMetadata, buildAlternates } from '@/components/addon/seo';
+import servicesText from '@/data/en/services.json';
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageTitle = servicesText.seoTitle;
@@ -23,9 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: pageTitle,
       description: pageDescription,
     },
-    alternates: {
-      canonical: pageUrl,
-    },
+    alternates: buildAlternates('/services/', 'en'),
   };
 }
 

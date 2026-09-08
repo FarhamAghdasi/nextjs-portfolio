@@ -210,3 +210,135 @@
 @import "./layout.css" layer(components);
 @import "./helpers.css" layer(components);
 @import "./responsive.css" layer(components);
+
+/*
+  ---------------------------------------------------------------------
+  i18n / RTL support
+  ---------------------------------------------------------------------
+  The <html> tag gets dir="rtl" automatically on /fa/* pages (see
+  src/app/layout.tsx). This flips native text flow and most Tailwind
+  logical-property utilities (ps-*, pe-*, ms-*, me-*, text-start,
+  text-end, etc.) for free.
+
+  What it does NOT flip automatically: components that rely on
+  physical `left`/`right` in plain CSS or on pixel transforms driven
+  by GSAP (the mega-menu, the custom cursor follower, the marquee in
+  components.css/layout.css). Those need `[dir="rtl"]` overrides added
+  case-by-case as they're localized -- this block covers the generic,
+  low-risk ones.
+  ---------------------------------------------------------------------
+*/
+@layer components {
+  [dir="rtl"] body {
+    font-family: var(--font-iranyekan), var(--font-body);
+    text-align: right;
+    font-feature-settings: "ss01";
+  }
+
+  [dir="rtl"] .lang-switcher {
+    direction: ltr;
+  }
+
+  [dir="rtl"] .float_txt,
+  [dir="rtl"] .js-title {
+    font-family: var(--font-iranyekan), var(--font-body);
+  }
+
+  /*
+    The horizontal marquee (skills/keywords strip) and the draggable
+    experience timeline both rely on translateX()/scrollLeft math that
+    assumes a physically left-to-right flex flow. Under dir="rtl",
+    `display: flex` reverses the main axis, which either hides the
+    marquee content entirely or breaks the drag-scroll math. Forcing
+    these specific containers back to `direction: ltr` keeps the
+    animation/scroll math correct; the Farsi text inside still renders
+    correctly, it's just the *container* layout that's pinned LTR.
+  */
+  [dir="rtl"] .main-marq,
+  [dir="rtl"] .main-marq .slide-har,
+  [dir="rtl"] .main-marq .box,
+  [dir="rtl"] .no-scrollbar {
+    direction: ltr;
+  }
+
+  /* Directional icons (arrow-top-right, chevrons) should point the
+     mirrored way in RTL so they still read as "forward"/"back". */
+  [dir="rtl"] .arrow-icon,
+  [dir="rtl"] .rtl-flip {
+    display: inline-block;
+    transform: scaleX(-1);
+  }
+
+  /* Hamburger menu animation fixes for RTL */
+  [dir="rtl"] .hamenu .menu-links .main-menu>li .link .fill-text:after {
+    left: auto;
+    right: 0;
+  }
+
+  [dir="rtl"] .hamenu .menu-links .main-menu>li .link i {
+    right: auto;
+    left: 0;
+  }
+
+  [dir="rtl"] .hamenu .menu-links .main-menu>li .link i:before,
+  [dir="rtl"] .hamenu .menu-links .main-menu>li .link i:after {
+    left: auto;
+    right: 50%;
+  }
+
+  [dir="rtl"] .hamenu .menu-links .main-menu>li .link i:after {
+    left: auto;
+    right: calc(50% - 8px);
+  }
+
+  [dir="rtl"] .hamenu .menu-links .main-menu>li .link.dopen i:before {
+    opacity: 0;
+  }
+
+  [dir="rtl"] .hamenu .menu-links .main-menu .sub-menu li a {
+    padding: 12px 40px 12px 12px;
+  }
+
+  /* Curve button animation fixes for RTL */
+  [dir="rtl"] .crv-butn .text:after {
+    right: auto;
+    left: -15px;
+  }
+
+  [dir="rtl"] .crv-butn .icon {
+    margin-left: 0;
+    margin-right: -10px;
+  }
+
+  [dir="rtl"] .crv-butn:hover .text:after {
+    right: auto;
+    left: 0;
+  }
+
+  [dir="rtl"] .crv-butn:hover .icon {
+    margin-left: 0;
+    margin-right: 5px;
+  }
+
+  [dir="rtl"] .crv-butn:hover .icon img {
+    transform: rotate(-45deg) scaleX(-1);
+  }
+}
+
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.lang-switcher a {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.lang-switcher a:hover,
+.lang-switcher a.is-active {
+  opacity: 1;
+}

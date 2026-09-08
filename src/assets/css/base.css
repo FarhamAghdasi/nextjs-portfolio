@@ -55,10 +55,6 @@ body {
     }
 }
 
-body {
-    overflow: hidden;
-}
-
 .product-widget ul li {
     list-style: disc;
 }
@@ -89,6 +85,7 @@ body {
 
 .card-item {
     transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    will-change: transform, opacity;
 }
 
 a.link {

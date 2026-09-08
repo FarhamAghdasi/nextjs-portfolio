@@ -59,3 +59,27 @@ export const defaultMetadata = {
     canonical: 'https://farhamaghdasi.ir',
   },
 };
+
+const SITE_URL = 'https://farhamaghdasi.ir';
+
+/**
+ * Build `alternates` (canonical + hreflang) for a page, given its
+ * locale-neutral path (e.g. "/about/" or "/" for the homepage).
+ *
+ * English is served unprefixed at the root; Persian is served under
+ * "/fa". x-default points at the English (default) version.
+ */
+export function buildAlternates(pathWithoutLocale: string, locale: 'en' | 'fa') {
+  const path = pathWithoutLocale === '/' ? '/' : pathWithoutLocale;
+  const enUrl = `${SITE_URL}${path}`;
+  const faUrl = path === '/' ? `${SITE_URL}/fa/` : `${SITE_URL}/fa${path}`;
+
+  return {
+    canonical: locale === 'fa' ? faUrl : enUrl,
+    languages: {
+      en: enUrl,
+      fa: faUrl,
+      'x-default': enUrl,
+    },
+  };
+}

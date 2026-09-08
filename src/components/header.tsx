@@ -1,14 +1,19 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
+import Link from '@/i18n/LocaleLink';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 
-import content from '@/data/header.json';
+import LanguageSwitcher from '@/i18n/LanguageSwitcher';
+import { useLocale, useLocalizedData } from '@/i18n/LocaleProvider';
+import contentEn from '@/data/en/header.json';
+import contentFa from '@/data/fa/header.json';
 const arrowIcon = '/assets/imgs/icons/arrow-top-right.svg';
 
 const Header = () => {
+    const locale = useLocale();
+    const content = useLocalizedData(contentEn, contentFa);
     const [isHovered, setIsHovered] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -114,30 +119,80 @@ const Header = () => {
     }, []);
 
     useEffect(() => {
-        const tl = gsap.timeline();
-        tl.to('.loader-wrap-heading .load-text, .loader-wrap-heading', {
-            delay: 2,
-            y: -100,
-            opacity: 0,
-            onComplete: () => {
-                const headerContainer = document.querySelector('header .container');
-                if (headerContainer) {
-                    gsap.fromTo(headerContainer, { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1 });
-                }
-            },
-        })
-            .to(svgRef.current, { duration: 0.5, attr: { d: content.svgCurve }, ease: 'power2.easeIn' })
-            .to(svgRef.current, { duration: 0.5, attr: { d: content.svgFlat }, ease: 'power2.easeOut' })
-            .to('.loader-wrap', { y: -1500 })
-            .to('.loader-wrap', {
-                zIndex: -1,
-                display: 'none',
-                onComplete: () => {
-                    (window as Window & { __appLoaded?: boolean }).__appLoaded = true;
-                    window.dispatchEvent(new Event('appLoaded'));
-                },
-            });
-    }, []);
+        // No entrance animation/timer here on purpose: the heading text is
+        // already visible in the server-rendered HTML before any JS runs
+        // (that's what a slow-network visitor sees first). `gsap.set` just
+        // guarantees it stays at y:0/opacity:1 the instant this effect
+        // mounts — no fade, no delay, nothing that could make it flicker or
+        // disappear for even a frame while the page is still loading.
+        gsap.set('.loader-wrap-heading .load-text, .loader-wrap-heading', { y: 0, opacity: 1 });
+
+        // The exit used to fire on a fixed 2s timer. That's a guess tuned
+        // for a fast device/connection — on a slow one, real page load
+        // (bundle parse, fonts, images) can easily take longer, so the
+        // curtain lifted and the text got yanked out before the visitor
+        // ever really saw it. Instead, wait for the page to actually be
+        // ready: `MIN_VISIBLE_MS` stops a flash-hide on very fast/cached
+        // loads, `MAX_WAIT_MS` stops the loader hanging forever if `load`
+        // never fires for some reason.
+        const MIN_VISIBLE_MS = 700;
+        const MAX_WAIT_MS = 8000;
+        const shownAt = Date.now();
+
+        let exitTl: gsap.core.Timeline | null = null;
+        let settled = false;
+        let holdTimer: number | null = null;
+
+        const playExit = () => {
+            if (settled) return;
+            settled = true;
+            const remaining = Math.max(0, MIN_VISIBLE_MS - (Date.now() - shownAt));
+
+            holdTimer = window.setTimeout(() => {
+                exitTl = gsap.timeline();
+                exitTl
+                    .to('.loader-wrap-heading .load-text, .loader-wrap-heading', {
+                        y: -100,
+                        opacity: 0,
+                        onComplete: () => {
+                            const headerContainer = document.querySelector('header .container');
+                            if (headerContainer) {
+                                gsap.fromTo(headerContainer, { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1 });
+                            }
+                        },
+                    })
+                    .to(svgRef.current, { duration: 0.5, attr: { d: content.svgCurve }, ease: 'power2.easeIn' })
+                    .to(svgRef.current, { duration: 0.5, attr: { d: content.svgFlat }, ease: 'power2.easeOut' })
+                    .to('.loader-wrap', { y: -1500 })
+                    .to('.loader-wrap', {
+                        zIndex: -1,
+                        display: 'none',
+                        onComplete: () => {
+                            (window as Window & { __appLoaded?: boolean }).__appLoaded = true;
+                            window.dispatchEvent(new Event('appLoaded'));
+                        },
+                    });
+            }, remaining);
+        };
+
+        if (document.readyState === 'complete') {
+            playExit();
+        } else {
+            window.addEventListener('load', playExit);
+        }
+        const maxTimer = window.setTimeout(playExit, MAX_WAIT_MS);
+
+        // Without this, React 18 Strict Mode's mount->unmount->remount in dev
+        // creates a second, orphaned timeline racing the first one against
+        // the same elements, which is exactly the kind of thing that leaves
+        // the loader text in an inconsistent state.
+        return () => {
+            exitTl?.kill();
+            window.removeEventListener('load', playExit);
+            window.clearTimeout(maxTimer);
+            if (holdTimer !== null) window.clearTimeout(holdTimer);
+        };
+    }, [content.svgCurve, content.svgFlat]);
 
     useEffect(() => {
         const animateit = (e: MouseEvent) => {
@@ -214,12 +269,32 @@ const Header = () => {
         requestAnimationFrame(animateScroll);
     };
 
+    const hamMenuText = locale === 'fa'
+        ? {
+            home: 'خانه',
+            about: 'درباره من',
+            portfolio: 'نمونه‌کارها',
+            contact: 'تماس با من',
+            blog: 'وبلاگ',
+            templates: 'قالب‌های HTML',
+            works: 'نمونه‌کارها',
+        }
+        : {
+            home: 'Home',
+            about: 'About Me',
+            portfolio: 'Portfolio',
+            contact: 'Contact Me',
+            blog: 'Blog',
+            templates: 'HTML Templates',
+            works: 'Works',
+        };
+
     const hamburgerMenuItems = [
-        { label: 'Home', href: '/' },
-        { label: 'About Me', href: '/about/' },
-        { label: 'Portfolio', href: '/portfolio/', hasSubMenu: true },
-        { label: 'Contact Me', href: '/contact/' },
-        { label: 'Blog', href: '/blog/' },
+        { key: 'home', label: hamMenuText.home, href: '/' },
+        { key: 'about', label: hamMenuText.about, href: '/about/' },
+        { key: 'portfolio', label: hamMenuText.portfolio, href: '/portfolio/', hasSubMenu: true },
+        { key: 'contact', label: hamMenuText.contact, href: '/contact/' },
+        { key: 'blog', label: hamMenuText.blog, href: '/blog/' },
     ];
 
     return (
@@ -230,9 +305,7 @@ const Header = () => {
                 </svg>
                 <div className="loader-wrap-heading">
                     <div className="load-text">
-                        {content.loaderText.split('').map((ch, i) => (
-                            <span key={i}>{ch}</span>
-                        ))}
+                        {content.loaderText}
                     </div>
                 </div>
             </div>
@@ -261,7 +334,7 @@ const Header = () => {
                     <div className={`${isNavbarOpen ? 'flex' : 'hidden'} lg:flex`}>
                         <ul className="navbar-nav flex list-none m-0 p-0 items-center">
                             {content.menuItems
-                                .filter((item) => item.label !== 'Contact Me')
+                                .filter((item) => item.href !== '/contact/')
                                 .map((item, idx) => (
                                     <li key={idx}>
                                         <Link
@@ -279,12 +352,13 @@ const Header = () => {
                         </ul>
                     </div>
 
-                    <div className="topnav flex items-center">
+                    <div className="topnav flex items-center gap-3">
+                        <LanguageSwitcher className="me-[20px]" />
                         <Link href={content.ctaHref} className="butn butn-rounded">
                             <div className="flex items-center">
                                 <span>{content.ctaText}</span>
-                                <span className="icon ml-[10px]">
-                                    <Image src={arrowIcon} alt="Arrow" width={20} height={20} unoptimized/>
+                                <span className="icon ms-[10px]">
+                                    <Image src={arrowIcon} alt="Arrow" width={20} height={20} className="rtl-flip" unoptimized/>
                                 </span>
                             </div>
                         </Link>
@@ -311,14 +385,14 @@ const Header = () => {
                                     onMouseEnter={() => setHoveredIndex(idx)}
                                     onMouseLeave={() => setHoveredIndex(null)}
                                     onClick={() => {
-                                        if (item.label !== 'Portfolio') {
+                                        if (item.key !== 'portfolio') {
                                             closeMenuWithAnimation();
                                         }
                                     }}
                                     className={hoveredIndex !== null && hoveredIndex !== idx ? 'hoverd' : ''}
                                 >
                                     <div className="o-hidden">
-                                        {item.label === 'Portfolio' ? (
+                                        {item.key === 'portfolio' ? (
                                             <div className="link cursor-pointer dmenu" onClick={handleSubMenuToggle}>
                                                 <span className="fill-text" data-text={item.label}>
                                                     {item.label}
@@ -339,17 +413,17 @@ const Header = () => {
                                             </Link>
                                         )}
                                     </div>
-                                    {item.label === 'Portfolio' && (
+                                    {item.key === 'portfolio' && (
                                         <div className={`sub-menu ${subMenuOpen ? 'sub-open' : ''}`} style={{ display: subMenuOpen ? 'block' : 'none' }}>
                                             <ul>
                                                 <li>
                                                     <Link href="/templates" className="sub-link" onClick={() => closeMenuWithAnimation()}>
-                                                        HTML Templates
+                                                        {hamMenuText.templates}
                                                     </Link>
                                                 </li>
                                                 <li>
                                                     <Link href="/portfolio" className="sub-link" onClick={() => closeMenuWithAnimation()}>
-                                                        Works
+                                                        {hamMenuText.works}
                                                     </Link>
                                                 </li>
                                             </ul>
@@ -374,7 +448,7 @@ const Header = () => {
                             </div>
                             <div className="item mt-[10px]">
                                 <h5>
-                                    <a href={`tel:${content.contactPhone.replace(/\s+/g, '')}`}>{content.contactPhone}</a>
+                                    <a href={`tel:${content.contactPhone.replace(/\s+/g, '')}`} dir="ltr">{content.contactPhone}</a>
                                 </h5>
                             </div>
                             <div className="item mt-[10px]">

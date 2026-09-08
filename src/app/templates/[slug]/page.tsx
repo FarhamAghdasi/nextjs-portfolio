@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { TemplateDetails } from '@/components';
-import templateData from '@/data/api/template.json';
-import texts from '@/data/template-page.json';
+import templateData from '@/data/en/api/template.json';
+import texts from '@/data/en/template-page.json';
 import { defaultMetadata } from '@/components/addon/seo';
 import { TemplateDetails2 } from '@/components/types';
 import Head from 'next/head';

@@ -1,0 +1,22 @@
+{
+    "sectionClass": "blog-cst section-padding",
+    "containerClass": "container pt-30 bord-thin-top-light",
+    "header": {
+      "subTitle": "مقالات من",
+      "title": "وبلاگ من را <br /> در دنیای وب بررسی کنید",
+      "clientCount": "+۱ مشتری",
+      "class": "sec-head mb-[80px]",
+      "viewAllText": "مشاهده همه مطالب",
+      "viewAllLink": "/blog",
+      "arrowIcon": "@/assets/imgs/icons/arrow-top-right.svg"
+    },
+    "fallbackPost": {
+      "title": "مطلب پیش‌فرض",
+      "category": "عمومی",
+      "short_description": "این توضیحات پیش‌فرض یک مطلب است.",
+      "thumbnail": "/imgs/blog/3.jpg",
+      "url": "default-post"
+    },
+    "noPostsMessage": "در حال حاضر مطلبی در وبلاگ موجود نیست.",
+    "readMore": "ادامه مطلب"
+  }

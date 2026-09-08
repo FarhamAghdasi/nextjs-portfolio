@@ -1,18 +1,23 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/i18n/LocaleLink';
 import { useState } from 'react';
 import { Header, Footer } from '@/components';
 const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
-import texts from '@/data/portfolio-details.json';
+import textsEn from '@/data/en/portfolio-details.json';
+import textsFa from '@/data/fa/portfolio-details.json';
 import { Portfolio } from '@/components/types';
+import { useLocale, useLocalizedData } from '@/i18n/LocaleProvider';
 
 interface PortfolioInfoProps {
   portfolio: Portfolio | null;
 }
 
 const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
+  const locale = useLocale();
+  const texts = useLocalizedData(textsEn, textsFa);
+  const seeWebsiteText = locale === 'fa' ? 'می‌توانید وب‌سایت را از' : 'You Can See Website With This';
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const handleToggle = (index: number) => {
@@ -131,7 +136,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
                   <div className="text leading-relaxed">
                     <p>
                       {portfolio.Shortdescription || texts.defaultShortDescription}{' '}
-                      <br /> You Can See Website With This{' '}
+                      <br /> {seeWebsiteText}{' '}
                       <a href={portfolio.Previewurl}>{texts.viewLinkText}</a>
                     </p>
                   </div>
@@ -189,7 +194,7 @@ const PortfolioInfoClient: React.FC<PortfolioInfoProps> = ({ portfolio }) => {
                     <div className="flex justify-center items-center">
                       <span className="text">{texts.checkMorePortfolios}</span>
                       <span className="icon">
-                        <Image src={arrowTopRight} alt="Arrow" width={16} height={16} unoptimized />
+                        <Image src={arrowTopRight} alt="Arrow" width={16} height={16} className="rtl-flip" unoptimized />
                       </span>
                     </div>
                   </Link>

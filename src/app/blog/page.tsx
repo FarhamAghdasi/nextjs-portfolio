@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { BloginfoClient } from '@/components';
-import { defaultMetadata } from '@/components/addon/seo';
-import texts from '@/data/blog.json';
+import { defaultMetadata, buildAlternates } from '@/components/addon/seo';
+import texts from '@/data/en/blog.json';
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -19,9 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: 'Blog | Farham Aghdasi',
       description: texts.pageDescription,
     },
-    alternates: {
-      canonical: 'https://farhamaghdasi.ir/blog/',
-    },
+    alternates: buildAlternates('/blog/', 'en'),
   };
 }
 

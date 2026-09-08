@@ -17,5 +17,6 @@
       "thumbnail": "/imgs/blog/3.jpg",
       "url": "default-post"
     },
-    "noPostsMessage": "No blog posts available at the moment."
+    "noPostsMessage": "No blog posts available at the moment.",
+    "readMore": "Read More"
   }

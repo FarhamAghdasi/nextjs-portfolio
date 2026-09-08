@@ -2,9 +2,12 @@
 
 import React from 'react';
 import { Inner, Bio, ServiceLine, Faq , ScrollAnimation} from '@/components';
-import servicesText from '@/data/services.json';
+import servicesTextEn from '@/data/en/services.json';
+import servicesTextFa from '@/data/fa/services.json';
+import { useLocalizedData } from '@/i18n/LocaleProvider';
 
 const ServicesPage: React.FC = () => {
+  const servicesText = useLocalizedData(servicesTextEn, servicesTextFa);
   return (
     <>
       <Inner

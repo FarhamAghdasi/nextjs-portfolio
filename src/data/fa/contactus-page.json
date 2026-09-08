@@ -1,0 +1,34 @@
+{
+    "contact": {
+      "address": "آمل، مازندران، ایران",
+      "emails": [
+        "info@farhamaghdasi.ir",
+        "farhamaghdasi08@gmail.com"
+      ],
+      "phone": "+98 939 1213094",
+      "social": {
+        "telegram": "https://t.me/farhamaghdasi",
+        "github": "https://github.com/FarhamAghdasi/",
+        "linkedin": "https://www.linkedin.com/in/farham-aghdasi-b59101248/",
+        "instagram": "https://instagram.com/farhamaghdasi"
+      }
+    },
+    "texts": {
+      "header": "بیایید برند شما را درخشان کنیم!",
+      "headerHighlight": "درخشان کنیم!",
+      "addressLabel": "آدرس",
+      "emailLabel": "ایمیل",
+      "description": "اگر می‌خواهید با من همکاری کنید یا فقط می‌خواهید در تماس باشید، خوشحال می‌شوم از شما بشنوم!",
+      "contactTitle": "ارسال پیام",
+      "formPlaceholders": {
+        "name": "نام",
+        "email": "ایمیل",
+        "subject": "موضوع",
+        "message": "پیام"
+      },
+      "submitButton": "بیایید صحبت کنیم",
+      "successMessage": "پیام با موفقیت ارسال شد!",
+      "failureMessage": "ارسال پیام ناموفق بود. لطفاً دوباره تلاش کنید.",
+      "errorMessagePrefix": "خطا: "
+    }
+}

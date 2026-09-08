@@ -1,9 +1,12 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import data from '@/data/faq-section.json';
+import dataEn from '@/data/en/faq-section.json';
+import dataFa from '@/data/fa/faq-section.json';
+import { useLocalizedData } from '@/i18n/LocaleProvider';
 
 export default function Faq() {
+  const data = useLocalizedData(dataEn, dataFa);
   const [activeIndex, setActiveIndex] = useState(0);
   const collapseRefs = useRef<(HTMLDivElement | null)[]>([]);
 

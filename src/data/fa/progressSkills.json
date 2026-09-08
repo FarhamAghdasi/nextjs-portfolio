@@ -1,0 +1,23 @@
+{
+    "progressSkills": [
+      { "name": "Nextjs", "level": "60%", "image": "/assets/imgs/skills/nextjs.png" },
+      { "name": "React", "level": "80%", "image": "/assets/imgs/skills/s4.png" },
+      { "name": "Tailwindcss", "level": "80%", "image": "/assets/imgs/skills/tailwindcss.png" },
+      { "name": "HTML", "level": "90%", "image": "/assets/imgs/skills/html.png" },
+      { "name": "CSS", "level": "90%", "image": "/assets/imgs/skills/html.png" },
+      { "name": "JavaScript", "level": "70%", "image": "/assets/imgs/skills/js.png" },
+      { "name": "Node.js (Express, Prisma)", "level": "50%", "image": "/assets/imgs/skills/nodejs.png" },
+      { "name": "PHP", "level": "80%", "image": "/assets/imgs/skills/php.png" },
+      { "name": "MySQL", "level": "70%", "image": "/assets/imgs/skills/mysql.png" },
+      { "name": "سئو (SEO)", "level": "50%", "image": "/assets/imgs/skills/seo.png" },
+      { "name": "Bootstrap", "level": "80%", "image": "/assets/imgs/skills/bootstrap.png" },
+      { "name": "Git", "level": "100%", "image": "/assets/imgs/skills/git.png" },
+      { "name": "فارکس (ICT)", "level": "5%", "image": "/assets/imgs/skills/ict.png" },
+      { "name": "Adobe Photoshop", "level": "60%", "image": "/assets/imgs/skills/photoshop.png" },
+      { "name": "TypeScript", "level": "68%", "image": "/assets/imgs/skills/typescript.svg" },
+      { "name": "Filmora", "level": "55%", "image": "/assets/imgs/skills/filmora.svg" },
+      { "name": "Premier", "level": "58%", "image": "/assets/imgs/skills/adobepremierepro.svg" },
+      { "name": "Docker", "level": "50%", "image": "/assets/imgs/skills/docker.svg" },
+      { "name": "Aplinejs", "level": "45%", "image": "/assets/imgs/skills/alpinejs.svg" }
+    ]
+}

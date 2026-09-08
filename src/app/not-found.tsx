@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 import { ErrorPage } from '@/components';
-import errorTexts from '@/data/errors.json';
+import errorTexts from '@/data/en/errors.json';
 import { defaultMetadata } from '@/components/addon/seo';
 
 export const metadata: Metadata = {

@@ -3,11 +3,30 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { Typewriter } from 'react-simple-typewriter';
-import Link from 'next/link';
-import content from '@/data/hero.json';
+import Link from '@/i18n/LocaleLink';
+import contentEn from '@/data/en/hero.json';
+import contentFa from '@/data/fa/hero.json';
 import { ParticleCanvas } from '@/components';
+import { useLocale, useLocalizedData } from '@/i18n/LocaleProvider';
+
+const heroStaticText = {
+  en: {
+    tagline: "I'm a full-stack developer passionate about creating fast, secure, and scalable web applications. I turn ideas into impactful digital experiences using modern technologies.",
+    seeMyWork: 'See My Work',
+    downloadCv: 'Download CV',
+  },
+  fa: {
+    tagline:
+      'من یک برنامه‌نویس فول‌استک هستم که به ساخت اپلیکیشن‌های وب سریع، امن و مقیاس‌پذیر علاقه‌مندم. با استفاده از فناوری‌های مدرن، ایده‌ها را به تجربه‌های دیجیتال تأثیرگذار تبدیل می‌کنم.',
+    seeMyWork: 'مشاهده نمونه‌کارها',
+    downloadCv: 'دانلود رزومه',
+  },
+};
 
 const Hero = () => {
+  const locale = useLocale();
+  const content = useLocalizedData(contentEn, contentFa);
+  const staticText = heroStaticText[locale];
   const heroRef = useRef<HTMLDivElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
@@ -109,12 +128,14 @@ const Hero = () => {
       <div ref={contentRef} className="relative z-10 container mx-auto px-4 pt-32 pb-24 text-center md:pt-40 md:pb-32 lg:pt-48 lg:pb-36">
         <h1
           ref={titleRef}
-          className="relative text-[10vw] font-semibold uppercase leading-[0.95] tracking-tight md:text-[8.5vw] lg:text-[7.5vw]"
+           className="relative text-[56px] font-semibold uppercase leading-[0.95] tracking-tight md:text-[72px] lg:text-[8vw]"
           style={{ transformStyle: 'preserve-3d' }}
         >
-          <span className="stroke whitespace-pre">FARHAM{'\n'}AGHDASI</span>
+          <span className="stroke whitespace-pre">
+            {locale === 'fa' ? <>فرهام{'\n'}اقدسی</> : <>FARHAM{'\n'}AGHDASI</>}
+          </span>
           <span className="relative text-white" style={{ whiteSpace: 'pre' }}>
-            FARHAM{'\n'}AGHDASI
+            {locale === 'fa' ? <>فرهام{'\n'}اقدسی</> : <>FARHAM{'\n'}AGHDASI</>}
           </span>
         </h1>
 
@@ -133,8 +154,7 @@ const Hero = () => {
         </h2>
 
         <p className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-white/60 md:text-lg">
-          I&apos;m a full-stack developer passionate about creating fast, secure, and scalable web applications.
-          I turn ideas into impactful digital experiences using modern technologies.
+          {staticText.tagline}
         </p>
 
         <div className="mx-auto mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -142,8 +162,8 @@ const Hero = () => {
             href="/portfolio"
             className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black shadow-[0_0_35px_-6px_rgba(255,255,255,0.7)] transition-all duration-300 hover:bg-gray-200 hover:shadow-[0_0_45px_-6px_rgba(255,255,255,0.9)]"
           >
-            <span>See My Work</span>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+            <span>{staticText.seeMyWork}</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:-scale-x-100">
               <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
@@ -157,7 +177,7 @@ const Hero = () => {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span>Download CV</span>
+            <span>{staticText.downloadCv}</span>
           </Link>
         </div>
 

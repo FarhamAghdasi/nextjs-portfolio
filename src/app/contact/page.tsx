@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import {ContactPage} from '@/components';
-import { defaultMetadata } from '@/components/addon/seo';
+import { defaultMetadata, buildAlternates } from '@/components/addon/seo';
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageTitle = 'Contact Us | Farham Aghdasi';
@@ -22,9 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: pageTitle,
       description: pageDescription,
     },
-    alternates: {
-      canonical: pageUrl,
-    },
+    alternates: buildAlternates('/contact/', 'en'),
   };
 }
 

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import Link from '@/i18n/LocaleLink';
 const smokeBg = '/assets/imgs/smoke-bg.jpg';
 import { ParticleCanvas } from '@/components'
 

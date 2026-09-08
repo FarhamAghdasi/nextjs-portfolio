@@ -1,19 +1,26 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import Link from '@/i18n/LocaleLink';
 import Image from 'next/image';
 import { AccordionSection } from '@/components';
-import texts from '@/data/template-page.json';
+import textsEn from '@/data/en/template-page.json';
+import textsFa from '@/data/fa/template-page.json';
 const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
 import { TemplateDetails2 } from '@/components/types';
+import { useLocalizedData } from '@/i18n/LocaleProvider';
 
 interface TemplatePageProps {
   template: TemplateDetails2;
 }
 
 export default function TemplatePage({ template }: TemplatePageProps) {
-  const ImagePrimary = template.thumbnail ? template.thumbnail : '/default-image.jpg';
+  const texts = useLocalizedData(textsEn, textsFa);
+  const ImagePrimary = template.thumbnail
+    ? template.thumbnail.startsWith('/') || template.thumbnail.startsWith('http')
+      ? template.thumbnail
+      : `/assets/imgs/templates/${template.thumbnail}`
+    : '/default-image.jpg';
   const [isImageLoaded, setIsImageLoaded] = React.useState(false);
 
   return (
@@ -97,7 +104,7 @@ export default function TemplatePage({ template }: TemplatePageProps) {
                     <div className="crv-butn mt-[80px] flex justify-center items-center">
                       <span className="text">{texts.more_templates}</span>
                       <span className="icon">
-                        <Image src={arrowTopRight} alt="Arrow" width={20} height={20} unoptimized />
+                        <Image src={arrowTopRight} alt="Arrow" width={20} height={20} className="rtl-flip" unoptimized />
                       </span>
                     </div>
                   </Link>

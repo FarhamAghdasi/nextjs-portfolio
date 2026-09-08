@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLocale } from '@/i18n/LocaleProvider';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,6 +35,13 @@ const TextSplitter: React.FC<TextSplitterProps> = ({
   toggleActions = 'play none none none',
 }) => {
   const textRef = useRef<HTMLDivElement>(null);
+  const locale = useLocale();
+  // Persian script glyphs join contextually with their neighbours; splitting
+  // the string into one <span> per character (as this component does for
+  // the scroll-in animation) isolates every letter and breaks that joining,
+  // rendering Farsi text as disconnected glyphs. In Farsi mode we keep the
+  // whole string in a single span (still animatable as one unit) instead.
+  const skipCharSplit = locale === 'fa';
 
   useEffect(() => {
     if (startEvent) {
@@ -118,7 +126,7 @@ const TextSplitter: React.FC<TextSplitterProps> = ({
     };
   }, [startEvent, scrollTrigger, animationType, duration, stagger, delay, triggerStart, toggleActions]);
 
-  const parts = split === 'word' ? text.split(' ') : text.split('');
+  const parts = skipCharSplit ? [text] : split === 'word' ? text.split(' ') : text.split('');
 
   return (
     <div className={className} ref={textRef}>
@@ -131,7 +139,7 @@ const TextSplitter: React.FC<TextSplitterProps> = ({
             whiteSpace: part === ' ' || part === '\n' ? 'pre' : 'normal',
           }}
         >
-          {split === 'word' ? part + ' ' : part === ' ' ? '\u00A0' : part}
+          {skipCharSplit ? part : split === 'word' ? part + ' ' : part === ' ' ? '\u00A0' : part}
         </span>
       ))}
     </div>

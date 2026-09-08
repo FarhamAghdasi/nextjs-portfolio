@@ -1,25 +1,27 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/i18n/LocaleLink';
 import { Inner } from '@/components';
 const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
-import portfoliosData from '@/data/api/portfolio.json';
-import texts from '@/data/portfolio-page.json';
-import { Portfolio } from '@/components/types';
+import portfoliosDataEn from '@/data/en/api/portfolio.json';
+import portfoliosDataFa from '@/data/fa/api/portfolio.json';
+import textsEn from '@/data/en/portfolio-page.json';
+import textsFa from '@/data/fa/portfolio-page.json';
+import { useLocale, useLocalizedData } from '@/i18n/LocaleProvider';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const WorksPage: React.FC = () => {
-  const [portfolioData, setPortfolioData] = useState<Portfolio[]>([]);
+  const locale = useLocale();
+  const texts = useLocalizedData(textsEn, textsFa);
+  const noImageText = locale === 'fa' ? 'تصویری موجود نیست' : 'No Image Available';
+  const apiData = useLocalizedData(portfoliosDataEn, portfoliosDataFa);
+  const portfolioData = apiData.portfolio || [];
   const cardsWrapperRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setPortfolioData(portfoliosData.portfolio || []);
-  }, []);
 
   useEffect(() => {
     if (!portfolioData.length || !cardsWrapperRef.current) return;
@@ -83,7 +85,7 @@ const WorksPage: React.FC = () => {
                         <Link href={`/portfolio/${portfolio.url}/`}>{portfolio.title}</Link>
                       </h3>
                     </div>
-                    <div className="ml-auto max-md:ml-[0px]! max-md:mt-[5px]">
+                    <div className={`${locale === 'fa' ? 'ms-auto' : 'ml-auto'} max-md:ml-[0px]! max-md:mt-[5px]`}>
                       <Link
                         href={portfolio.Previewurl || '#'}
                         className="butn butn-md butn-bord butn-rounded"
@@ -93,7 +95,7 @@ const WorksPage: React.FC = () => {
                         <div className="flex items-center">
                           <span>{texts.viewProject}</span>
                           <span className="icon invert ml-[10px] n">
-                            <Image src={arrowTopRight} alt="Arrow" width={16} height={16} unoptimized/>
+                            <Image src={arrowTopRight} alt="Arrow" width={16} height={16} className="rtl-flip" unoptimized/>
                           </span>
                         </div>
                       </Link>
@@ -110,7 +112,7 @@ const WorksPage: React.FC = () => {
                         unoptimized
                       />
                     ) : (
-                      <span className="no-image">No Image Available</span>
+                      <span className="no-image">{noImageText}</span>
                     )}
                   </div>
                 </div>

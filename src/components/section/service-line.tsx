@@ -1,13 +1,15 @@
 "use client"
 import React, { useRef, useState } from 'react';
-import servicesData from '@/data/services-line.json';
+import servicesDataEn from '@/data/en/services-line.json';
+import servicesDataFa from '@/data/fa/services-line.json';
 import { Service } from '../types';
+import { useLocalizedData } from '@/i18n/LocaleProvider';
 
 const ServicesLine: React.FC = () => {
   const [activeItem, setActiveItem] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const services: Service[] = servicesData;
+  const services: Service[] = useLocalizedData(servicesDataEn, servicesDataFa);
 
   const focusItem = (index: number) => {
     const items = containerRef.current?.querySelectorAll<HTMLElement>('[data-service-item]');

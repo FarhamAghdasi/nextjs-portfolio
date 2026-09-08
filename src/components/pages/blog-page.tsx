@@ -2,23 +2,47 @@
 
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/i18n/LocaleLink';
 import { useSearchParams, useRouter } from 'next/navigation';
 import gsap from 'gsap';
-import rawPostsData from '@/data/api/posts.json';
-import texts from '@/data/blog.json';
+import rawPostsDataEn from '@/data/en/api/posts.json';
+import rawPostsDataFa from '@/data/fa/api/posts.json';
+import textsEn from '@/data/en/blog.json';
+import textsFa from '@/data/fa/blog.json';
 const defaultLogo = '/assets/imgs/logo.png';
 import { Sidebar } from '@/components';
 import { PostBlog } from '@/components/types';
+import { useLocaleContext, useLocalizedData } from '@/i18n/LocaleProvider';
 
 const Bloginfo: React.FC = () => {
+  const { locale, localizeHref } = useLocaleContext();
+  const texts = useLocalizedData(textsEn, textsFa);
+  const dateLocale = locale === 'fa' ? 'fa-IR' : undefined;
+  const categoryNotFoundText = useLocalizedData(
+    (cat: string) => `Category "${cat}" does not exist.`,
+    (cat: string) => `دسته‌بندی «${cat}» وجود ندارد.`
+  );
   const [searchTerm, setSearchTerm] = useState('');
   const postsRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
   const category = searchParams.get('category') || '';
 
-  const posts: PostBlog[] = useMemo(() => rawPostsData.posts || [], []);
+  const rawPostsData = useLocalizedData(rawPostsDataEn, rawPostsDataFa);
+  const posts: PostBlog[] = useMemo(() => (rawPostsData.posts || []), [rawPostsData]);
+
+  const roleText = (role?: string) => {
+    if (!role) return texts.authorRoleFallback;
+    if (locale === 'fa') {
+      const map: Record<string, string> = {
+        'Junior Developer': 'توسعه‌دهنده جونیور',
+        'Front-end Developer': 'توسعه‌دهنده فرانت‌اند',
+        'Full-Stack Developer': 'توسعه‌دهنده فول‌استک',
+      };
+      return map[role] || role;
+    }
+    return role;
+  };
 
   const isCategoryValid = category
     ? [...new Set(posts.map((post) => post.category))].includes(category)
@@ -64,7 +88,7 @@ const Bloginfo: React.FC = () => {
 
   const handleReset = () => {
     setSearchTerm('');
-    router.push('/blog');
+    router.push(localizeHref('/blog/'));
   };
 
   return (
@@ -92,36 +116,36 @@ const Bloginfo: React.FC = () => {
             <div className="lg:col-span-8">
               <div className="main-blog max-[992px]:mb-[80px]" ref={postsRef}>
                 {!isCategoryValid ? (
-                  <p>Category &quot;{category}&quot; does not exist.</p>
+                  <p>{categoryNotFoundText(category)}</p>
                 ) : filteredPosts.length === 0 ? (
                   <p>{texts.noPostsFound}</p>
                 ) : (
                   filteredPosts.map((post) => (
                     <div className="item" key={post.id}>
-                      <div className="info flex items-center">
-                        <div className="flex items-center">
-                          <div>
-                            <div className="author-img fit-img w-10 h-10 rounded-full">
-                              <Image
-                                src={post.authorImage || defaultLogo}
-                                alt={post.author || 'Author'}
-                                width={50}
-                                height={50}
-                                unoptimized
-                              />
-                            </div>
-                          </div>
-                          <div className="author-info ml-[10px] text-[13px] uppercase [&_span]:block [&_span]:leading-[22px]">
-                            <span>{post.author}</span>
-                            <span className="sub-color capitalize!">{post.role || texts.authorRoleFallback}</span>
-                          </div>
-                        </div>
-                        <div className="date ml-auto pr-[15px] text-[13px] uppercase [&_span]:block [&_span]:leading-[22px]">
-                          <span className="sub-color">
-                            <i className="fa-regular fa-clock mr-[15px] opacity-70" /> {post.date}
-                          </span>
-                        </div>
-                      </div>
+                       <div className="info flex items-center">
+                         <div className="flex items-center">
+                           <div>
+                             <div className="author-img fit-img w-10 h-10 rounded-full">
+                               <Image
+                                 src={post.authorImage || defaultLogo}
+                                 alt={post.author || 'Author'}
+                                 width={50}
+                                 height={50}
+                                 unoptimized
+                               />
+                             </div>
+                           </div>
+                           <div className="author-info ms-[10px] text-[13px] uppercase [&_span]:block [&_span]:leading-[22px]">
+                             <span>{post.author}</span>
+                             <span className="sub-color capitalize!">{roleText(post.role)}</span>
+                           </div>
+                         </div>
+                         <div className="date me-auto pe-[15px] text-[13px] uppercase [&_span]:block [&_span]:leading-[22px]">
+                           <span className="sub-color">
+                             <i className="fa-regular fa-clock me-[15px] opacity-70" /> {new Date(post.date).toLocaleDateString(dateLocale)}
+                           </span>
+                         </div>
+                       </div>
                       <div className="img fit-img mt-[30px] rounded-[15px] overflow-hidden h-[350px]">
                         <Image
                           src={post.thumbnail ? `/assets/imgs/uploads/${post.thumbnail}` : '/default-image.jpg'}
@@ -161,3 +185,4 @@ const Bloginfo: React.FC = () => {
 };
 
 export default Bloginfo;
+

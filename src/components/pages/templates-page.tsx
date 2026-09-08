@@ -3,17 +3,59 @@
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
-import Link from 'next/link';
+import Link from '@/i18n/LocaleLink';
 import { Inner } from '@/components';
 import { Pagination } from '@/components';
-import templateData from '@/data/api/template.json';
+import templateDataEn from '@/data/en/api/template.json';
+import templateDataFa from '@/data/fa/api/template.json';
 import { Template } from '@/components/types';
+import { useLocale, useLocalizedData } from '@/i18n/LocaleProvider';
+
+const templatesPageText = {
+  en: {
+    pageTitle: 'HTML Templates',
+    home: 'Home',
+    templates: 'Templates',
+    buyNow: 'Buy Now',
+    view: 'View',
+    searchPlaceholder: 'Search templates...',
+    clearSearch: 'Clear search',
+    searchAria: 'Search templates',
+    sortBy: 'Sort By',
+    categories: 'Categories',
+    all: 'All',
+    noTemplatesFound: 'No templates found.',
+    price: 'Price',
+    date: 'Date',
+    highToLow: 'High to Low',
+  },
+  fa: {
+    pageTitle: 'قالب‌های HTML',
+    home: 'خانه',
+    templates: 'قالب‌ها',
+    buyNow: 'خرید',
+    view: 'مشاهده',
+    searchPlaceholder: 'جستجوی قالب...',
+    clearSearch: 'پاک کردن جستجو',
+    searchAria: 'جستجوی قالب‌ها',
+    sortBy: 'مرتب‌سازی بر اساس',
+    categories: 'دسته‌بندی‌ها',
+    all: 'همه',
+    noTemplatesFound: 'قالبی یافت نشد.',
+    price: 'قیمت',
+    date: 'تاریخ',
+    highToLow: 'زیاد به کم',
+  },
+};
 
 const TemplateActions = ({ template }: { template: Template }) => {
+  const locale = useLocale();
+  const t = templatesPageText[locale];
   const [hoveredSeg, setHoveredSeg] = useState<'buy' | 'view'>('buy');
 
   return (
     <div
+      dir="ltr"
       className="relative flex items-stretch rounded-[30px] overflow-hidden border border-white/30 text-sm font-semibold"
       onMouseLeave={() => setHoveredSeg('buy')}
     >
@@ -31,7 +73,7 @@ const TemplateActions = ({ template }: { template: Template }) => {
           hoveredSeg === 'view' ? 'text-white' : 'text-black'
         }`}
       >
-        <span>Buy Now</span>
+        <span>{t.buyNow}</span>
         <span
           className={`transition-transform duration-300 group-hover/btn:translate-x-[3px] ${
             hoveredSeg === 'view' ? '[filter:brightness(0)_invert(1)]' : ''
@@ -47,13 +89,15 @@ const TemplateActions = ({ template }: { template: Template }) => {
           hoveredSeg === 'view' ? 'text-black' : 'text-white'
         }`}
       >
-        <span>View</span>
+        <span>{t.view}</span>
       </Link>
     </div>
   );
 };
 
 export default function HtmlTemplates() {
+  const locale = useLocale();
+  const t = templatesPageText[locale];
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -63,6 +107,7 @@ export default function HtmlTemplates() {
   const itemsPerPage = 6;
   const templatesRef = useRef<HTMLDivElement>(null);
 
+  const templateData = useLocalizedData(templateDataEn, templateDataFa);
   const templates = (templateData.templates || []) as Template[];
   const categories = Array.from(
     new Set(templates.map((t) => t.category).filter((c): c is string => Boolean(c)))
@@ -110,7 +155,7 @@ export default function HtmlTemplates() {
 
   return (
     <>
-      <Inner title="HTML Templates" first="Home" secend="Templates" />
+      <Inner title={t.pageTitle} first={t.home} secend={t.templates} />
 
       <section className="section-padding pt-[0px]">
         <div className="container">
@@ -136,7 +181,11 @@ export default function HtmlTemplates() {
                           <div className="absolute inset-0 animate-shimmer" />
                         )}
                         <Image
-                          src={template.thumbnail ? template.thumbnail : '/default-image.jpg'}
+                          src={template.thumbnail
+                            ? template.thumbnail.startsWith('/') || template.thumbnail.startsWith('http')
+                              ? template.thumbnail
+                              : `/assets/imgs/templates/${template.thumbnail}`
+                            : '/default-image.jpg'}
                           alt={template.title || 'Template Image'}
                           width={600}
                           height={400}
@@ -151,11 +200,11 @@ export default function HtmlTemplates() {
                           <span className="text-[#ccc] text-sm border border-white/30 rounded-[30px] px-5 py-2 inline-block">
                             {template.category || 'No category'}
                           </span>
-                          {template.price ? (
-                            <span className="text-white font-semibold">
-                              {Number(template.price).toLocaleString()} T
-                            </span>
-                          ) : null}
+                           {template.price ? (
+                             <span className="text-white font-semibold">
+                               {Number(template.price).toLocaleString()} ت
+                             </span>
+                           ) : null}
                         </div>
                         <h3 className="title text-[22px] mb-[20px]">
                           <Link href={`/templates/${template.url}/`}>{template.title}</Link>
@@ -166,7 +215,7 @@ export default function HtmlTemplates() {
                   ))}
                 </div>
               ) : (
-                <p className="no-data-message text-white">No templates found.</p>
+                <p className="no-data-message text-white">{t.noTemplatesFound}</p>
               )}
 
               {filtered.length > 0 && (
@@ -190,15 +239,15 @@ export default function HtmlTemplates() {
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search templates..."
-                    aria-label="Search templates"
+                    placeholder={t.searchPlaceholder}
+                    aria-label={t.searchAria}
                     className="w-full bg-[#0f0f0f] border border-white/10 rounded-[10px] pl-9 pr-9 py-2 text-sm text-white outline-none transition-colors focus:border-white"
                   />
                   {search && (
                     <button
                       type="button"
                       onClick={() => setSearch('')}
-                      aria-label="Clear search"
+                      aria-label={t.clearSearch}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors"
                     >
                       <i className="fa fa-times" />
@@ -207,7 +256,7 @@ export default function HtmlTemplates() {
                 </div>
 
                 <div className="filter-block mb-[30px]">
-                  <h4 className="sidebar-title mb-[15px]">Categories</h4>
+                  <h4 className="sidebar-title mb-[15px]">{t.categories}</h4>
                   <ul className="flex flex-col gap-2">
                     <li>
                       <button
@@ -219,7 +268,7 @@ export default function HtmlTemplates() {
                             : 'text-white/70 hover:text-white'
                         }`}
                       >
-                        All
+                        {t.all}
                       </button>
                     </li>
                     {categories.map((cat) => (
@@ -241,7 +290,7 @@ export default function HtmlTemplates() {
                 </div>
 
                 <div className="filter-block">
-                  <h4 className="sidebar-title mb-[15px]">Sort By</h4>
+                  <h4 className="sidebar-title mb-[15px]">{t.sortBy}</h4>
                   <ul className="flex flex-col gap-3">
                     <li>
                       <label className="flex items-center gap-3 cursor-pointer text-white/70 hover:text-white transition-colors">
@@ -251,7 +300,7 @@ export default function HtmlTemplates() {
                           checked={sortBy === 'price'}
                           onChange={() => setSortBy(sortBy === 'price' ? null : 'price')}
                         />
-                        <span>Price</span>
+                        <span>{t.price}</span>
                       </label>
                     </li>
                     <li>
@@ -262,7 +311,7 @@ export default function HtmlTemplates() {
                           checked={sortBy === 'date'}
                           onChange={() => setSortBy(sortBy === 'date' ? null : 'date')}
                         />
-                        <span>Date</span>
+                        <span>{t.date}</span>
                       </label>
                     </li>
                     <li>
@@ -273,7 +322,7 @@ export default function HtmlTemplates() {
                           checked={sortOrder === 'desc'}
                           onChange={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}
                         />
-                        <span>High to Low</span>
+                        <span>{t.highToLow}</span>
                       </label>
                     </li>
                   </ul>
@@ -286,3 +335,4 @@ export default function HtmlTemplates() {
     </>
   );
 }
+

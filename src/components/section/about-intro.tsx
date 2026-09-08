@@ -1,12 +1,15 @@
 'use client';
 
 import React from 'react';
-import aboutData from '@/data/about-section.json';
+import aboutDataEn from '@/data/en/about-section.json';
+import aboutDataFa from '@/data/fa/about-section.json';
 import { AboutContent } from '@/components/types';
 import { usePathname } from 'next/navigation';
 import { TextSplitter } from '@/components';
+import { useLocalizedData } from '@/i18n/LocaleProvider';
 
 export default function AboutIntro() {
+  const aboutData = useLocalizedData(aboutDataEn, aboutDataFa);
   const { sectionClass, header, content } = aboutData as AboutContent;
   const pathname = usePathname();
 
@@ -43,7 +46,7 @@ export default function AboutIntro() {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span>See My Resume</span>
+                <span>مشاهده رزومه</span>
               </button>
             </div>
           </div>

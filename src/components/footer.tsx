@@ -1,81 +1,15 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
-import gsap from 'gsap';
-import footerData from '@/data/footer.json';
+import React, { useRef } from 'react';
+import Link from '@/i18n/LocaleLink';
+import { useLocalizedData } from '@/i18n/LocaleProvider';
+import footerDataEn from '@/data/en/footer.json';
+import footerDataFa from '@/data/fa/footer.json';
 import { TextSplitter } from '@/components';
 
 const Footer: React.FC = () => {
+  const footerData = useLocalizedData(footerDataEn, footerDataFa);
   const subtitleRef = useRef<HTMLHeadingElement>(null);
-  const [animationTriggered, setAnimationTriggered] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const fullHeight = document.documentElement.scrollHeight;
-
-      const distanceFromBottom = fullHeight - (scrollTop + windowHeight);
-
-      if (distanceFromBottom < 100 && !animationTriggered) {
-        setAnimationTriggered(true);
-        animateLetters();
-      }
-    };
-
-    const animateLetters = () => {
-      const spans = subtitleRef.current?.querySelectorAll('span');
-      if (spans) {
-        gsap.fromTo(
-          spans,
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            stagger: 0.05,
-            ease: 'power2.out',
-          }
-        );
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [animationTriggered]);
-
-  const handleHover = () => {
-    const spans = subtitleRef.current?.querySelectorAll('span');
-    if (spans) {
-      gsap.fromTo(
-        spans,
-        { y: 0, opacity: 1 },
-        {
-          keyframes: [
-            { y: -10, opacity: 0.5, duration: 0.15 },
-            { y: 0, opacity: 1, duration: 0.3 },
-          ],
-          stagger: 0.03,
-          ease: 'power1.out',
-        }
-      );
-    }
-  };
-
-  const subtitleChars = footerData.subtitle.split('').map((char, index) => (
-    <span
-      key={index}
-      style={{
-        display: 'inline-block',
-        opacity: 0,
-        transition: 'opacity 0.3s ease',
-        willChange: 'transform, opacity',
-      }}
-    >
-      {char === ' ' ? '\u00A0' : char}
-    </span>
-  ));
 
   return (
     <footer>
@@ -96,11 +30,10 @@ const Footer: React.FC = () => {
             </Link>
           </h2>
           <h6
-            className="float_txt js-title max-md:text-[40px] max-md:-mt-2"
+            className="float_txt js-title max-md:text-[40px] max-md:-mt-2 font-iranyekan"
             ref={subtitleRef}
-            onMouseEnter={handleHover}
           >
-            {subtitleChars}
+            {footerData.subtitle}
           </h6>
         </div>
 
@@ -118,6 +51,7 @@ const Footer: React.FC = () => {
             <div className="lg:col-span-7">
               <a
                 href={`tel:${footerData.phoneNumber.replace(/\s+/g, '')}`}
+                dir="ltr"
                 className="contact-number text-[60px] max-md:text-[35px]! max-md:mt-[10px]"
               >
                 {footerData.phoneNumber}

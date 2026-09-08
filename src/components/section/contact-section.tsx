@@ -1,9 +1,18 @@
 "use client"
 import React, { useState } from 'react';
-import data from '@/data/contactus-page.json';
+import dataEn from '@/data/en/contactus-page.json';
+import dataFa from '@/data/fa/contactus-page.json';
+import { useLocalizedData } from '@/i18n/LocaleProvider';
 
 const ContactPageContent = () => {
+  const data = useLocalizedData(dataEn, dataFa);
   const { contact, texts } = data;
+  // The heading is a single localized sentence with one highlighted phrase
+  // at the end (e.g. "...brilliant!" / "...درخشان کنیم!"). Split on that
+  // phrase instead of hardcoding English word order, so the layout works
+  // for both LTR and RTL sentence structures.
+  const headerHighlightIndex = texts.header.lastIndexOf(texts.headerHighlight);
+  const headerPrefix = headerHighlightIndex >= 0 ? texts.header.slice(0, headerHighlightIndex) : texts.header;
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [responseMessage, setResponseMessage] = useState('');
 
@@ -44,19 +53,19 @@ const ContactPageContent = () => {
             <div className="full-width md:mb-[80px]">
               <div className="sec-head md:mb-[80px]">
                 <h2 className="text-u">
-                  Let&rsquo;s make your <br /> brand <span className="font-extralight">{texts.headerHighlight}</span>
+                  {headerPrefix} <span className="font-extralight">{texts.headerHighlight}</span>
                 </h2>
                 <p className="mt-[20px] mb-[20px]">{texts.description}</p>
                 <div className="flex flex-wrap">
                   <div className="w-full md:w-6/12">
                     <div className="morinfo mt-[30px]">
-                      <h6 className="mb-[15px]">Address</h6>
+                      <h6 className="mb-[15px]">{texts.addressLabel}</h6>
                       <p>{contact.address}</p>
                     </div>
                   </div>
                   <div className="w-full md:w-6/12">
                     <div className="morinfo mt-[30px]">
-                      <h6 className="mb-[15px]">Email</h6>
+                      <h6 className="mb-[15px]">{texts.emailLabel}</h6>
                       {contact.emails.map(email => (
                         <a key={email} href={`mailto:${email}`}>{email}</a>
                       ))}
@@ -64,7 +73,7 @@ const ContactPageContent = () => {
                   </div>
                 </div>
                 <div className="phone text-[30px] font-semibold mt-[30px] main-color transition-all duration-500 ease-in-out hover:my-6">
-                  <a href={`tel:${contact.phone}`} className="transition-all duration-300 hover:text-white">{contact.phone}</a>
+                  <a href={`tel:${contact.phone}`} dir="ltr" className="transition-all duration-300 hover:text-white">{contact.phone}</a>
                 </div>
                 <div className="flex flex-wrap gap-3 mt-[60px]">
                   {[
@@ -163,7 +172,7 @@ const ContactPageContent = () => {
                           viewBox="0 0 14 14"
                           fill="none"
                           aria-hidden="true"
-                          className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                          className="rtl-flip transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                         >
                           <path
                             d="M3 11L11 3M11 3H5M11 3V9"

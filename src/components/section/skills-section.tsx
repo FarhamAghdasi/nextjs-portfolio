@@ -1,15 +1,19 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
+import Link from '@/i18n/LocaleLink';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import skillsData from '@/data/skills.json';
-import progressSkillsData from '@/data/progressSkills.json';
-import servicesData from '@/data/service-section.json';
+import skillsDataEn from '@/data/en/skills.json';
+import skillsDataFa from '@/data/fa/skills.json';
+import progressSkillsDataEn from '@/data/en/progressSkills.json';
+import progressSkillsDataFa from '@/data/fa/progressSkills.json';
+import servicesDataEn from '@/data/en/service-section.json';
+import servicesDataFa from '@/data/fa/service-section.json';
 import { Skill, NumberItem, ExperienceItem, ServiceTitle } from '../types';
 import { TextSplitter } from '@/components';
+import { useLocale, useLocalizedData } from '@/i18n/LocaleProvider';
 
 const arrowTopRight = '/assets/imgs/icons/arrow-top-right.svg';
 const arrowLeft = '/assets/imgs/icons/chevron-left.svg';
@@ -45,10 +49,10 @@ const MarqueeStrip = ({
     <div className="main-marq shadow-off ontop">
       <div className={`slide-har ${slideClass} flex`}>
         {Array.from({ length: 2 }).map((_, boxIdx) => (
-          <div key={boxIdx} className="box">
+          <div key={boxIdx} className="box flex-nowrap">
             {items.map((item, i) => (
-              <div key={`${boxIdx}-${i}`} className="item px-[80px]!">
-                <p className="text-[10vw] font-semibold text-black">
+              <div key={`${boxIdx}-${i}`} className="item px-[80px]! flex-shrink-0">
+                <p className="text-[10vw] font-semibold text-black whitespace-nowrap">
                   <span className={i % 2 === 1 ? 'text-transparent! [-webkit-text-stroke:1px_#000]' : ''}>{item}</span>
                 </p>
               </div>
@@ -109,10 +113,15 @@ const skillImages: { [key: string]: string } = {
 };
 
 const Skills: React.FC = () => {
+  const locale = useLocale();
+  const skillsData = useLocalizedData(skillsDataEn, skillsDataFa);
+  const servicesData = useLocalizedData(servicesDataEn, servicesDataFa);
   const { header, skills, marquee, marquee2, resumeHeader, experience } = skillsData as SkillsData;
-  const { progressSkills } = progressSkillsData as ProgressSkillsData;
+  const { progressSkills } = useLocalizedData(progressSkillsDataEn, progressSkillsDataFa) as ProgressSkillsData;
   const serviceCategories = (servicesData as ServiceTitle[]).map((s) => s.title);
-  const tabs = ['All', ...serviceCategories];
+  const ALL_TAB = '__all__';
+  const allTabLabel = locale === 'fa' ? 'همه' : 'All';
+  const tabs = [ALL_TAB, ...serviceCategories];
   const yearList = [...experience].sort((a, b) => Number(a.year) - Number(b.year));
   const sectionRef = useRef<HTMLElement>(null);
   const skillItemsRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -127,15 +136,33 @@ const Skills: React.FC = () => {
     startScroll: 0,
   });
   const progressBarsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const numberLabels = {
+    en: { templates: 'HTML Templates', hours: 'Hours With ☕', websites: 'Website Created', sales: 'Total Sell' },
+    fa: { templates: 'قالب HTML', hours: 'ساعت با ☕', websites: 'وب‌سایت ساخته‌شده', sales: 'کل فروش' },
+  }[locale];
+
+  const toJalaliYear = (year: string): string => {
+    const y = parseInt(year, 10);
+    if (isNaN(y)) return year;
+    return String(y - 621);
+  };
+
+  const displayYear = (year: string) => locale === 'fa' ? toJalaliYear(year) : year;
+
   const [numbers, setNumbers] = useState<NumberItem[]>([
-    { count: '57', label: 'HTML Templates', link: 'https://www.rtl-theme.com/author/farhamaghdasi/' },
-    { count: '500+', label: 'Hours With ☕' },
-    { count: '+2', label: 'Website Created' },
-    { count: '629', label: 'Total Sell' },
+    { count: '57', label: numberLabels.templates, link: 'https://www.rtl-theme.com/author/farhamaghdasi/' },
+    { count: '500+', label: numberLabels.hours },
+    { count: '+2', label: numberLabels.websites },
+    { count: '629', label: numberLabels.sales },
   ]);
 
-  const [activeTab, setActiveTab] = useState<string>('All');
+  const [activeTab, setActiveTab] = useState<string>(ALL_TAB);
   const [activeYear, setActiveYear] = useState<string>(yearList[yearList.length - 1]?.year ?? '');
+  const [activeSkillIndex, setActiveSkillIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    setActiveSkillIndex(null);
+  }, [activeTab]);
 
   const handleSkillTilt = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = e.currentTarget;
@@ -153,7 +180,7 @@ const Skills: React.FC = () => {
   };
 
   useEffect(() => {
-    const CACHE_KEY = 'skills-numbers-cache';
+    const CACHE_KEY = `skills-numbers-cache-${locale}`;
 
     const fetchNumbers = async () => {
       try {
@@ -167,7 +194,7 @@ const Skills: React.FC = () => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Accept-Language': 'fa',
+            'Accept-Language': locale,
           },
         });
         if (!response.ok) throw new Error(`Failed to fetch numbers: ${response.status}`);
@@ -175,20 +202,20 @@ const Skills: React.FC = () => {
         const updatedNumbers: NumberItem[] = [
           {
             count: `${data.products_count}`,
-            label: 'HTML Templates',
+            label: numberLabels.templates,
             link: 'https://www.rtl-theme.com/author/farhamaghdasi/',
           },
           {
             count: '500+',
-            label: 'Hours With ☕',
+            label: numberLabels.hours,
           },
           {
             count: '+2',
-            label: 'Website Created',
+            label: numberLabels.websites,
           },
           {
             count: `${data.sales_count}+`,
-            label: 'Total Sell',
+            label: numberLabels.sales,
           },
         ];
         setNumbers(updatedNumbers);
@@ -199,7 +226,8 @@ const Skills: React.FC = () => {
     };
 
     fetchNumbers();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locale]);
 
   useEffect(() => {
     countRefs.current.forEach((el, i) => {
@@ -327,12 +355,12 @@ const Skills: React.FC = () => {
       <div>
         <div className="container mx-auto px-4 pt-[30px] bord-thin-top pb-[0px]">
           <div className="sec-head mb-[80px]">
-            <div className="flex items-center">
+            <div className="flex items-center whitespace-nowrap">
               <div>
                 <span className="sub-head">{header.subHead}</span>
               </div>
-              <div className="ml-auto">
-                <div className="bract">
+              <div className={`${locale === 'fa' ? 'me-auto' : 'ml-auto'}`}>
+                <div className="bract whitespace-nowrap">
                   {'{'} <span>{header.clients}</span> {'}'}
                 </div>
               </div>
@@ -360,33 +388,34 @@ const Skills: React.FC = () => {
                   <Link href="/about" className="butn-under mt-[15px]">
                     {header.viewSkills}{' '}
                     <span className="icon">
-                      <Image src={arrowTopRight} alt="Arrow" width={20} height={20} unoptimized />
+                      <Image src={arrowTopRight} alt="Arrow" width={20} height={20} className="rtl-flip" unoptimized />
                     </span>
                   </Link>
                 </div>
               </div>
             </div>
             <div className="flex flex-wrap justify-center mt-[30px] mb-[40px]">
-              <div className="inline-flex flex-wrap justify-center rounded-full border border-black/30 overflow-hidden">
+              <div className="inline-flex max-w-full overflow-x-auto rounded-full border border-black/10 bg-black/[0.03] p-1.5 backdrop-blur-sm [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 {tabs.map((tab) => (
                   <button
                     key={tab}
                     type="button"
                     onClick={() => setActiveTab(tab)}
-                    className={`px-[30px] py-[12px] text-[16px] font-semibold transition-all duration-300 border-r border-black/20 last:border-r-0 ${
+                    className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ${
                       activeTab === tab
-                        ? 'bg-black text-white'
-                        : 'text-black hover:bg-black/5'
+                        ? 'bg-black text-white shadow-[0_0_20px_-5px_rgba(255,255,255,0.4)]'
+                        : 'text-black/60 hover:text-black'
                     }`}
                   >
-                    {tab}
+                    {tab === ALL_TAB ? allTabLabel : tab}
                   </button>
                 ))}
               </div>
             </div>
             <div className="flex flex-wrap justify-center gap-[30px]">
               {skills.map((skill: Skill, index: number) => {
-                const isHidden = activeTab !== 'All' && skill.category !== activeTab;
+                const isHidden = activeTab !== ALL_TAB && skill.category !== activeTab;
+                const isActive = activeSkillIndex === index;
                 return (
                    <div
                      key={skill.name}
@@ -394,31 +423,32 @@ const Skills: React.FC = () => {
                      ref={(el) => {
                       skillItemsRef.current[index] = el;
                     }}
-                  >
-                      <div className="item group text-center">
-                        <div
-                          className="box w-fit bg-[#EBEBEB] rounded-[150px] px-[30px] h-[320px] flex flex-col items-center justify-center mb-[30px] transition-transform duration-300 ease-out [transform-style:preserve-3d] group-hover:shadow-2xl"
-                          onMouseMove={handleSkillTilt}
-                          onMouseLeave={resetSkillTilt}
-                        >
-                          <div className="img w-[90px] mx-auto mb-[40px] grayscale transition-all duration-400 group-hover:grayscale-0 group-hover:[transform:translateZ(40px)]">
-                          <Image
-                            src={skillImages[skill.name] || fallbackImage}
-                            alt={skill.name}
-                            width={64}
-                            height={64}
-                            style={{ objectFit: 'contain' }}
-                            unoptimized
-                          />
-                        </div>
-                        <h2>{skill.level}</h2>
-                      </div>
-                      <h6 className="truncate">{skill.name}</h6>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                   >
+                       <div className="item group text-center">
+                         <div
+                           className={`box w-fit bg-[#EBEBEB] rounded-[150px] px-[30px] h-[320px] flex flex-col items-center justify-center mb-[30px] transition-transform duration-300 ease-out [transform-style:preserve-3d] ${isActive ? 'shadow-2xl' : 'group-hover:shadow-2xl'}`}
+                           onMouseMove={handleSkillTilt}
+                           onMouseLeave={resetSkillTilt}
+                           onClick={() => setActiveSkillIndex(isActive ? null : index)}
+                         >
+                           <div className={`img w-[90px] mx-auto mb-[40px] transition-all duration-400 ${isActive ? 'grayscale-0 [transform:translateZ(40px)]' : 'grayscale group-hover:grayscale-0 group-hover:[transform:translateZ(40px)]'}`}>
+                           <Image
+                             src={skillImages[skill.name] || fallbackImage}
+                             alt={skill.name}
+                             width={64}
+                             height={64}
+                             style={{ objectFit: 'contain' }}
+                             unoptimized
+                           />
+                         </div>
+                         <h2>{skill.level}</h2>
+                       </div>
+                       <h6 className="truncate">{skill.name}</h6>
+                     </div>
+                   </div>
+                 );
+               })}
+             </div>
           </div>
           <section className="pt-[0px]">
             <div>
@@ -494,12 +524,12 @@ const Skills: React.FC = () => {
                 <div>
                   <span className="sub-head">{resumeHeader.subHead}</span>
                 </div>
-                <div className="ml-auto">
-                  <div className="bract">
-                    {'{'} <span>{resumeHeader.author}</span> {'}'}
-                  </div>
+              <div className={`${locale === 'fa' ? 'me-auto' : 'ml-auto'}`}>
+                <div className="bract whitespace-nowrap">
+                  {'{'} <span>{resumeHeader.author}</span> {'}'}
                 </div>
               </div>
+            </div>
               <div className="flex flex-wrap mt-[30px]">
                 <div className="w-full text-center">
                   <h2 className="text-[60px] max-md:text-[40px]!">{resumeHeader.title}</h2>
@@ -508,31 +538,63 @@ const Skills: React.FC = () => {
             </div>
             <div className="mt-[30px]">
               <div className="flex items-center justify-center gap-[28px] mb-[30px]">
-                <button
-                  type="button"
-                  onClick={() => {
-                    const idx = yearList.findIndex((e) => e.year === activeYear);
-                    if (idx > 0) setActiveYear(yearList[idx - 1].year);
-                  }}
-                  disabled={yearList.findIndex((e) => e.year === activeYear) <= 0}
-                  aria-label="Previous year"
-                  className="p-[6px] transition-opacity duration-300 hover:opacity-60 disabled:opacity-20 disabled:cursor-not-allowed"
-                >
-                  <Image src={arrowLeft} alt="Previous" width={38} height={38} unoptimized />
-                </button>
-                <span className="text-[64px] font-extrabold leading-none text-center min-w-[150px]">{activeYear}</span>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const idx = yearList.findIndex((e) => e.year === activeYear);
-                    if (idx < yearList.length - 1) setActiveYear(yearList[idx + 1].year);
-                  }}
-                  disabled={yearList.findIndex((e) => e.year === activeYear) >= yearList.length - 1}
-                  aria-label="Next year"
-                  className="p-[6px] transition-opacity duration-300 hover:opacity-60 disabled:opacity-20 disabled:cursor-not-allowed"
-                >
-                  <Image src={arrowRight} alt="Next" width={38} height={38} unoptimized />
-                </button>
+                {locale === 'fa' ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const idx = yearList.findIndex((e) => e.year === activeYear);
+                        if (idx < yearList.length - 1) setActiveYear(yearList[idx + 1].year);
+                      }}
+                      disabled={yearList.findIndex((e) => e.year === activeYear) >= yearList.length - 1}
+                      aria-label="سال بعد"
+                      className="p-[6px] transition-opacity duration-300 hover:opacity-60 disabled:opacity-20 disabled:cursor-not-allowed"
+                    >
+                      <Image src={arrowRight} alt="Next" width={38} height={38} unoptimized />
+                    </button>
+                    <span className="text-[64px] font-extrabold leading-none text-center min-w-[150px]">{displayYear(activeYear)}</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const idx = yearList.findIndex((e) => e.year === activeYear);
+                        if (idx > 0) setActiveYear(yearList[idx - 1].year);
+                      }}
+                      disabled={yearList.findIndex((e) => e.year === activeYear) <= 0}
+                      aria-label="سال قبل"
+                      className="p-[6px] transition-opacity duration-300 hover:opacity-60 disabled:opacity-20 disabled:cursor-not-allowed"
+                    >
+                      <Image src={arrowLeft} alt="Previous" width={38} height={38} unoptimized />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const idx = yearList.findIndex((e) => e.year === activeYear);
+                        if (idx > 0) setActiveYear(yearList[idx - 1].year);
+                      }}
+                      disabled={yearList.findIndex((e) => e.year === activeYear) <= 0}
+                      aria-label="Previous year"
+                      className="p-[6px] transition-opacity duration-300 hover:opacity-60 disabled:opacity-20 disabled:cursor-not-allowed"
+                    >
+                      <Image src={arrowLeft} alt="Previous" width={38} height={38} className="rtl-flip" unoptimized />
+                    </button>
+                    <span className="text-[64px] font-extrabold leading-none text-center min-w-[150px]">{displayYear(activeYear)}</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const idx = yearList.findIndex((e) => e.year === activeYear);
+                        if (idx < yearList.length - 1) setActiveYear(yearList[idx + 1].year);
+                      }}
+                      disabled={yearList.findIndex((e) => e.year === activeYear) >= yearList.length - 1}
+                      aria-label="Next year"
+                      className="p-[6px] transition-opacity duration-300 hover:opacity-60 disabled:opacity-20 disabled:cursor-not-allowed"
+                    >
+                      <Image src={arrowRight} alt="Next" width={38} height={38} className="rtl-flip" unoptimized />
+                    </button>
+                  </>
+                )}
               </div>
               <div ref={expContentRef} className="-mx-[calc(50vw_-_50%)]">
                 <div

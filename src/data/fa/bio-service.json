@@ -1,0 +1,20 @@
+{
+  "sectionClass": "intro section-padding ontop",
+  "containerClass": "container",
+  "rowClass": "flex flex-wrap justify-center",
+  "colClass": "w-full lg:w-10/12",
+  "content": {
+    "class": "text-center position-re",
+    "title": "من همیشه به دنبال <span>یادگیری</span> و <span>بهبود مهارت‌هایم</span> هستم و قصد دارم به‌زودی <span>فناوری‌های پیشرفته‌ای</span> مانند <span>MongoDB و Node.js</span> را نیز یاد بگیرم. با دقت در جزئیات، پروژه‌های کوچکی را با موفقیت به پایان رسانده‌ام و از آن‌ها به‌عنوان <span>پایه‌ای برای رشد بیشتر</span> استفاده می‌کنم.",
+    "images": [
+      {
+        "class": "img img1 fit-img",
+        "alt": "تصویر معرفی ۱"
+      },
+      {
+        "class": "img img2 fit-img",
+        "alt": "تصویر معرفی ۲"
+      }
+    ]
+  }
+}

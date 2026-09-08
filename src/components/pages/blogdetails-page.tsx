@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/i18n/LocaleLink';
 import { Suspense } from 'react';
 import { Share, Captcha, Comments } from '@/components';
 const authorImage = '/assets/imgs/logo.png';
-import texts from '@/data/blog-details.json';
+import textsEn from '@/data/en/blog-details.json';
+import textsFa from '@/data/fa/blog-details.json';
 import { BlogInfoProps, FormData, Comment } from '@/components/types';
+import { useLocale, useLocalizedData } from '@/i18n/LocaleProvider';
 
 interface ExtendedBlogInfoProps extends BlogInfoProps {
   searchTerm?: string;
@@ -15,6 +17,23 @@ interface ExtendedBlogInfoProps extends BlogInfoProps {
 }
 
 const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComments = [] }) => {
+  const locale = useLocale();
+  const texts = useLocalizedData(textsEn, textsFa);
+  const dateLocale = locale === 'fa' ? 'fa-IR' : undefined;
+
+  const roleText = (role?: string) => {
+    if (!role) return texts.authorRole;
+    if (locale === 'fa') {
+      const map: Record<string, string> = {
+        'Junior Developer': 'توسعه‌دهنده جونیور',
+        'Junior Front-End Developer': 'توسعه‌دهنده جونیور فرانت‌اند',
+        'Front-end Developer': 'توسعه‌دهنده فرانت‌اند',
+        'Full-Stack Developer': 'توسعه‌دهنده فول‌استک',
+      };
+      return map[role] || role;
+    }
+    return role;
+  };
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -103,37 +122,35 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                 <h1 className="text-[64px] mt-[30px]">{post.title || texts.defaultTitle}</h1>
               </div>
               <div className="info flex mt-[40px] items-center">
-                <div className="left-info max-md:mb-[30px]">
-                  <div className="flex items-center">
-                    <div className="author-info">
-                  <div className="flex items-center">
-                    <Link href="#" className="circle-60">
-                      <Image
-                        src={authorImage}
-                        alt={texts.authorAlt}
-                        className="circle-img"
-                        width={60}
-                        height={60}
-                        unoptimized
-                      />
-                    </Link>
-                    <Link href="#" className="ml-[20px]">
-                          <span className="opacity-70 mb-[5px]">{texts.authorLabel}</span>
-                          <h6 className="text-[16px]">{post.author || texts.unknownAuthor}</h6>
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="date ml-[50px]">
-                      <Link href="#">
-                        <span className="opacity-70 mb-[5px]">{texts.publishedLabel}</span>
-                        <h6 className="text-[16px]">{new Date(post.date).toLocaleDateString()}</h6>
+                <div className={`flex items-center ${locale === 'fa' ? 'order-2' : ''}`}>
+                  <div className="author-info">
+                    <div className="flex items-center">
+                      <Link href="#" className="circle-60">
+                        <Image
+                          src={authorImage}
+                          alt={texts.authorAlt}
+                          className="circle-img"
+                          width={60}
+                          height={60}
+                          unoptimized
+                        />
                       </Link>
+                      <Link href="#" className={`${locale === 'fa' ? 'ms-[20px]' : 'ml-[20px]'}`}>
+                            <span className="opacity-70 mb-[5px]">{texts.authorLabel}</span>
+                            <h6 className="text-[16px]">{post.author || texts.unknownAuthor}</h6>
+                          </Link>
                     </div>
                   </div>
+                  <div className={`date ${locale === 'fa' ? 'order-1 ms-[50px]' : 'me-[50px]'}`}>
+                    <Link href="#">
+                      <span className="opacity-70 mb-[5px]">{texts.publishedLabel}</span>
+                      <h6 className="text-[16px]">{new Date(post.date).toLocaleDateString(dateLocale)}</h6>
+                    </Link>
+                  </div>
                 </div>
-                <div className="right-info ml-auto">
+                <div className={`right-info ${locale === 'fa' ? 'order-3 ms-auto' : 'me-auto'}`}>
                   <div>
-                    <span className="icon ti-comment text-[18px] mr-[10px]" />
+                    <span className={`icon ti-comment text-[18px] ${locale === 'fa' ? 'ml-[10px]' : 'mr-[10px]'}`} />
                     <span className="opacity-70">{post.comments?.length || 0} {texts.commentsLabel}</span>
                   </div>
                 </div>
@@ -152,7 +169,7 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                     <div className="text" dangerouslySetInnerHTML={{ __html: post.description || '' }} />
                   </article>
                 </div>
-                <div className="info-area flex pt-[50px] bord-thin-top [&_.tags_span]:text-sm [&_.tags_span]:mr-[5px] [&_.tags_span]:opacity-70 [&_.tags_a]:py-[7px] [&_.tags_a]:px-5 [&_.tags_a]:text-[13px] [&_.tags_a]:bg-white/[0.02] [&_.tags_a]:rounded-[30px] [&_.tags_a]:mr-[5px] [&_.tags_a]:transition-all [&_.tags_a]:duration-400 [&_.tags_a:hover]:bg-main [&_.tags_a:hover]:text-[#1d1d1d] [&_.share-icon_span]:text-sm [&_.share-icon_span]:mr-[5px] [&_.share-icon_span]:opacity-70 [&_.share-icon_a]:w-[35px] [&_.share-icon_a]:h-[35px] [&_.share-icon_a]:leading-[35px] [&_.share-icon_a]:text-[11px] [&_.share-icon_a]:text-center [&_.share-icon_a]:p-0 [&_.share-icon_a]:bg-white/[0.02] [&_.share-icon_a]:rounded-[30px] [&_.share-icon_a]:mr-[5px] [&_.share-icon_a]:transition-all [&_.share-icon_a]:duration-400 [&_.share-icon_a:hover]:bg-main [&_.share-icon_a:hover]:text-[#1d1d1d]">
+                <div className={`info-area flex pt-[50px] bord-thin-top [&_.tags_span]:text-sm [&_.tags_span]:me-[5px] [&_.tags_span]:opacity-70 [&_.tags_a]:py-[7px] [&_.tags_a]:px-5 [&_.tags_a]:text-[13px] [&_.tags_a]:bg-white/[0.02] [&_.tags_a]:rounded-[30px] [&_.tags_a]:me-[5px] [&_.tags_a]:transition-all [&_.tags_a]:duration-400 [&_.tags_a:hover]:bg-main [&_.tags_a:hover]:text-[#1d1d1d] [&_.share-icon_span]:text-sm [&_.share-icon_span]:me-[5px] [&_.share-icon_span]:opacity-70 [&_.share-icon_a]:w-[35px] [&_.share-icon_a]:h-[35px] [&_.share-icon_a]:leading-[35px] [&_.share-icon_a]:text-[11px] [&_.share-icon_a]:text-center [&_.share-icon_a]:p-0 [&_.share-icon_a]:bg-white/[0.02] [&_.share-icon_a]:rounded-[30px] [&_.share-icon_a]:me-[5px] [&_.share-icon_a]:transition-all [&_.share-icon_a]:duration-400 [&_.share-icon_a:hover]:bg-main [&_.share-icon_a:hover]:text-[#1d1d1d] ${locale === 'fa' ? 'flex-row-reverse' : ''}`}>
                   <div>
                     <div className="tags flex">
                       <div className="valign">
@@ -253,15 +270,15 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                 <h2>{texts.recentNews}</h2>
               </div>
               <div className="w-full lg:w-6/12">
-                <div className="flex">
-                  <Link
-                    href="/blog"
-                    className="butn butn-md butn-bord butn-rounded ml-auto"
-                  >
+                  <div className="flex">
+                    <Link
+                      href="/blog"
+                      className="butn butn-md butn-bord butn-rounded ms-auto"
+                    >
                    <div className="flex items-center">
                       <span>{texts.allArticles}</span>
-                      <span className="icon ml-[20px]">
-                        <i className="fa-solid fa-chevron-right" />
+                       <span className={`icon ${locale === 'fa' ? 'ms-[20px]' : 'ml-[20px]'}`}>
+                        <i className="fa-solid fa-chevron-right rtl-flip" />
                       </span>
                     </div>
                   </Link>
@@ -285,15 +302,15 @@ const BlogInfo: React.FC<ExtendedBlogInfoProps> = ({ post, posts, initialComment
                           />
                         </div>
                       </div>
-                      <div className="author-info ml-[10px] text-[13px] uppercase [&_span]:block [&_span]:leading-[22px]">
+                      <div className={`author-info ${locale === 'fa' ? 'ms-[10px]' : 'ml-[10px]'} text-[13px] uppercase [&_span]:block [&_span]:leading-[22px]`}>
                         <span>{p.author || texts.unknownAuthor}</span>
-                        <span className="sub-color capitalize!">{p.role || texts.authorRole}</span>
+                         <span className="sub-color capitalize!">{roleText(p.role)}</span>
                       </div>
                     </div>
-                    <div className="date ml-auto text-[13px] uppercase [&_span]:block [&_span]:leading-[22px]">
+                    <div className={`date ${locale === 'fa' ? 'me-auto' : 'ml-auto'} text-[13px] uppercase [&_span]:block [&_span]:leading-[22px]`}>
                       <span className="sub-color">
-                        <i className="fa-regular fa-clock mr-[15px] opacity-70" />
-                        {new Date(p.date).toLocaleDateString()}
+                        <i className={`fa-regular fa-clock ${locale === 'fa' ? 'me-[15px]' : 'mr-[15px]'} opacity-70`} />
+                        {new Date(p.date).toLocaleDateString(dateLocale)}
                       </span>
                     </div>
                   </div>

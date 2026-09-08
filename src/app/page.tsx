@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { HomePage } from '@/components';
-import { defaultMetadata } from '@/components/addon/seo';
+import { defaultMetadata, buildAlternates } from '@/components/addon/seo';
 import Head from 'next/head';
 
 export const viewport = {
@@ -46,9 +46,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: pageDescription,
       images: [pageImage],
     },
-    alternates: {
-      canonical: pageUrl,
-    },
+    alternates: buildAlternates('/', 'en'),
   };
 }
 
