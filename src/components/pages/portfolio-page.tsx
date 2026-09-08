@@ -12,6 +12,7 @@ import portfoliosDataFa from '@/data/fa/api/portfolio.json';
 import textsEn from '@/data/en/portfolio-page.json';
 import textsFa from '@/data/fa/portfolio-page.json';
 import { useLocale, useLocalizedData } from '@/i18n/LocaleProvider';
+import { useMemo } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,7 +21,7 @@ const WorksPage: React.FC = () => {
   const texts = useLocalizedData(textsEn, textsFa);
   const noImageText = locale === 'fa' ? 'تصویری موجود نیست' : 'No Image Available';
   const apiData = useLocalizedData(portfoliosDataEn, portfoliosDataFa);
-  const portfolioData = apiData.portfolio || [];
+  const portfolioData = useMemo(() => apiData.portfolio || [], [apiData]);
   const cardsWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

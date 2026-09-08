@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, ChangeEvent, FC, useCallback } from 'react';
+import Image from 'next/image';
 
 type CreateCaptchaProps = {
   onCaptchaChange: (value: string) => void;
@@ -71,13 +72,16 @@ const CreateCaptcha: FC<CreateCaptchaProps> = ({ onCaptchaChange }) => {
   return (
     <div className="w-full">
       <div className="form-group flex items-center mt-4">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         {captchaImage && (
-          <img
+          <Image
             src={captchaImage}
             alt="Captcha"
-            style={{ cursor: "pointer", marginRight: "10px" }}
+            width={120}
+            height={40}
+            className="cursor-pointer"
+            style={{ marginRight: '10px' }}
             onClick={getCaptcha}
+            unoptimized
           />
         )}
         <input

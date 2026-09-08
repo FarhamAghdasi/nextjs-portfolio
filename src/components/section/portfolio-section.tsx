@@ -114,8 +114,8 @@ function parseTechnologies(raw: string | { title: string; content: string }[] | 
 const Work: React.FC = () => {
   const apiPortfolios = useLocalizedData(portfoliosDataEn, portfoliosDataFa);
   const apiTemplates = useLocalizedData(templatesDataEn, templatesDataFa);
-  const portfolios: PortfolioItem[] = apiPortfolios.portfolio || [];
-  const htmlTemplates: TemplateItem[] = apiTemplates.templates || [];
+  const portfolios = useMemo<PortfolioItem[]>(() => apiPortfolios.portfolio || [], [apiPortfolios]);
+  const htmlTemplates = useMemo<TemplateItem[]>(() => apiTemplates.templates || [], [apiTemplates]);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const gridRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
