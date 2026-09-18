@@ -63,3 +63,5 @@ next-env.d.ts
 # project-specific
 /src/assets/old
 /.kilo/plans
+/package-lock.json
+/public/resume.pdf
