@@ -1,5 +1,5 @@
 {
-  "total_items": 2,
+  "total_items": 4,
   "total_pages": 1,
   "current_page": 1,
   "portfolio": [
@@ -55,6 +55,72 @@
       "description": "<h2>Introduction</h2><p><a href=\"https://rtl-theme.com/\" target=\"_blank\">Rip Hunter</a> is an innovative <b>web security tool</b> developed by <b>Farham Aghdasi</b> for the Khwarizmi Youth Festival in the programming category. It prevents unauthorized <b>website ripping</b> (downloading entire websites offline) and copying across platforms like HTML, PHP, Node.js, and React. Tailored for website owners and template sellers on platforms like <a href=\"https://rtl-theme.com/\" target=\"_blank\">RTL-Theme.com</a>, Rip Hunter blocks malicious rippers, monitors traffic in real-time, and offers customizable protections with <b>zero performance impact</b>. It secured <b>2nd place</b> in national skills competitions and <b>3rd place</b> in the Khwarizmi festival.</p><p><br></p><p><br></p><h2>Core Features</h2><p>Rip Hunter includes a landing page, a comprehensive user dashboard, a server-side firewall (PHP and Node.js), and client-side scripts (Vanilla JS/jQuery and React versions). Key features include:</p><ul style=\"list-style-type: disc; padding-left: 40px; font-size: 16px; line-height: 1.8;\"><li>Real-time monitoring of visitors and rippers via interactive charts and logs.</li><li>Automated blocking of suspicious IPs, stored in .htaccess or databases.</li><li>Customizable restrictions: disable right-click, source code viewing, and domain/protocol limits.</li><li>Telegram bot alerts for detected threats.</li><li>HTML file encryption and decryption tools.</li><li>Crawler simulator to test protections.</li><li>Backup/restore database, account management, and light/dark theme toggles.</li></ul><p><br></p><p><br></p><h2>Detection Algorithms</h2><p>Rip Hunter uses four advanced algorithms to detect and block rippers:</p><ul style=\"list-style-type: disc; padding-left: 40px; font-size: 16px; line-height: 1.8;\"><li><b>User Agent Analysis:</b> Identifies non-browser agents (e.g., Python-urllib vs. Chrome) using a predefined ripper list.</li><li><b>Traffic Monitoring:</b> Tracks data consumption and request rates over 60 seconds, blocking IPs exceeding thresholds (>10MB or >100 requests).</li><li><b>Malicious Link Trap:</b> Inserts hidden links that only rippers follow, triggering instant blocks.</li><li><b>Machine Learning:</b> Stacked models classify users as normal (2), suspicious (1), or malicious (0) based on live data.</li></ul><p>Additional algorithms handle subdomain checks, XSS prevention, and data logging.</p><p><br></p><p><br></p><h2>Client-Side Protections</h2><p>The client-side module enhances security by restricting:</p><ul style=\"list-style-type: disc; padding-left: 40px; font-size: 16px; line-height: 1.8;\"><li>Domain and protocol enforcement.</li><li>Disabled developer tools, right-click, and source viewing.</li><li>React pre-render protections to prevent early source access.</li></ul><p><br></p><p><br></p><h2>Innovation and Advantages</h2><p>Rip Hunter’s <b>lightweight design</b> ensures no performance overhead, unlike competitors. It reduces server load, analyzes ripper origins (ISP, country), and provides graphical analytics for visitor vs. ripper ratios.</p><p><b>Comparison with Competitors:</b></p><table class=\"table table-striped table-bordered table-hover\" style=\"width: 100%; font-size: 16px; margin: 20px 0;\"><thead class=\"table-dark\"><tr><th scope=\"col\">Feature</th><th scope=\"col\">Rip Hunter</th><th scope=\"col\">Cloudflare (Competitor)</th></tr></thead><tbody><tr><td>Performance Impact</td><td>None (background processing)</td><td>High (slows down site loading)</td></tr><tr><td>Ripper Blocking Guarantee</td><td>High (multi-algorithm + ML)</td><td>Variable (no specific anti-ripper focus)</td></tr><tr><td>Customization</td><td>Extensive (per-platform configs, real-time dashboard)</td><td>Limited to general security rules</td></tr><tr><td>Cost</td><td>Free/Open for integration, commercial use in templates</td><td>Paid tiers for advanced features</td></tr><tr><td>Platform Support</td><td>HTML, PHP, Node.js, React</td><td>General web, less targeted</td></tr></tbody></table><p>Rip Hunter excels with its targeted anti-ripping focus, ML-driven detection, and seamless integration for high-value content sites.</p><p><br></p><p><br></p><h2>Commercialization</h2><p>Integrated into HTML templates sold on <a href=\"https://rtl-theme.com/\" target=\"_blank\">RTL-Theme.com</a> (Rastchin), Rip Hunter protects templates from unauthorized copying, enhancing sales security. Examples include dashboards like 'Daftar' and 'Gridya'. It prevents offline ripping, ensuring buyers cannot redistribute content, boosting trust and revenue for template sellers.</p><p><br></p><p><br></p><h2>Screenshots</h2><p><img src=\"https://s6.uupload.ir/files/riphunter-landing_lxo.png\" alt=\"Dashboard Overview\" style=\"max-width: 100%; margin: 20px 0;\"><br></p><p><img src=\"https://s6.uupload.ir/files/dashboard_jefl.png\" alt=\"Ripper Analytics Chart\" style=\"max-width: 100%; margin: 20px 0;\"><br></p><p><img src=\"https://s6.uupload.ir/files/dashboard-config_9x1.png\" alt=\"Configuration Panel\" style=\"max-width: 100%; margin: 20px 0;\"><br></p><p><br></p><p>For more details, explore the full project documentation.</p>",
       "Shortdescription": "Rip Hunter is an advanced web security tool that prevents unauthorized website ripping and copying using multi-algorithm detection, machine learning, and a user-friendly dashboard, offering superior performance over competitors like Cloudflare.",
       "thumbnail": "riphunter.png"
+    },
+    {
+      "title": "Hossein Dehnavi Platform",
+      "date": "2026-01-01",
+      "author": "farham aghdasi",
+      "category": "Web Application",
+      "accordionTitle": "Architecture, features, and tech stack",
+      "accordionContent": [
+        {
+          "title": "Platform Architecture",
+          "content": "Laravel 12, PHP 8.2+, Blade + Vite, Eloquent ORM, 48 models, 48 controllers, multi-guard auth (web/admin/thread), versioned file-cache invalidation, 14 custom middleware"
+        },
+        {
+          "title": "Frontend Experience",
+          "content": "Turbo Drive + Turbo Streams, Alpine.js, Tailwind CSS RTL, Vite HMR, Axios centralized API, Service Worker offline cache, lazy image loading, MSE video streaming with ChunkLoader"
+        },
+        {
+          "title": "Media & Social Features",
+          "content": "Blog with threaded comments, Instagram-style stories/reels with progress tracking, explore feed with infinite scroll, passwordless guest discussions, business directory with reviews, working hours, galleries, and video embeds"
+        },
+        {
+          "title": "Admin CMS & Security",
+          "content": "Full CRUD admin panel, 2FA with Google2FA, device tracking, ban system, rate limiting, CSRF protection, bot detection, visit tracking, slow-request profiling, HTML minification, and security analysis dashboards"
+        }
+      ],
+      "serviceTitle1": "Full-Stack Laravel Platform",
+      "serviceTitle2": "Persian RTL Optimization",
+      "serviceTitle3": "Advanced Media & Social Features",
+      "Previewurl": "https://hosseindehnavi.ir/",
+      "url": "hossein-dehnavi",
+      "description": "<h2>Platform Overview</h2><p><a href=\"https://hosseindehnavi.ir/\" target=\"_blank\">Hossein Dehnavi</a> is a comprehensive Persian RTL content, social, and business management platform built with <b>Laravel 12</b>, <b>Turbo Drive</b>, and <b>Alpine.js</b>. It combines a public-facing content experience with a powerful admin CMS, handling blog publishing, Instagram-style stories, explore feed, threaded discussions, business directory, and partner showcases.</p><p><br></p><h2>Architecture & Tech Stack</h2><p>The backend runs on <b>Laravel 12</b> with <b>48 Eloquent models</b>, <b>48 controllers</b>, and a multi-guard authentication system supporting standard users, admins, and passwordless thread guests. The frontend uses <b>Turbo + Alpine.js</b> for SPA-like transitions, <b>Tailwind CSS</b> for RTL-aware styling, and <b>Vite</b> for asset bundling. A custom <b>CacheVersion</b> system provides monotonic per-domain cache invalidation without Redis.</p><p><br></p><h2>Key Features</h2><ul style=\"list-style-type: disc; padding-left: 40px; font-size: 16px; line-height: 1.8;\"><li><b>Blog System</b> — Rich-text editor, threaded comments with nested replies, like/save, view tracking, category/tag filtering, and comment moderation.</li><li><b>Stories & Reels</b> — Instagram-style viewer with progress bars, video caching via MSE + Cache API, swipe gestures, keyboard navigation, and 30-minute view deduplication.</li><li><b>Explore Feed</b> — Server-rendered initial load, randomized order, masonry grid, infinite scroll, reels viewer with prefetching, 3-level nested comments, and search suggestions.</li><li><b>Threads</b> — Passwordless guest auth via canvas fingerprint, nested replies, image attachments, optimistic likes, debounced search, and tag system.</li><li><b>Business Directory</b> — Rich profiles with galleries, videos, menus, working hours with real-time open/closed status, reviews with star ratings, amenity tags, and similar-business ranking.</li><li><b>Media Library</b> — Full file browser with folder tree, pagination, bulk upload, rename/move, metadata editing, and media picker modal.</li><li><b>Admin CMS</b> — 60+ admin routes, SEO meta management, hero banners, home action items, settings with multi-language support, translation management, and system commands.</li></ul><p><br></p><h2>Security & Performance</h2><p>The platform implements <b>Google2FA</b> with QR provisioning and recovery codes, device tracking, session fingerprinting, ban system, rate limiting, CSRF protection, and soft deletes. Performance features include Service Worker caching, lazy image loading, video prefetching, concurrent upload control, debounced search, HTML minification, and slow-request profiling logging queries over 2000ms.</p>",
+      "Shortdescription": "A comprehensive Persian RTL content, social, and business management platform built with Laravel 12, Turbo, and Alpine.js. Features blog publishing, Instagram-style stories, explore feed, threaded discussions, business directory, and full admin CMS.",
+      "thumbnail": "hossein-dehnavi-fullpage.png"
+    },
+    {
+      "title": "Kara Chem",
+      "date": "2026-01-01",
+      "author": "farham aghdasi",
+      "category": "Web Application",
+      "accordionTitle": "Architecture, features, and tech stack",
+      "accordionContent": [
+        {
+          "title": "Core Stack",
+          "content": "Laravel 13.21, PHP 8.2+, Vite 8, Tailwind CSS v4, MySQL, Swiper, GSAP/SplitText, TipTap, ApexCharts, Lenis smooth scroll"
+        },
+        {
+          "title": "Localization & SEO",
+          "content": "Persian default RTL + English LTR, locale middleware with automatic direction switching, per-locale SEO meta tags in database, automated schema.org JSON-LD generation, XML sitemaps with hreflang alternates, HTML minification"
+        },
+        {
+          "title": "Frontend Experience",
+          "content": "Home page with hero, gallery slider, about section, experience slider, odometer stats, services, FAQ, news, AJAX shop filtering, TipTap rich-text blog editor, global search with skeleton loading, responsive mobile-first sliders"
+        },
+        {
+          "title": "Dashboard & Analytics",
+          "content": "Product management with image galleries, blog management with TipTap editor, page management, contact submissions inbox, visitor analytics with ApexCharts, multi-language settings, translation management, theme and media management"
+        }
+      ],
+      "serviceTitle1": "Bilingual Corporate Platform",
+      "serviceTitle2": "Advanced SEO System",
+      "serviceTitle3": "Full Dashboard & Analytics",
+      "Previewurl": "https://karachem.ir/",
+      "url": "kara-chem",
+      "description": "<h2>Platform Overview</h2><p><a href=\"https://karachem.ir/\" target=\"_blank\">Kara Chem</a> is a bilingual Persian/English corporate website for a chemical company built with <b>Laravel 13</b>, <b>Vite 8</b>, and <b>Tailwind CSS v4</b>. The platform features a full dashboard, advanced SEO system, TipTap blog editor, product catalog with AJAX filtering, global search, and seamless RTL/LTR direction switching.</p><p><br></p><h2>Architecture & Tech Stack</h2><p>The backend uses <b>Laravel 13.21</b> with <b>18 controllers</b> and <b>8 Eloquent models</b> across 22 migrations. The frontend leverages <b>Vite 8</b> for bundling, <b>Tailwind CSS v4</b> for styling, and <b>Swiper</b> for mobile-first sliders. Interactive experiences are powered by <b>GSAP/SplitText</b> for text animations, <b>TipTap</b> for rich-text editing, <b>ApexCharts</b> for analytics, and <b>Lenis</b> for smooth scrolling optimized for low CPU usage.</p><p><br></p><h2>Key Features</h2><ul style=\"list-style-type: disc; padding-left: 40px; font-size: 16px; line-height: 1.8;\"><li><b>Home Page</b> — Hero section, gallery slider, about section, experience slider with odometer stats, services, FAQ accordion, and news section.</li><li><b>Shop & Products</b> — Product catalog with AJAX filtering/search, slug-based product detail pages with image galleries, and responsive mobile-first design with 1 slide per view.</li><li><b>Blog</b> — TipTap rich-text editor with image blocks, author avatars, detail pages, and SEO-friendly URLs.</li><li><b>Contact</b> — Contact form with dashboard management and submission tracking.</li><li><b>Global Search</b> — AJAX-powered search with skeleton loading states for instant results.</li><li><b>SEO System</b> — Per-locale meta tags stored in database, automated schema.org JSON-LD generation for Organization/Article/Product, XML sitemaps with hreflang alternates, OG/Twitter cards, canonical URLs, and HTML minification middleware.</li><li><b>Dashboard</b> — Product management with galleries and content blocks, blog management, page management, contact inbox, visitor analytics with ApexCharts, settings with multi-language support, translation management, theme/media/document management, and profile management.</li></ul><p><br></p><h2>Performance & Localization</h2><p>The application implements content caching, native image lazy loading, HTML minification, and WebP image optimization. Localization is handled via a custom <b>DbFileLoader</b> that merges file translations with database overrides, with automatic RTL/LTR direction switching via middleware. Split-text animations are disabled in RTL to preserve Persian script joining.</p>",
+      "Shortdescription": "A bilingual Persian/English corporate website for a chemical company built with Laravel 13, Vite 8, and Tailwind CSS v4. Features a full dashboard, advanced SEO, blog, product catalog, and RTL/LTR support.",
+      "thumbnail": "karachem-fullpage.png"
     }
   ]
 }

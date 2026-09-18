@@ -6,31 +6,104 @@
     "viewSkills": "مشاهده مهارت‌های من"
   },
   "skills": [
-    { "name": "HTML/CSS", "level": "90%", "image": "/imgs/skills/html.png", "category": "فرانت‌اند" },
-    { "name": "JavaScript", "level": "65%", "image": "/imgs/skills/js.png", "category": "فرانت‌اند" },
-    { "name": "Bootstrap", "level": "88%", "image": "/imgs/skills/bootstrap.png", "category": "فرانت‌اند" },
-    { "name": "React", "level": "75%", "image": "/imgs/skills/s4.png", "category": "فرانت‌اند" },
-    { "name": "SEO", "level": "76%", "image": "/imgs/skills/seo.png", "category": "سئو" },
-    { "name": "Tailwindcss", "level": "90%", "image": "/imgs/skills/tailwindcss.png", "category": "فرانت‌اند" },
-    { "name": "Nextjs", "level": "62%", "image": "/imgs/skills/nextjs.png", "category": "فرانت‌اند" },
-    { "name": "MySQL", "level": "72%", "image": "/imgs/skills/mysql.svg", "category": "بک‌اند" },
-    { "name": "Laravel", "level": "65%", "image": "/imgs/skills/laravel.svg", "category": "بک‌اند" },
-    { "name": "Photoshop", "level": "60%", "image": "/imgs/skills/adobephotoshop.svg", "category": "ویرایش" },
-    { "name": "Filmora", "level": "55%", "image": "/imgs/skills/filmora.svg", "category": "ویرایش" },
-    { "name": "Premier", "level": "58%", "image": "/imgs/skills/adobepremierepro.svg", "category": "ویرایش" },
-    { "name": "Docker", "level": "50%", "image": "/imgs/skills/docker.svg", "category": "بک‌اند" },
-    { "name": "Aplinejs", "level": "45%", "image": "/imgs/skills/alpinejs.svg", "category": "فرانت‌اند" },
-    { "name": "Git", "level": "80%", "image": "/imgs/skills/git.svg", "category": "فرانت‌اند" },
-    { "name": "TypeScript", "level": "68%", "image": "/imgs/skills/typescript.svg", "category": "فرانت‌اند" }
+    {
+      "name": "HTML/CSS",
+      "level": "90%",
+      "image": "/imgs/skills/html.png",
+      "category": "فرانت‌اند"
+    },
+    {
+      "name": "JavaScript",
+      "level": "65%",
+      "image": "/imgs/skills/js.png",
+      "category": "فرانت‌اند"
+    },
+    {
+      "name": "Bootstrap",
+      "level": "88%",
+      "image": "/imgs/skills/bootstrap.png",
+      "category": "فرانت‌اند"
+    },
+    {
+      "name": "React",
+      "level": "75%",
+      "image": "/imgs/skills/s4.png",
+      "category": "فرانت‌اند"
+    },
+    {
+      "name": "SEO",
+      "level": "76%",
+      "image": "/imgs/skills/seo.png",
+      "category": "سئو"
+    },
+    {
+      "name": "Tailwindcss",
+      "level": "90%",
+      "image": "/imgs/skills/tailwindcss.png",
+      "category": "فرانت‌اند"
+    },
+    {
+      "name": "Nextjs",
+      "level": "62%",
+      "image": "/imgs/skills/nextjs.png",
+      "category": "فرانت‌اند"
+    },
+    {
+      "name": "MySQL",
+      "level": "72%",
+      "image": "/imgs/skills/mysql.svg",
+      "category": "بک‌اند"
+    },
+    {
+      "name": "Laravel",
+      "level": "65%",
+      "image": "/imgs/skills/laravel.svg",
+      "category": "بک‌اند"
+    },
+    {
+      "name": "Photoshop",
+      "level": "60%",
+      "image": "/imgs/skills/adobephotoshop.svg",
+      "category": "ویرایش"
+    },
+    {
+      "name": "Filmora",
+      "level": "55%",
+      "image": "/imgs/skills/filmora.svg",
+      "category": "ویرایش"
+    },
+    {
+      "name": "Premier",
+      "level": "58%",
+      "image": "/imgs/skills/adobepremierepro.svg",
+      "category": "ویرایش"
+    },
+    {
+      "name": "Docker",
+      "level": "50%",
+      "image": "/imgs/skills/docker.svg",
+      "category": "بک‌اند"
+    },
+    {
+      "name": "Aplinejs",
+      "level": "45%",
+      "image": "/imgs/skills/alpinejs.svg",
+      "category": "فرانت‌اند"
+    },
+    {
+      "name": "Git",
+      "level": "80%",
+      "image": "/imgs/skills/git.svg",
+      "category": "فرانت‌اند"
+    },
+    {
+      "name": "TypeScript",
+      "level": "68%",
+      "image": "/imgs/skills/typescript.svg",
+      "category": "فرانت‌اند"
+    }
   ],
-  "marquee": [
-    "React",
-    "Nextjs",
-    "Tailwindcss",
-    "Bootstrap",
-    "Jquery",
-    "HTML"
-  ],
+  "marquee": ["React", "Nextjs", "Tailwindcss", "Bootstrap", "Jquery", "HTML"],
   "marquee2": [
     "سئو",
     "کار تیمی",
@@ -50,8 +123,14 @@
       "year": "2022",
       "items": [
         { "title": "یادگیری HTML و CSS", "desc": "یوتیوب، 7Learn، راکت" },
-        { "title": "ورود به بازار RTL Theme", "desc": "شروع فروش قالب در https://www.rtl-theme.com/" },
-        { "title": "ساخت اولین قالب (Flex-iT)", "desc": "طراحی و انتشار اولین قالب HTML/CSS" },
+        {
+          "title": "ورود به بازار RTL Theme",
+          "desc": "شروع فروش قالب در https://www.rtl-theme.com/"
+        },
+        {
+          "title": "ساخت اولین قالب (Flex-iT)",
+          "desc": "طراحی و انتشار اولین قالب HTML/CSS"
+        },
         { "title": "یادگیری جاوااسکریپت", "desc": "یوتیوب، 7Learn، راکت" }
       ]
     },
@@ -61,7 +140,10 @@
         { "title": "اولین پروژه", "desc": "تبدیل HTML به React" },
         { "title": "یادگیری مبانی React", "desc": "یوتیوب" },
         { "title": "یادگیری Bootstrap 5", "desc": "یوتیوب" },
-        { "title": "بیش از ۱۰۰ فروش در RTL Theme", "desc": "دستیابی به بیش از ۱۰۰ فروش قالب" }
+        {
+          "title": "بیش از ۱۰۰ فروش در RTL Theme",
+          "desc": "دستیابی به بیش از ۱۰۰ فروش قالب"
+        }
       ]
     },
     {
@@ -72,20 +154,60 @@
           "title": "مقام سوم کشوری در جشنواره خوارزمی جوان (توسعه وب)",
           "desc": "AntiRip.js | مسدودکننده پیشرفته وب‌ریپر"
         },
-        { "title": "بیش از ۳۰۰ فروش", "desc": "رسیدن به مرز ۳۰۰ فروش در RTL Theme" },
+        {
+          "title": "بیش از ۳۰۰ فروش",
+          "desc": "رسیدن به مرز ۳۰۰ فروش در RTL Theme"
+        },
         { "title": "وب‌سایت آکوچ‌گروپ", "desc": "داشبورد و لندینگ‌پیج React" },
-        { "title": "وب‌سایت ارزلند", "desc": "راهکار عبور از محدودیت برای سرمکس" },
+        {
+          "title": "وب‌سایت ارزلند",
+          "desc": "راهکار عبور از محدودیت برای سرمکس"
+        },
         { "title": "یادگیری Tailwind CSS", "desc": "یوتیوب" }
       ]
     },
     {
       "year": "2025",
       "items": [
-        { "title": "مدال نقره در مسابقات ملی مهارت جوانان", "desc": "React (فرانت‌اند) و PHP (بک‌اند)" },
-        { "title": "بیش از ۴۰۰ فروش", "desc": "رسیدن به مرز ۴۰۰ فروش در RTL Theme" },
+        {
+          "title": "مدال نقره در مسابقات ملی مهارت نوجوانان",
+          "desc": "React (فرانت‌اند) و PHP (بک‌اند)"
+        },
+        {
+          "title": "بیش از ۴۰۰ فروش",
+          "desc": "رسیدن به مرز ۴۰۰ فروش در RTL Theme"
+        },
         { "title": "یادگیری Next.js", "desc": "یوتیوب" },
-        { "title": "راه‌یابی به مرحله مصاحبه جشنواره خوارزمی جوان", "desc": "پیشرفت تا مرحله مصاحبه" },
-        { "title": "مقام اول کشوری در جشنواره خوارزمی جوان (توسعه وب)", "desc": "RipHunter | فایروال پیشرفته و محافظ سمت کاربر" }
+        {
+          "title": "شایسته تقدیر در جشنواره جوان خوارزمی",
+          "desc": "پروژه RipHunter | فایروال تحت وب"
+        }
+      ]
+    },
+    {
+      "year": "2026",
+      "items": [
+        {
+          "title": "یادگیری مهندسی معکوس",
+          "desc": "IDA PRO , x64dbg , apktool"
+        },
+        {
+          "title": "بیش از 800 فروش",
+          "desc": "فروش قالب html در rtl-theme.com"
+        },
+        { "title": "یادگیری Vuejs", "desc": "یوتیوب" },
+        {
+          "title": "سایت حسین دهنوی",
+          "desc": "سایت شخصی Laravel مشابه اینستاگرام"
+        },
+        {
+          "title": "سایت کاراشیمی",
+          "desc": "سایت شرکتی Laravel"
+        },
+        {
+          "title": "پروژه آرش",
+          "desc": "پلفترم امنیت وب | دوره 28 جشنواره جوان خوارزمی"
+        }
       ]
     }
   ]

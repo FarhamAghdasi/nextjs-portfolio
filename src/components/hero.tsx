@@ -168,18 +168,18 @@ const Hero = () => {
             </svg>
           </Link>
 
-          <Link
-            href="/resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/35 hover:bg-white/10 hover:text-white"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <span>{staticText.downloadCv}</span>
-          </Link>
-        </div>
+           <a
+             href="/resume.pdf"
+             target="_blank"
+             rel="noopener noreferrer"
+             className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/35 hover:bg-white/10 hover:text-white"
+            >
+             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+               <path d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+             </svg>
+             <span>{staticText.downloadCv}</span>
+           </a>
+         </div>
 
         <div className="mx-auto mt-8 flex items-center justify-center gap-3">
           {content.socials.map((s, i) => (
@@ -191,9 +191,9 @@ const Hero = () => {
               aria-label={s.icon.replace('fa-brands fa-', '')}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/70 transition-all duration-300 hover:border-white/35 hover:text-white hover:shadow-[0_0_20px_-6px_rgba(255,255,255,0.4)]"
             >
-              <i className={s.icon} />
-            </a>
-          ))}
+               <i className={s.icon} />
+             </a>
+           ))}
         </div>
       </div>
     </div>

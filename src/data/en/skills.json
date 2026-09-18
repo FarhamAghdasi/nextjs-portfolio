@@ -45,47 +45,96 @@
     "author": "Farham Aghdasi 💻",
     "title": "My Experience"
   },
-  "experience": [
+"experience": [
     {
       "year": "2022",
       "items": [
-        { "title": "Learning HTML & CSS", "desc": "YouTube, 7Learn, Rocket" },
-        { "title": "Entered RTL Theme Market", "desc": "Started selling templates on https://www.rtl-theme.com/" },
-        { "title": "Built First Template (Flex-iT)", "desc": "Designed and published first HTML/CSS template" },
+        { "title": "Learning HTML and CSS", "desc": "YouTube, 7Learn, Rocket" },
+        {
+          "title": "Entering the RTL Theme Market",
+          "desc": "Started selling templates on https://www.rtl-theme.com/"
+        },
+        {
+          "title": "Building the First Template (Flex-iT)",
+          "desc": "Designing and publishing the first HTML/CSS template"
+        },
         { "title": "Learning JavaScript", "desc": "YouTube, 7Learn, Rocket" }
       ]
     },
     {
       "year": "2023",
       "items": [
-        { "title": "First Project", "desc": "Converted HTML to React" },
+        { "title": "First Project", "desc": "Converting HTML to React" },
         { "title": "Learning React Fundamentals", "desc": "YouTube" },
         { "title": "Learning Bootstrap 5", "desc": "YouTube" },
-        { "title": "100+ Sales on RTL Theme", "desc": "Achieved over 100 template sales" }
+        {
+          "title": "Over 100 Sales on RTL Theme",
+          "desc": "Reaching over 100 template sales"
+        }
       ]
     },
     {
       "year": "2024",
       "items": [
-        { "title": "Khooshesanat Website", "desc": "Full-Stack Development & SEO" },
+        { "title": "Khosheh Sanat Website", "desc": "Full-stack development and SEO" },
         {
-          "title": "Third Place Nationwide in Khwarizmi Youth Festival (Web Development)",
-          "desc": "AntiRip.js | Advanced Web-Ripper Blocker"
+          "title": "Third Place Nationally in the Young Khwarizmi Festival (Web Development)",
+          "desc": "AntiRip.js | Advanced Web Ripper Blocker"
         },
-        { "title": "300+ Sales", "desc": "Reached 300 sales milestone on RTL Theme" },
-        { "title": "Acoachgroup Website", "desc": "React Dashboard & Landing Page" },
-        { "title": "Arzland Website", "desc": "Bypass solution for Sarmaex" },
+        {
+          "title": "Over 300 Sales",
+          "desc": "Reaching 300 sales on RTL Theme"
+        },
+        { "title": "Akoch Group Website", "desc": "React dashboard and landing page" },
+        {
+          "title": "Arzland Website",
+          "desc": "Circumvention solution for Sermax"
+        },
         { "title": "Learning Tailwind CSS", "desc": "YouTube" }
       ]
     },
     {
       "year": "2025",
       "items": [
-        { "title": "Silver Medal at National Youth Skills Competition", "desc": "React (Frontend) & PHP (Backend)" },
-        { "title": "400+ Sales", "desc": "Reached 400 sales milestone on RTL Theme" },
+        {
+          "title": "Silver Medal in the National Skills Competition for Adolescents",
+          "desc": "React (front-end) and PHP (back-end)"
+        },
+        {
+          "title": "Over 400 Sales",
+          "desc": "Reaching 400 sales on RTL Theme"
+        },
         { "title": "Learning Next.js", "desc": "YouTube" },
-        { "title": "Reached Interview Stage in Khwarizmi Youth Festival", "desc": "Advanced to interview round" },
-        { "title": "First Place Nationwide in Khwarizmi Youth Festival (Web Development)", "desc": "RipHunter | Advanced WAF + Client-Side Protector" }
+        {
+          "title": "Commendation at the Young Khwarizmi Festival",
+          "desc": "RipHunter Project | Web-based firewall"
+        }
+      ]
+    },
+    {
+      "year": "2026",
+      "items": [
+        {
+          "title": "Learning Reverse Engineering",
+          "desc": "IDA PRO, x64dbg, apktool"
+        },
+        {
+          "title": "Over 800 Sales",
+          "desc": "Selling HTML templates on rtl-theme.com"
+        },
+        { "title": "Learning Vue.js", "desc": "YouTube" },
+        {
+          "title": "Hossein Dehnavi Website",
+          "desc": "Personal Laravel website similar to Instagram"
+        },
+        {
+          "title": "Karashimi Website",
+          "desc": "Laravel corporate website"
+        },
+        {
+          "title": "Arash Project",
+          "desc": "Web security platform | 28th Young Khwarizmi Festival"
+        }
       ]
     }
   ]

@@ -17,8 +17,8 @@ gsap.registerPlugin(ScrollTrigger);
 const portfolioSectionText = {
   en: {
     badge: 'Portfolio',
-    heading1: 'Website Templates',
-    heading2: 'My Projects',
+    heading1: 'My Projects ',
+    heading2: '& Website Templates',
     intro: 'Here are some of my selected projects and HTML templates. Each one is built with passion, precision, and performance in mind.',
     filterAll: 'All Projects',
     filterWeb: 'Web Applications',
@@ -35,8 +35,8 @@ const portfolioSectionText = {
   },
   fa: {
     badge: 'نمونه‌کارها',
-    heading1: 'قالب‌های وب‌سایت',
-    heading2: 'پروژه‌های من',
+    heading1: 'پروژه ها',
+    heading2: 'و قالب های من',
     intro: 'در ادامه، برخی از پروژه‌ها و قالب‌های HTML منتخب من آمده است. هرکدام با دقت، وسواس در جزئیات و تمرکز بر کارایی ساخته شده‌اند.',
     filterAll: 'همه پروژه‌ها',
     filterWeb: 'اپلیکیشن‌های وب',
@@ -268,7 +268,7 @@ const Work: React.FC = () => {
         <div className="mb-14 text-center md:mb-20">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_0_20px_-5px_rgba(255,255,255,0.4)]">
             <span>{t.badge}</span>
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" className={locale === 'fa' ? 'rtl-flip' : ''}>
               <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
@@ -280,9 +280,7 @@ const Work: React.FC = () => {
           </div>
 
           <h2 className="mt-6 text-4xl font-bold leading-[1.1] tracking-tight text-white md:text-6xl lg:text-7xl">
-            <span className="text-white">{'{'}</span>{' '}
-            <span className="text-white">{t.heading1}</span>{' '}
-            <span className="text-white">{'}'}</span>
+            {t.heading1}
           </h2>
           <h2 className="mt-2 text-4xl font-bold leading-[1.1] tracking-tight text-white md:text-6xl lg:text-7xl">
             <TextSplitter
@@ -385,7 +383,7 @@ const Work: React.FC = () => {
                       className="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition-all hover:gap-2.5"
                     >
                       <span>{item.isTemplate ? t.viewTemplate : t.viewProject}</span>
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="rtl-flip">
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className={locale === 'fa' ? 'rtl-flip' : ''}>
                         <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </Link>
@@ -405,7 +403,7 @@ const Work: React.FC = () => {
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-6 py-2.5 text-sm font-semibold text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:text-white"
             >
               <span>{t.viewAll}</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="rtl-flip">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className={locale === 'fa' ? 'rtl-flip' : ''}>
                 <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
@@ -432,7 +430,7 @@ const Work: React.FC = () => {
                 className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-black shadow-[0_0_30px_-5px_rgba(255,255,255,0.6)] transition-all duration-300 hover:bg-[#e0ff8a] hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.7)]"
               >
                 <span>{t.startProject}</span>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="rtl-flip transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className={`${locale === 'fa' ? 'rtl-flip' : ''} transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5`}>
                   <path d="M3 11L11 3M11 3H5M11 3V9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </Link>

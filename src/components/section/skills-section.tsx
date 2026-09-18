@@ -629,7 +629,7 @@ const Skills: React.FC = () => {
                       >
                         <span className="absolute top-[-7px] left-1/2 -translate-x-1/2 w-[14px] h-[14px] rounded-full bg-black"></span>
                         <h4 className="text-2xl">{item.title}</h4>
-                        <p className="text-sm mt-[10px] opacity-80">{item.desc}</p>
+                        <p className="text-sm mt-[10px] opacity-80" dir={locale === 'fa' ? 'rtl' : 'ltr'}>{item.desc}</p>
                       </div>
                     ));
                   })()}
