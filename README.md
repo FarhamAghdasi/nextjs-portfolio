@@ -1,57 +1,68 @@
 # Next.js Portfolio
 
-A modern, responsive portfolio website built with **Next.js 15.2.4**, showcasing projects, blog posts, services, and HTML templates. The project leverages **Static Site Generation (SSG)** for optimal performance and SEO, featuring dynamic routes, client-side interactivity, and a particle animation canvas for a visually engaging experience. Developed by **Farham Aghdasi**, this portfolio highlights expertise in front-end development, SEO, and full-stack solutions.
+A modern, responsive, bilingual (English/Persian) portfolio website built with **Next.js 16.3.5** and **React 19**, showcasing projects, blog posts, services, and HTML templates. The project leverages **Static Site Generation (SSG)** via `output: 'export'` for optimal performance and SEO, featuring dynamic routes, client-side interactivity, particle animations, and RTL support for Persian content. Developed by **Farham Aghdasi**, this portfolio highlights expertise in front-end development, SEO, full-stack solutions, and internationalization.
 
 ## Description
 
 This portfolio is the personal website of **Farham Aghdasi**, a Junior Front-end Developer from Amol, Iran, specializing in web development and programming. Key features include:
 
-- **Static Site Generation (SSG)**: Built with `next export` for fast, pre-rendered pages optimized for deployment.
-- **Dynamic Routing**: Supports blog posts, portfolio items, and templates via dynamic routes (`[slug].tsx`).
-- **SEO Optimization**: Implements `generateMetadata` for page-specific metadata, improving search engine visibility.
-- **Interactive Components**: Includes a blog with search and category filtering (`Bloginfo`), a particle animation background (`ParticleCanvas`), and GSAP-powered animations.
-- **Responsive Design**: Uses Bootstrap, custom CSS, and responsive layouts for a seamless experience across devices.
-- **TypeScript**: Ensures type safety and maintainability across the codebase.
-- **Data-Driven Content**: Content is managed via JSON files (`portfolio.json`, `posts.json`, `template.json`) for easy updates.
-- **External API Integration**: Fetches comments for blog posts from `https://api.farhamaghdasi.ir/comments`.
-- **Custom Styling**: Incorporates custom fonts (Outfit), FontAwesome icons, and CSS animations for a polished look.
+- **Static Site Generation (SSG)**: Built with `next build` and `next export` for fast, pre-rendered pages optimized for deployment.
+- **Multi-Language Support (i18n)**: Full English (LTR) and Persian (RTL) localization with dedicated route segments (`/` and `/fa/`).
+- **RTL Support**: Conditional classes and `dir` attributes for proper Persian layout, including the IRANYekan font.
+- **Dynamic Routing**: Supports blog posts, portfolio items, and templates via dynamic routes (`[slug].tsx`) for both locales.
+- **SEO Optimization**: Implements `generateMetadata`, `next-sitemap`, and a custom `scripts/generate-sitemaps.js` for multi-locale sitemap generation with hreflang alternates.
+- **Interactive Components**: Includes a blog with search and category filtering (`BloginfoClient`), a particle animation background (`ParticleCanvas`), GSAP-powered animations, `TextSplitter` with ScrollTrigger, and social sharing.
+- **Responsive Design**: Uses Tailwind CSS v4, custom CSS, PostCSS, PurgeCSS, and responsive layouts for a seamless experience across devices.
+- **TypeScript**: Uses the `react-jsx` transform for type safety and maintainability across the codebase.
+- **Data-Driven Content**: Content is managed via JSON files in `src/data/en/` and `src/data/fa/` for easy localization and updates.
+- **Custom Styling**: Incorporates custom fonts (Outfit, IRANYekan), FontAwesome icons, CSS animations, and Tailwind utilities for a polished look.
 
 The project is live at [https://farhamaghdasi.ir](https://farhamaghdasi.ir) and hosted on GitHub at [https://github.com/FarhamAghdasi/nextjs-portfolio](https://github.com/FarhamAghdasi/nextjs-portfolio).
 
 ## Project Structure
 
 ```
+├── scripts/
+│   └── generate-sitemaps.js        # Multi-locale sitemap generation
 ├── src/
 │   ├── app/
-│   │   ├── about/              # About page
-│   │   ├── blog/               # Blog page and dynamic blog post routes
-│   │   ├── contact/            # Contact page
-│   │   ├── portfolio/          # Portfolio page and dynamic portfolio routes
-│   │   ├── services/           # Services page
-│   │   ├── templates/          # Templates page and dynamic template routes
-│   │   ├── error.tsx           # Error page
-│   │   ├── layout.tsx          # Root layout with global styles and components
-│   │   ├── not-found.tsx       # 404 page
-│   │   ├── page.tsx            # Home page
+│   │   ├── [locale]/               # Locale-based dynamic routes (en/fa)
+│   │   │   ├── about/              # About page
+│   │   │   ├── blog/               # Blog page and dynamic blog post routes
+│   │   │   ├── contact/            # Contact page
+│   │   │   ├── portfolio/          # Portfolio page and dynamic portfolio routes
+│   │   │   ├── services/           # Services page
+│   │   │   ├── templates/          # Templates page and dynamic template routes
+│   │   │   ├── layout.tsx          # Root layout with global styles and components
+│   │   │   └── page.tsx            # Home page
+│   │   ├── error.tsx               # Error page
+│   │   ├── not-found.tsx           # 404 page
+│   │   ├── layout.tsx              # Root layout (default locale)
+│   │   └── page.tsx                # Home page (default locale)
 │   ├── assets/
-│   │   ├── css/                # Custom CSS and FontAwesome fonts
-│   │   ├── fonts/              # Custom font (Outfit)
+│   │   ├── css/                    # Custom CSS, Tailwind, FontAwesome fonts
+│   │   └── fonts/                  # Custom fonts (Outfit, IRANYekan)
 │   ├── components/
-│   │   ├── addon/              # Utility components (e.g., ParticleCanvas, SEO)
-│   │   ├── pages/              # Page-specific components (e.g., HomePage, BloginfoClient)
-│   │   ├── section/            # Reusable sections (e.g., PortfolioSection, SkillsSection)
-│   │   ├── footer.tsx          # Footer component
-│   │   ├── header.tsx          # Header/navigation component
-│   │   ├── hero.tsx            # Hero section
-│   │   ├── types.ts            # TypeScript interfaces
+│   │   ├── addon/                  # Utility components (ParticleCanvas, SEO, TextSplitter, etc.)
+│   │   ├── pages/                  # Page-specific components (HomePage, BloginfoClient, etc.)
+│   │   ├── section/                # Reusable sections (PortfolioSection, SkillsSection, etc.)
+│   │   ├── footer.tsx              # Footer component
+│   │   ├── header.tsx              # Header/navigation component
+│   │   ├── hero.tsx                # Hero section
+│   │   ├── types.ts                # TypeScript interfaces
 │   ├── data/
-│   │   ├── api/                # Content data (portfolio.json, posts.json, template.json)
-│   │   ├── *.json              # Configuration and content files (e.g., blog.json, skills.json)
-├── public/
-│   ├── assets/                 # Static assets (images, uploads)
-├── next.config.mjs             # Next.js configuration
-├── package.json                # Dependencies and scripts
-└── README.md                   # Project documentation
+│   │   ├── en/                     # English content (about, blog, portfolio, skills, etc.)
+│   │   ├── fa/                     # Persian content (about, blog, portfolio, skills, etc.)
+│   │   └── api/                    # API data (portfolio.json, posts.json, template.json)
+│   ├── public/
+│   │   └── assets/                 # Static assets (images, uploads)
+├── next.config.ts                  # Next.js configuration (static export, images)
+├── next-sitemap.config.js          # Sitemap generation configuration
+├── package.json                    # Dependencies and scripts
+├── tsconfig.json                   # TypeScript configuration (react-jsx, path aliases)
+├── postcss.config.mjs              # PostCSS configuration
+├── purgecss.config.js              # PurgeCSS configuration
+└── README.md                       # Project documentation
 ```
 
 ## Installation
@@ -78,32 +89,43 @@ To run the project locally, follow these steps:
    ```bash
    npm run dev
    ```
-   Open [http://localhost:3000](http://localhost:3000) in your browser.
+   Open [http://localhost:3001](http://localhost:3001) in your browser.
 
 4. Build for production (SSG):
    ```bash
-   npm run build:ssg
+   npm run build
    ```
    Generates static files in the `out` directory for deployment.
 
+5. Generate sitemaps (after build):
+   ```bash
+   npm run postbuild
+   ```
+   Generates multi-locale sitemaps in the `out` directory.
+
 ## Scripts
 
-- `npm run dev`: Starts the development server.
-- `npm run build:ssg`: Builds the project for static export (`next build && next export`).
-- `npm run start`: Starts a production server for testing builds locally.
+- `npm run dev`: Starts the development server on port 3001.
+- `npm run build`: Builds the project for static export.
+- `npm run start`: Starts a production server on port 3001 for testing builds locally.
+- `npm run postbuild`: Runs `next-sitemap` and `node scripts/generate-sitemaps.js` for sitemap generation.
 
 ## Technologies Used
 
-- **Next.js 15.2.4**: React framework for SSG, dynamic routing, and app router.
-- **TypeScript**: For type-safe development.
-- **React**: For building interactive UI components.
+- **Next.js 16.3.5**: React framework for SSG, dynamic routing, App Router, and static export.
+- **React 19**: For building interactive UI components.
+- **TypeScript**: For type-safe development with `react-jsx` transform.
+- **Tailwind CSS v4**: Utility-first CSS framework.
+- **PostCSS**: CSS processing with Autoprefixer and import support.
+- **PurgeCSS**: Removes unused CSS for optimized bundle size.
 - **GSAP & ScrollTrigger**: For smooth animations and scroll-based effects.
-- **Bootstrap 5**: For responsive layouts and components.
 - **FontAwesome**: For icons in navigation and social links.
 - **Custom CSS**: For styling, including animations and responsive design.
 - **Canvas API**: For particle animations in `ParticleCanvas`.
 - **ESLint**: For code linting and maintaining code quality.
-- **Outfit Font**: Custom typography for a modern look.
+- **next-sitemap**: For XML sitemap generation.
+- **Outfit & IRANYekan Fonts**: Custom typography for English and Persian content.
+- **Express Session, Mongoose, MySQL2**: Backend dependencies for potential API and database integration.
 
 ## Features
 
@@ -113,9 +135,19 @@ To run the project locally, follow these steps:
 - **Templates**: Displays HTML templates like "NewVilla" with purchase links.
 - **Services**: Highlights skills in front-end, SEO, back-end, and editing.
 - **About**: Details Farham's journey, skills, and achievements (e.g., National Youth Skills Competition medal).
-- **Contact**: Form for inquiries with social media links.
-- **Animations**: GSAP-powered transitions and particle effects for visual appeal.
-- **SEO**: Optimized metadata for all pages, improving discoverability.
+- **Contact**: Form for inquiries with social media links and social media card components.
+- **Animations**: GSAP-powered transitions, TextSplitter with ScrollTrigger, particle effects, and wow-animation for visual appeal.
+- **SEO**: Optimized metadata for all pages, multi-locale sitemaps with hreflang alternates, improving discoverability.
+- **Multi-Language**: Full English and Persian (RTL) support with locale-aware routing.
+- **FAQ & Accordion**: Interactive FAQ section with expandable accordion components.
+- **Pagination**: Client-side pagination for blog posts and portfolio items.
+
+## Routing & Localization
+
+- Default locale: English at root (`/`, `/about`, `/blog`...)
+- Persian locale: Served under `/fa` (`/fa/about`, `/fa/blog`...)
+- Automatic RTL direction switching for Persian pages
+- Data files organized in `src/data/en/` and `src/data/fa/` for locale-specific content
 
 ## Contributing
 
@@ -140,6 +172,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - Static Site Generation
 - TypeScript
 - React
+- Tailwind CSS
 - GSAP
 - SEO
 - Responsive Design
@@ -149,6 +182,10 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - Web Development
 - Front-end Development
 - Full-stack Development
+- i18n
+- RTL
+- Persian
+- Multi-language
 
 ## Contact
 
