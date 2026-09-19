@@ -51,36 +51,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function Home() {
-  const organizationSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    '@id': 'https://farhamaghdasi.ir/#organization',
-    'url': 'https://farhamaghdasi.ir/',
-    'name': 'Farham Aghdasi',
-    '@language': 'en-US',
-    'logo': {
-      '@type': 'ImageObject',
-      'url': 'https://farhamaghdasi.ir/images/logo.png',
-      'width': 160,
-      'height': 48,
-    },
-    'description': 'Farham Aghdasi is a Full-Stack Developer specializing in web development and software solutions, with expertise in React, Next.js, and modern JavaScript frameworks.',
-    'foundingDate': '2020',
-    'contactPoint': [
-      {
-        '@type': 'ContactPoint',
-        'email': 'info@farhamaghdasi.ir',
-        'contactType': 'customer service',
-      },
-    ],
-    'sameAs': [
-      'https://www.linkedin.com/in/farham-aghdasi/',
-      'https://github.com/farham-aghdasi',
-      'https://twitter.com/farhamaghdasi',
-      'https://instagram.com/farhamaghdasi',
-    ],
-  };
-
   const webPageSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -94,15 +64,10 @@ export default function Home() {
       '@id': 'https://farhamaghdasi.ir/#website',
       'url': 'https://farhamaghdasi.ir/',
       'name': 'Farham Aghdasi',
-      'publisher': {
-        '@type': 'Organization',
-        '@id': 'https://farhamaghdasi.ir/#organization',
-        'name': 'Farham Aghdasi',
-      },
     },
     'about': {
-      '@type': 'Organization',
-      '@id': 'https://farhamaghdasi.ir/#organization',
+      '@type': 'Person',
+      '@id': 'https://farhamaghdasi.ir/#person',
       'name': 'Farham Aghdasi',
     },
     'potentialAction': {
@@ -136,59 +101,46 @@ export default function Home() {
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'Farham Aghdasi',
-    url: 'https://farhamaghdasi.ir',
-    jobTitle: 'Full-Stack Developer & SEO Specialist',
-    worksFor: {
+    '@id': 'https://farhamaghdasi.ir/#person',
+    'name': 'Farham Aghdasi',
+    'url': 'https://farhamaghdasi.ir',
+    'jobTitle': 'Full-Stack Developer & SEO Specialist',
+    'worksFor': {
       '@type': 'Organization',
-      name: 'Freelance'
+      'name': 'Freelance'
     },
-    alumniOf: [
-      { '@type': 'EducationalOrganization', name: 'YouTube' },
-      { '@type': 'EducationalOrganization', name: '7Lern' },
-      { '@type': 'EducationalOrganization', name: 'Rocket' }
-    ],
-    knowsAbout: [
+    'knowsAbout': [
       'HTML', 'CSS', 'JavaScript', 'React', 'Bootstrap', 'Tailwind', 'Next.js', 'PHP', 'SEO'
     ],
-    award: [
+    'award': [
       'Third Place Nationwide in the Khwarizmi Youth Festival (2024)',
       'Silver Medal at the National Youth Skills Competition (2025)'
     ],
-    hasOccupation: {
+    'hasOccupation': {
       '@type': 'Occupation',
-      name: 'Template Developer',
-      description: 'Selling web templates via rtl-theme.com',
-      estimatedSalary: {
-        '@type': 'MonetaryAmount',
-        value: {
-          '@type': 'QuantitativeValue',
-          value: 400,
-          unitText: 'Templates Sold'
-        },
-        currency: 'IRR'
-      }
+      'name': 'Template Developer',
+      'description': 'Selling web templates via rtl-theme.com'
     },
-    project: [
+    'project': [
       {
         '@type': 'CreativeWork',
-        name: 'AntiRip.js',
-        description: 'Advanced web-ripper blocker'
+        'name': 'AntiRip.js',
+        'description': 'Advanced web-ripper blocker'
       },
       {
         '@type': 'WebSite',
-        name: 'khooshesanat Website',
-        description: 'FullStack + SEO site'
+        'name': 'khooshesanat Website',
+        'description': 'FullStack + SEO site'
       },
       {
         '@type': 'WebSite',
-        name: 'acoachgroup Website',
-        description: 'React Dashboard and Landing Page'
+        'name': 'acoachgroup Website',
+        'description': 'React Dashboard and Landing Page'
       },
       {
         '@type': 'WebSite',
-        name: 'Arzland Website',
-        description: 'Sarmaex bypass platform'
+        'name': 'Arzland Website',
+        'description': 'Sarmaex bypass platform'
       }
     ]
   };
@@ -197,10 +149,6 @@ export default function Home() {
   return (
     <>
       <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}

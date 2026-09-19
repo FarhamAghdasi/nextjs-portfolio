@@ -148,13 +148,6 @@ export default async function Template({ params }: TemplatePageProps) {
     'sku': template.url || 'unknown-sku',
     'mpn': template.url || 'unknown-mpn',
     'image': [template.thumbnail || '/default-image.jpg'],
-    'aggregateRating': {
-      '@type': 'AggregateRating',
-      'worstRating': 1,
-      'bestRating': 5,
-      'ratingCount': 1,
-      'ratingValue': '5.00',
-    },
     'offers': {
       '@type': 'Offer',
       'price': 4050000,
